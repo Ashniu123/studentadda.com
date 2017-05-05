@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, inital-scale=1, shrink-to-fit=no">
+
+    <title>Welcome to Studentadda.com</title>
+
+	<link rel="shortcut icon" href="img/favicon.ico">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap-social-mod.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/index_style.css">
+
+<style>
+  .carousel-inner > .item > img,
+  .carousel-inner > .item > a > img {
+      width: 60%;
+      height: auto;
+      margin-left: 20%;
+  }
+  </style>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNavbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle Navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+                <a class="navbar-brand" href="#"><img src="img/logo.png" height=30 width=200 alt="Studentadda.com"></a>
+            </div>
+            <div id="myNavbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#tab-signupForm" tabindex="1" data-toggle="modal" data-target="#signupLoginModal">
+                            <span class="fa fa-user-plus" aria-hidden="true"></span> Sign Up</a>
+                    </li>
+                    <li>
+                        <a href="#tab-loginForm" tabindex="2" data-toggle="modal" data-target="#signupLoginModal">
+                            <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Modal Tabs -->
+    <div id="signupLoginModal" tabindex="-1" class="modal fade" role="dialog">
+        <div class="modal-dialog" role="document">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <div class="sd-tabs sd-tab-interaction">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a data-toggle="tab" href="#tab-signupForm" aria-controls="signup" role="tab">Signup</a></li>
+                            <li role="presentation"><a data-toggle="tab" href="#tab-loginForm" aria-controls="login" role="tab">Login</a></li>
+                            <li role="presentation"><a data-toggle="tab" href="#tab-forgotPwdForm" aria-controls="forgotPwd" role="tab">Forgot Password</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane" id="tab-loginForm">
+                            <div class="container-fluid">
+                                <form id="loginForm" class="form" method="">
+                                    <div class="form-group">
+                                        <label class="sr-only" for="inputEmailForLogin">Email address</label>
+                                        <input type="email" class="form-control" placeholder="Email" name="inputEmailForLogin" id="inputEmailForLogin" required>
+                                        <!-- Add Jquery/Ajax to check if email exists here -->
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="sr-only" for="inputPasswordForLogin">Password</label>
+                                        <input type="password" class="form-control" placeholder="Password" name="inputPasswordForLogin" id="inputPasswordForLogin" required>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label><input type="checkbox"> Remember me</label>
+                                    </div>
+                                    <button type="button" class="btn btn-warning" id="buttonForLogin">Sign in</button>
+                                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="tab-signupForm">
+                            <div class="container-fluid">
+                                <p class="help-block">All fields are Mandatory.</p>
+                                <form id="signupForm" class="form" method="">
+                                    <div class="row">
+                                        <div class="form-group col-sm-6">
+                                            <label class="sr-only" for="inputFirstName">First Name</label>
+                                            <input type="text" pattern="[a-zA-Z]+" title="Please use alphabets only." name="inputFirstName" class="form-control" placeholder="First Name" id="inputFirstName" required>
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            <label class="sr-only" for="inputLastName">Last Name</label>
+                                            <input type="text" pattern="[a-zA-Z]+" title="Please use alphabets only." name="inputLastName" class="form-control" placeholder="Last Name" id="inputLastName" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-xs-12">
+                                            <label class="sr-only" for="inputEmailForSignup">Email address</label>
+                                            <input type="email" class="form-control" placeholder="Email" id="inputEmailForSignup" name="inputEmailForSignup" required>
+                                            <!-- Add Jquery/Ajax to check if email exists here -->
+                                        </div>
+                                        <div class="form-group col-xs-12">
+                                            <label class="sr-only" for="inputPasswordForSignup">Password</label>
+                                            <input type="password" class="form-control" placeholder="Password" id="inputPasswordForSignup" name="inputPasswordForSignup" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 5 or more characters"
+                                                required>
+                                        </div>
+                                        <div class="form-group col-xs-12">
+                                            <label class="sr-only" for="inputConfirmPasswordForSignup">Confirm Password</label>
+                                            <input type="password" class="form-control" placeholder="Confirm Password" id="inputConfirmPasswordForSignup" name="inputConfirmPasswordForSignup" required>
+                                        </div>
+                                        <strong><div id="validityError" style="padding-left:15px"></div></strong>
+                                        <div class="checkbox col-xs-12">
+                                            <label><input type="checkbox" id="terms_conditions" required> Agree to <a href="#">Terms and Conditions</a></label>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-warning" id="buttonForSignup">Sign up</button>
+                                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="tab-forgotPwdForm">
+                            <div class="container-fluid">
+                                <form id="forgotPwdForm" class="form" method="">
+                                    <div class="form-group">
+                                        <label class="sr-only" for="inputEmailForForget">Email address</label>
+                                        <input type="email" class="form-control" placeholder="Email" name="inputEmailForForget" id="inputEmailForForget" required>
+                                    </div>
+                                    <!-- Add Jquery/Ajax to check if email exists here -->
+                                    <button type="button" class="btn btn-warning" id="buttonForForget">Send Email</button>
+                                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--./tab-content-->
+                </div>
+                <!--./modal-body-->
+            </div>
+            <!--./Modal-Content-->
+        </div>
+    </div>
+    <!-- ./Modal-->
+
+    <div class="jumbotron">
+        <div class="container-fluid">
+            <div id="feature-carousel" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#feature-carousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#feature-carousel" data-slide-to="1"></li>
+                    <li data-target="#feature-carousel" data-slide-to="2"></li>
+                    <li data-target="#feature-carousel" data-slide-to="3"></li>
+                    <li data-target="#feature-carousel" data-slide-to="4"></li>
+                </ol>
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner active" role="listbox">
+
+                 	<div class="item active">
+                        <img src="img/Welcome5.png" alt="Welcome5">
+                        
+                    </div>
+
+               		<div class="item">
+                        <img src="img/Welcome3.png" alt="Welcome3">
+                        
+                    </div>
+
+                    <div class="item">
+                        <img src="img/Welcome1.png" alt="Welcome1" >
+                        
+                    </div>
+
+                    <div class="item">
+                        <img src="img/Welcome6.png" alt="Welcome4">
+                        
+                    </div>
+
+                     <div class="item">
+                        <img src="img/Welcome4.png" alt="Welcome4">
+                        
+                    </div>
+
+                    
+                </div>
+
+                <!-- Controls -->
+                <a class="left carousel-control" href="#feature-carousel" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#feature-carousel" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+
+            </div>
+            <!-- ./carousel-->
+        </div>
+    </div>
+    <!-- ./jumbotron-->
+
+    <!-- Content -->
+    <div class="container">
+        <div class="row row-content">
+            <div class="col-xs-12 col-sm-3 col-sm-push-9">
+                <h3 align=center>Notes Organizer</h3>
+            </div>
+            <div class="col-xs-12 col-sm-9 col-sm-pull-3">
+                <div class="media">
+                    <div class="media-left media-middle">
+                        <a href="#">
+                            <img class="media-object img-thumbnail" src="img/Notes.png" alt="Notes Organizer" style="width:350px;height:auto;">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <p>
+                            Have you ever scanned lots of images from different textbooks for reference and then lost them?<br> Have you ever backed up your written notes in from of images and then lost them in your gallery?<br> Then Studentadda is the
+                            perfect place for you!<br> With our <b>Notes Organizer</b> you can easily convert your note's pictures into a pdf file or any other preferred file format for easy cross platform access.<br> You can organize these notes according
+                            to their subjects.<br>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-content">
+            <div class="col-xs-12 col-sm-3">
+                <h3 align=center>Events Planner<br> and<br> Organizer</h3>
+            </div>
+            <div class="col-xs-12 col-sm-9">
+                <div class="media">
+                    <div class="media-body">
+                        <p>
+                            Another student friendly feature provided by Studentadda is the <b>Events Organizer</b>.<br> This will take care of all your college events, keep track of your submission deadlines and display them on the dashboard.<br> With
+                            this you can easily store new calendar entries with features like setting default event durations depending on type of event. (Eg. If the type of event is practical then you can select this event type when creating an entry
+                            and then automatically 2hrs will be allotted from event start time… or if the type of event is lecture then default time allotted will be 1hr.)<br> Also you will be able to color code different appointments so it will be easy
+                            to view and distinguish between them.<br> For upcoming exams you will automatically be alerted about days left on the dashboard!<br>
+                        </p>
+                    </div>
+                    <div class="media-right media-middle">
+                        <a href="#">
+                            <img class="media-object img-thumbnail" src="img/Calendar.png" alt="Calendar" style="width:350px;height:auto;">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-content">
+            <div class="col-xs-12 col-sm-3 col-sm-push-9">
+                <h3 align=center>Dashboard</h3>
+            </div>
+            <div class="col-xs-12 col-sm-9 col-sm-pull-3">
+                <div class="media">
+                    <div class="media-left media-middle">
+                        <a href="#">
+                            <img class="media-object img-thumbnail" src="img/Dashboard.png" alt="Dashboard" style="width:350px;height:auto;">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <p>
+                            The <b>Studentadda Dashboard</b> will display both the Notes Organizer and Events Planner on a single interactive webpage. <br> The Dashboard will display all your uploaded notes in order you want or priority.<br> This priority
+                            will be based on your Events and Notes related to upcoming classes and exams will be shown first on the dashboard.<br> The Dashboard will also give you quick overview of all the upcoming events in a tabular form.<br> The entire
+                            month with important dates will be highlighted for easy reminders.<br> If a test is close then a reminder will be appear on the dashboard.<br>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--./container-->
+
+    <footer class="row-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-5 col-xs-offset-1 col-sm-2 col-sm-offset-1">
+                    <h5>Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Help and FAQ</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Privacy and Terms</a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-6 col-sm-5">
+                    <h5>Our Address</h5>
+                    <address>
+  	              121, L &amp; T Road,<br>
+  	              L &amp; T,Mumbai<br>
+  	              <br>
+  	              <i class="fa fa-phone"></i>: +852 1234 5678<br>
+  	              <i class="fa fa-fax"></i>: +852 8765 4321<br>
+  	              <i class="fa fa-envelope"></i>: <a href="mailto:Studentadda@staff.net">Studentadda@staff.net</a>
+  	           </address>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    <div>
+                        <a class="btn btn-social-icon btn-google-plus" href="http://google.com/+"><i class="fa fa-google"></i></a>
+                        <a class="btn btn-social-icon btn-facebook" href="http://www.facebook.com/profile.php?id="><i class="fa fa-facebook"></i></a>
+                        <a class="btn btn-social-icon btn-linkedin" href="http://www.linkedin.com/in/"><i class="fa fa-linkedin"></i></a>
+                        <a class="btn btn-social-icon btn-twitter" href="http://twitter.com/"><i class="fa fa-twitter"></i></a>
+                        <a class="btn btn-social-icon btn-youtube" href="http://youtube.com/"><i class="fa fa-youtube"></i></a>
+                        <a class="btn btn-social-icon" href="mailto:mailto:Studentadda@staff.net"><i class="fa fa-envelope-o"></i></a>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <p align=center>&copy; Copyright 2017 Studentadda</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/indexjs.js"></script>
+
+</body>
+
+</html>

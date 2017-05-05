@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Reset Password</title>
+	    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap-social-mod.css">
+    <link rel="stylesheet" href="css/fileinput.min.css">
+    <link rel="stylesheet" href="fullcalendar-3.2.0/fullcalendar.min.css">
+    <link rel="stylesheet" href="css/bootstrap-formhelpers.min.css">
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard_style.css">
+    
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<style type="text/css">
+	input
+	{
+		border-color: grey;
+
+	}
+
+	#pass1,#pass2
+	{
+		width: 200px;
+	}
+
+	.texts
+	{
+		font-size: 15px;
+		font-weight: bold;
+		margin-left: 35px;
+		color: white;	
+		text-shadow:0px 0px 5px black;
+
+	}
+</style>
+
+</head>
+<body style="background-color:#114f0b">
+
+<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                
+                <a class="navbar-brand" href="#"><img class="img-responsive" src="img/logo.png" style="height:30px;width:200px; " alt="Studentadda.com"></a>
+            </div>
+            <div id="myNavbar" class="navbar-collapse collapse">
+                
+            </div>
+        </div>
+    </nav>
+
+<div style="margin:auto; width: 300px; height: 350px; position: absolute; top:0; bottom: 0; left:0; right: 0; border: 2px solid grey; background-color: grey;	">
+<div style="margin:auto; width: 200px; height: 250px; position: absolute; top:0; bottom: 0; left:0; right: 0; ">
+
+	<form onsubmit="return validateForm()" action="message.html" method="post">
+		<span class="texts">Enter new password:</span><br><br>
+		<input type="password" id="pass1">
+		<div id="err1">
+		<br><br><br>
+		</div>
+		<span class="texts">Re-enter password:</span><br><br>
+		<input type="password" id="pass2">
+		<div id="err2">
+		<br><br><br>
+		</div>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" id="sub">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="reset" id="res">
+
+	</form>
+</div>
+	
+</div>
+<script type="text/javascript">
+
+$(document).ready(function(){ $("input").focus(function(){
+	$(this).css("border-color",'grey'); 
+	document.getElementById("err1").innerHTML="<br>"+"<br>"+"<br>";
+	document.getElementById("err2").innerHTML="<br>"+"<br>"+"<br>";
+
+});});
+	function validateForm()
+	{
+
+		var a=document.getElementById("pass1").value;
+		var b=document.getElementById("pass2").value;
+		if(a=='' && b=='')
+		{
+			$(document).ready(function(){
+				$("#pass1").css("border-color","red");
+			});
+			document.getElementById("err1").innerHTML="<em style='color:red'>"+"Enter a new password."+"</em>"+"<br>"+"<br>"+"<br>";
+			return false;
+		}
+
+		if(a=='' && b!='')
+		{
+			$(document).ready(function(){
+				$("#pass1").css("border-color","red");
+			});
+			document.getElementById("err1").innerHTML="<em style='color:red'>"+"First enter password here."+"</em>"+"<br>"+"<br>"+"<br>";
+			return false;
+		}
+
+		if(a!=b)
+		{
+			$(document).ready(function(){
+				$("#pass2").css("border-color","red");
+			});
+			document.getElementById("err2").innerHTML="<em style='color:red'>"+"Paswword does not match."+"</em>"+"<br>"+"<br>"+"<br>";
+			return false;
+		}
+	}
+
+
+</script>
+
+</body>
+</html>
