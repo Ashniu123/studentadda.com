@@ -53,37 +53,18 @@ $(window).resize(function() {
 });
 
 
-// $('#modal1').on('shown.bs.modal', function (e) {
-//   // do something...
-//     $(document).keydown(function(e) {
-//   if(e.keyCode == 37) { 
-
-//     document.getElementById('previmg').click();
-//     }
-// }); //Previous page
-
-// $(document).keydown(function(e) {
-
-//   if(e.keyCode == 39) { 
-
-//     document.getElementById('nextimg').click();
-
-//     }
-// });// Next Page
-// });
-
-
 
 
 $(document).keydown(function(e) {
-    if (e.keyCode == 78 && e.ctrlKey) {
+    if (e.keyCode == 78 && e.ctrlKey || e.keyCode == 78 && e.metaKey) {
         document.getElementById('addnote').click();
+
     }
 }); //New Note
 
 
 $(document).keydown(function(e) {
-    if ((e.keyCode == 8 && e.ctrlKey) || e.keyCode == 8 && e.metaKey ) {
+    if ((e.keyCode == 8 && e.ctrlKey) || e.keyCode==8 && e.metaKey ) {
         document.getElementById('deletenote').click();
     }
 }); // Delete Note
@@ -230,11 +211,11 @@ function adding() {
         document.getElementById("err").innerHTML = "<br>" + "<span style='color:red; font-size:15px; margin-left:40%; ' >" + "Invalid entry..." + "</span>" +"<br>"+"<br>";
 
     }
-    else if (subjects.indexOf(newsubject) >= 0 ) {
+    else if (subjects.indexOf((newsubject).toUpperCase()) >= 0 ) {
         document.getElementById("err").innerHTML = "<br>" + "<span style='color:red; font-size:15px; margin-left:40%; '>" + "Already present..." + "</span>" +"<br>"+"<br>";
     } 
     else {
-        subjects[len] = (newsubject);
+        subjects[len] = (newsubject.toUpperCase());
         len = subjects.length;
         pages = Math.ceil((len / 4));
 
@@ -263,19 +244,22 @@ function adding() {
 function deleting() {
     var newsubject = document.getElementById("subject2").value;
 
-    if (subjects.indexOf(newsubject) < 0) {
+    if (subjects.indexOf(newsubject.toUpperCase()) < 0) {
         document.getElementById("err2").innerHTML = "<br>" +"<br>"+ "<span style='color:red; font-size:15px; margin-left:40%; '>" + "Subject not added..." + "</span>"+"<br>"+"<br>";
     } 
     else {
-        var i = subjects.indexOf(newsubject);
+        var i = subjects.indexOf(newsubject.toUpperCase());
         subjects.splice(i, 1);
         len = subjects.length;
         pages = Math.ceil((len / 4));
-        document.getElementById("subject2").value = '';
-        init();
+       document.getElementById("subject2").value = "";
         document.getElementById("hides2").click();
 
+        init();
+        
+
     }
+
 
 
 }
@@ -493,7 +477,7 @@ function init() {
 
         
 
-        if(width>=1000)
+        if(width>=1000) //Full screen
         {
 
 
@@ -502,51 +486,164 @@ function init() {
             pgno= Math.ceil((oldnotesno*(oldpgno-1)+1)/notesno);
             ind = notesno * (pgno - 1);
             
-            document.getElementById("s1").innerHTML = subjects[ind];
-            note1.style.display = "block";
-            document.getElementById("s2").innerHTML = subjects[ind + 1];
-            note2.style.display = "block";
-            document.getElementById("s3").innerHTML = subjects[ind + 2];
-            note3.style.display = "block";  
-            document.getElementById("s4").innerHTML = subjects[ind + 3];
-            note4.style.display = "block";
+            if(ind<len)
+            {
+                document.getElementById("s1").innerHTML = subjects[ind];
+                note1.style.display = "block";
+
+                if(ind+1<len)
+                {
+                    document.getElementById("s2").innerHTML = subjects[ind + 1];
+                    note2.style.display = "block";
+
+                    if(ind+2<len)
+                    {
+                        document.getElementById("s3").innerHTML = subjects[ind + 2];
+                        note3.style.display = "block";
+
+                        if(ind+3<len)
+                        {
+                            document.getElementById("s4").innerHTML = subjects[ind + 3];
+                            note4.style.display = "block";  
+                        }
+                        else
+                        {
+                            note4.style.display = "none";
+                        }
+                   
+                    }
+                    else
+                    {
+                        note3.style.display = "none";
+                     
+                    }
+                }
+                else
+                {
+                    note2.style.display = "none";
+                }
+            }
+            else
+            {
+               note1.style.display = "none";
+
+               pgno--;
+               init();
+
+
+
+            }     
         }
         
-        else if( width>=820)
+        else if( width>=820) // 3/4rth width
         {
             pages = Math.ceil((len / 3));
             notesno=3;
             pgno= Math.ceil((oldnotesno*(oldpgno-1)+1)/notesno);
             ind = notesno * (pgno - 1);
+            
+            if(ind<len)
+            {
+                document.getElementById("s1").innerHTML = subjects[ind];
+                note1.style.display = "block";
+
+                if(ind+1<len)
+                {
+                    document.getElementById("s2").innerHTML = subjects[ind + 1];
+                    note2.style.display = "block";
+
+                    if(ind+2<len)
+                    {
+                        document.getElementById("s3").innerHTML = subjects[ind + 2];
+                        note3.style.display = "block";
+
+                       
+                            document.getElementById("s4").innerHTML = subjects[ind + 3];
+                            note4.style.display = "none";  
+                   
+                    }
+                    else
+                    {
+                        note3.style.display = "none";
+                     
+                    }
+                }
+                else
+                {
+                    note2.style.display = "none";
+                }
+            }
+            else
+            {
+               note1.style.display = "none"; 
+               pgno--;
+               init();
+
+
+            }     
+
            
-            document.getElementById("s1").innerHTML = subjects[ind];
-            note1.style.display = "block";
-            document.getElementById("s2").innerHTML = subjects[ind + 1];
-            note2.style.display = "block";
-            document.getElementById("s3").innerHTML = subjects[ind + 2];
-            note3.style.display = "block";  
-            document.getElementById("s4").innerHTML = subjects[ind + 3];
-            note4.style.display = "none";
+
+            // document.getElementById("s1").innerHTML = subjects[ind];
+            // note1.style.display = "block";
+            // document.getElementById("s2").innerHTML = subjects[ind + 1];
+            // note2.style.display = "block";
+            // document.getElementById("s3").innerHTML = subjects[ind + 2];
+            // note3.style.display = "block";  
+            // document.getElementById("s4").innerHTML = subjects[ind + 3];
+            // note4.style.display = "none";
         }
 
-        else if(width>=470)
+        else if(width>=470) //1/2 width 
         {
             pages = Math.ceil((len / 2));
             notesno=2;
             pgno= Math.ceil((oldnotesno*(oldpgno-1)+1)/notesno);
             ind = notesno * (pgno - 1);
             
-            document.getElementById("s1").innerHTML = subjects[ind];
-            note1.style.display = "block";
-            document.getElementById("s2").innerHTML = subjects[ind + 1];
-            note2.style.display = "block";
-            document.getElementById("s3").innerHTML = subjects[ind + 2];
-            note3.style.display = "none";  
-            document.getElementById("s4").innerHTML = subjects[ind + 3];
-            note4.style.display = "none";
+            if(ind<len)
+            {
+                document.getElementById("s1").innerHTML = subjects[ind];
+                note1.style.display = "block";
+
+                if(ind+1<len)
+                {
+                    document.getElementById("s2").innerHTML = subjects[ind + 1];
+                    note2.style.display = "block";
+
+                    
+                        document.getElementById("s3").innerHTML = subjects[ind + 2];
+                        note3.style.display = "none";
+
+                        
+                            document.getElementById("s4").innerHTML = subjects[ind + 3];
+                            note4.style.display = "none";  
+                        
+                }
+                else
+                {
+                    note2.style.display = "none";
+                }
+            }
+            else
+            {
+               note1.style.display = "none"; 
+               pgno--;
+               init();
+
+            }     
+
+            // document.getElementById("s1").innerHTML = subjects[ind];
+            // note1.style.display = "block";
+            // document.getElementById("s2").innerHTML = subjects[ind + 1];
+            // note2.style.display = "block";
+            // document.getElementById("s3").innerHTML = subjects[ind + 2];
+            // note3.style.display = "none";  
+            // document.getElementById("s4").innerHTML = subjects[ind + 3];
+            // note4.style.display = "none";
         }
 
-        else if(width<470)
+        else if(width<470)  // Phablet width
         {
             pages = Math.ceil((len / 1));
             notesno=1;
@@ -554,15 +651,41 @@ function init() {
             
             ind = notesno * (pgno - 1);
 
+            if(ind<len)
+            {
+                document.getElementById("s1").innerHTML = subjects[ind];
+                note1.style.display = "block";
+
+               
+                    document.getElementById("s2").innerHTML = subjects[ind + 1];
+                    note2.style.display = "none";
+
+                     document.getElementById("s3").innerHTML = subjects[ind + 2];
+                        note3.style.display = "none";
+
+                        
+                            document.getElementById("s4").innerHTML = subjects[ind + 3];
+                            note4.style.display = "none";  
+                        
+                      
+            }
+            else
+            {
+               note1.style.display = "none"; 
+               pgno--;
+               init();
+
+            }     
+
             
-            document.getElementById("s1").innerHTML = subjects[ind];
-            note1.style.display = "block";
-            document.getElementById("s2").innerHTML = subjects[ind + 1];
-            note2.style.display = "none";
-            document.getElementById("s3").innerHTML = subjects[ind + 2];
-            note3.style.display = "none";  
-            document.getElementById("s4").innerHTML = subjects[ind + 3];
-            note4.style.display = "none";
+            // document.getElementById("s1").innerHTML = subjects[ind];
+            // note1.style.display = "block";
+            // document.getElementById("s2").innerHTML = subjects[ind + 1];
+            // note2.style.display = "none";
+            // document.getElementById("s3").innerHTML = subjects[ind + 2];
+            // note3.style.display = "none";  
+            // document.getElementById("s4").innerHTML = subjects[ind + 3];
+            // note4.style.display = "none";
         }
 
 
