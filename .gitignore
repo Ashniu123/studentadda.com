@@ -1,3 +1,12 @@
+#Other Useless Files
+.DS_Store
+
+#Bower
+bower_components/
+
+#IDE
+.idea/
+
 # Logs
 logs
 *.log
