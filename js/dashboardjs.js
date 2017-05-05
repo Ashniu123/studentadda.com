@@ -49,6 +49,7 @@ $(window).resize(function() {
     $(".changenotes").css('height',height);
     $("#goleft").css('margin-top',height/2 -200);
     $("#goright").css('margin-top',height/2 -200);
+    $("#gotonote").click();
     init(); 
 });
 
@@ -217,11 +218,13 @@ function adding() {
     else {
         subjects[len] = (newsubject.toUpperCase());
         len = subjects.length;
-        pages = Math.ceil((len / 4));
+        pages = Math.ceil((len / notesno));
 
         document.getElementById("subject").value = '';
-        init();
+       
         document.getElementById("hides1").click();
+
+        init();
     }
 
 
@@ -468,7 +471,8 @@ function init() {
     var oldpgno=pgno;
     var oldnotesno=notesno;
 
-    bks = 0; {
+    bks = 0; 
+    {
 
     
     var width=$("#centeralbook").width();
@@ -526,9 +530,12 @@ function init() {
             else
             {
                note1.style.display = "none";
-
-               pgno--;
+               if(pgno!=1)
+               {
+                pgno--;
                init();
+               }
+               
 
 
 
@@ -576,8 +583,12 @@ function init() {
             else
             {
                note1.style.display = "none"; 
-               pgno--;
+               if(pgno!=1)
+               {
+                pgno--;
                init();
+               }
+               
 
 
             }     
@@ -596,6 +607,7 @@ function init() {
 
         else if(width>=470) //1/2 width 
         {
+
             pages = Math.ceil((len / 2));
             notesno=2;
             pgno= Math.ceil((oldnotesno*(oldpgno-1)+1)/notesno);
@@ -627,10 +639,15 @@ function init() {
             }
             else
             {
-               note1.style.display = "none"; 
-               pgno--;
-               init();
+               note1.style.display = "none";
+               
+               if(pgno!=1)
+               {
+                     pgno--;
+                     init();
 
+               } 
+               
             }     
 
             // document.getElementById("s1").innerHTML = subjects[ind];
@@ -672,8 +689,12 @@ function init() {
             else
             {
                note1.style.display = "none"; 
-               pgno--;
-               init();
+               if(pgno!=1)
+               {
+                     pgno--;
+                     init();
+               }
+               
 
             }     
 
