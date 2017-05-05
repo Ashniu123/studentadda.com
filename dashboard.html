@@ -710,7 +710,7 @@
         </div><!--./modal-dialog-->
       </div><!--./createEventModal-->
 
-      <div style="background: url(img/calendar5.jpg) no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;">
+      <div style="background: url(img/calendar5.jpg) no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;" id="calbg">
       <div class="container-fluid"> 
              <div class="row" >
                  <div class="col-xs-12"  id="events"  >
@@ -731,12 +731,24 @@
       <div class="container" id="events" >
                 <div class="row row-content row-calendar" >
 
-          <h5 style="float:right"><span id="calendarHelp" data-toggle="tooltip" data-placement="bottom" class="glyphicon glyphicon-info-sign"></span></h5><h1 style="text-align:center;">Events</h1>
+          <h5 style="float:right"><span id="calendarHelp" data-toggle="tooltip" data-placement="bottom" class="glyphicon glyphicon-info-sign"></span></h5><h1 style="text-align:center; margin-left: -40px; " id="eventtitle">Events</h1>
+
+          
+
+                       
+                <label class="switch">
+                 <input type="checkbox" id="darkswitch">
+
+                <div class="slider round"></div>
+                </label>
+
 
                         <div class="col-xs-12" >
                             <div id="calendar"></div>
                             <!--calendar-->
                         </div>
+
+                       
                 </div>
             </div>
         </div>

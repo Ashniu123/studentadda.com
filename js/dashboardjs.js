@@ -49,7 +49,7 @@ $(window).resize(function() {
     $(".changenotes").css('height',height);
     $("#goleft").css('margin-top',height/2 -200);
     $("#goright").css('margin-top',height/2 -200);
-    $("#gotonote").click();
+    //$("#gotonote").click();
     init(); 
 });
 
@@ -267,6 +267,7 @@ function deleting() {
 
 }
 
+
 //File input innitating function
 document.getElementById('addimg').onclick = function()
 
@@ -288,33 +289,50 @@ function reset2() {
 }
 
 //Update by Parth 9/3/17 Add/Delete Notes
+function replaceAt(string, index, replace) {
+  return string.substring(0, index) + replace + string.substring(index + 1);
+}
 
 
 function col() //Assignes random color
 {
     
-    
-
-
-
-
 
     var colors=['#003300', '#006666', '#0099ff', '#00cc66', '#00cc99', '#00ccff', '#660033', '#660099', '#6633ff', '#666699', '#6699cc', '#990033', '#9900ff', '#cc0033', '#cc6666', '#cccc00', '#ff0099', '#ff3300', '#ff6600', '#ff6699', '#ff9966', '#ffff66', '#ffccff' ];
 
-    var i,c;
+    var i,c,j,d;
 
     // $("#note1").css('background-color', '#' + (Math.random() * 0xFFFFFF << 0).toString(16));
     // $("#note2").css('background-color', '#' + (Math.random() * 0xFFFFFF << 0).toString(16));
     // $("#note3").css('background-color', '#' + (Math.random() * 0xFFFFFF << 0).toString(16));
     // $("#note4").css('background-color', '#' + (Math.random() * 0xFFFFFF << 0).toString(16));
     c=Math.floor(Math.random()*10000%23); i= colors[c];
-    $("#note1").css('background-color', i);
+    j=replaceAt(i,1,'c');
+    // j=replaceAt(j,3,'8');
+    // j=replaceAt(j,6,'2');
+
+    $("#note1").css('background', 'linear-gradient(to bottom,'+i+','+j+')' );
+
     c=Math.floor(Math.random()*10000%23); i= colors[c];
-    $("#note2").css('background-color', i);
+    j=replaceAt(i,1,'8');
+    // j=replaceAt(j,3,'e');
+    // j=replaceAt(j,6,'a');
+
+    $("#note2").css('background','linear-gradient(to bottom,'+i+','+j+')' );
+
+
     c=Math.floor(Math.random()*10000%23); i= colors[c];
-    $("#note3").css('background-color', i);
+    j=replaceAt(i,1,'6');
+    // j=replaceAt(j,3,'2');
+    // j=replaceAt(j,6,'1');
+    $("#note3").css('background', 'linear-gradient(to bottom,'+i+','+j+')');
+
+
     c=Math.floor(Math.random()*10000%23); i= colors[c];
-    $("#note4").css('background-color', i);
+    j=replaceAt(i,1,'b');
+    // j=replaceAt(j,3,'9');
+    // j=replaceAt(j,6,'7');
+    $("#note4").css('background', 'linear-gradient(to bottom,'+i+','+j+')');
 }
 
 var ind;
@@ -484,7 +502,7 @@ function init() {
         if(width>=1000) //Full screen
         {
 
-
+            $(".fc-toolbar").css({'font-size': '15px'});
             pages = Math.ceil((len / 4));
             notesno=4; 
             pgno= Math.ceil((oldnotesno*(oldpgno-1)+1)/notesno);
@@ -544,6 +562,7 @@ function init() {
         
         else if( width>=820) // 3/4rth width
         {
+            $(".fc-toolbar").css({'font-size': '15px'});
             pages = Math.ceil((len / 3));
             notesno=3;
             pgno= Math.ceil((oldnotesno*(oldpgno-1)+1)/notesno);
@@ -607,6 +626,7 @@ function init() {
 
         else if(width>=470) //1/2 width 
         {
+            $(".fc-toolbar").css({'font-size': '12px'});
 
             pages = Math.ceil((len / 2));
             notesno=2;
@@ -662,6 +682,7 @@ function init() {
 
         else if(width<470)  // Phablet width
         {
+            $(".fc-toolbar").css({'font-size': '10px'});
             pages = Math.ceil((len / 1));
             notesno=1;
             pgno= Math.ceil((oldnotesno*(oldpgno-1)+1)/notesno);
@@ -998,6 +1019,40 @@ $.fn.singleAndDouble = function(singleClickFunc, doubleClickFunc) {
 
 //Calendar
 
+
+
+//This is parth fixing the ui for good
+
+$('#calendar').css('font-size', '20px');
+$('#calendar').css('color', 'black');
+
+//Dark mode
+
+$("#darkswitch").click(function(){
+    var on=$('#darkswitch').prop('checked');
+    if(on)
+    {
+        $("#calbg").css({
+        'background': 'url(img/calendar4.jpg) no-repeat center center fixed' , '-webkit-background-size': 'cover' , '-moz-background-size': 'cover' , '-o-background-size' : 'cover' , 'background-size': 'cover'
+        });
+        $('#calendar').css('color', 'white');
+        $('#eventtitle').css('color','white');
+    }
+
+    else
+    {
+      $("#calbg").css({
+        'background': 'url(img/calendar5.jpg) no-repeat center center fixed' , '-webkit-background-size': 'cover' , '-moz-background-size': 'cover' , '-o-background-size' : 'cover' , 'background-size': 'cover'
+        }); 
+    $('#calendar').css('color', 'black'); 
+    $('#eventtitle').css('color','black');
+    }
+});
+
+
+
+
+
 //To invert Color
 function invertColor(hexTripletColor) {
     var color = hexTripletColor;
@@ -1035,8 +1090,10 @@ $(document).ready(function() {
             left: 'prev,next,today',
             center: 'title',
             right: 'month,agendaWeek,agendaDay,listWeek'
+
         },
         defaultView: 'month',
+        fixedWeekCount: false,
         allDayDefault: false,
         /*
   			selectable:true will enable user to select datetime slot
