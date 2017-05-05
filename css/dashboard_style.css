@@ -301,7 +301,7 @@ thead.fc-head{
 #gotoevent{
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
-  margin-top: 30px; 
+  margin-top: 70px; 
   margin-bottom: 10px;
   height: 50px;
   border: none;
@@ -338,7 +338,7 @@ thead.fc-head{
 #gotonote{
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
-  margin-top: 50px; 
+  margin-top: 0px; 
   margin-bottom: 10px;
   height: 50px;
   border: none;

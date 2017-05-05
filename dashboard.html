@@ -373,7 +373,7 @@
              <div class="row" >
                 <div class="col-xs-12">
 
-                     <div  onclick="window.location.href='dashboard.html#gotonote';" id="gotoevent">
+                     <div  onclick="viewevents();" id="gotoevent">
 
                         <button id="down"><span style="font-size: 25px; font-family:'Goudy Old Style', 'Bradley Hand'; ">VIEW EVENTS<br/></span></button>
 
@@ -395,7 +395,7 @@
 
                          <div class="modal-body" style="border:none; padding: 30px; background-color:rgba(0,0,0,.9);">
                                        
-                            <img src="img/cross2.png" class="close" width="4%"  data-dismiss="modal">
+                            <img src="img/cross2.png" class="close" id="close1" width="4%"  data-dismiss="modal">
 
                          </div>
 
@@ -408,10 +408,10 @@
 
                          <div class="modal-footer" style="padding: 30px; border: none; background-color:rgba(0,0,0,.9);">        
 
-                            <img src="img/orangearrow.png" class="next" width="4%" onclick="next()">
+                            <img src="img/orangearrow.png" class="next" id="nextimg" width="4%" onclick="next()">
 
 
-                            <img src="img/orangearrow.png" class="prev rotate" width="4%" onclick="previous()">
+                            <img src="img/orangearrow.png" class="prev rotate" id="previmg" width="4%" onclick="previous()">
 
                             <img src="img/upload.ico" id="addimg">
 
@@ -447,7 +447,7 @@
             				<div id="err"><br><br><br> </div>
 
             				<!-- <button name="sub1" class="addn" onclick="adding()">ADD</button> -->
-                            <button type="button" class="btn btn-success" onclick="adding()" style="margin-left: 30%;">ADD</button>
+                            <button type="button" class="btn btn-success" id="addNote" onclick="adding()" style="margin-left: 30%;">ADD</button>
 
             		 		<!-- <input type="reset" style="margin-left: 8%; border-radius: 10px; border-color:yellow;background-color:rgba(256,256,256,.6) ;" onclick="reset1()" value="RESET">
  -->                            <button type="button" class="btn btn-warning" onclick="reset1()" style="margin-left: 10%;">RESET</button>
@@ -478,7 +478,7 @@
             				 <div id="err2"><br><br><br><br></div>
 
             				 <!-- <button name="sub1" class="removen" onclick="deleting()">DELETE</button> -->
-                             <button type="button" class="btn btn-danger" onclick="deleting()" style="margin-left: 30%">REMOVE</button>
+                             <button type="button" class="btn btn-danger" id="delNote" onclick="deleting()" style="margin-left: 30%">REMOVE</button>
                              <button type="button" class="btn btn-warning" onclick="reset2()" style="margin-left: 10%;">RESET</button>
 
             		 		<!--  <input type="reset" style="margin-left: 8%; border-radius: 10px; border-color:yellow; background-color:rgba(256,256,256,.6);" onclick="reset2()" value="RESET">
@@ -712,10 +712,10 @@
 
       <div style="background: url(img/calendar5.jpg) no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;">
       <div class="container-fluid"> 
-          <div class="row" >
-                <div class="col-xs-12"   >
+             <div class="row" >
+                 <div class="col-xs-12"  id="events"  >
 
-                     <div  onclick="window.location.href='dashboard.html#nav';" id="gotonote">
+                     <div  onclick="viewnotes();" id="gotonote">
 
                         <button id="down"><span style="font-size: 25px; font-family:'Goudy Old Style', 'Bradley Hand';">VIEW NOTES<br/></span></button>
 
@@ -723,7 +723,7 @@
                         
                      </div>
                     
-                </div>
+                 </div>
                  
              </div>
 

@@ -53,11 +53,34 @@ $(window).resize(function() {
 });
 
 
+// $('#modal1').on('shown.bs.modal', function (e) {
+//   // do something...
+//     $(document).keydown(function(e) {
+//   if(e.keyCode == 37) { 
+
+//     document.getElementById('previmg').click();
+//     }
+// }); //Previous page
+
+// $(document).keydown(function(e) {
+
+//   if(e.keyCode == 39) { 
+
+//     document.getElementById('nextimg').click();
+
+//     }
+// });// Next Page
+// });
+
+
+
+
 $(document).keydown(function(e) {
     if (e.keyCode == 78 && e.ctrlKey) {
         document.getElementById('addnote').click();
     }
 }); //New Note
+
 
 $(document).keydown(function(e) {
     if ((e.keyCode == 8 && e.ctrlKey) || e.keyCode == 8 && e.metaKey ) {
@@ -65,12 +88,93 @@ $(document).keydown(function(e) {
     }
 }); // Delete Note
 
-$(document).keydown(function(e) {
-  if(e.keyCode == 37) { 
 
-    document.getElementById('goleft').click();
+
+$(document).keydown(function(e) {
+     if(e.keyCode == 37) { 
+         var check= $('#modal1').is(':visible');
+         if(check == false)
+             {
+                 document.getElementById('goleft').click();
+             }
+
+         else if (check==true)
+             {
+                 document.getElementById('previmg').click();
+             }
+   
     }
 }); //Previous page
+
+
+
+$(document).keydown(function(e) {
+     if(e.keyCode == 39) {
+
+         var check = $('#modal1').is(':visible');
+
+         if(check == false)
+             {
+                 document.getElementById('goright').click();
+             }
+
+         else if (check==true)
+             {
+                 document.getElementById('nextimg').click();
+             }
+    
+
+    }
+});// Next Page  
+
+
+$(document).keydown(function(e){
+    if(e.keyCode==27){
+
+        var ch1= $('#modal1').is(':visible');
+        var ch2= $('#modal2').is(':visible');
+        var ch3= $('#modal3').is(':visible');
+
+        if(ch1== true)
+        {
+           document.getElementById('close1').click(); 
+        }
+
+        if(ch2== true)
+        {
+           document.getElementById('hides1').click(); 
+        }
+
+        if(ch3== true)
+        {
+           document.getElementById('hides2').click(); 
+        }
+
+    }
+}); //Configuring escape key for modals
+
+
+$(document).keydown(function(e){
+    if(e.keyCode==13){
+
+        var ch2= $('#modal2').is(':visible');
+        var ch3= $('#modal3').is(':visible');
+
+        
+
+        if(ch2== true)
+        {
+           document.getElementById('addNote').click(); 
+        }
+
+        if(ch3== true)
+        {
+           document.getElementById('delNote').click(); 
+        }
+
+    }
+}); //Configuring enter key for modals
+
 
 $(document).keydown(function(e) {
 
@@ -81,14 +185,7 @@ $(document).keydown(function(e) {
     }
 });// Go to notes page
  
-$(document).keydown(function(e) {
 
-  if(e.keyCode == 39) { 
-
-    document.getElementById('goright').click();
-
-    }
-});// Next Page
 
 $(document).keydown(function(e) {
 
@@ -102,7 +199,23 @@ $(document).keydown(function(e) {
 //Update by Parth 9/3/17 Add/Delete Notes
 
 
+function viewevents()
+{
+    
+    $('html, body').animate({
+        scrollTop: $("#events").offset().top
+    }, 500);
 
+}
+
+function viewnotes()
+{
+    
+    $('html, body').animate({
+        scrollTop: $("#nav").offset().top
+    }, 500);
+
+}
 
 //Shows the modal on screen
 
