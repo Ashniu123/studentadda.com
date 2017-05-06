@@ -6,6 +6,8 @@ $("#changeSettingsModal").on('show.bs.modal', function(e) {
     $(tab).addClass('active');
 });
 
+
+
 //disabled button for change password|add server side for current password
 $("#changeSettingsModal").on('shown.bs.modal', function() {
     $('#buttonForPassword').prop('disabled', true);
@@ -682,7 +684,9 @@ function init() {
 
         else if(width<470)  // Phablet width
         {
-            $(".fc-toolbar").css({'font-size': '10px'});
+            $(".fc-toolbar").css({'font-size': '9px'});
+
+
             pages = Math.ceil((len / 1));
             notesno=1;
             pgno= Math.ceil((oldnotesno*(oldpgno-1)+1)/notesno);
@@ -1028,7 +1032,8 @@ $('#calendar').css('color', 'black');
 
 //Dark mode
 
-$("#darkswitch").click(function(){
+$("#darkswitch").change(function(){
+
     var on=$('#darkswitch').prop('checked');
     if(on)
     {
@@ -1037,6 +1042,8 @@ $("#darkswitch").click(function(){
         });
         $('#calendar').css('color', 'white');
         $('#eventtitle').css('color','white');
+
+        $('#calendarHelp').css({'color':'white'});
     }
 
     else
@@ -1046,7 +1053,9 @@ $("#darkswitch").click(function(){
         }); 
     $('#calendar').css('color', 'black'); 
     $('#eventtitle').css('color','black');
+    $('#calendarHelp').css({'color':'black'});
     }
+    
 });
 
 
