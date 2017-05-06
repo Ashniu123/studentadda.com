@@ -20,6 +20,9 @@
     <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dashboard_style.css">
+    <link href="css/bootstrap-toggle.css" rel="stylesheet">
+
+    
      <!-- <link rel="stylesheet" href="css/bootstrap.css"> -->
     <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 </head>
@@ -270,7 +273,7 @@
              </div>
 
  
-             <div class="row no-gutters" style="min-height: 505px; margin-top: 40px; " >
+             <div class="row no-gutters" style="min-height: 505px; margin-top: 40px; " id="notespage" >
                  
                  <div class="col-xs-1" style="height: 100%;">
                      
@@ -729,18 +732,32 @@
 
       </div>  
       <div class="container" id="events" >
-                <div class="row row-content row-calendar" >
-
-          <h5 style="float:right"><span id="calendarHelp" data-toggle="tooltip" data-placement="bottom" class="glyphicon glyphicon-info-sign"></span></h5><h1 style="text-align:center; margin-left: -40px; " id="eventtitle">Events</h1>
-
-          
-
-                       
-                <label class="switch">
+             
+             <div class="row">
+             	<div class="col-xs-2">
+      			<!-- <label class="switch" style="">
                  <input type="checkbox" id="darkswitch">
 
                 <div class="slider round"></div>
-                </label>
+                </label> -->
+              <input type="checkbox" id="darkswitch" data-style="ios" data-toggle="toggle" data-off="<img src='img/bulboff.png' width='10px'>" data-on="<img src='img/bulbon.png' width='10px'>">
+
+      		</div>
+
+      		<div class="col-xs-8">
+      			<h1 style="text-align:center; margin-left: -40px; " id="eventtitle">Events</h1>
+      		</div>
+      		<div class="col-xs-2">
+      			<h5 style="float:right"><span id="calendarHelp" data-toggle="tooltip" data-placement="bottom" class="glyphicon glyphicon-info-sign" ></span></h5>
+      		</div>
+             </div> 
+
+      		
+          
+          <div class="row row-content row-calendar" >
+
+                       
+                
 
 
                         <div class="col-xs-12" >
@@ -799,7 +816,8 @@
             <script src="fullcalendar-3.2.0/fullcalendar.js"></script>
             <script src="js/bootstrap-formhelpers.min.js"></script>
             <script src="js/fileinput.min.js"></script>
-            <script src="js/dashboardjs.js"></script>
+            <script src="js/dashboardjs.js"></script>	
+         	<script src="js/bootstrap-toggle.js"></script>
 
 </body>
 

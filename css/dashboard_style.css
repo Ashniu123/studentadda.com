@@ -324,6 +324,7 @@ display: none;
   height: 50px;
   border: none;
   background-color: rgba(256,256,256,.6);
+  
 }
 
 #down{
@@ -390,7 +391,7 @@ display: none;
 
 /*Switch*/
 
-.switch {
+/*.switch {
   position: relative;
   display: inline-block;
   width: 60px;
@@ -443,6 +444,16 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
-}
+}*/
 
+/*Bootstrap switch*/
+
+.toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20px; }
+  .toggle.ios .toggle-handle { border-radius: 20px; }
+
+.toggle-handle
+{
+  background-color: black;
+  margin-right: 1000px;
+}
 /*------------------ ENDS UPDATED BY PARTH------------*/
