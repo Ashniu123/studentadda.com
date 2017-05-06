@@ -42,18 +42,36 @@ var pages;
 
 var bks = 0;
 
+$(window).resize(function(){
 
-
-
-$(window).resize(function() {
-  
-    var height=$("#centeralbook").height();
-    $(".changenotes").css('height',height);
-    $("#goleft").css('margin-top',height/2 -200);
-    $("#goright").css('margin-top',height/2 -200);
-    //$("#gotonote").click();
-    init(); 
+    init();
 });
+// var h2=$(window).height();
+
+
+//     $(window).resize(function() {
+    
+    
+   
+//      if(h2<600)
+//     {
+//        $('#note1').css({'height':'305px','width':'192px','margin-top':'-5px'});
+//        $('.changenotes').css('height','250px');
+//        $('#gotoevent').css('margin-top','0px');
+//        $('#goleft').css('top','150px');
+//        $('#goright').css('top','150px');
+//        $('#mynotes').css('height','529px');
+//        $('#foot').css('margin-top','-150px'); 
+       
+//     }
+
+//     else{
+
+//     }
+    
+//     //$("#gotonote").click();
+    
+// });
 
 
 
@@ -402,27 +420,7 @@ function prevsub() {
             bks++;
         }
 
-        // {
 
-        //     if (bks == 0) {
-        //         $("#books").css({
-        //             "margin-left": "0%"
-        //         });
-        //     } else if (bks == 1) {
-        //         $("#books").css({
-        //             "margin-left": "10%"
-        //         });
-        //     } else if (bks == 2) {
-        //         $("#books").css({
-        //             "margin-left": "20%"
-        //         });
-        //     } else if (bks == 3) {
-        //         $("#books").css({
-        //             "margin-left": "30%"
-        //         });
-        //     }
-
-        // }
 
     }
 }
@@ -459,28 +457,6 @@ function nextsub() {
             bks++;
         }
 
-        // {
-
-        //     if (bks == 0) {
-        //         $("#books").css({
-        //             "margin-left": "0%"
-        //         });
-        //     } else if (bks == 1) {
-        //         $("#books").css({
-        //             "margin-left": "10%"
-        //         });
-        //     } else if (bks == 2) {
-        //         $("#books").css({
-        //             "margin-left": "20%"
-        //         });
-        //     } else if (bks == 3) {
-        //         $("#books").css({
-        //             "margin-left": "30%"
-        //         });
-        //     }
-
-        // }
-
 
     }
 }
@@ -494,6 +470,14 @@ function init() {
     bks = 0; 
     {
 
+             $('#note1').css({'height':'300px','width':'230px','margin-top':'auto'});
+             $('.changenotes').css('height','450px');
+             $('#gotoevent').css('margin-top','145px');
+             $('#goleft').css('top','250px');
+             $('#goright').css('top','250px');
+             $('#mynotes').css('height','760px');
+             $('#foot').css('margin-top','auto');
+             $("#books").css('margin-top','auto'); 
     
     var width=$("#centeralbook").width();
     //alert(width);
@@ -685,7 +669,22 @@ function init() {
         else if(width<470)  // Phablet width
         {
             $(".fc-toolbar").css({'font-size': '9px'});
+            $("#books").css('margin-top','55px');
+            $('#gotoevent').css('margin-top','140px');
 
+            var h2=$(window).height();
+            if(h2<600)
+            {
+
+        
+             $('#note1').css({'height':'305px','width':'192px','margin-top':'-5px'});
+             $('.changenotes').css('height','250px');
+             $('#gotoevent').css('margin-top','20px');
+             $('#goleft').css('top','150px');
+             $('#goright').css('top','150px');
+             $('#mynotes').css('height','529px');
+             $('#foot').css('margin-top','-150px'); 
+            }
 
             pages = Math.ceil((len / 1));
             notesno=1;
