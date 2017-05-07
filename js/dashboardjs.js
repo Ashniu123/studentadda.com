@@ -75,7 +75,6 @@ $(window).resize(function(){
 
 
 
-
 $(document).keydown(function(e) {
     if (e.keyCode == 78 && e.ctrlKey || e.keyCode == 78 && e.metaKey) {
         document.getElementById('addnote').click();
