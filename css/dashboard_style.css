@@ -41,6 +41,11 @@
 .file-input>button{
   margin-left: 35px;
 }
+
+#calendarHelp{
+    border-radius: 50%;
+    /*So that the background color is visible and does not look like a box*/
+}
 /*
 .navbar{
   min-height: 70px;
@@ -142,7 +147,7 @@ display: none;
     .modal-content {
         width: 100%;
     }
-}  
+}
 
 #note1,#note2,#note3,#note4
 {
@@ -286,7 +291,7 @@ display: none;
 
 .deletenote
 {
-  width: 40px; 
+  width: 40px;
   margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
@@ -297,7 +302,7 @@ display: none;
 
 #img01
 {
-  display: block; margin: auto; height: 500px; border:3px solid grey; box-shadow: 0 0 10px grey; border-radius: 5px; 
+  display: block; margin: auto; height: 500px; border:3px solid grey; box-shadow: 0 0 10px grey; border-radius: 5px;
 }
 /* Update by Parth 9/3/17 Add/Delete Notes */
 
@@ -308,7 +313,7 @@ display: none;
   flex-wrap: nowrap;
   margin-bottom: 30px;
   justify-content:space-around;
-  
+
 }
 
 #mynotes
@@ -327,15 +332,15 @@ display: none;
   height: 50px;
   background-color: rgba(256,256,256,.6);
   margin-top: 179px;
-  
+
 }
 
 #down{
  display: block;
  margin-left: auto;
- margin-right: auto; 
- background-color: rgba(0,0,0,0); 
- border: none; 
+ margin-right: auto;
+ background-color: rgba(0,0,0,0);
+ border: none;
  width: 100%;
 }
 
@@ -347,10 +352,10 @@ display: none;
 {
   min-width: 20px;
   /*border: 2px solid red; */
-  height: 364px; 
-  margin-left: 0; 
+  height: 364px;
+  margin-left: 0;
 
- 
+
 }
 
 .changenotes:hover{
@@ -361,7 +366,7 @@ display: none;
 #gotonote{
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
-  margin-top: 0px; 
+  margin-top: 0px;
   margin-bottom: 10px;
   height: 50px;
   border: none;
@@ -375,17 +380,17 @@ display: none;
 
 #goleft{
   margin-left: 10px;
-  font-size: 30px; 
+  font-size: 30px;
   top: 230px;
-  cursor: pointer; 
-  color: white; 
+  cursor: pointer;
+  color: white;
 }
 
 #goright{
   margin-left: 10px;
-  font-size: 30px; 
+  font-size: 30px;
   top: 230px;
-  cursor: pointer; 
+  cursor: pointer;
   color: white;
 }
 
@@ -403,9 +408,9 @@ display: none;
 
 /*Bootstrap switch*/
 
-.toggle.ios, .toggle-on.ios, .toggle-off.ios 
-{ 
-  border-radius: 20px; 
+.toggle.ios, .toggle-on.ios, .toggle-off.ios
+{
+  border-radius: 20px;
 }
 
 .toggle.ios .toggle-handle { border-radius: 20px; }
