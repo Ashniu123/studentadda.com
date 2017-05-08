@@ -318,7 +318,15 @@ display: none;
 
 #mynotes
 {
+max-height:760px; width: 100%;  background:  no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;
+}
 
+#noteslable{
+font-size: 40px; text-align: center; font-family:'Goudy Old Style', 'Bradley Hand'; text-decoration:underline;
+}
+
+#calbg{
+background:no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;
 }
 
 #gotoevent:hover{
