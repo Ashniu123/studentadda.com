@@ -1,17 +1,48 @@
 {
-  "name": "nodejs-starter",
-  "version": "0.0.0",
-  "private": true,
+  "name": "studentadda.com",
+  "version": "1.0.0",
+  "description": "Student Notes and Events Organizer",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
     "express": "~4.15.2",
+    "express-fileupload": "^0.1.3",
     "hbs": "~4.0.1",
+    "moment": "^2.18.1",
+    "mongoose": "^4.9.8",
+    "mongoose-moment": "^0.1.3",
     "morgan": "~1.8.1",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^4.0.0",
     "serve-favicon": "~2.4.2"
-  }
+  },
+  "engines": {
+    "node": "6.10.2"
+  },
+  "homepage": "https://github.com/Ashniu123/studentadda.com",
+  "author": "ashniu123",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ashniu123/studentadda.com/issues"
+  },
+  "keywords": [
+    "heroku",
+    "mLab",
+    "MongoDB",
+    "NodeJs",
+    "student",
+    "notes",
+    "calendar"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ashniu123/studentadda.com.git"
+  },
+  "main": "app.js"
 }
