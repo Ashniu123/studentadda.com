@@ -192,7 +192,7 @@ $(document).keydown(function(e) {
 
   if(e.keyCode == 40) {
 
-    document.getElementById('gotoevent').click();
+    viewevents();
 
     }
 }); // Go to events page
@@ -470,10 +470,11 @@ function init() {
     {
 
              $('#note1').css({'height':'300px','width':'230px','margin-top':'auto'});
-             $('.changenotes').css('height','450px');
+            // alert('here');
+             $('.changenotes').css('height','380px');
              $('#gotoevent').css('margin-top','145px');
-             $('#goleft').css('top','250px');
-             $('#goright').css('top','250px');
+             $('#goleft').css('top','200px');
+             $('#goright').css('top','200px');
              $('#mynotes').css('height','760px');
              $('#foot').css('margin-top','auto');
              $("#books").css('margin-top','auto');
@@ -669,21 +670,20 @@ function init() {
         {
             $(".fc-toolbar").css({'font-size': '9px'});
             $("#books").css('margin-top','55px');
-            $('#gotoevent').css('margin-top','140px');
 
-            var h2=$(window).height();
-            if(h2<600)
-            {
+                var h2=$(window).height();
+                 if(h2<600)
+                {
 
 
-             $('#note1').css({'height':'305px','width':'192px','margin-top':'-5px'});
-             $('.changenotes').css('height','250px');
-             $('#gotoevent').css('margin-top','20px');
-             $('#goleft').css('top','150px');
-             $('#goright').css('top','150px');
-             $('#mynotes').css('height','529px');
-             $('#foot').css('margin-top','-150px');
-            }
+                //  $('#note1').css({'height':'305px','width':'192px','margin-top':'-5px'});
+                //  $('.changenotes').css('height','250px');
+                //  $('#gotoevent').css('margin-top','20px');
+                //  $('#goleft').css('top','150px');
+                //  $('#goright').css('top','150px');
+                //  $('#mynotes').css('height','529px');
+                $('#foot').css('margin-top','-150px');
+                 }
 
             pages = Math.ceil((len / 1));
             notesno=1;

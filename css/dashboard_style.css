@@ -318,7 +318,13 @@ display: none;
 
 #mynotes
 {
-max-height:760px; width: 100%;  background:  no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;
+max-height:560px; 
+width: 100%;  
+background:  no-repeat center center fixed; 
+-webkit-background-size: cover; 
+-moz-background-size: cover; 
+-o-background-size: cover; 
+background-size: cover;
 }
 
 #noteslable{
@@ -326,7 +332,11 @@ font-size: 40px; text-align: center; font-family:'Goudy Old Style', 'Bradley Han
 }
 
 #calbg{
-background:no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;
+background:no-repeat center center fixed; 
+-webkit-background-size: cover; 
+-moz-background-size: cover; 
+-o-background-size: cover; 
+background-size: cover;
 }
 
 #gotoevent:hover{
@@ -389,7 +399,7 @@ background:no-repeat center center fixed; -webkit-background-size: cover; -moz-b
 #goleft{
   margin-left: 10px;
   font-size: 30px;
-  top: 230px;
+  top: 190px;
   cursor: pointer;
   color: white;
 }
@@ -397,7 +407,7 @@ background:no-repeat center center fixed; -webkit-background-size: cover; -moz-b
 #goright{
   margin-left: 10px;
   font-size: 30px;
-  top: 230px;
+  top: 190px;
   cursor: pointer;
   color: white;
 }
