@@ -8,8 +8,6 @@
 
     <title>Welcome to Studentadda.com</title>
 
-
-    <link rel="shortcut icon" href="img/favicon.ico">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
@@ -20,7 +18,7 @@
     <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dashboard_style.css">
-    <link href="css/bootstrap-toggle.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap-toggle.css">
 
     
      <!-- <link rel="stylesheet" href="css/bootstrap.css"> -->
@@ -342,7 +340,7 @@
                     <div style=" background-color:#D3523E;  margin-left:0%;" id="note4" onclick="four();a();" data-toggle="modal" data-target="#modal1">
                       <img src="img/bookmark.png" class="bm" >
 
-                        <p ><h1 id="s4"><h1></p>
+                        <p><h1 id="s4"></h1></p>
                         <br>
                         <hr class='l1'>
                         <hr class='l2'>
@@ -425,7 +423,7 @@
 
             	        <div class="modal-body">
             	         	 <p>	  
-            	         		<input type="text" id="subject" style="margin-left: 35%;" autofocus="yes"><br>
+            	         		<input type="text" id="subject" style="margin-left: 35%;" autofocus><br>
             				</p>
             			
             				<div id="err"><br><br><br> </div>
@@ -712,7 +710,7 @@
              </div>
 
       </div>  
-      <div class="container" id="events"  >
+      <div class="container" id="events">
              
              <div class="row" style="margin-top: 20px;">
              	<div class="col-xs-2">
@@ -784,7 +782,7 @@
                             </div>
                         </div>
                         <div class="col-xs-12">
-                            <p align=center>&copy; Copyright 2017 Studentadda</p>
+                            <p align=center>&copy; Copyright <span id="copyrightYear"></span> Studentadda</p>
                         </div>
                     </div>
                 </div>
@@ -797,7 +795,9 @@
             <script src="fullcalendar-3.2.0/fullcalendar.js"></script>
             <script src="js/bootstrap-formhelpers.min.js"></script>
             <script src="js/fileinput.min.js"></script>
-            <script src="js/dashboardjs.js"></script>	
+            <script src="js/dashboardjs.js"></script>
+            <script src="js/notesjs.js"></script>
+            <script src="js/calendarjs.js"></script>
          	<script src="js/bootstrap-toggle.js"></script>
         
 </body>

@@ -6,6 +6,9 @@ $('.nav-tabs a[href="'+tab+'"]').tab('show')
 $(tab).addClass('active');
 });
 
+//Update Year in footer automatically
+$('#copyrightYear').html(new Date().getFullYear());
+
 //disabled button for signup
 $("#signupLoginModal").on('shown.bs.modal',function(){
     var flag=true;
