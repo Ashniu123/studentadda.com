@@ -422,6 +422,14 @@ background-size: cover;
   padding-left: 0;
 }
 
+#img01
+{
+    width: 80%;
+    height: auto;
+    display: block;
+    margin: auto;
+}
+
 /*Switch*/
 
 /*Bootstrap switch*/

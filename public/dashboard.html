@@ -249,13 +249,11 @@
     <!--Updated by PARTH on 3/2/17-->
 
      <div class="container" style="background-image: url('img/shelf.jpg');" id="mynotes"> 
-  <!-- background-image: url('img/tools.jpg'); background-size: 100% 750px; background-repeat: no-repeat;  -->
 
-         <!-- <div class="row row-content" style=""> -->
              <div class="row" id="notes"  style="background-color: rgba(256,256,256,.6);">
 
                  <div class="col-xs-2">
-                     <img src="img/add.png" class="noteplus" data-toggle="modal" data-target="#modal2" id="addnote" >
+                     <img src="img/add.png" class="noteplus" data-toggle="modal" data-target="#newNoteName" id="addNoteButton" >
                  </div>
                  
                  <div class="col-xs-8" >
@@ -265,7 +263,7 @@
                  </div>
 
                  <div class="col-xs-2">
-                     <img src="img/thrash.png" class="deletenote" data-toggle="modal" data-target="#modal3" id="deletenote"/>
+                     <img src="img/thrash.png" class="deletenote" data-toggle="modal" data-target="#deleteNoteName" id="deletenote"/>
                  </div>
                  
 
@@ -290,11 +288,11 @@
                      <div id="books" style="margin-top: 50px" >
                             <!-- ORIGNAL BG COLOR FOR NOTES #c19f8a -->
 
-                    <div style=" background-color:#7AD47A; margin-left:0%;" id="note1" onclick="one();a();" data-toggle="modal" data-target="#modal1">
+                    <div style=" background-color:#7AD47A; margin-left:0%;" id="note1" onclick="one();a();" data-toggle="modal" data-target="#noteImage">
 
                         <img src="img/bookmark.png" class="bm">
 
-                        <p><h1 id="s1"><h1></p>
+                        <p><h1 id="s1"></h1></p>
                         <br>
                         <hr class='l1'>
                         <hr class='l2'>
@@ -303,15 +301,12 @@
                         <hr class='l5'>
                         <hr class='l6'>
 
-                       <!--  <div style="min-width:260px; min-height: 20px; background-color: brown;  position: absolute; top:380px; left:30px; ">
-                            
-                        </div> -->          
                     </div>
 
-                    <div style=" background-color:#3E5D76;  margin-left: 0%;" id="note2" onclick="two();a();" data-toggle="modal" data-target="#modal1">
+                    <div style=" background-color:#3E5D76;  margin-left: 0%;" id="note2" onclick="two();a();" data-toggle="modal" data-target="#noteImage">
                         <img src="img/bookmark.png" class="bm" >
 
-                        <p ><h1  id="s2"><h1></p>
+                        <p ><h1  id="s2"></h1></p>
                         <br>
                         <hr class='l1'>
                         <hr class='l2'>
@@ -319,14 +314,12 @@
                         <hr class='l4'>
                         <hr class='l5'>
                         <hr class='l6'>
-                         <!-- <div style="min-width:260px; min-height: 20px; background-color: brown;  position: absolute; top:380px; left:325px; ">
-                            
-                        </div> -->  
+
                     </div>
 
-                    <div style=" background-color:#D3523E; margin-left:0%;" id="note3" onclick="three();a();" data-toggle="modal" data-target="#modal1">
+                    <div style=" background-color:#D3523E; margin-left:0%;" id="note3" onclick="three();a();" data-toggle="modal" data-target="#noteImage">
                       <img src="img/bookmark.png" class="bm" >
-                        <p ><h1 id="s3"><h1></p>
+                        <p ><h1 id="s3"></h1></p>
                         <br>
                         <hr class='l1'>
                         <hr class='l2'>
@@ -334,15 +327,13 @@
                         <hr class='l4'>
                         <hr class='l5'>
                         <hr class='l6'>
-                       <!--   <div style="min-width:260px; min-height: 20px; background-color: brown;  position: absolute; top:380px; left:615px; ">
-                            
-                        </div>  --> 
+
                     </div>
 
-                    <div style=" background-color:#D3523E;  margin-left:0%;" id="note4" onclick="four();a();" data-toggle="modal" data-target="#modal1">
+                    <div style=" background-color:#D3523E;  margin-left:0%;" id="note4" onclick="four();a();" data-toggle="modal" data-target="#noteImage">
                       <img src="img/bookmark.png" class="bm" >
 
-                        <p ><h1 id="s4"><h1></p>
+                        <p ><h1 id="s4"></h1></p>
                         <br>
                         <hr class='l1'>
                         <hr class='l2'>
@@ -350,9 +341,7 @@
                         <hr class='l4'>
                         <hr class='l5'>
                         <hr class='l6'>
-                         <!-- <div style="min-width:260px; min-height: 20px; background-color: brown;  position: absolute; top:380px; left:910px; ">
-                            
-                        </div>  --> 
+
                     </div>
 
                  </div>
@@ -370,14 +359,14 @@
              
      </div>
 
-             <div class="modal fade"  id="modal1" role="dialog" style="background-color:rgba(0,0,0,.9); " width="100%" hight="100% ">
+             <div class="modal fade"  id="noteImage" role="dialog" style="background-color:rgba(0,0,0,.9); width: 100%; height: 100%; " >
 
                  <div class="modal-dialog modal-lg" >
                     
                       <!-- Modal content-->
-                     <div class="modal-content"  style="background-color:rgba(0,0,0,.9);"> 
+                     <div class="modal-content" >
 
-                         <div class="modal-body" style="border:none; padding: 30px; background-color:rgba(0,0,0,.9);">
+                         <div class="modal-header" style="border:none; padding: 30px; background-color:rgba(0,0,0,.9);">
                                        
                             <img src="img/cross2.png" class="close" id="close1" width="4%"  data-dismiss="modal">
 
@@ -390,7 +379,7 @@
                                 
                          </div>
 
-                         <div class="modal-footer" style="padding: 30px; border: none; background-color:rgba(0,0,0,.9);">        
+                         <div class="modal-footer" style="padding: 30px; border: none; background-color:rgba(0,0,0,.9);">
 
                             <img src="img/orangearrow.png" class="next" id="nextimg" width="4%" onclick="next()">
 
@@ -412,13 +401,13 @@
 
 
 
-             <div class="modal fade"  id="modal2" role="dialog" style="margin-top: 200px;">
+             <div class="modal fade"  id="newNoteName" role="dialog" style="margin-top: 200px;">
                 <div class="modal-dialog" >
                 
                   <!-- Modal content-->
                   <div class="modal-content" style="background-color:rgba(256,256,256,.8) ; border: 1px solid grey; margin-top: 100px;">
 
-            	        <div class="modal-body" style="border:0px">
+            	        <div class="modal-header" style="border:0px">
             	          	<button type="button" class="close" id="hides1" data-dismiss="modal" style="color: red; height: 10%;" >X</button>
             	          	<h4 class="modal-title" align="center">SUBJECT</h4>
             	        </div>
@@ -430,11 +419,10 @@
             			
             				<div id="err"><br><br><br> </div>
 
-            				<!-- <button name="sub1" class="addn" onclick="adding()">ADD</button> -->
+
                             <button type="button" class="btn btn-success" id="addNote" onclick="adding()" style="margin-left: 30%;">ADD</button>
 
-            		 		<!-- <input type="reset" style="margin-left: 8%; border-radius: 10px; border-color:yellow;background-color:rgba(256,256,256,.6) ;" onclick="reset1()" value="RESET">
- -->                            <button type="button" class="btn btn-warning" onclick="reset1()" style="margin-left: 10%;">RESET</button>
+                            <button type="button" class="btn btn-warning" onclick="reset1()" style="margin-left: 10%;">RESET</button>
 
             	        </div>
                     </div>
@@ -443,7 +431,7 @@
              </div>
 
 
-             <div class="modal fade"  id="modal3" role="dialog"  style="margin-top: 200px;">
+             <div class="modal fade"  id="deleteNoteName" role="dialog"  style="margin-top: 200px;">
                 <div class="modal-dialog">
                 
                   <!-- Modal content-->
@@ -461,12 +449,10 @@
             			
             				 <div id="err2"><br><br><br><br></div>
 
-            				 <!-- <button name="sub1" class="removen" onclick="deleting()">DELETE</button> -->
                              <button type="button" class="btn btn-danger" id="delNote" onclick="deleting()" style="margin-left: 30%">REMOVE</button>
                              <button type="button" class="btn btn-warning" onclick="reset2()" style="margin-left: 10%;">RESET</button>
 
-            		 		<!--  <input type="reset" style="margin-left: 8%; border-radius: 10px; border-color:yellow; background-color:rgba(256,256,256,.6);" onclick="reset2()" value="RESET">
- -->
+
             	        </div>
                     </div>
                 </div>

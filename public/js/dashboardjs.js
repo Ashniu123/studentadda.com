@@ -77,7 +77,7 @@ $(window).resize(function(){
 
 $(document).keydown(function(e) {
     if (e.keyCode == 78 && e.ctrlKey || e.keyCode == 78 && e.metaKey) {
-        document.getElementById('addnote').click();
+        document.getElementById('addNoteButton').click();
 
     }
 }); //New Note
@@ -93,7 +93,7 @@ $(document).keydown(function(e) {
 
 $(document).keydown(function(e) {
      if(e.keyCode == 37) {
-         var check= $('#modal1').is(':visible');
+         var check= $('#').is(':visible');
          if(check == false)
              {
                  document.getElementById('goleft').click();
@@ -112,7 +112,7 @@ $(document).keydown(function(e) {
 $(document).keydown(function(e) {
      if(e.keyCode == 39) {
 
-         var check = $('#modal1').is(':visible');
+         var check = $('#noteImage').is(':visible');
 
          if(check == false)
              {
@@ -132,9 +132,9 @@ $(document).keydown(function(e) {
 $(document).keydown(function(e){
     if(e.keyCode==27){
 
-        var ch1= $('#modal1').is(':visible');
-        var ch2= $('#modal2').is(':visible');
-        var ch3= $('#modal3').is(':visible');
+        var ch1= $('#noteImage').is(':visible');
+        var ch2= $('#newNoteName').is(':visible');
+        var ch3= $('#deleteNoteName').is(':visible');
 
         if(ch1== true)
         {
@@ -158,8 +158,8 @@ $(document).keydown(function(e){
 $(document).keydown(function(e){
     if(e.keyCode==13){
 
-        var ch2= $('#modal2').is(':visible');
-        var ch3= $('#modal3').is(':visible');
+        var ch2= $('#newNoteName').is(':visible');
+        var ch3= $('#deleteNoteName').is(':visible');
 
 
 
@@ -487,6 +487,7 @@ function init() {
 
         if(width>=1000) //Full screen
         {
+            $("#img01").css({'width': '50%', 'height': 'auto', 'display' : 'block', 'margin' : 'auto'});
 
             $(".fc-toolbar").css({'font-size': '15px'});
             pages = Math.ceil((len / 4));
