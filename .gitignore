@@ -1,5 +1,6 @@
 #Other Useless Files
 **/.DS_Store/**
+**/demos/**
 
 #Bower
 bower_components/

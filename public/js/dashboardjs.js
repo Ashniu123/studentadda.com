@@ -6,7 +6,8 @@ $("#changeSettingsModal").on('show.bs.modal', function(e) {
     $(tab).addClass('active');
 });
 
-
+//Update Year in footer automatically
+$('#copyrightYear').html(new Date().getFullYear());
 
 //disabled button for change password|add server side for current password
 $("#changeSettingsModal").on('shown.bs.modal', function() {
@@ -23,6 +24,7 @@ $("#changeSettingsModal").on('shown.bs.modal', function() {
             $('#validityError').html('The two passwords must match.');
         }
     });
+
 });
 
 
@@ -1463,3 +1465,4 @@ $(document).ready(function() {
 
 
 });
+
