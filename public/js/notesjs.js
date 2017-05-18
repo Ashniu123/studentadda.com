@@ -1,11 +1,9 @@
 
 
-var pgno = 1,nono,notesno=4;
+var pgno = 1,notesno=4;
 
 
 var subjects = ['CN', 'COA', 'WP', 'ITC', 'M1', 'ADBMS', 'PHYSICS', 'CHEMISTRY', 'ED', 'ADC', 'PADC']; //Default subject array
-
-//var subjects = ['1','2','3','4','5','6','7','8','9','10','11'];
 
 var len = subjects.length;
 
@@ -17,34 +15,6 @@ $(window).resize(function(){
 
     init();
 });
-// var h2=$(window).height();
-
-
-//     $(window).resize(function() {
-
-
-
-//      if(h2<600)
-//     {
-//        $('#note1').css({'height':'305px','width':'192px','margin-top':'-5px'});
-//        $('.changenotes').css('height','250px');
-//        $('#gotoevent').css('margin-top','0px');
-//        $('#goleft').css('top','150px');
-//        $('#goright').css('top','150px');
-//        $('#mynotes').css('height','529px');
-//        $('#foot').css('margin-top','-150px');
-
-//     }
-
-//     else{
-
-//     }
-
-//     //$("#gotonote").click();
-
-// });
-
-
 
 $(document).keydown(function(e) {
     if (e.keyCode == 78 && e.ctrlKey || e.keyCode == 78 && e.metaKey) {
@@ -157,8 +127,6 @@ $(document).keydown(function(e) {
     }
 });// Go to notes page
 
-
-
 $(document).keydown(function(e) {
 
     if(e.keyCode == 40) {
@@ -167,9 +135,6 @@ $(document).keydown(function(e) {
 
     }
 }); // Go to events page
-
-//Update by Parth 9/3/17 Add/Delete Notes
-
 
 function viewevents()
 {
@@ -217,7 +182,6 @@ function adding() {
         init();
     }
 
-
 }
 
 document.getElementById("hides1").onclick=function()
@@ -230,8 +194,6 @@ document.getElementById("hides2").onclick=function()
 {
     reset2();
 }
-
-
 
 //Performs validation and deletes string from array
 function deleting() {
@@ -926,66 +888,3 @@ function previous() //Change image to previous page
     }
 
 }
-
-
-
-//---------------------UPDATED BY PARTH 3/2/17 ENDS-------------------//
-
-
-//Avatar
-$("#inputAvatar").fileinput({
-    overwriteInitial: true,
-    maxFileSize: 1500,
-    showClose: false,
-    showCaption: false,
-    browseLabel: '',
-    removeLabel: '',
-    browseIcon: '<i class="glyphicon glyphicon-folder-open"></i>',
-    browseTitle: 'Choose Avatar',
-    removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
-    removeTitle: 'Cancel or reset changes',
-    elErrorContainer: '#kv-avatar-errors',
-    msgErrorClass: 'alert alert-block alert-danger',
-    defaultPreviewContent: '<img src="img/avatar-default.png" alt="Your Avatar" class="avatar-preview">',
-    layoutTemplates: {
-        main2: '{preview} {remove} {browse}'
-    },
-    allowedFileExtensions: ["jpg", "png", "gif", "jpeg"]
-});
-
-
-$.fn.singleAndDouble = function(singleClickFunc, doubleClickFunc) {
-    // This means it'll take a minimum of 200ms to take the single
-    // click action. If it's too short the single and double actions
-    // will be called.
-    // The default time between clicks on windows is 500ms (http://en.wikipedia.org/wiki/Double-click)
-    // Adjust accordingly.
-    var timeOut = 200;
-    var timeoutID = 0;
-    var ignoreSingleClicks = false;
-
-    this.on('click', function(e) {
-        if (!ignoreSingleClicks) {
-            // The double click generates two single click events
-            // and then a double click event so we always clear
-            // the last timeoutID
-            clearTimeout(timeoutID);
-
-            timeoutID = setTimeout(function() {
-                singleClickFunc(e);
-            }, timeOut);
-        }
-    });
-
-    this.on('dblclick', function(e) {
-        clearTimeout(timeoutID);
-        ignoreSingleClicks = true;
-
-        setTimeout(function() {
-            ignoreSingleClicks = false;
-        }, timeOut);
-
-        doubleClickFunc(e);
-    });
-
-};
