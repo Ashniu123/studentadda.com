@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var mongoose=require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var session=require('express-session');
 
 var index = require('./routes/index');
 var dashboard=require('./routes/dashboard');
@@ -14,6 +15,7 @@ var dashboard=require('./routes/dashboard');
 var app = express();
 
 var mongoUrl=process.env.MONGOLAB_URI||"mongodb://localhost:27017/studentadda";
+var sessionKey="abcde-ABCDE-uvxyz-UVXYZ";
 
 mongoose.connect(mongoUrl);
 var db = mongoose.connection;
@@ -34,15 +36,26 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/dashboard',dashboard);
-
 //passport config
 var User=require('./models/userSchema');
 app.use(passport.initialize());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+app.use(session({
+    secret:sessionKey,
+    saveUninitialized:true,
+    resave:false,
+    rolling:true,
+    cookie:{
+        maxAge:86400
+    }
+}));
+
+
+app.use('/', index);
+app.use('/dashboard',dashboard);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

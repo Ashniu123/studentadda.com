@@ -78,16 +78,20 @@ $('#buttonForSignup').click(function(){
    if($(this).is(':disabled')){
        console.log('Should not work');
    }else{
-       var signupData={};
-       signupData.firstName=$('#inputFirstName').val();
-       signupData.lastName=$('#inputLastName').val();
-       signupData.email=$('#inputEmailForSignup').val();
-       signupData.password=$('#inputpasswordforsignup').val();
+       var signupData={
+           "firstName":$('#inputFirstName').val(),
+           "lastName":$('#inputLastName').val(),
+           "email":$('#inputEmailForSignup').val(),
+           "password":$('#inputPasswordForSignup').val()
+       };
+       console.log(signupData);
+       var url=window.location.href+'signup';
+       console.log(url);
        $.ajax({
-           url:'/signup',
+           url:url,
            method:"POST",
            contentType:"application/json",
-           data:signupData,
+           data:JSON.stringify(signupData),
            success:function(data){
                console.log("Success");
                console.log(JSON.stringify(data));
@@ -97,7 +101,8 @@ $('#buttonForSignup').click(function(){
                    $('#validityError').html('Registration Unsuccessful! User Already Exists!');
                }
            },
-           error:function(){
+           error:function(err){
+               console.log(err.responseText);
                console.log('error');
            }
        });
@@ -106,30 +111,33 @@ $('#buttonForSignup').click(function(){
 
 $('#buttonForLogin').click(function(){
     var loginData={};
-    loginData.email=$('#inputEmailForLogin').val();
+    loginData.username=$('#inputEmailForLogin').val();//It is the Email!
     loginData.password=$('#inputPasswordForLogin').val();
-    if(loginData.email.length>5 && loginData.password.length>5){
+    var url=window.location.href+'login';
+    console.log(url);
+    console.log(loginData);
+    if(loginData.username.length>5 && loginData.password.length>3){
         $.ajax({
-            url:'/login',
+            url:url,
             method:"POST",
             contentType:"application/json",
-            data:loginData,
+            data:JSON.stringify(loginData),
             success:function(data){
                 console.log("Success");
-                console.log(JSON.stringify(data));
-                if(data.status==true){
-                    localStorage.token=data.token;
-                    window.location.href='/dashboard';
+                console.log(data);
+                if(data.success==true){
+                    // localStorage.token=data.token;
+                    window.location.href=window.location.href+'dashboard';
                 }else{
                     $('#LoginError').html('Invalid Login Credentials!');
                 }
             },
-            error:function(){
+            error:function(err){
+                console.log(err);
                 console.log('error');
             }
         });
-
     }else{
-        $('#LoginError').html('Invalid Login Credentials');
+        $('#LoginError').html('Invalid Login Credentials!');
     }
 });

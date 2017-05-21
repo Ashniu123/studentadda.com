@@ -1,13 +1,13 @@
 var express = require('express');
 var path = require('path');
 var User = require('../models/userSchema');
-var bodyParser=require('body-parser');
+// var bodyParser=require('body-parser');
 var passport=require('passport');
 
 var Verify=require('./Verify');
 
 var router = express.Router();
-router.use(bodyParser.json());
+// router.use(bodyParser.json());
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -17,14 +17,14 @@ router.get('/index',function(req,res){
    res.redirect('/');
 });
 
-router.post('/signup', function (req, res, next) {
-
-    User.register(new User({email: req.body.email}), req.body.password, function (err, user) {
+router.post('/signup', function (req, res) {
+    User.register(new User({username: req.body.email}), req.body.password, function (err, user) {
         if (err) {
+            console.log(err);
             return res.status(500).json({err: err});
         }
         if (req.body.firstName) {
-            user.firstname = req.body.firstName;
+            user.firstName = req.body.firstName;
         }
         if (req.body.lastName) {
             user.lastName = req.body.lastName;
@@ -33,9 +33,7 @@ router.post('/signup', function (req, res, next) {
             if(err) throw err;
             else {
                 console.log(user);
-                passport.authenticate('local')(req, res, function () {
-                    return res.status(200).json({status:true});
-                });
+                return res.status(200).json({status:true});
             }
         });
     });
@@ -58,6 +56,8 @@ router.post('/login', function(req, res, next) {
                 });
             }else{
                 var token = Verify.getToken(user);
+                req.session.token=token;
+                req.session.username=req.body.username;
                 res.status(200).json({
                     status: 'Login successful!',
                     success: true,
