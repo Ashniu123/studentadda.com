@@ -74,3 +74,62 @@ $("#signupLoginModal").on('shown.bs.modal', function () {
 });
 
 /*Ajax Calls here*/
+$('#buttonForSignup').click(function(){
+   if($(this).is(':disabled')){
+       console.log('Should not work');
+   }else{
+       var signupData={};
+       signupData.firstName=$('#inputFirstName').val();
+       signupData.lastName=$('#inputLastName').val();
+       signupData.email=$('#inputEmailForSignup').val();
+       signupData.password=$('#inputpasswordforsignup').val();
+       $.ajax({
+           url:'/signup',
+           method:"POST",
+           contentType:"application/json",
+           data:signupData,
+           success:function(data){
+               console.log("Success");
+               console.log(JSON.stringify(data));
+               if(data.status==true){
+                    $('#validityError').html('Registration Successful!');
+               }else{
+                   $('#validityError').html('Registration Unsuccessful! User Already Exists!');
+               }
+           },
+           error:function(){
+               console.log('error');
+           }
+       });
+   }
+});
+
+$('#buttonForLogin').click(function(){
+    var loginData={};
+    loginData.email=$('#inputEmailForLogin').val();
+    loginData.password=$('#inputPasswordForLogin').val();
+    if(loginData.email.length>5 && loginData.password.length>5){
+        $.ajax({
+            url:'/login',
+            method:"POST",
+            contentType:"application/json",
+            data:loginData,
+            success:function(data){
+                console.log("Success");
+                console.log(JSON.stringify(data));
+                if(data.status==true){
+                    localStorage.token=data.token;
+                    window.location.href='/dashboard';
+                }else{
+                    $('#LoginError').html('Invalid Login Credentials!');
+                }
+            },
+            error:function(){
+                console.log('error');
+            }
+        });
+
+    }else{
+        $('#LoginError').html('Invalid Login Credentials');
+    }
+});

@@ -27,8 +27,6 @@ $("#changeSettingsModal").on('shown.bs.modal', function() {
 
 });
 
-
-
 //Avatar
 $("#inputAvatar").fileinput({
     overwriteInitial: true,
@@ -50,39 +48,22 @@ $("#inputAvatar").fileinput({
     allowedFileExtensions: ["jpg", "png", "gif", "jpeg"]
 });
 
-
-$.fn.singleAndDouble = function(singleClickFunc, doubleClickFunc) {
-    // This means it'll take a minimum of 200ms to take the single
-    // click action. If it's too short the single and double actions
-    // will be called.
-    // The default time between clicks on windows is 500ms (http://en.wikipedia.org/wiki/Double-click)
-    // Adjust accordingly.
-    var timeOut = 200;
-    var timeoutID = 0;
-    var ignoreSingleClicks = false;
-
-    this.on('click', function(e) {
-        if (!ignoreSingleClicks) {
-            // The double click generates two single click events
-            // and then a double click event so we always clear
-            // the last timeoutID
-            clearTimeout(timeoutID);
-
-            timeoutID = setTimeout(function() {
-                singleClickFunc(e);
-            }, timeOut);
+//Ajax Calls here
+$('#logoutButton').click(function(){
+    $.ajax({
+        url:'/login',
+        method:"GET",
+        contentType:"application/json",
+        success:function(data){
+            console.log("Success");
+            console.log(JSON.stringify(data));
+            if(data.status==true){
+                localStorage.token=undefined;
+                window.location.href='/index';
+            }
+        },
+        error:function(){
+            console.log('error');
         }
-    });
-
-    this.on('dblclick', function(e) {
-        clearTimeout(timeoutID);
-        ignoreSingleClicks = true;
-
-        setTimeout(function() {
-            ignoreSingleClicks = false;
-        }, timeOut);
-
-        doubleClickFunc(e);
-    });
-
-};
+    })
+});
