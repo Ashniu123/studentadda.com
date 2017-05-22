@@ -1,20 +1,19 @@
 var express = require('express');
 var path = require('path');
 var User = require('../models/userSchema');
-// var bodyParser=require('body-parser');
 var passport=require('passport');
 
 var Verify=require('./Verify');
 
 var router = express.Router();
-// router.use(bodyParser.json());
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    res.sendFile(path.join(__dirname, '../public', 'index.html'));
-});
-router.get('/index',function(req,res){
-   res.redirect('/');
+    console.log("Session:",req.session);//Not Working
+    if (req.session.user_id)
+        res.redirect('/dashboard');
+    else
+        res.sendFile(path.join(__dirname, '../public', 'index.html'));
 });
 
 router.post('/signup', function (req, res) {
@@ -56,7 +55,7 @@ router.post('/login', function(req, res, next) {
                 });
             }else{
                 var token = Verify.getToken(user);
-                req.session.token=token;
+                req.session.user_id=user._id;
                 req.session.username=req.body.username;
                 res.status(200).json({
                     status: 'Login successful!',

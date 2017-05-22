@@ -12,15 +12,25 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    if (req.session.token)
+    if (req.session.user_id)
         res.sendFile(path.join(__dirname, '../public', 'dashboard.html'));
     else
-        res.redirect('/index');
+        res.redirect('/');
 });
 
-router.route('user/info/:id')
+router.route('/user')
+    .get(Verify.verifyUser, function (req, res) {
+        var id = req.session.user_id;
+        User.findOne({_id: id}, function (err, user) {
+            if (err) throw err;
+            else {
+                console.log(user);
+                res.status(200).json(user);
+            }
+        });
+    })
     .post(Verify.verifyUser, function (req, res) {
-        var id = req.params.id;
+        var id = req.session.user_id;
         User.findOneAndUpdate({_id: id}, {
             $set: {
                 gender: req.body.gender,
@@ -37,20 +47,13 @@ router.route('user/info/:id')
                 status: true
             });
         });
-    })
-    .get(Verify.verifyUser,function (req,res){
-        var id=req.params.id;
-        User.findOne({_id:id},function(err,user){
-            if(err) throw err;
-            else {
-                console.log(user);
-                res.status(200).json(user);
-            }
-        });
-});
+    });
 
 router.get('/logout', function (req, res) {
     req.logout();
+    req.session.destroy(function (err) {
+        console.log(err);
+    });
     res.status(200).json({
         status: true
     });

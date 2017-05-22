@@ -5,7 +5,7 @@ require('mongoose-moment')(mongoose);
 var event = new Schema(
     {
         id:Number,
-        email:String,
+        username:String,//EmailId
         title:String,
         start:'Moment',
         end:'Moment',

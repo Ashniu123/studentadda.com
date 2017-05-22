@@ -50,20 +50,64 @@ $("#inputAvatar").fileinput({
 
 //Ajax Calls here
 $('#logoutButton').click(function(){
+    var url=window.location.href+'/logout';
     $.ajax({
-        url:'/login',
+        url:url,
         method:"GET",
         contentType:"application/json",
         success:function(data){
-            console.log("Success");
             console.log(JSON.stringify(data));
             if(data.status==true){
                 localStorage.token=undefined;
-                window.location.href='/index';
+                window.location.href='../';
             }
         },
         error:function(){
             console.log('error');
         }
     })
+});
+
+
+//TODO: Avatar and user info
+$(document).ready(function(){
+   var url=window.location.href+'/user';
+   $.ajax({
+       url:url,
+       method:"GET",
+       contentType:"application/json",
+       headers:{'x-access-token':localStorage.token},
+       success:function(data){
+           console.log(data);
+           $('#modal-title-firstName').text(data.firstName);
+           $('#inputFirstName').val(data.firstName);
+           $('#inputLastName').val(data.lastName);
+           $('#inputEmail').val(data.username);
+           if(data.hasOwnProperty('dob')){
+               $('#inputDOB').val(data.dob);
+           }
+           if(data.hasOwnProperty('gender')){
+               if(data.gender=='male'){
+                   $('#genderMale').prop('checked',true);
+               }else{
+                   $('#genderFemale').prop('checked',true);
+               }
+           }
+           if(data.hasOwnProperty('college')){
+               $('#inputCollegeName').val(data.college);
+           }
+           if(data.hasOwnProperty('stream')){
+               $('#inputcollegestream').val(data.stream);
+           }
+           if(data.hasOwnProperty('current')){
+               $('#inputCollegeYear').val(data.current).prop('selected',true);
+           }
+           if(data.hasOwnProperty('branch')){
+                $('#inputCollegeBranch').val(data.branch);
+           }
+       },
+       error:function(err){
+           console.log(err);
+       }
+   });
 });

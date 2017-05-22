@@ -1,3 +1,10 @@
+//Redirect if token is present
+$(document).ready(function(){
+   if(localStorage.token){
+       window.location.href='/dashboard';
+   }
+});
+
 //For modal-tabs
 $("#signupLoginModal").on('show.bs.modal', function (e) {
     var tab = e.relatedTarget.hash;
@@ -114,8 +121,6 @@ $('#buttonForLogin').click(function(){
     loginData.username=$('#inputEmailForLogin').val();//It is the Email!
     loginData.password=$('#inputPasswordForLogin').val();
     var url=window.location.href+'login';
-    console.log(url);
-    console.log(loginData);
     if(loginData.username.length>5 && loginData.password.length>3){
         $.ajax({
             url:url,
@@ -123,10 +128,8 @@ $('#buttonForLogin').click(function(){
             contentType:"application/json",
             data:JSON.stringify(loginData),
             success:function(data){
-                console.log("Success");
-                console.log(data);
                 if(data.success==true){
-                    // localStorage.token=data.token;
+                    localStorage.token=data.token;
                     window.location.href=window.location.href+'dashboard';
                 }else{
                     $('#LoginError').html('Invalid Login Credentials!');

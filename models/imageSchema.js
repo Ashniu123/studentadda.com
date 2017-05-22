@@ -3,10 +3,9 @@ var Schema = mongoose.Schema;
 
 var image = new Schema(
     {
-        email : String,
+        username : String,//EmailId
         subject:String,
-        binary: Buffer,
-        contentType:String
+        binary: Buffer
     },
     {
         timestamps : true
