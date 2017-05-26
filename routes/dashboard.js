@@ -57,7 +57,9 @@ router.route('/user/events')
                 throw err;
             } else {
                 console.log("Get Event:", event);
-                res.status(200).send(event.events);
+                if(event)
+                    res.status(200).send(event.events);
+                else res.status(200).send([]);
             }
         });
     })
