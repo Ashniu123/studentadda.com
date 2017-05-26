@@ -488,33 +488,69 @@
              <div class="modal fade"  id="deleteNoteName" role="dialog"  style="margin-top: 200px;">
                 <div class="modal-dialog">
 
-                     <div class="modal-content"
-                    style="background-color:rgba(256,256,256,.8) ; border: 1px solid grey; margin-top: 100px;">
+                    <div class="modal-content container col-xs-12" style="background-color:white ; border: 1px solid grey; margin-top: 100px;">
 
-                 <div class="modal-body" style="border:0px">
-                <button type="button" class="close" id="hides2" data-dismiss="modal" style="color: red; height: 10%;">
-                    X
-                </button>
-                <h4 class="modal-title" align="center">SUBJECT</h4>
+                         <div class="modal-header">
+
+                             <div class="row">
+
+                                 <div class="col-xs-11">
+                                     SUBJECT
+                                 </div>
+
+                                 <div class="col-xs-1">
+
+                                     <button type="button" class="close" id="hides2" data-dismiss="modal" style="color: grey; height: 10%;">
+                                         X
+                                     </button>
+
+                                 </div>
+                             </div>
+
+                         </div>
+
+
+                        <div class="modal-body">
+
+
+                                <div class="row">
+
+                                    <div class="col-xs-3"></div>
+                                    <div class="col-xs-6" >
+                                        <p>
+                                            <br>
+                                            <input type="text" id="subject2" style="margin-left:20%;" autofocus placeholder="Subject"><br>
+                                        </p>
+                                    </div>
+
+                                    <div class="col-xs-3"></div>
+                                </div>
+
+                                <div class="row">
+
+                                    <div id="err2" class="col-xs-12"><br><br><br><br></div>
+
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <button type="button" class="btn btn-danger" id="delNote" onclick="deleting()" style="margin-left: 45%;">
+                                            REMOVE
+                                        </button>
+                                    </div>
+
+                                    <div class="col-xs-6">
+                                        <button type="button" class="btn btn-warning" onclick="reset2()" style="margin-left: 25%;">RESET
+                                        </button>
+                                    </div>
+
+                                </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-
-            <div class="modal-body">
-                <p>
-                    <input type="text" id="subject2" style="margin-left: 35%;" autofocus><br>
-                </p>
-
-                <div id="err2"><br><br><br><br></div>
-
-                <button type="button" class="btn btn-danger" id="delNote" onclick="deleting()" style="margin-left: 30%">
-                    REMOVE
-                </button>
-                <button type="button" class="btn btn-warning" onclick="reset2()" style="margin-left: 10%;">RESET
-                </button>
-
-
-            </div>
-        </div>
-    </div>
 </div>
 
 <!--Modal for Event Click-->
