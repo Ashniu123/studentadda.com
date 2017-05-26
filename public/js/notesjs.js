@@ -34,7 +34,7 @@ $(document).keydown(function(e) {
 
 $(document).keydown(function(e) {
     if(e.keyCode == 37) {
-        var check= $('#modal1').is(':visible');
+        var check= $('#noteImage').is(':visible');
         if(check == false)
         {
             document.getElementById('goleft').click();
@@ -53,7 +53,7 @@ $(document).keydown(function(e) {
 $(document).keydown(function(e) {
     if(e.keyCode == 39) {
 
-        var check = $('#modal1').is(':visible');
+        var check = $('#noteImage').is(':visible');
 
         if(check == false)
         {
@@ -73,9 +73,9 @@ $(document).keydown(function(e) {
 $(document).keydown(function(e){
     if(e.keyCode==27){
 
-        var ch1= $('#modal1').is(':visible');
-        var ch2= $('#modal2').is(':visible');
-        var ch3= $('#modal3').is(':visible');
+        var ch1= $('#noteImage').is(':visible');
+        var ch2= $('#newNoteName').is(':visible');
+        var ch3= $('#deleteNoteName').is(':visible');
 
         if(ch1== true)
         {
@@ -99,8 +99,8 @@ $(document).keydown(function(e){
 $(document).keydown(function(e){
     if(e.keyCode==13){
 
-        var ch2= $('#modal2').is(':visible');
-        var ch3= $('#modal3').is(':visible');
+        var ch2= $('#newNoteName').is(':visible');
+        var ch3= $('#deleteNoteName').is(':visible');
 
 
 
