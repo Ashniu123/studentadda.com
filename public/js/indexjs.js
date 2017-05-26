@@ -111,6 +111,7 @@ $('#buttonForSignup').click(function(){
 
 $('#buttonForLogin').click(function(){
     var loginData={};
+    //TODO: Remove this shortcut
     loginData.username=$('#inputEmailForLogin').val();//It is the Email!
     loginData.password=$('#inputPasswordForLogin').val();
     //To save time

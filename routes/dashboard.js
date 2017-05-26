@@ -86,7 +86,8 @@ router.route('/user/events')
                 'events.$.color':req.body.color,
                 'events.$.description':req.body.description,
                 'events.$.start':req.body.start,
-                'events.$.end':req.body.end
+                'events.$.end':req.body.end,
+                'events.$.dow':req.body.dow
             }
         },function(err,response){
             if(err) throw err;
@@ -116,5 +117,13 @@ router.get('/logout', function (req, res) {
         status: true
     });
 });
+
+router.route('user/notes')
+    .get(Verify.verifyUser,function(req,res){
+
+    })
+    .post(Verify.verifyUser,function(req,res){
+
+    });
 
 module.exports = router;
