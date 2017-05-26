@@ -204,7 +204,7 @@ display: none;
 
 #addimg
 {
-    margin-right: 25%;
+    margin-right:50%;
     width:20%;
     cursor: pointer;
 }
@@ -367,15 +367,9 @@ background-size: cover;
 .changenotes
 {
   min-width: 20px;
-  /*border: 2px solid red; */
   height: 364px;
   margin-left: 0;
 
-
-}
-
-.changenotes:hover{
-  background-color: rgba(198,255,0,.1);
 
 }
 
