@@ -18,7 +18,8 @@ $(window).resize(function(){
 
 $(document).keydown(function(e) {
     if (e.keyCode == 78 && e.ctrlKey || e.keyCode == 78 && e.metaKey) {
-        document.getElementById('addnote').click();
+
+        document.getElementById('addNoteButton').click();
 
     }
 }); //New Note
@@ -26,7 +27,7 @@ $(document).keydown(function(e) {
 
 $(document).keydown(function(e) {
     if ((e.keyCode == 8 && e.ctrlKey) || e.keyCode==8 && e.metaKey ) {
-        document.getElementById('deletenote').click();
+        document.getElementById('deleteNoteButton').click();
     }
 }); // Delete Note
 
@@ -34,7 +35,7 @@ $(document).keydown(function(e) {
 
 $(document).keydown(function(e) {
     if(e.keyCode == 37) {
-        var check= $('#modal1').is(':visible');
+        var check= $('#noteImage').is(':visible');
         if(check == false)
         {
             document.getElementById('goleft').click();
@@ -53,7 +54,7 @@ $(document).keydown(function(e) {
 $(document).keydown(function(e) {
     if(e.keyCode == 39) {
 
-        var check = $('#modal1').is(':visible');
+        var check = $('#noteImage').is(':visible');
 
         if(check == false)
         {
@@ -73,9 +74,9 @@ $(document).keydown(function(e) {
 $(document).keydown(function(e){
     if(e.keyCode==27){
 
-        var ch1= $('#modal1').is(':visible');
-        var ch2= $('#modal2').is(':visible');
-        var ch3= $('#modal3').is(':visible');
+        var ch1= $('#noteImage').is(':visible');
+        var ch2= $('#newNoteName').is(':visible');
+        var ch3= $('#deleteNoteName').is(':visible');
 
         if(ch1== true)
         {
@@ -96,11 +97,12 @@ $(document).keydown(function(e){
 }); //Configuring escape key for modals
 
 
+
 $(document).keydown(function(e){
     if(e.keyCode==13){
 
-        var ch2= $('#modal2').is(':visible');
-        var ch3= $('#modal3').is(':visible');
+        var ch2= $('#newNoteName').is(':visible');
+        var ch3= $('#deleteNoteName').is(':visible');
 
 
 
@@ -116,6 +118,7 @@ $(document).keydown(function(e){
 
     }
 }); //Configuring enter key for modals
+
 
 
 $(document).keydown(function(e) {
@@ -168,7 +171,7 @@ function adding() {
 
     }
     else if (subjects.indexOf((newsubject).toUpperCase()) >= 0 ) {
-        document.getElementById("err").innerHTML = "<br>" + "<span style='color:red; font-size:15px; margin-left:40%; '>" + "Already present..." + "</span>" +"<br>"+"<br>";
+        document.getElementById("err").innerHTML = "<br>" + "<span style='color:red; font-size:15px; margin-left:40%; '>" + "Already present..." + "</span>" +"<br>"+"<br>"+"<br>";
     }
     else {
         subjects[len] = (newsubject.toUpperCase());
@@ -209,10 +212,7 @@ function deleting() {
         pages = Math.ceil((len / 4));
         document.getElementById("subject2").value = "";
         document.getElementById("hides2").click();
-
         init();
-
-
     }
 
 
@@ -399,6 +399,10 @@ function init() {
     var oldpgno=pgno;
     var oldnotesno=notesno;
 
+    // var sheight=$(window).height();
+    // $('#img01').css('height',sheight);
+
+
     bks = 0;
     {
 
@@ -413,9 +417,6 @@ function init() {
         $("#books").css('margin-top','auto');
 
         var width=$("#centeralbook").width();
-        //alert(width);
-
-
 
 
         if(width>=1000) //Full screen
