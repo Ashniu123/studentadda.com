@@ -1,10 +1,12 @@
 //Redirect if token is present
+/*
 $(document).ready(function(){
+    console.log(localStorage.token);
    if(localStorage.token){
        window.location.href='/dashboard';
    }
 });
-
+*/
 //For modal-tabs
 $("#signupLoginModal").on('show.bs.modal', function (e) {
     var tab = e.relatedTarget.hash;
@@ -118,8 +120,11 @@ $('#buttonForSignup').click(function(){
 
 $('#buttonForLogin').click(function(){
     var loginData={};
-    loginData.username=$('#inputEmailForLogin').val();//It is the Email!
-    loginData.password=$('#inputPasswordForLogin').val();
+    // loginData.username=$('#inputEmailForLogin').val();//It is the Email!
+    // loginData.password=$('#inputPasswordForLogin').val();
+    //To save time
+    loginData.username='abc@gmail.com';
+    loginData.password='abcd';
     var url=window.location.href+'login';
     if(loginData.username.length>5 && loginData.password.length>3){
         $.ajax({
@@ -143,4 +148,8 @@ $('#buttonForLogin').click(function(){
     }else{
         $('#LoginError').html('Invalid Login Credentials!');
     }
+});
+
+$(document).ready(function(){
+   $('#buttonForLogin').click();
 });

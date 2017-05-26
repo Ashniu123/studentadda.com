@@ -1,7 +1,6 @@
 var mongoose = require('mongoose') ;
 var passportlocalmongoose = require('passport-local-mongoose');
 var Schema = mongoose.Schema;
-require('mongoose-moment')(mongoose);
 
 var User = new Schema(
     {
@@ -11,7 +10,7 @@ var User = new Schema(
         username : String,//emailId
         avatar: Buffer,
         gender: String,
-        dob:'Moment',
+        dob:Date,
         // country:String,
         college:String,
         stream:String,

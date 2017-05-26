@@ -49,14 +49,68 @@ $("#inputAvatar").fileinput({
 });
 
 //Ajax Calls here
+function noTrailingSlash(site){
+    return site.replace(/\/$/g, "");
+}
+
+function getUserData(){
+    var data={};
+    data.dob=moment($('#inputDOB').val()).format('DD-MM-YYYY');
+    if($('#genderMale').is(':checked')){
+        data.gender='male';
+    }else if($('#genderFemale').is(':checked')){
+        data.gender='female';
+    }else{
+        data.gender='';
+    }
+    data.college=$('#inputCollegeName').val();
+    data.stream=$('#inputCollegeStream').val();
+    if($('#inputCollegeYear').find('option:selected').text()!='--Current Year--')
+        data.current=$('#inputCollegeYear').find('option:selected').text();
+    else
+        data.current='';
+    data.branch=$('#inputCollegeBranch').val();
+    return data;
+}
+
+function setUserData(data){
+    console.log('Setting User Data');
+    $('#navbarName').text(data.firstName+' '+data.lastName);
+    $('#modal-title-firstName').text(data.firstName);
+    $('#inputFirstName').val(data.firstName);
+    $('#inputLastName').val(data.lastName);
+    $('#inputEmail').val(data.username);
+    if(data.hasOwnProperty('dob')){
+        $('#inputDOB').val(moment(data.dob).format('YYYY-DD-MM'));
+    }
+    if(data.hasOwnProperty('gender') && data.gender!=null){
+        if(data.gender=='male'){
+            $('#genderMale').prop('checked',true);
+        }else if(data.gender=='female'){
+            $('#genderFemale').prop('checked',true);
+        }
+    }
+    if(data.hasOwnProperty('college')){
+        $('#inputCollegeName').val(data.college);
+    }
+    if(data.hasOwnProperty('stream')){
+        $('#inputcollegestream').val(data.stream);
+    }
+    if(data.hasOwnProperty('current')){
+        $('#inputCollegeYear').val(data.current).prop('selected',true);
+    }
+    if(data.hasOwnProperty('branch')){
+        $('#inputCollegeBranch').val(data.branch);
+    }
+}
+
 $('#logoutButton').click(function(){
-    var url=window.location.href+'/logout';
+    var url=noTrailingSlash(window.location.href)+'/logout';
     $.ajax({
         url:url,
         method:"GET",
         contentType:"application/json",
         success:function(data){
-            console.log(JSON.stringify(data));
             if(data.status==true){
                 localStorage.token=undefined;
                 window.location.href='../';
@@ -71,43 +125,39 @@ $('#logoutButton').click(function(){
 
 //TODO: Avatar and user info
 $(document).ready(function(){
-   var url=window.location.href+'/user';
+   var url=noTrailingSlash(window.location.href)+'/user';
    $.ajax({
        url:url,
        method:"GET",
        contentType:"application/json",
        headers:{'x-access-token':localStorage.token},
        success:function(data){
-           console.log(data);
-           $('#modal-title-firstName').text(data.firstName);
-           $('#inputFirstName').val(data.firstName);
-           $('#inputLastName').val(data.lastName);
-           $('#inputEmail').val(data.username);
-           if(data.hasOwnProperty('dob')){
-               $('#inputDOB').val(data.dob);
-           }
-           if(data.hasOwnProperty('gender')){
-               if(data.gender=='male'){
-                   $('#genderMale').prop('checked',true);
-               }else{
-                   $('#genderFemale').prop('checked',true);
-               }
-           }
-           if(data.hasOwnProperty('college')){
-               $('#inputCollegeName').val(data.college);
-           }
-           if(data.hasOwnProperty('stream')){
-               $('#inputcollegestream').val(data.stream);
-           }
-           if(data.hasOwnProperty('current')){
-               $('#inputCollegeYear').val(data.current).prop('selected',true);
-           }
-           if(data.hasOwnProperty('branch')){
-                $('#inputCollegeBranch').val(data.branch);
-           }
+           setUserData(data);
        },
        error:function(err){
            console.log(err);
        }
    });
 });
+
+function sendAndRetrieveUserData(){
+    var url=noTrailingSlash(window.location.href)+'/user';
+    var userData=getUserData();
+    console.log('getUserData\n',userData);
+    $.ajax({
+        url:url,
+        method:"POST",
+        // dataType:'application/json',
+        data:userData,
+        headers:{'x-access-token':localStorage.token},
+        success:function(data){
+            setUserData(data);
+        },
+        error:function(err){
+            console.log(err);
+        }
+    });
+}
+
+$('#buttonForPersonal').click(sendAndRetrieveUserData);
+$('#buttonForCollege').click(sendAndRetrieveUserData);
