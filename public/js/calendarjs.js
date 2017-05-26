@@ -50,7 +50,7 @@ $(document).ready(function () {
     var eventsData;
     var url = noTrailingSlash(window.location.href) + '/user/events';
     var timer = $.Deferred();
-    setTimeout(timer.resolve,2000);
+    setTimeout(timer.resolve, 2000);
     var ajaxEventsCall = $.ajax({
         url: url,
         method: "GET",
@@ -116,13 +116,13 @@ $(document).ready(function () {
                 $('#createEventStartTime').datetimepicker({
                     format: 'DD/MM/YYYY HH:mm',
                     useCurrent: false,
-                    sideBySide: true,
+                    sideBySide: true
                 });
 
                 $('#createEventEndTime').datetimepicker({
                     format: 'DD/MM/YYYY HH:mm',
                     useCurrent: false,
-                    sideBySide: true,
+                    sideBySide: true
                 });
 
                 var color = '#3a87ad',
@@ -193,7 +193,8 @@ $(document).ready(function () {
                                 description: desc,
                                 color: color,
                                 textColor: textColor,
-                                allDay: allDay
+                                allDay: allDay,
+                                dow:dow
                             };
 
                             var url = noTrailingSlash(window.location.href) + '/user/events';
@@ -205,6 +206,7 @@ $(document).ready(function () {
                                 headers: {'x-access-token': localStorage.token},
                                 success: function (data) {
                                     eventsData = data;
+                                    location.reload();//need a better workaround than this
                                 },
                                 error: function (err) {
                                     console.log(err);
@@ -212,7 +214,7 @@ $(document).ready(function () {
                             });
 
                         }
-                        location.reload();
+                        // location.reload();
                     }
                     $(this).off('click');//This is what stops multiple events to stick
                 });
@@ -250,53 +252,43 @@ $(document).ready(function () {
                 $('#eventClickError').html('');
 
                 $('#eventClickModal').on('show.bs.modal', function () {
-                    $('#eventClickStartTime').val(moment(event.start).format('DD/MM/YYYY HH:mm'));
-                    $('#eventClickEndTime').val(moment(event.end).format('DD/MM/YYYY HH:mm'));
+                    $('#eventClickStartTime').val(moment(event.start).format('DD/MM/YYYY HH:mm',true));
+                    $('#eventClickEndTime').val(moment(event.end).format('DD/MM/YYYY HH:mm',true));
                 });
 
                 $('#eventClickModal').modal('show');
 
-                if (event.color)
+                console.log("Event Id", event.id);
+
+                if (event.color) {
                     $('.modal-header').css({
                         'background-color': event.color,
                         'color': '#fff'
                     });
-                else
+                } else {
                     $('.modal-header').css({
                         'background-color': '#fff',
                         'color': '#000'
                     });
-
-                console.log("Before everything:", event); //proper object here
+                }
+                // console.log("Before everything:", event); //proper object here
 
                 $('#eventClickLabel').html(event.title);
 
                 if (event.description) {
                     $('#eventClickInfo').val(event.description);
                 }
-                $('#eventClickInfo').on('change', function () {
-                    event.description = $('#eventClickInfo').val();
-                });
 
                 $('#eventClickStartTime').datetimepicker({
                     format: 'DD/MM/YYYY HH:mm',
                     useCurrent: false,
-                    sideBySide: true,
+                    sideBySide: true
                 });
 
                 $('#eventClickEndTime').datetimepicker({
                     format: 'DD/MM/YYYY HH:mm',
                     useCurrent: false,
-                    sideBySide: true,
-                });
-
-                $('#eventClickStartTime').on('keyup', function () {
-                    event.start = moment($('#eventClickStartTime').val(), "DD/MM/YYYY HH:mm", true);
-                });
-
-
-                $('#eventClickEndTime').on('keyup', function () {
-                    event.end = moment($('#eventClickEndTime').val(), "DD/MM/YYYY HH:mm", true);
+                    sideBySide: true
                 });
 
                 if (event.allDay == true) {
@@ -319,13 +311,6 @@ $(document).ready(function () {
                 else
                     $('#eventClickColor').val('#ffffff');
 
-                console.log("Color:", $('#eventClickColor').val());
-
-                $('#eventClickColor').change(function () { //Works Brilliantly!!
-                    event.color = $('#eventClickColor').val();
-                    event.textColor = invertColor($('#eventClickColor').val());
-                });
-
                 if (event.dow) { //If repeated events exist then check checkbox with the corresponding day
                     $.each($("input[name='eventClickRecurring']"), function () {
                         if ($.inArray(parseInt($(this).val()), event.dow) + 1) {
@@ -340,34 +325,76 @@ $(document).ready(function () {
                     });
                 }
 
-                $('#eventClickUpdate').click(function (e) {
+                $('#eventClickUpdate').click(function() {
+
                     var dow = [];
                     $.each($("input[name='eventClickRecurring']:checked"), function () {
                         dow.push(parseInt($(this).val()));
                     });
 
-                    console.log(dow);
-                    event.dow = dow; //I think only server side can solve this
-                    // e.preventDefault();
-                    console.log("Just Before Update:\n", event);
+                    var invertedColor;
+                    if(event.color==$('#eventClickColor').val()){
+                        invertedColor=event.textColor;
+                    }else{
+                        invertedColor=invertColor($('#eventClickColor').val());
+                    }
 
-                    if ((moment(event.end) - moment(event.start)) > 0) {
-                        calendar.fullCalendar('updateEvent', event);
+                    var data = {
+                        //Compulsory Id
+                        id: event.id,
+                        title: event.title,
+                        start: moment($('#eventClickStartTime').val(), 'DD/MM/YYYY HH:mm', true).unix() * 1000,
+                        end: moment($('#eventClickEndTime').val(), 'DD/MM/YYYY HH:mm', true).unix() * 1000,
+                        description: $('#eventClickInfo').val(),
+                        color: $('#eventClickColor').val(),
+                        textColor: invertedColor,
+                        allDay: event.allDay,
+                        dow:dow
+                    };
+
+                    if (data.end - data.start > 0) {
+                        console.log("Sending AJAX req for Put\n");
+                        var url = noTrailingSlash(window.location.href) + '/user/events';
+                        $.ajax({
+                            method: "PUT",
+                            url: url,
+                            data: data,
+                            headers: {'x-access-token': localStorage.token}
+                        }).done(function (data) {
+                            location.reload();
+                        }).fail(function (err) {
+                            console.log(err);
+                        });
+
+                        // calendar.fullCalendar('updateEvent', event);
                     } else {
                         $('#eventClickError').html('Invalid Dates');
                     }
 
-                    // calendar.fullCalendar('rerenderEvents');
-                    calendar.fullCalendar('unselect');
+                    // $('#eventClickUpdate').off('click');
 
                 }); //end of button function
 
                 $('#eventClickRemove').click(function () {
-                    calendar.fullCalendar('removeEvents', event.id);
-                    calendar.fullCalendar('unselect');
+
+                    var data={
+                        id:event.id
+                    };
+
+                    var url = noTrailingSlash(window.location.href) + '/user/events';
+                    $.ajax({
+                        method: "DELETE",
+                        data: data,
+                        url: url,
+                        headers: {'x-access-token': localStorage.token}
+                    }).done(function (data) {
+                        location.reload();//need a better workaround than this
+                    }).fail(function (err) {
+                        console.log(err);
+                    });
+                    $('#eventClickRemove').off('click');
                 });
             }, //eventClick ends
-
             eventRender: function (event, element) {
                 if (event.start) {
                     if (event.description)
