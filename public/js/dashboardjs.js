@@ -29,10 +29,11 @@ $("#changeSettingsModal").on('shown.bs.modal', function () {
 
 //Avatar, Upload Not working
 $("#inputAvatar").fileinput({
-    overwriteInitial: true,
-    maxFileSize: 1500,
+    overwriteInitial: false,
+    maxFileSize: 1000,
     showClose: false,
     showCaption: false,
+    showUpload: false,
     browseLabel: '',
     removeLabel: '',
     uploadLabel: '',
@@ -40,12 +41,30 @@ $("#inputAvatar").fileinput({
     browseTitle: 'Choose Avatar',
     removeIcon: '<i class="glyphicon glyphicon-remove"></i> ',
     removeTitle: 'Cancel or reset changes',
-    uploadUrl: noTrailingSlash(window.location.href) + '/user/avatar',
-    uploadAsync: true,
     elErrorContainer: '#kv-avatar-errors',
     msgErrorClass: 'alert alert-block alert-danger',
     defaultPreviewContent: '<img src="img/avatar-default.png" alt="Your Avatar" class="avatar-preview">',
     allowedFileExtensions: ["jpg", "png", "gif", "jpeg"]
+});
+
+$('#inputAvatar').on('fileloaded', function (event, file, previewId, index, reader) {
+    console.log("fileloaded");
+    // console.log(reader.result);
+    var url = noTrailingSlash(window.location.href) + '/user/avatar';
+    var data = {
+        "avatar": reader.result
+    };
+    $.ajax({
+        url: url,
+        method: "POST",
+        data: data,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
 });
 
 //Ajax Calls here
@@ -55,7 +74,7 @@ function noTrailingSlash(site) {
 
 function getUserData() {
     var data = {};
-    if(data.dob!=='dd/mm/yyyy')data.dob = moment($('#inputDOB').val()).format('DD-MM-YYYY');
+    if (data.dob !== 'dd/mm/yyyy') data.dob = moment($('#inputDOB').val()).format('DD-MM-YYYY');
     if ($('#genderMale').is(':checked')) {
         data.gender = 'male';
     } else if ($('#genderFemale').is(':checked')) {
@@ -70,12 +89,10 @@ function getUserData() {
     else
         data.current = '';
     data.branch = $('#inputCollegeBranch').val();
-    data.avatar = $('#inputAvatar').val();
     return data;
 }
 
 function setUserData(data) {
-    console.log('Setting User Data');
     $('#navbarName').text(data.firstName + ' ' + data.lastName);
     $('#modal-title-firstName').text(data.firstName);
     $('#inputFirstName').val(data.firstName);
@@ -103,6 +120,10 @@ function setUserData(data) {
     if (data.hasOwnProperty('branch')) {
         $('#inputCollegeBranch').val(data.branch);
     }
+    if (data.hasOwnProperty('avatar')) {
+        $('.file-default-preview>img').attr('src', data.avatar);
+        $('.profile-img').attr('src', data.avatar);
+    }
 }
 
 $('#logoutButton').click(function () {
@@ -113,7 +134,6 @@ $('#logoutButton').click(function () {
         contentType: "application/json",
         success: function (data) {
             if (data.status == true) {
-                localStorage.token = undefined;
                 window.location.href = '../';
             }
         },

@@ -8,7 +8,7 @@ var User = new Schema(
         lastName : String,
         password : String,
         username : String,//emailId
-        avatar: Buffer,
+        avatar: String,
         gender: String,
         dob:Date,
         college:String,

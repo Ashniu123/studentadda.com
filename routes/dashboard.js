@@ -47,10 +47,9 @@ router.route('/user')
     });
 
 router.post('/user/avatar',function(req,res){
-    console.log("Avatar Body File:",req.files);
     console.log("Avatar Body:",req.body);
     var username=req.session.username;
-    User.update({username:username},{$set:{avatar:req.body.inputAvatar}},function(err,response){
+    User.update({username:username},{$set:{avatar:req.body.avatar}},function(err,response){
        if(err) throw err;
        else{
            console.log(response);
