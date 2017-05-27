@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg width="100%" height="100%" viewBox="0 0 1600 900" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
-    <g transform="matrix(1,0,0,1,-8.61219,-154.283)">
+<svg width="100%" height="100%" viewBox="0 0 1405 420" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <g transform="matrix(1,0,0,1,-116.899,-246.023)">
         <path d="M144.715,253.475L1492.29,254.051C1493.32,254.018 1494.36,253.985 1495.35,254.201C1497.64,254.695 1500.08,254.972 1502.09,256.169C1509.27,260.445 1511.94,266.65 1511.96,274.673C1512.28,395.789 1512.17,516.906 1512.06,638.022C1512.08,639.077 1512.1,640.148 1511.89,641.183C1511.43,643.538 1511.18,646.023 1510.07,648.149C1506.43,655.074 1501.07,658.412 1493.38,658.416C1041.1,658.669 588.824,658.458 136.545,658.247C135.847,658.305 135.115,658.366 134.447,658.157C132.86,657.659 131.087,657.297 129.877,656.156C124.03,650.646 123.685,643.961 123.671,636.045C123.448,513.478 124.089,390.91 124.73,268.344C124.713,267.578 124.694,266.79 124.896,266.051C125.368,264.322 125.68,262.448 126.734,260.998C128.204,258.977 129.971,256.94 132.256,255.928C140.566,252.246 143.498,254.174 151.462,253.492C153.703,253.3 146.964,253.431 144.715,253.475" style="fill:rgb(96,101,91);stroke:black;stroke-width:9.72px;"/>
     </g>
-    <g transform="matrix(1,0,0,1,-8.61219,-153.951)">
+    <g transform="matrix(1,0,0,1,-116.899,-245.691)">
         <path d="M188.26,284.825L1446.01,285.253C1446.01,285.253 1462.44,282.539 1462.55,296.761C1462.66,311.309 1463.13,608.323 1463.13,608.323C1463.13,608.323 1463.61,624.51 1445.36,624.605C1428.85,624.691 191.689,624.978 191.689,624.978C191.689,624.978 172.527,626.629 172.811,606.996C173.141,584.191 172.483,302.972 172.483,302.972C172.483,302.972 173.86,284.669 191.275,284.826C208.691,284.984 188.26,284.825 188.26,284.825Z" style="fill:rgb(63,104,38);stroke:black;stroke-width:9.72px;"/>
     </g>
-    <g id="Student-Adda" transform="matrix(1,0,0,1,-8.95332,-136.303)">
+    <g id="Student-Adda" transform="matrix(1,0,0,1,-117.24,-228.043)">
         <g id="S" transform="matrix(0.999882,0.0153533,-0.0153533,0.999882,221.307,274.6)">
             <text x="0px" y="264.088px" style="font-family:'Chalkduster', cursive;font-size:333.333px;fill:rgb(245,245,245);">S</text>
         </g>
@@ -21,7 +21,7 @@
             <text x="0px" y="88.029px" style="font-family:'Chalkduster', cursive;font-size:111.111px;fill:rgb(245,245,245);">tu<tspan x="132.965px 219.767px 289.871px 367.219px " y="88.029px 88.029px 88.029px 88.029px ">dent</tspan></text>
         </g>
     </g>
-    <g id="Plane" transform="matrix(0.873374,0.094487,-0.094487,0.873374,301.219,-59.0946)">
+    <g id="Plane" transform="matrix(0.873374,0.094487,-0.094487,0.873374,192.932,-150.835)">
         <g transform="matrix(0.618131,0,0,0.69609,593.051,-249.27)">
             <path d="M974.378,664.833C1033.69,680.987 1093.83,699.915 1153.17,718.533L1010.37,643.936L974.378,664.833Z" style="fill:none;stroke:white;stroke-width:2.88px;"/>
         </g>
