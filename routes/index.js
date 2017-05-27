@@ -1,22 +1,22 @@
 var express = require('express');
 var path = require('path');
 var User = require('../models/userSchema');
+var Event=require('../models/eventSchema');
 var passport=require('passport');
-
-var Verify=require('./Verify');
 
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
-    console.log("Session:",req.session);//Not Working
-    if (req.session.user_id)
+router.get('/', function (req, res) {
+    /*Not working*/
+    if (req.session.username)
         res.redirect('/dashboard');
     else
         res.sendFile(path.join(__dirname, '../public', 'index.html'));
 });
 
 router.post('/signup', function (req, res) {
+    console.log(req.body);
     User.register(new User({username: req.body.email}), req.body.password, function (err, user) {
         if (err) {
             console.log(err);
@@ -31,6 +31,12 @@ router.post('/signup', function (req, res) {
         user.save(function (err, user) {
             if(err) throw err;
             else {
+                Event.create({username:req.body.email,events:[]},function(err,event){
+                    if(err) throw err;
+                    else{
+                        console.log(event);
+                    }
+                });
                 console.log(user);
                 return res.status(200).json({status:true});
             }
@@ -54,13 +60,10 @@ router.post('/login', function(req, res, next) {
                     success:false
                 });
             }else{
-                var token = Verify.getToken(user);
-                req.session.user_id=user._id;
                 req.session.username=req.body.username;
                 res.status(200).json({
                     status: 'Login successful!',
-                    success: true,
-                    token: token
+                    success: true
                 });
             }
         });

@@ -43,6 +43,8 @@ app.use(passport.initialize());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+//Session Config
 app.use(session({
     secret:sessionKey,
     saveUninitialized:true,

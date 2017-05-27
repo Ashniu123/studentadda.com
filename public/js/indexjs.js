@@ -122,11 +122,11 @@ $('#buttonForLogin').click(function(){
         $.ajax({
             url:url,
             method:"POST",
-            contentType:"application/json",
+            contentType:'application/json',
             data:JSON.stringify(loginData),
             success:function(data){
-                if(data.success==true){
-                    localStorage.token=data.token;
+                console.log(data);
+                if(data.success===true){
                     window.location.href=window.location.href+'dashboard';
                 }else{
                     $('#LoginError').html('Invalid Login Credentials!');
@@ -142,6 +142,6 @@ $('#buttonForLogin').click(function(){
     }
 });
 
-$(document).ready(function(){
-   $('#buttonForLogin').click();
-});
+// $(document).ready(function(){
+//    $('#buttonForLogin').click();
+// });

@@ -11,7 +11,6 @@ var User = new Schema(
         avatar: Buffer,
         gender: String,
         dob:Date,
-        // country:String,
         college:String,
         stream:String,
         current:String,
