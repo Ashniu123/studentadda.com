@@ -5,33 +5,39 @@ var pgno = 1,notesno=4;
 
 var subjects = ['CN', 'COA', 'WP', 'ITC', 'M1', 'ADBMS', 'PHYSICS', 'CHEMISTRY', 'ED', 'ADC', 'PADC']; //Default subject array
 
-function getSubjectName(ind, myArray){
-    for (var i=0; i < myArray.length; i++) {
-        if (myArray[i].orderno === ind+1) {
+function getSubjectName(ind, myArray)
+{
+    for (var i=0; i < myArray.length; i++)
+    {
+        if (myArray[i].orderno === ind+1)
+        {
             return myArray[i].subject;
         }
     }
 }
 
-function getNotesNumber(myArray) {
+function getNotesNumber(myArray)
+{
     var large= myArray[0].orderno;
-    for (var i=0; i < myArray.length; i++) {
-        if (myArray[i].orderno > large) {
+    for (var i=0; i < myArray.length; i++)
+    {
+        if (myArray[i].orderno > large)
+        {
 
             large=myArray[i].orderno;
-
         }
-
-
     }
     return large;
 }
 
 function getImageAddress(subject,pg, myArray) {
-    for (var i=0; i < myArray.length; i++) {
+
+    for (var i=0; i < myArray.length; i++)
+    {
         if (myArray[i].subject === subject) {
 
-
+        if("data" in myArray[i])
+        {
             for(var j=0; j<myArray[i].data.length;j++)
             {
                 if(myArray[i].data[j].pgno===pg)
@@ -39,6 +45,13 @@ function getImageAddress(subject,pg, myArray) {
                     return myArray[i].data[j].note;
                 }
             }
+
+            return 'img/noimage.svg';
+        }
+
+        else
+
+        return 'img/noimage.svg';
         }
     }
 }
@@ -50,7 +63,7 @@ function getImagesNumber(subject ,myArray)
         if (myArray[i].subject === subject)
         {
 
-            var large= myArray[i].data[0].pgno;
+            var large=myArray[i].data[0].pgno;
 
             for(var j=0; j<myArray[i].data.length;j++)
             {
@@ -196,6 +209,14 @@ var notesData=
                 }
             ]
         },
+
+        {
+            id:175,
+            orderno:8,
+            subject:"iT",
+
+        }
+
     ];
 
 
