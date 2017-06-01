@@ -5,7 +5,201 @@ var pgno = 1,notesno=4;
 
 var subjects = ['CN', 'COA', 'WP', 'ITC', 'M1', 'ADBMS', 'PHYSICS', 'CHEMISTRY', 'ED', 'ADC', 'PADC']; //Default subject array
 
-var len = subjects.length;
+function getSubjectName(ind, myArray){
+    for (var i=0; i < myArray.length; i++) {
+        if (myArray[i].orderno === ind+1) {
+            return myArray[i].subject;
+        }
+    }
+}
+
+function getNotesNumber(myArray) {
+    var large= myArray[0].orderno;
+    for (var i=0; i < myArray.length; i++) {
+        if (myArray[i].orderno > large) {
+
+            large=myArray[i].orderno;
+
+        }
+
+
+    }
+    return large;
+}
+
+function getImageAddress(subject,pg, myArray) {
+    for (var i=0; i < myArray.length; i++) {
+        if (myArray[i].subject === subject) {
+
+
+            for(var j=0; j<myArray[i].data.length;j++)
+            {
+                if(myArray[i].data[j].pgno===pg)
+                {
+                    return myArray[i].data[j].note;
+                }
+            }
+        }
+    }
+}
+
+function getImagesNumber(subject ,myArray)
+{
+    for (var i=0; i < myArray.length; i++)
+    {
+        if (myArray[i].subject === subject)
+        {
+
+            var large= myArray[i].data[0].pgno;
+
+            for(var j=0; j<myArray[i].data.length;j++)
+            {
+                if (myArray[i].data[j].pgno > large)
+                {
+
+                   large=myArray[i].data[j].pgno
+                }
+            }
+            //noinspection JSAnnotator
+            return large;
+        }
+    }
+}
+var notesData=
+    [
+        {
+            id:666,
+            orderno:1,
+            subject:"WP",
+            data:[
+                {
+                    id:123,
+                    pgno:1,
+                    note:'img/WP1.jpeg'
+                },
+                {
+                    id:124,
+                    pgno:2,
+                    note:'img/WP2.jpeg'
+                },
+                {
+                    id:124,
+                    pgno:3,
+                    note:'img/WP3.jpeg'
+                }
+            ]
+        },
+        {
+            id:676,
+            orderno:2,
+            subject:"COA",
+            data:[
+                {
+                    id:123,
+                    pgno:1,
+                    note:'img/COA1.jpeg'
+                },
+                {
+                    id:126,
+                    pgno:2,
+                    note:'img/COA2.jpeg'
+                }
+            ]
+        },
+
+        {
+            id:686,
+            orderno:3,
+            subject:"ITC",
+            data:[
+                {
+                    id:123,
+                    pgno:1,
+                    note:'img/ITC1.png'
+                },
+                {
+                    id:126,
+                    pgno:2,
+                    note:'img/ITC2.jpeg'
+                }
+            ]
+        },
+
+        {
+            id:476,
+            orderno:4,
+            subject:"Maths",
+            data:[
+                {
+                    id:123,
+                    pgno:1,
+                    note:'img/AM1.jpeg'
+                },
+                {
+                    id:126,
+                    pgno:2,
+                    note:'img/AM2.jpeg'
+                }
+            ]
+        },
+
+        {
+            id:376,
+            orderno:5,
+            subject:"Physics",
+            data:[
+                {
+                    id:123,
+                    pgno:1,
+                    note:'img/Physics1.jpeg'
+                },
+                {
+                    id:126,
+                    pgno:2,
+                    note:'img/Physics2.jpeg'
+                }
+            ]
+        },
+
+        {
+            id:674,
+            orderno:6,
+            subject:"CN",
+            data:[
+                {
+                    id:123,
+                    pgno:1,
+                    note:'img/CN1.jpeg'
+                },
+                {
+                    id:126,
+                    pgno:2,
+                    note:'img/CN2.jpeg'
+                }
+            ]
+        },
+
+        {
+            id:176,
+            orderno:7,
+            subject:"AT",
+            data:[
+                {
+                    id:123,
+                    pgno:1,
+                    note:'img/AT1.jpeg'
+                },
+                {
+                    id:126,
+                    pgno:2,
+                    note:'img/AT2.jpeg'
+                }
+            ]
+        },
+    ];
+
+
+var len = getNotesNumber(notesData);
 
 var pages;
 
@@ -175,7 +369,7 @@ function adding() {
     }
     else {
         subjects[len] = (newsubject.toUpperCase());
-        len = subjects.length;
+        len = getNotesNumber(notesData);
         pages = Math.ceil((len / notesno));
 
         document.getElementById("subject").value = '';
@@ -208,7 +402,7 @@ function deleting() {
     else {
         var i = subjects.indexOf(newsubject.toUpperCase());
         subjects.splice(i, 1);
-        len = subjects.length;
+        len = getNotesNumber(notesData);
         pages = Math.ceil((len / 4));
         document.getElementById("subject2").value = "";
         document.getElementById("hides2").click();
@@ -300,38 +494,39 @@ function prevsub() {
         ind = notesno * (pgno - 1);
         if(notesno==4)
         {
-            document.getElementById("s1").innerHTML = subjects[ind];
+            document.getElementById("s1").innerHTML = getSubjectName(ind,notesData);
             note1.style.display = "block";
-            document.getElementById("s2").innerHTML = subjects[ind + 1];
+            document.getElementById("s2").innerHTML = getSubjectName(ind+1,notesData);
             note2.style.display = "block";
-            document.getElementById("s3").innerHTML = subjects[ind + 2];
+            document.getElementById("s3").innerHTML = getSubjectName(ind+2,notesData);
             note3.style.display = "block";
-            document.getElementById("s4").innerHTML = subjects[ind + 3];
+            document.getElementById("s4").innerHTML = getSubjectName(ind+3,notesData);
             note4.style.display = "block";
         }
 
         else if(notesno==3)
         {
-            document.getElementById("s1").innerHTML = subjects[ind];
+            document.getElementById("s1").innerHTML = getSubjectName(ind,notesData);
             note1.style.display = "block";
-            document.getElementById("s2").innerHTML = subjects[ind + 1];
+            document.getElementById("s2").innerHTML = getSubjectName(ind+1,notesData);
             note2.style.display = "block";
-            document.getElementById("s3").innerHTML = subjects[ind + 2];
+            document.getElementById("s3").innerHTML = getSubjectName(ind+2,notesData);
             note3.style.display = "block";
         }
 
         else if(notesno==2)
         {
-            document.getElementById("s1").innerHTML = subjects[ind];
+            document.getElementById("s1").innerHTML = getSubjectName(ind,notesData);
             note1.style.display = "block";
-            document.getElementById("s2").innerHTML = subjects[ind + 1];
+            document.getElementById("s2").innerHTML = getSubjectName(ind+1,notesData);
             note2.style.display = "block";
         }
 
         else if(notesno==1)
         {
-            document.getElementById("s1").innerHTML = subjects[ind];
+            document.getElementById("s1").innerHTML = getSubjectName(ind,notesData);
             note1.style.display = "block";
+
         }
 
 
@@ -367,10 +562,42 @@ function nextsub() {
 
         pgno++;
         ind = notesno * (pgno - 1);
-        document.getElementById("s1").innerHTML = subjects[ind];
-        document.getElementById("s2").innerHTML = subjects[ind + 1];
-        document.getElementById("s3").innerHTML = subjects[ind + 2];
-        document.getElementById("s4").innerHTML = subjects[ind + 3];
+        if(notesno==4)
+        {
+            document.getElementById("s1").innerHTML = getSubjectName(ind,notesData);
+            note1.style.display = "block";
+            document.getElementById("s2").innerHTML = getSubjectName(ind+1,notesData);
+            note2.style.display = "block";
+            document.getElementById("s3").innerHTML = getSubjectName(ind+2,notesData);
+            note3.style.display = "block";
+            document.getElementById("s4").innerHTML = getSubjectName(ind+3,notesData);
+            note4.style.display = "block";
+        }
+
+        else if(notesno==3)
+        {
+            document.getElementById("s1").innerHTML = getSubjectName(ind,notesData);
+            note1.style.display = "block";
+            document.getElementById("s2").innerHTML = getSubjectName(ind+1,notesData);
+            note2.style.display = "block";
+            document.getElementById("s3").innerHTML = getSubjectName(ind+2,notesData);
+            note3.style.display = "block";
+        }
+
+        else if(notesno==2)
+        {
+            document.getElementById("s1").innerHTML = getSubjectName(ind,notesData);
+            note1.style.display = "block";
+            document.getElementById("s2").innerHTML = getSubjectName(ind+1,notesData);
+            note2.style.display = "block";
+        }
+
+        else if(notesno==1)
+        {
+            document.getElementById("s1").innerHTML = getSubjectName(ind,notesData);
+            note1.style.display = "block";
+
+        }
 
         if (ind > len - 1) {
             note1.style.display = "none";
@@ -430,22 +657,22 @@ function init() {
 
             if(ind<len)
             {
-                document.getElementById("s1").innerHTML = subjects[ind];
+                document.getElementById("s1").innerHTML =getSubjectName(ind,notesData);
                 note1.style.display = "block";
 
                 if(ind+1<len)
                 {
-                    document.getElementById("s2").innerHTML = subjects[ind + 1];
+                    document.getElementById("s2").innerHTML =getSubjectName(ind+1,notesData);
                     note2.style.display = "block";
 
                     if(ind+2<len)
                     {
-                        document.getElementById("s3").innerHTML = subjects[ind + 2];
+                        document.getElementById("s3").innerHTML = getSubjectName(ind+2,notesData);
                         note3.style.display = "block";
 
                         if(ind+3<len)
                         {
-                            document.getElementById("s4").innerHTML = subjects[ind + 3];
+                            document.getElementById("s4").innerHTML = getSubjectName(ind+3,notesData);
                             note4.style.display = "block";
                         }
                         else
@@ -490,21 +717,21 @@ function init() {
 
             if(ind<len)
             {
-                document.getElementById("s1").innerHTML = subjects[ind];
+                document.getElementById("s1").innerHTML = getSubjectName(ind,notesData);
                 note1.style.display = "block";
 
                 if(ind+1<len)
                 {
-                    document.getElementById("s2").innerHTML = subjects[ind + 1];
+                    document.getElementById("s2").innerHTML = getSubjectName(ind+1,notesData);
                     note2.style.display = "block";
 
                     if(ind+2<len)
                     {
-                        document.getElementById("s3").innerHTML = subjects[ind + 2];
+                        document.getElementById("s3").innerHTML = getSubjectName(ind+2,notesData);
                         note3.style.display = "block";
 
 
-                        document.getElementById("s4").innerHTML = subjects[ind + 3];
+                        document.getElementById("s4").innerHTML = getSubjectName(ind+3,notesData);
                         note4.style.display = "none";
 
                     }
@@ -532,16 +759,6 @@ function init() {
 
             }
 
-
-
-            // document.getElementById("s1").innerHTML = subjects[ind];
-            // note1.style.display = "block";
-            // document.getElementById("s2").innerHTML = subjects[ind + 1];
-            // note2.style.display = "block";
-            // document.getElementById("s3").innerHTML = subjects[ind + 2];
-            // note3.style.display = "block";
-            // document.getElementById("s4").innerHTML = subjects[ind + 3];
-            // note4.style.display = "none";
         }
 
         else if(width>=470) //1/2 width
@@ -555,20 +772,20 @@ function init() {
 
             if(ind<len)
             {
-                document.getElementById("s1").innerHTML = subjects[ind];
+                document.getElementById("s1").innerHTML =getSubjectName(ind,notesData);;
                 note1.style.display = "block";
 
                 if(ind+1<len)
                 {
-                    document.getElementById("s2").innerHTML = subjects[ind + 1];
+                    document.getElementById("s2").innerHTML = getSubjectName(ind+1,notesData);
                     note2.style.display = "block";
 
 
-                    document.getElementById("s3").innerHTML = subjects[ind + 2];
+                    document.getElementById("s3").innerHTML = getSubjectName(ind+2,notesData);
                     note3.style.display = "none";
 
 
-                    document.getElementById("s4").innerHTML = subjects[ind + 3];
+                    document.getElementById("s4").innerHTML = getSubjectName(ind+3,notesData);
                     note4.style.display = "none";
 
                 }
@@ -589,15 +806,6 @@ function init() {
                 }
 
             }
-
-            // document.getElementById("s1").innerHTML = subjects[ind];
-            // note1.style.display = "block";
-            // document.getElementById("s2").innerHTML = subjects[ind + 1];
-            // note2.style.display = "block";
-            // document.getElementById("s3").innerHTML = subjects[ind + 2];
-            // note3.style.display = "none";
-            // document.getElementById("s4").innerHTML = subjects[ind + 3];
-            // note4.style.display = "none";
         }
 
         else if(width<470)  // Phablet width
@@ -627,7 +835,7 @@ function init() {
 
             if(ind<len)
             {
-                document.getElementById("s1").innerHTML = subjects[ind];
+                document.getElementById("s1").innerHTML = getSubjectName(ind,notesData);
                 note1.style.display = "block";
 
 
@@ -655,63 +863,15 @@ function init() {
 
             }
 
-
-            // document.getElementById("s1").innerHTML = subjects[ind];
-            // note1.style.display = "block";
-            // document.getElementById("s2").innerHTML = subjects[ind + 1];
-            // note2.style.display = "none";
-            // document.getElementById("s3").innerHTML = subjects[ind + 2];
-            // note3.style.display = "none";
-            // document.getElementById("s4").innerHTML = subjects[ind + 3];
-            // note4.style.display = "none";
         }
 
-
-        // if (ind > len - 1) {
-        //     note1.style.display = "none";
-        //     bks++;
-        // }
-        // if (ind + 1 > len - 1) {
-        //     note2.style.display = "none";
-        //     bks++;
-        // }
-        // if (ind + 2 > len - 1) {
-        //     note3.style.display = "none";
-        //     bks++;
-        // }
-        // if (ind + 3 > len - 1) {
-        //     note4.style.display = "none";
-        //     bks++;
-        // }
-
-        // {
-
-        //     if (bks == 0) {
-        //         $("#books").css({
-        //             "margin-left": "0%"
-        //         });
-        //     } else if (bks == 1) {
-        //         $("#books").css({
-        //             "margin-left": "10%"
-        //         });
-        //     } else if (bks == 2) {
-        //         $("#books").css({
-        //             "margin-left": "20%"
-        //         });
-        //     } else if (bks == 3) {
-        //         $("#books").css({
-        //             "margin-left": "30%"
-        //         });
-        //     }
-
-        // }
     }
 }
 
 
 //Functions to identify the note number pressed ie. first note from left,second from left et...
 
-var i = 0;
+var i = 1;
 var index;
 var title;
 
@@ -720,28 +880,28 @@ function one() {
     title=document.getElementById("s1").innerHTML;
     index=subjects.indexOf(title);
 
-    i = 0;
+    i = 1;
 }
 
 function two() {
     title=document.getElementById('s2').innerHTML;
     index=subjects.indexOf(title);
 
-    i = 0;
+    i = 1;
 }
 
 function three() {
     title=document.getElementById('s3').innerHTML;
     index=subjects.indexOf(title);
 
-    i = 0;
+    i = 1;
 }
 
 function four() {
     title=document.getElementById('s4').innerHTML;
     index=subjects.indexOf(title);
 
-    i = 0;
+    i = 1;
 }
 
 
@@ -839,6 +999,7 @@ function four() {
     Notes[10][2].src = "img/PADC3.png";
 }
 
+
 //Function of hide the image displaying modal
 function off() {
     modal.style.display = "none";
@@ -850,6 +1011,7 @@ var modal = document.getElementById('myModal');
 
 var modalImg = document.getElementById("img01");
 
+var images;
 
 function a() //function to make the popup images visible
 {
@@ -857,10 +1019,10 @@ function a() //function to make the popup images visible
 
     if (index < uplen) {
 
-
-
-        modalImg.src = Notes[index][i].src;
-    } else {
+        modalImg.src = getImageAddress(title,1,notesData);
+        images=getImagesNumber(title,notesData);
+    }
+    else {
         modalImg.src = "img/noimage.svg";
     }
 }
@@ -868,21 +1030,19 @@ function a() //function to make the popup images visible
 
 function next() //Change image to next page
 {
-
-    if (i < 2) {
+    if(i<images)
+    {
         i++;
-        modalImg.src = Notes[index][i].src;
-    } else {
-        //No changes if last image
+        modalImg.src = getImageAddress(title,i,notesData);
     }
 }
 
 function previous() //Change image to previous page
 {
 
-    if (i > 0) {
+    if (i > 1) {
         i--;
-        modalImg.src = Notes[index][i].src;
+        modalImg.src =getImageAddress(title,i,notesData);
 
     } else {
         //No changes if first image
