@@ -751,9 +751,6 @@ function init() {
                     {
                         document.getElementById("s3").innerHTML = getSubjectName(ind+2,notesData);
                         note3.style.display = "block";
-
-
-                        document.getElementById("s4").innerHTML = getSubjectName(ind+3,notesData);
                         note4.style.display = "none";
 
                     }
@@ -801,13 +798,7 @@ function init() {
                 {
                     document.getElementById("s2").innerHTML = getSubjectName(ind+1,notesData);
                     note2.style.display = "block";
-
-
-                    document.getElementById("s3").innerHTML = getSubjectName(ind+2,notesData);
                     note3.style.display = "none";
-
-
-                    document.getElementById("s4").innerHTML = getSubjectName(ind+3,notesData);
                     note4.style.display = "none";
 
                 }
@@ -859,16 +850,8 @@ function init() {
             {
                 document.getElementById("s1").innerHTML = getSubjectName(ind,notesData);
                 note1.style.display = "block";
-
-
-                document.getElementById("s2").innerHTML = subjects[ind + 1];
                 note2.style.display = "none";
-
-                document.getElementById("s3").innerHTML = subjects[ind + 2];
                 note3.style.display = "none";
-
-
-                document.getElementById("s4").innerHTML = subjects[ind + 3];
                 note4.style.display = "none";
 
 
