@@ -32,8 +32,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#" style="margin-left: -100px;"><img class="img-responsive" src="img/logo.svg"
-                                                  style="height:100px; margin-top: -22px;" alt="Studentadda.com"></a>
+            <a class="navbar-brand" href="#" style=""><img class="img-responsive" src="img/logo.svg"
+                                                  style="height:45px; margin-top: -13px" alt="Studentadda.com"></a>
         </div>
         <div id="myNavbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -419,7 +419,8 @@
              <div class="modal-header" style="border:none; padding: 30px; background-color:rgba(0,0,0,.9);">
 
                  <div class="row no-gutters">
-                     <div class="col-xs-11"></div>
+                     <div class="col-xs-5"></div>
+                     <div class="col-xs-6"><h1 id="noteModalTitle" style="color: white;"></h1></div>
                      <div class="col-xs-1">
                          <button type="button" class="close" id="close1" data-dismiss="modal" style="color: red; height: 10%;" >
                              &#x2716;
@@ -444,9 +445,12 @@
                      </div>
 
                      <div class="col-xs-4">
-                         <img src="img/upload.ico" id="addimg">
-                         <input type="file" id="myFile" style="visibility: hidden; ">
-                         <input type="submit" class="btn btn-primary" style="margin-right: 50%;">
+                         <div class="kv-avatar center-block" style="width: 2%; margin-left: 20%;">
+                             <input id="uploadNoteImage" name="uploadNoteImage" type="file" class="file-loading" >
+                             <input type="submit" class="btn btn-primary" style="margin-right: 50%;">
+                         </div>
+                         <p class="help-block" style="margin-left:0px;">File size should
+                         not exceed 10.0Mb.</p>
                      </div>
 
                      <div class="col-xs-4">

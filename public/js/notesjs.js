@@ -5,6 +5,7 @@ var pgno = 1,notesno=4;
 
 var subjects = ['CN', 'COA', 'WP', 'ITC', 'M1', 'ADBMS', 'PHYSICS', 'CHEMISTRY', 'ED', 'ADC', 'PADC']; //Default subject array
 
+
 function getSubjectName(ind, myArray)
 {
     for (var i=0; i < myArray.length; i++)
@@ -47,6 +48,7 @@ function getImageAddress(subject,pg, myArray) {
             }
 
             return 'img/noimage.svg';
+
         }
 
         else
@@ -75,6 +77,17 @@ function getImagesNumber(subject ,myArray)
             }
             //noinspection JSAnnotator
             return large;
+        }
+    }
+}
+
+function getOrderNo(subject, myArray)
+{
+ for (var i=0; i<myArray.length; i++)
+    {
+        if(myArray[i].subject===subject)
+        {
+            return myArray[i].orderno;
         }
     }
 }
@@ -115,7 +128,7 @@ var notesData=
                 {
                     id:126,
                     pgno:2,
-                    note:'img/COA2.jpeg'
+                    note:'img/COA2.jpg'
                 }
             ]
         },
@@ -133,7 +146,7 @@ var notesData=
                 {
                     id:126,
                     pgno:2,
-                    note:'img/ITC2.jpeg'
+                    note:'img/ITC2.png'
                 }
             ]
         },
@@ -146,12 +159,12 @@ var notesData=
                 {
                     id:123,
                     pgno:1,
-                    note:'img/AM1.jpeg'
+                    note:'img/M1.jpeg'
                 },
                 {
                     id:126,
                     pgno:2,
-                    note:'img/AM2.jpeg'
+                    note:'img/M2.jpeg'
                 }
             ]
         },
@@ -429,19 +442,7 @@ function deleting() {
         document.getElementById("hides2").click();
         init();
     }
-
-
-
 }
-
-
-//File input innitating function
-document.getElementById('addimg').onclick = function()
-
-{
-    document.getElementById('myFile').click();
-}
-
 
 //Functions to reset the text input field to blank in case of both modals to add and delete notes
 
@@ -899,29 +900,29 @@ var title;
 function one() {
 
     title=document.getElementById("s1").innerHTML;
-    index=subjects.indexOf(title);
-
+    index=getOrderNo(title,notesData);
+    $("#noteModalTitle").html(title);
     i = 1;
 }
 
 function two() {
     title=document.getElementById('s2').innerHTML;
-    index=subjects.indexOf(title);
-
+    index=getOrderNo(title,notesData);
+    $("#noteModalTitle").html(title);
     i = 1;
 }
 
 function three() {
     title=document.getElementById('s3').innerHTML;
-    index=subjects.indexOf(title);
-
+    index=getOrderNo(title,notesData);
+    $("#noteModalTitle").html(title);
     i = 1;
 }
 
 function four() {
     title=document.getElementById('s4').innerHTML;
-    index=subjects.indexOf(title);
-
+    index=getOrderNo(title,notesData);
+    $("#noteModalTitle").html(title);
     i = 1;
 }
 
@@ -1020,6 +1021,7 @@ function four() {
     Notes[10][2].src = "img/PADC3.png";
 }
 
+uplen=getNotesNumber(notesData);
 
 //Function of hide the image displaying modal
 function off() {
@@ -1055,6 +1057,7 @@ function next() //Change image to next page
     {
         i++;
         modalImg.src = getImageAddress(title,i,notesData);
+        //alert(getImageAddress(title,i,notesData) );
     }
 }
 
@@ -1064,9 +1067,48 @@ function previous() //Change image to previous page
     if (i > 1) {
         i--;
         modalImg.src =getImageAddress(title,i,notesData);
-
+        //alert(getImageAddress(title,i,notesData) );
     } else {
         //No changes if first image
     }
 
 }
+
+$("#uploadNoteImage").fileinput({
+    overwriteInitial: false,
+    maxFileSize: 10000,
+    showClose: false,
+    showCaption: false,
+    showUpload: false,
+    browseLabel: '',
+    removeLabel: '',
+    uploadLabel: '',
+    browseIcon: '<i class="glyphicon glyphicon-folder-open"></i> ',
+    browseTitle: 'Choose Notes',
+    removeIcon: '<i class="glyphicon glyphicon-remove"></i> ',
+    removeTitle: 'Cancel or reset changes',
+    elErrorContainer: '#kv-avatar-errors',
+    msgErrorClass: 'alert alert-block alert-danger',
+    defaultPreviewContent: '<img src="img/pages.png" alt="Your Avatar" class="avatar-preview">',
+    allowedFileExtensions: ["jpg", "png", "jpeg"]
+});
+
+$('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, reader) {
+    console.log("fileloaded");
+    // console.log(reader.result);
+    var url = noTrailingSlash(window.location.href) + '/user/avatar';   ////////THIS WONT BE USER/AVATAR ////////
+    var data = {
+        "avatar": reader.result
+    };
+    $.ajax({
+        url: url,
+        method: "POST",
+        data: data,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+});
