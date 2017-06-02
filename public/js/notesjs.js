@@ -76,7 +76,7 @@ function getImagesNumber(subject ,myArray)
                 }
             }
             //noinspection JSAnnotator
-            return large;
+            return large;P
         }
     }
 }
@@ -226,8 +226,8 @@ var notesData=
         {
             id:175,
             orderno:8,
-            subject:"iT",
-
+            subject:"IT",
+            data:[]
         }
 
     ];
@@ -1059,7 +1059,7 @@ function previous() //Change image to previous page
 
 $("#uploadNoteImage").fileinput({
     overwriteInitial: false,
-    maxFileSize: 10000,
+    maxFileSize: 5000,
     showClose: false,
     showCaption: false,
     showUpload: false,
@@ -1072,16 +1072,16 @@ $("#uploadNoteImage").fileinput({
     removeTitle: 'Cancel or reset changes',
     elErrorContainer: '#kv-avatar-errors',
     msgErrorClass: 'alert alert-block alert-danger',
-    defaultPreviewContent: '<img src="img/pages.png" alt="Your Avatar" class="avatar-preview">',
     allowedFileExtensions: ["jpg", "png", "jpeg"]
 });
 
 $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, reader) {
     console.log("fileloaded");
-    // console.log(reader.result);
-    var url = noTrailingSlash(window.location.href) + '/user/avatar';   ////////THIS WONT BE USER/AVATAR ////////
+    var url = noTrailingSlash(window.location.href) + '/user/notes';
+    var pgno=getImagesNumber(title,notesData);
     var data = {
-        "avatar": reader.result
+        "pgno":pgno+1,
+        "note": reader.result
     };
     $.ajax({
         url: url,
@@ -1094,4 +1094,5 @@ $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, 
             console.log(err);
         }
     });
+
 });
