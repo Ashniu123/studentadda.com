@@ -62,6 +62,9 @@ router.post('/login', function(req, res, next) {
                 });
             }else{
                 req.session.username=req.body.username;
+                if(req.body.rememberme){
+                    req.session.cookie.maxAge=null;
+                }
                 res.status(200).json({
                     status: 'Login successful!',
                     success: true

@@ -116,6 +116,10 @@ $('#buttonForLogin').click(function(){
     //To save time
     loginData.username='xyz@gmail.com';
     loginData.password='abcd';
+    loginData.rememberme=0;
+    if($('#remember_me').is(':checked')){
+        loginData.rememberme=1;
+    }
     var url=window.location.href+'login';
     if(loginData.username.length>5 && loginData.password.length>3){
         $.ajax({

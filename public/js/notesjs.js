@@ -1,120 +1,117 @@
+var notesData;
+
+$(document).ready(function(){
+    var url=noTrailingSlash(window.location.href)+'/user/notes';
+    $.ajax({
+        url: url,
+        method: "GET"
+    }).done(function (data) {
+        console.log(data);
+        notesData=data;
+        len = getNotesNumber(notesData);
+        console.log("Success!");
+        init();
+        col();
+        // console.log("LocalStorage "+localStorage.title+" "+localStorage.pgno);
+        /*if(localStorage.show){
+            title=localStorage.title;
+            i=localStorage.pgno;
+            a();
+            $('#noteImage').modal('show');
+            localStorage.show=false;
+            localStorage.title=undefined;
+            localStorage.pgno=undefined;
+        }*/
+    }).fail(function (err) {
+        console.log(err);
+    });
+});
 
 
-var pgno = 1,notesno=getNumberOfBooks();
+var pgno = 1, notesno = getNumberOfBooks();
 
 function getNumberOfBooks() {
-    var width=$("#centeralbook").width();
-    if(width>=1000)
-    {
+    var width = $("#centeralbook").width();
+    if (width >= 1000) {
         return 4;
     }
-    else if(width>=820)
-    {
+    else if (width >= 820) {
         return 3;
     }
-    else if(width>=470)
-    {
+    else if (width >= 470) {
         return 2;
     }
-    else if(width<470)
-    {
+    else if (width < 470) {
         return 1;
     }
 
 }
 
-function getSubjectName(ind, myArray)
-{
-    for (var i=0; i < myArray.length; i++)
-    {
-        if (myArray[i].orderno === ind+1)
-        {
+function getSubjectName(ind, myArray) {
+    for (var i = 0; i < myArray.length; i++) {
+        if (myArray[i].orderno === ind + 1) {
             return myArray[i].subject;
         }
     }
 }
 
-function getNotesNumber(myArray)
-{
-    if("orderno" in myArray[0])
-    {
-        var large= myArray[0].orderno;
-        for (var i=0; i < myArray.length; i++)
-        {
-            if (myArray[i].orderno > large)
-            {
+function getNotesNumber(myArray) {
+    if(myArray.length){
+        if ("orderno" in myArray[0]) {
+            var large = myArray[0].orderno;
+            for (var i = 0; i < myArray.length; i++) {
+                if (myArray[i].orderno > large) {
 
-                large=myArray[i].orderno;
+                    large = myArray[i].orderno;
+                }
             }
+            return large;
         }
-        return large;
     }
     return 0;
 
 }
 
-function getImageAddress(subject,pg, myArray) {
+function getImageAddress(subject, pg, myArray) {
 
-    for (var i=0; i < myArray.length; i++)
-    {
+    for (var i = 0; i < myArray.length; i++) {
         if (myArray[i].subject === subject) {
-
-        if("data" in myArray[i])
-        {
-            for(var j=0; j<myArray[i].data.length;j++)
-            {
-                if(myArray[i].data[j].pgno===pg)
-                {
-                    return myArray[i].data[j].note;
-                }
-            }
-
-            return 'img/noimage.svg';
-
-        }
-
-        else
-
-        return 'img/noimage.svg';
-        }
-    }
-}
-
-function getImagesNumber(subject ,myArray)
-{
-    for (var i=0; i < myArray.length; i++)
-    {
-        if (myArray[i].subject === subject)
-        {
-            if("data" in myArray[i])
-            {
-                var large=myArray[i].data[0].pgno;
-
-                for(var j=0; j<myArray[i].data.length;j++)
-                {
-                    if (myArray[i].data[j].pgno > large)
-                    {
-
-                        large=myArray[i].data[j].pgno
+            if ("data" in myArray[i]) {
+                for (var j = 0; j < myArray[i].data.length; j++) {
+                    if (myArray[i].data[j].pgno == pg) {
+                        return myArray[i].data[j].note;
                     }
                 }
-                //noinspection JSAnnotator
-                return large;
+                return 'img/noimage.svg';
             }
-
-            else
-                return 1;
-
+            else{
+                return 'img/noimage.svg';
+            }
         }
     }
 }
 
-function getOrderNo(subject, myArray)
-{
- for (var i=0; i<myArray.length; i++)
-    {
-        if(myArray[i].subject===subject)
-        {
+function getImagesNumber(subject, myArray) {
+    for (var i = 0; i < myArray.length; i++) {
+        if (myArray[i].subject === subject) {
+            if ("data" in myArray[i]) {
+                var large = myArray[i].data[0].pgno;
+                for (var j = 0; j < myArray[i].data.length; j++) {
+                    if (myArray[i].data[j].pgno > large) {
+                        large = myArray[i].data[j].pgno
+                    }
+                }
+                return large;
+            }
+            else
+                return 0;
+        }
+    }
+}
+
+function getOrderNo(subject, myArray) {
+    for (var i = 0; i < myArray.length; i++) {
+        if (myArray[i].subject === subject) {
             return myArray[i].orderno;
         }
     }
@@ -122,308 +119,124 @@ function getOrderNo(subject, myArray)
 }
 
 function getIndexToDelete(subject, myArray) {
-    for(var i=0;i<myArray.length;i++)
-    {
-        if(myArray[i].subject===subject)
-        {
+    for (var i = 0; i < myArray.length; i++) {
+        if (myArray[i].subject === subject) {
             return i;
         }
     }
-
     return -1;
 }
-var notesData=
-    [
-        {
-            id:666,
-            orderno:1,
-            subject:"WP",
-            data:[
-                {
-                    id:123,
-                    pgno:1,
-                    note:'img/WP1.jpeg'
-                },
-                {
-                    id:124,
-                    pgno:2,
-                    note:'img/WP2.jpeg'
-                },
-                {
-                    id:124,
-                    pgno:3,
-                    note:'img/WP3.jpeg'
-                }
-            ]
-        },
-        {
-            id:676,
-            orderno:2,
-            subject:"COA",
-            data:[
-                {
-                    id:123,
-                    pgno:1,
-                    note:'img/COA1.jpeg'
-                },
-                {
-                    id:126,
-                    pgno:2,
-                    note:'img/COA2.jpg'
-                }
-            ]
-        },
 
-        {
-            id:686,
-            orderno:3,
-            subject:"ITC",
-            data:[
-                {
-                    id:123,
-                    pgno:1,
-                    note:'img/ITC1.png'
-                },
-                {
-                    id:126,
-                    pgno:2,
-                    note:'img/ITC2.png'
-                }
-            ]
-        },
-
-        {
-            id:476,
-            orderno:4,
-            subject:"MATHS",
-            data:[
-                {
-                    id:123,
-                    pgno:1,
-                    note:'img/M1.jpeg'
-                },
-                {
-                    id:126,
-                    pgno:2,
-                    note:'img/M2.jpeg'
-                }
-            ]
-        },
-
-        {
-            id:376,
-            orderno:5,
-            subject:"PHYSICS",
-            data:[
-                {
-                    id:123,
-                    pgno:1,
-                    note:'img/Physics1.jpeg'
-                },
-                {
-                    id:126,
-                    pgno:2,
-                    note:'img/Physics2.jpeg'
-                }
-            ]
-        },
-
-        {
-            id:674,
-            orderno:6,
-            subject:"CN",
-            data:[
-                {
-                    id:123,
-                    pgno:1,
-                    note:'img/CN1.jpeg'
-                },
-                {
-                    id:126,
-                    pgno:2,
-                    note:'img/CN2.jpeg'
-                }
-            ]
-        },
-
-        {
-            id:176,
-            orderno:7,
-            subject:"AT",
-            data:[
-                {
-                    id:123,
-                    pgno:1,
-                    note:'img/AT1.jpeg'
-                },
-                {
-                    id:126,
-                    pgno:2,
-                    note:'img/AT2.jpeg'
-                }
-            ]
-        },
-
-        {
-            id:175,
-            orderno:8,
-            subject:"IT",
-            data:[]
-        }
-
-    ];
-
-
-var len = getNotesNumber(notesData);
+var len;
 
 var pages;
 
 var bks = 0;
 
-$(window).resize(function(){
-
+$(window).resize(function () {
     init();
 });
 
-$(document).keydown(function(e) {
+$(document).keydown(function (e) {
     if (e.keyCode == 78 && e.ctrlKey || e.keyCode == 78 && e.metaKey) {
-
         document.getElementById('addNoteButton').click();
-
     }
 }); //New Note
 
 
-$(document).keydown(function(e) {
-    if ((e.keyCode == 8 && e.ctrlKey) || e.keyCode==8 && e.metaKey ) {
+$(document).keydown(function (e) {
+    if ((e.keyCode == 8 && e.ctrlKey) || e.keyCode == 8 && e.metaKey) {
         document.getElementById('deleteNoteButton').click();
     }
 }); // Delete Note
 
 
-
-$(document).keydown(function(e) {
-    if(e.keyCode == 37) {
-        var check= $('#noteImage').is(':visible');
-        if(check == false)
-        {
+$(document).keydown(function (e) {
+    if (e.keyCode == 37) {
+        var check = $('#noteImage').is(':visible');
+        if (check == false) {
             document.getElementById('goleft').click();
         }
-
-        else if (check==true)
-        {
+        else if (check == true) {
             document.getElementById('previmg').click();
         }
-
     }
 }); //Previous page
 
 
-
-$(document).keydown(function(e) {
-    if(e.keyCode == 39) {
-
+$(document).keydown(function (e) {
+    if (e.keyCode == 39) {
         var check = $('#noteImage').is(':visible');
-
-        if(check == false)
-        {
+        if (check == false) {
             document.getElementById('goright').click();
         }
-
-        else if (check==true)
-        {
+        else if (check == true) {
             document.getElementById('nextimg').click();
         }
-
-
     }
 });// Next Page
 
 
-$(document).keydown(function(e){
-    if(e.keyCode==27){
+$(document).keydown(function (e) {
+    if (e.keyCode == 27) {
 
-        var ch1= $('#noteImage').is(':visible');
-        var ch2= $('#newNoteName').is(':visible');
-        var ch3= $('#deleteNoteName').is(':visible');
+        var ch1 = $('#noteImage').is(':visible');
+        var ch2 = $('#newNoteName').is(':visible');
+        var ch3 = $('#deleteNoteName').is(':visible');
 
-        if(ch1== true)
-        {
+        if (ch1 == true) {
             document.getElementById('close1').click();
         }
-
-        if(ch2== true)
-        {
+        if (ch2 == true) {
             document.getElementById('hides1').click();
         }
-
-        if(ch3== true)
-        {
+        if (ch3 == true) {
             document.getElementById('hides2').click();
         }
-
     }
 }); //Configuring escape key for modals
 
 
+$(document).keydown(function (e) {
+    if (e.keyCode == 13) {
 
-$(document).keydown(function(e){
-    if(e.keyCode==13){
+        var ch2 = $('#newNoteName').is(':visible');
+        var ch3 = $('#deleteNoteName').is(':visible');
 
-        var ch2= $('#newNoteName').is(':visible');
-        var ch3= $('#deleteNoteName').is(':visible');
-
-
-
-        if(ch2== true)
-        {
+        if (ch2 == true) {
             document.getElementById('addNote').click();
         }
-
-        if(ch3== true)
-        {
+        if (ch3 == true) {
             document.getElementById('delNote').click();
         }
-
     }
 }); //Configuring enter key for modals
 
 
+$(document).keydown(function (e) {
 
-$(document).keydown(function(e) {
-
-    if(e.keyCode == 38) {
-
+    if (e.keyCode == 38) {
         document.getElementById('gotonote').click();
-
     }
 });// Go to notes page
 
-$(document).keydown(function(e) {
+$(document).keydown(function (e) {
 
-    if(e.keyCode == 40) {
-
+    if (e.keyCode == 40) {
         viewevents();
-
     }
 }); // Go to events page
 
-function viewevents()
-{
-
+function viewevents() {
     $('html, body').animate({
         scrollTop: $("#events").offset().top
     }, 500);
-
 }
 
-function viewnotes()
-{
-
+function viewnotes() {
     $('html, body').animate({
         scrollTop: $("#nav").offset().top
     }, 500);
-
 }
 
 //Shows the modal on screen
@@ -433,46 +246,60 @@ function viewnotes()
 
 function adding() {
     var newsubject = document.getElementById("subject").value;
-    newsubject=newsubject.toUpperCase();
+    newsubject = newsubject.toUpperCase();
 
-    if (newsubject=='')
-    {
-        document.getElementById("err").innerHTML = "<br>" + "<span style='color:red; font-size:15px; margin-left:40%; ' >" + "Invalid entry..." + "</span>" +"<br>"+"<br>";
+    if (newsubject == '') {
+        document.getElementById("err").innerHTML = "<br>" + "<span style='color:red; font-size:15px; margin-left:40%; ' >" + "Invalid entry..." + "</span>" + "<br>" + "<br>";
 
     }
-    else if (getOrderNo(newsubject, notesData) >= 0 ) {
+    else if (getOrderNo(newsubject, notesData) >= 0) {
 
-        document.getElementById("err").innerHTML = "<br>" + "<span style='color:red; font-size:15px; margin-left:40%; '>" + "Already present..." + "</span>" +"<br>"+"<br>"+"<br>";
+        document.getElementById("err").innerHTML = "<br>" + "<span style='color:red; font-size:15px; margin-left:40%; '>" + "Already present..." + "</span>" + "<br>" + "<br>" + "<br>";
     }
     else {
 
-        var id=Math.floor(Math.random()*1000);
+        var id = Math.floor(Math.random() * 1000);
+        var url = noTrailingSlash(window.location.href) + '/user/notes';
+        var data = {
+            "orderno": getNotesNumber(notesData) + 1,
+            "subject": newsubject
+        };
+        $.ajax({
+            method:"POST",
+            url:url,
+            data:data,
+            success:function(data){
+                console.log(data);
 
-        notesData.push(
-            {
-                "id":id,
-                "orderno":getNotesNumber(notesData)+1,
-                "subject":newsubject
-            });
-        len = getNotesNumber(notesData);
-        pages = Math.ceil((len / notesno));
+                notesData.push(
+                    {
+                        "id": id,
+                        "orderno": getNotesNumber(notesData) + 1,
+                        "subject": newsubject
+                    });
+                len = getNotesNumber(notesData);
+                pages = Math.ceil((len / notesno));
 
-        document.getElementById("subject").value = '';
-        document.getElementById("hides1").click();
+                document.getElementById("subject").value = '';
+                document.getElementById("hides1").click();
 
-        init();
+                init();
+            },
+            error:function(err){
+                console.log(err);
+            }
+        });
+
     }
 
 }
 
-document.getElementById("hides1").onclick=function()
-{
+document.getElementById("hides1").onclick = function () {
     reset1();
 }
 
 
-document.getElementById("hides2").onclick=function()
-{
+document.getElementById("hides2").onclick = function () {
     reset2();
 }
 
@@ -480,26 +307,40 @@ document.getElementById("hides2").onclick=function()
 
 function deleting() {
     var newsubject = document.getElementById("subject2").value;
-    newsubject=newsubject.toUpperCase();
+    newsubject = newsubject.toUpperCase();
 
-    if (newsubject=='')
-    {
-        document.getElementById("err2").innerHTML = "<br>" + "<span style='color:red; font-size:15px; margin-left:40%; ' >" + "Invalid entry..." + "</span>" +"<br>"+"<br>";
+    if (newsubject == '') {
+        document.getElementById("err2").innerHTML = "<br>" + "<span style='color:red; font-size:15px; margin-left:40%; ' >" + "Invalid entry..." + "</span>" + "<br>" + "<br>";
 
     }
 
     else if (getOrderNo(newsubject, notesData) < 0) {
-        document.getElementById("err2").innerHTML = "<br>" +"<br>"+ "<span style='color:red; font-size:15px; margin-left:40%; '>" + "Subject not added..." + "</span>"+"<br>"+"<br>";
+        document.getElementById("err2").innerHTML = "<br>" + "<br>" + "<span style='color:red; font-size:15px; margin-left:40%; '>" + "Subject not added..." + "</span>" + "<br>" + "<br>";
     }
     else {
-        var i = getIndexToDelete(newsubject,notesData);
-        notesData.splice(i, 1);
-        len = getNotesNumber(notesData);
-        pages = Math.ceil((len / notesno));
-        document.getElementById("subject2").value = "";
-        document.getElementById("hides2").click();
 
-        init();
+        var url=noTrailingSlash(window.location.href)+'/user/notes';
+        var data={
+          "subject":newsubject
+        };
+        $.ajax({
+            method:"DELETE",
+            url:url,
+            data:data,
+            success:function(data){
+                console.log(data);
+                var i = getIndexToDelete(newsubject, notesData);
+                notesData.splice(i, 1);
+                len = getNotesNumber(notesData);
+                pages = Math.ceil((len / notesno));
+                document.getElementById("subject2").value = "";
+                document.getElementById("hides2").click();
+                init();
+            },
+            error:function(err){
+                console.log(err);
+            }
+        });
     }
 }
 
@@ -507,7 +348,7 @@ function deleting() {
 
 function reset1() {
     document.getElementById("subject").value = '';
-    document.getElementById("err").innerHTML = "<br>" + "<br>" +"<br>" + "<br>";
+    document.getElementById("err").innerHTML = "<br>" + "<br>" + "<br>" + "<br>";
 }
 
 function reset2() {
@@ -525,87 +366,85 @@ function col() //Assignes random color
 {
 
 
-    var colors=['#003300', '#006666', '#0099ff', '#00cc66', '#00cc99', '#00ccff', '#660033', '#660099', '#6633ff', '#666699', '#6699cc', '#990033', '#9900ff', '#cc0033', '#cc6666', '#cccc00', '#ff0099', '#ff3300', '#ff6600', '#ff6699', '#ff9966', '#ffff66', '#ffccff' ];
+    var colors = ['#003300', '#006666', '#0099ff', '#00cc66', '#00cc99', '#00ccff', '#660033', '#660099', '#6633ff', '#666699', '#6699cc', '#990033', '#9900ff', '#cc0033', '#cc6666', '#cccc00', '#ff0099', '#ff3300', '#ff6600', '#ff6699', '#ff9966', '#ffff66', '#ffccff'];
 
-    var i,c,j,d;
+    var i, c, j, d;
 
     // $("#note1").css('background-color', '#' + (Math.random() * 0xFFFFFF << 0).toString(16));
     // $("#note2").css('background-color', '#' + (Math.random() * 0xFFFFFF << 0).toString(16));
     // $("#note3").css('background-color', '#' + (Math.random() * 0xFFFFFF << 0).toString(16));
     // $("#note4").css('background-color', '#' + (Math.random() * 0xFFFFFF << 0).toString(16));
-    c=Math.floor(Math.random()*10000%23); i= colors[c];
-    j=replaceAt(i,1,'c');
+    c = Math.floor(Math.random() * 10000 % 23);
+    i = colors[c];
+    j = replaceAt(i, 1, 'c');
     // j=replaceAt(j,3,'8');
     // j=replaceAt(j,6,'2');
 
-    $("#note1").css('background', 'linear-gradient(to bottom,'+i+','+j+')' );
+    $("#note1").css('background', 'linear-gradient(to bottom,' + i + ',' + j + ')');
 
-    c=Math.floor(Math.random()*10000%23); i= colors[c];
-    j=replaceAt(i,1,'8');
+    c = Math.floor(Math.random() * 10000 % 23);
+    i = colors[c];
+    j = replaceAt(i, 1, '8');
     // j=replaceAt(j,3,'e');
     // j=replaceAt(j,6,'a');
 
-    $("#note2").css('background','linear-gradient(to bottom,'+i+','+j+')' );
+    $("#note2").css('background', 'linear-gradient(to bottom,' + i + ',' + j + ')');
 
 
-    c=Math.floor(Math.random()*10000%23); i= colors[c];
-    j=replaceAt(i,1,'6');
+    c = Math.floor(Math.random() * 10000 % 23);
+    i = colors[c];
+    j = replaceAt(i, 1, '6');
     // j=replaceAt(j,3,'2');
     // j=replaceAt(j,6,'1');
-    $("#note3").css('background', 'linear-gradient(to bottom,'+i+','+j+')');
+    $("#note3").css('background', 'linear-gradient(to bottom,' + i + ',' + j + ')');
 
 
-    c=Math.floor(Math.random()*10000%23); i= colors[c];
-    j=replaceAt(i,1,'b');
+    c = Math.floor(Math.random() * 10000 % 23);
+    i = colors[c];
+    j = replaceAt(i, 1, 'b');
     // j=replaceAt(j,3,'9');
     // j=replaceAt(j,6,'7');
-    $("#note4").css('background', 'linear-gradient(to bottom,'+i+','+j+')');
+    $("#note4").css('background', 'linear-gradient(to bottom,' + i + ',' + j + ')');
 }
 
 var ind;
 
 function prevsub() {
     bks = 0;
-    if (pgno == 1)
-
-    {
+    if (pgno == 1) {
         //No changes if user on first page
     } else {
         pgno--;
         ind = notesno * (pgno - 1);
-        if(notesno==4)
-        {
-            document.getElementById("s1").innerHTML = getSubjectName(ind,notesData);
+        if (notesno == 4) {
+            document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
             note1.style.display = "block";
-            document.getElementById("s2").innerHTML = getSubjectName(ind+1,notesData);
+            document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
             note2.style.display = "block";
-            document.getElementById("s3").innerHTML = getSubjectName(ind+2,notesData);
+            document.getElementById("s3").innerHTML = getSubjectName(ind + 2, notesData);
             note3.style.display = "block";
-            document.getElementById("s4").innerHTML = getSubjectName(ind+3,notesData);
+            document.getElementById("s4").innerHTML = getSubjectName(ind + 3, notesData);
             note4.style.display = "block";
         }
 
-        else if(notesno==3)
-        {
-            document.getElementById("s1").innerHTML = getSubjectName(ind,notesData);
+        else if (notesno == 3) {
+            document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
             note1.style.display = "block";
-            document.getElementById("s2").innerHTML = getSubjectName(ind+1,notesData);
+            document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
             note2.style.display = "block";
-            document.getElementById("s3").innerHTML = getSubjectName(ind+2,notesData);
+            document.getElementById("s3").innerHTML = getSubjectName(ind + 2, notesData);
             note3.style.display = "block";
         }
 
-        else if(notesno==2)
-        {
-            document.getElementById("s1").innerHTML = getSubjectName(ind,notesData);
+        else if (notesno == 2) {
+            document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
             note1.style.display = "block";
-            document.getElementById("s2").innerHTML = getSubjectName(ind+1,notesData);
+            document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
             note2.style.display = "block";
         }
 
-        else if(notesno==1)
-        {
-            document.getElementById("s1").innerHTML = getSubjectName(ind,notesData);
+        else if (notesno == 1) {
+            document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
             note1.style.display = "block";
 
         }
@@ -627,12 +466,8 @@ function prevsub() {
             note4.style.display = "none";
             bks++;
         }
-
-
-
     }
 }
-
 
 
 function nextsub() {
@@ -643,39 +478,35 @@ function nextsub() {
 
         pgno++;
         ind = notesno * (pgno - 1);
-        if(notesno==4)
-        {
-            document.getElementById("s1").innerHTML = getSubjectName(ind,notesData);
+        if (notesno == 4) {
+            document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
             note1.style.display = "block";
-            document.getElementById("s2").innerHTML = getSubjectName(ind+1,notesData);
+            document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
             note2.style.display = "block";
-            document.getElementById("s3").innerHTML = getSubjectName(ind+2,notesData);
+            document.getElementById("s3").innerHTML = getSubjectName(ind + 2, notesData);
             note3.style.display = "block";
-            document.getElementById("s4").innerHTML = getSubjectName(ind+3,notesData);
+            document.getElementById("s4").innerHTML = getSubjectName(ind + 3, notesData);
             note4.style.display = "block";
         }
 
-        else if(notesno==3)
-        {
-            document.getElementById("s1").innerHTML = getSubjectName(ind,notesData);
+        else if (notesno == 3) {
+            document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
             note1.style.display = "block";
-            document.getElementById("s2").innerHTML = getSubjectName(ind+1,notesData);
+            document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
             note2.style.display = "block";
-            document.getElementById("s3").innerHTML = getSubjectName(ind+2,notesData);
+            document.getElementById("s3").innerHTML = getSubjectName(ind + 2, notesData);
             note3.style.display = "block";
         }
 
-        else if(notesno==2)
-        {
-            document.getElementById("s1").innerHTML = getSubjectName(ind,notesData);
+        else if (notesno == 2) {
+            document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
             note1.style.display = "block";
-            document.getElementById("s2").innerHTML = getSubjectName(ind+1,notesData);
+            document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
             note2.style.display = "block";
         }
 
-        else if(notesno==1)
-        {
-            document.getElementById("s1").innerHTML = getSubjectName(ind,notesData);
+        else if (notesno == 1) {
+            document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
             note1.style.display = "block";
 
         }
@@ -704,8 +535,8 @@ function nextsub() {
 
 function init() {
 
-    var oldpgno=pgno;
-    var oldnotesno=notesno;
+    var oldpgno = pgno;
+    var oldnotesno = notesno;
 
     // var sheight=$(window).height();
     // $('#img01').css('height',sheight);
@@ -714,164 +545,140 @@ function init() {
     bks = 0;
     {
 
-        $('#note1').css({'height':'300px','width':'230px','margin-top':'auto'});
+        $('#note1').css({'height': '300px', 'width': '230px', 'margin-top': 'auto'});
         // alert('here');
-        $('.changenotes').css('height','380px');
-        $('#gotoevent').css('margin-top','145px');
-        $('#goleft').css('top','200px');
-        $('#goright').css('top','200px');
-        $('#mynotes').css('height','760px');
-        $('#foot').css('margin-top','auto');
-        $("#books").css('margin-top','auto');
+        $('.changenotes').css('height', '380px');
+        $('#gotoevent').css('margin-top', '145px');
+        $('#goleft').css('top', '200px');
+        $('#goright').css('top', '200px');
+        $('#mynotes').css('height', '760px');
+        $('#foot').css('margin-top', 'auto');
+        $("#books").css('margin-top', 'auto');
 
-        var width=$("#centeralbook").width();
+        var width = $("#centeralbook").width();
 
 
-        if(width>=1000) //Full screen
+        if (width >= 1000) //Full screen
         {
-
             $(".fc-toolbar").css({'font-size': '15px'});
             pages = Math.ceil((len / 4));
-            notesno=4;
-            pgno= Math.ceil((oldnotesno*(oldpgno-1)+1)/notesno);
+            notesno = 4;
+            pgno = Math.ceil((oldnotesno * (oldpgno - 1) + 1) / notesno);
             ind = notesno * (pgno - 1);
 
-            if(ind<len)
-            {
-                document.getElementById("s1").innerHTML =getSubjectName(ind,notesData);
+            if (ind < len) {
+                document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
                 note1.style.display = "block";
 
-                if(ind+1<len)
-                {
-                    document.getElementById("s2").innerHTML =getSubjectName(ind+1,notesData);
+                if (ind + 1 < len) {
+                    document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
                     note2.style.display = "block";
 
-                    if(ind+2<len)
-                    {
-                        document.getElementById("s3").innerHTML = getSubjectName(ind+2,notesData);
+                    if (ind + 2 < len) {
+                        document.getElementById("s3").innerHTML = getSubjectName(ind + 2, notesData);
                         note3.style.display = "block";
 
-                        if(ind+3<len)
-                        {
-                            document.getElementById("s4").innerHTML = getSubjectName(ind+3,notesData);
+                        if (ind + 3 < len) {
+                            document.getElementById("s4").innerHTML = getSubjectName(ind + 3, notesData);
                             note4.style.display = "block";
                         }
-                        else
-                        {
+                        else {
                             note4.style.display = "none";
                         }
 
                     }
-                    else
-                    {
+                    else {
                         note3.style.display = "none";
 
                     }
                 }
-                else
-                {
+                else {
                     note2.style.display = "none";
                 }
             }
-            else
-            {
+            else {
                 note1.style.display = "none";
-                if(pgno!=1)
-                {
+                if (pgno != 1) {
                     pgno--;
                     init();
                 }
-
-
-
-
             }
         }
 
-        else if( width>=820) // 3/4rth width
+        else if (width >= 820) // 3/4rth width
         {
+
             $(".fc-toolbar").css({'font-size': '15px'});
             pages = Math.ceil((len / 3));
-            notesno=3;
-            pgno= Math.ceil((oldnotesno*(oldpgno-1)+1)/notesno);
+            notesno = 3;
+            pgno = Math.ceil((oldnotesno * (oldpgno - 1) + 1) / notesno);
             ind = notesno * (pgno - 1);
 
-            if(ind<len)
-            {
-                document.getElementById("s1").innerHTML = getSubjectName(ind,notesData);
+            if (ind < len) {
+                document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
                 note1.style.display = "block";
 
-                if(ind+1<len)
-                {
-                    document.getElementById("s2").innerHTML = getSubjectName(ind+1,notesData);
+                if (ind + 1 < len) {
+                    document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
                     note2.style.display = "block";
 
-                    if(ind+2<len)
-                    {
-                        document.getElementById("s3").innerHTML = getSubjectName(ind+2,notesData);
+                    if (ind + 2 < len) {
+                        document.getElementById("s3").innerHTML = getSubjectName(ind + 2, notesData);
                         note3.style.display = "block";
                         note4.style.display = "none";
 
                     }
-                    else
-                    {
+                    else {
                         note3.style.display = "none";
 
                     }
                 }
-                else
-                {
+                else {
                     note2.style.display = "none";
                 }
             }
-            else
-            {
+            else {
                 note1.style.display = "none";
-                if(pgno!=1)
-                {
+                if (pgno != 1) {
                     pgno--;
                     init();
                 }
-
 
 
             }
 
         }
 
-        else if(width>=470) //1/2 width
+        else if (width >= 470) //1/2 width
         {
+
             $(".fc-toolbar").css({'font-size': '12px'});
 
             pages = Math.ceil((len / 2));
-            notesno=2;
-            pgno= Math.ceil((oldnotesno*(oldpgno-1)+1)/notesno);
+            notesno = 2;
+            pgno = Math.ceil((oldnotesno * (oldpgno - 1) + 1) / notesno);
             ind = notesno * (pgno - 1);
 
-            if(ind<len)
-            {
-                document.getElementById("s1").innerHTML =getSubjectName(ind,notesData);;
+            if (ind < len) {
+                document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
+                ;
                 note1.style.display = "block";
 
-                if(ind+1<len)
-                {
-                    document.getElementById("s2").innerHTML = getSubjectName(ind+1,notesData);
+                if (ind + 1 < len) {
+                    document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
                     note2.style.display = "block";
                     note3.style.display = "none";
                     note4.style.display = "none";
 
                 }
-                else
-                {
+                else {
                     note2.style.display = "none";
                 }
             }
-            else
-            {
+            else {
                 note1.style.display = "none";
 
-                if(pgno!=1)
-                {
+                if (pgno != 1) {
                     pgno--;
                     init();
 
@@ -880,14 +687,13 @@ function init() {
             }
         }
 
-        else if(width<470)  // Phablet width
+        else if (width < 470)  // Phablet width
         {
             $(".fc-toolbar").css({'font-size': '9px'});
-            $("#books").css('margin-top','55px');
+            $("#books").css('margin-top', '55px');
 
-            var h2=$(window).height();
-            if(h2<600)
-            {
+            var h2 = $(window).height();
+            if (h2 < 600) {
 
 
                 //  $('#note1').css({'height':'305px','width':'192px','margin-top':'-5px'});
@@ -896,35 +702,28 @@ function init() {
                 //  $('#goleft').css('top','150px');
                 //  $('#goright').css('top','150px');
                 //  $('#mynotes').css('height','529px');
-                $('#foot').css('margin-top','-150px');
+                $('#foot').css('margin-top', '-150px');
             }
 
             pages = Math.ceil((len / 1));
-            notesno=1;
-            pgno= Math.ceil((oldnotesno*(oldpgno-1)+1)/notesno);
+            notesno = 1;
+            pgno = Math.ceil((oldnotesno * (oldpgno - 1) + 1) / notesno);
 
             ind = notesno * (pgno - 1);
 
-            if(ind<len)
-            {
-                document.getElementById("s1").innerHTML = getSubjectName(ind,notesData);
+            if (ind < len) {
+                document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
                 note1.style.display = "block";
                 note2.style.display = "none";
                 note3.style.display = "none";
                 note4.style.display = "none";
-
-
             }
-            else
-            {
+            else {
                 note1.style.display = "none";
-                if(pgno!=1)
-                {
+                if (pgno != 1) {
                     pgno--;
                     init();
                 }
-
-
             }
 
         }
@@ -932,50 +731,45 @@ function init() {
     }
 }
 
-
 //Functions to identify the note number pressed ie. first note from left,second from left et...
 
-var i = 1;
+var i;
 var index;
 var title;
 
 function one() {
 
-    title=document.getElementById("s1").innerHTML;
-    index=getOrderNo(title,notesData);
+    title = document.getElementById("s1").innerHTML;
+    index = getOrderNo(title, notesData);
     $("#noteModalTitle").html(title);
     i = 1;
 }
 
 function two() {
-    title=document.getElementById('s2').innerHTML;
-    index=getOrderNo(title,notesData);
+    title = document.getElementById('s2').innerHTML;
+    index = getOrderNo(title, notesData);
     $("#noteModalTitle").html(title);
     i = 1;
 }
 
 function three() {
-    title=document.getElementById('s3').innerHTML;
-    index=getOrderNo(title,notesData);
+    title = document.getElementById('s3').innerHTML;
+    index = getOrderNo(title, notesData);
     $("#noteModalTitle").html(title);
     i = 1;
 }
 
 function four() {
-    title=document.getElementById('s4').innerHTML;
-    index=getOrderNo(title,notesData);
+    title = document.getElementById('s4').innerHTML;
+    index = getOrderNo(title, notesData);
     $("#noteModalTitle").html(title);
     i = 1;
 }
-
-
-uplen=getNotesNumber(notesData);
 
 //Function of hide the image displaying modal
 function off() {
     modal.style.display = "none";
 }
-
 
 
 var modal = document.getElementById('myModal');
@@ -986,25 +780,17 @@ var images;
 
 function a() //function to make the popup images visible
 {
+    modalImg.src = getImageAddress(title, i, notesData);
+    images = getImagesNumber(title, notesData);
 
-
-    if (index < uplen) {
-
-        modalImg.src = getImageAddress(title,1,notesData);
-        images=getImagesNumber(title,notesData);
-    }
-    else {
-        modalImg.src = "img/noimage.svg";
-    }
 }
 
 
 function next() //Change image to next page
 {
-    if(i<images)
-    {
+    if (i < images) {
         i++;
-        modalImg.src = getImageAddress(title,i,notesData);
+        modalImg.src = getImageAddress(title, i, notesData);
         //alert(getImageAddress(title,i,notesData) );
     }
 }
@@ -1014,7 +800,7 @@ function previous() //Change image to previous page
 
     if (i > 1) {
         i--;
-        modalImg.src =getImageAddress(title,i,notesData);
+        modalImg.src = getImageAddress(title, i, notesData);
         //alert(getImageAddress(title,i,notesData) );
     } else {
         //No changes if first image
@@ -1043,22 +829,28 @@ $("#uploadNoteImage").fileinput({
 $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, reader) {
     console.log("fileloaded");
     var url = noTrailingSlash(window.location.href) + '/user/notes';
-    var pgno=getImagesNumber(title,notesData);
+    var pgno = parseInt(getImagesNumber(title, notesData));
     var data = {
-        "pgno":pgno+1,
+        "subject":title,
+        "pgno": pgno + 1,
         "note": reader.result
     };
-
+    console.log("Sending data",data);
     $.ajax({
-            url: url,
-            method: "POST",
-            data: data,
-            success: function (data)
-            {
-                console.log(data);
-            },
-            error: function (err) {
-                console.log(err);
-     }
+        url: url,
+        method: "PUT",
+        data: data,
+        success: function (data) {
+            console.log(data);
+            // localStorage.title=title;
+            // localStorage.pgno=pgno+1;
+            // localStorage.show=true;
+            // $('#note-info-block').text('Success!');
+            location.reload();
+        },
+        error: function (err) {
+            // $('#note-info-block').text('Error!');
+            console.log(err);
+        }
     });
 });

@@ -114,8 +114,8 @@ router.route('/user/events')
         });
     });
 
-router.route('user/notes')
-    .get(function (req, res) {
+router.route('/user/notes')
+    .get(function (req, res) { //get subject data
         Image.find({username: req.session.username}, function (err, notes) {
             if (err) throw err;
             else {
@@ -139,11 +139,18 @@ router.route('user/notes')
         });
     })
     .put(function (req, res) {//add a note
-        Image.findOne({username: req.session.username, subject: req.body.subject}, function (err, notes) {
+        Image.findOne({
+            username: req.session.username,
+            subject: req.body.subject
+        }, function (err, notes) {
             if (err) throw err;
             else {
+                console.log("Query Notes", notes);
                 console.log("Put Notes", req.body);
-                notes.data.push(req.body);
+                notes.data.push({
+                    "pgno":req.body.pgno,
+                    "note":req.body.note
+                });
                 notes.save(function (err, response) {
                     if (err) throw err;
                     console.log(response);

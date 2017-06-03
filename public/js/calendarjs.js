@@ -50,7 +50,7 @@ $(document).ready(function () {
     var eventsData;
     var url = noTrailingSlash(window.location.href) + '/user/events';
     var timer = $.Deferred();
-    setTimeout(timer.resolve, 2000);
+    setTimeout(timer.resolve, 50);
     var ajaxEventsCall = $.ajax({
         url: url,
         method: "GET"
@@ -356,8 +356,7 @@ $(document).ready(function () {
                         $.ajax({
                             method: "PUT",
                             url: url,
-                            data: data,
-                            headers: {'x-access-token': localStorage.token}
+                            data: data
                         }).done(function (data) {
                             location.reload();
                         }).fail(function (err) {
@@ -383,8 +382,7 @@ $(document).ready(function () {
                     $.ajax({
                         method: "DELETE",
                         data: data,
-                        url: url,
-                        headers: {'x-access-token': localStorage.token}
+                        url: url
                     }).done(function (data) {
                         location.reload();//need a better workaround than this
                     }).fail(function (err) {
