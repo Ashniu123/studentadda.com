@@ -127,6 +127,18 @@ function getIndexToDelete(subject, myArray) {
     return -1;
 }
 
+function decrementIndex(ind, myArray) {
+
+    for(var i=0; i<myArray.length; i++)
+    {
+        if(myArray[i].orderno>ind)
+        {
+            myArray[i].orderno--;
+        }
+    }
+
+}
+
 var len;
 
 var pages;
@@ -245,6 +257,7 @@ function viewnotes() {
 //Performs validation and adds to subject name array
 
 function adding() {
+
     var newsubject = document.getElementById("subject").value;
     newsubject = newsubject.toUpperCase();
 
@@ -273,6 +286,7 @@ function adding() {
 
                 notesData.push(
                     {
+
                         "id": id,
                         "orderno": getNotesNumber(notesData) + 1,
                         "subject": newsubject
@@ -331,6 +345,7 @@ function deleting() {
                 console.log(data);
                 var i = getIndexToDelete(newsubject, notesData);
                 notesData.splice(i, 1);
+                decrementIndex(i,notesData);
                 len = getNotesNumber(notesData);
                 pages = Math.ceil((len / notesno));
                 document.getElementById("subject2").value = "";
@@ -783,6 +798,8 @@ function a() //function to make the popup images visible
     modalImg.src = getImageAddress(title, i, notesData);
     images = getImagesNumber(title, notesData);
 
+    $("#imgno").html("Pg."+1);
+
 }
 
 
@@ -791,7 +808,7 @@ function next() //Change image to next page
     if (i < images) {
         i++;
         modalImg.src = getImageAddress(title, i, notesData);
-        //alert(getImageAddress(title,i,notesData) );
+        $("#imgno").html("Pg."+i);
     }
 }
 
@@ -801,7 +818,7 @@ function previous() //Change image to previous page
     if (i > 1) {
         i--;
         modalImg.src = getImageAddress(title, i, notesData);
-        //alert(getImageAddress(title,i,notesData) );
+        $("#imgno").html("Pg."+i);
     } else {
         //No changes if first image
     }
@@ -841,12 +858,26 @@ $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, 
         method: "PUT",
         data: data,
         success: function (data) {
+
             console.log(data);
-            // localStorage.title=title;
-            // localStorage.pgno=pgno+1;
-            // localStorage.show=true;
-            // $('#note-info-block').text('Success!');
-            location.reload();
+            var order=getIndexToDelete(title,notesData);
+            var id = Math.floor(Math.random() * 1000);
+            images=pgno+1;
+            alert(pgno);
+            if(pgno == 0)
+            {
+                $("#close1").click;
+                notesData[order].data.push({"id":id,"pgno": pgno + 1,
+                    "note": reader.result});
+                a();
+            }
+
+            notesData[order].data.push({"id":id,"pgno": pgno + 1,
+                "note": reader.result});
+
+
+
+
         },
         error: function (err) {
             // $('#note-info-block').text('Error!');
