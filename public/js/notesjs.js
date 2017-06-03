@@ -1049,5 +1049,16 @@ $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, 
         "note": reader.result
     };
 
-
+    $.ajax({
+            url: url,
+            method: "POST",
+            data: data,
+            success: function (data)
+            {
+                console.log(data);
+            },
+            error: function (err) {
+                console.log(err);
+     }
+    });
 });
