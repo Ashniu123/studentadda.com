@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 var User = require('../models/userSchema');
+var Image=require('../models/imageSchema');
 var Event=require('../models/eventSchema');
 var passport=require('passport');
 

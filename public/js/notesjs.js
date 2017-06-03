@@ -1,10 +1,27 @@
 
 
-var pgno = 1,notesno=4;
+var pgno = 1,notesno=getNumberOfBooks();
 
+function getNumberOfBooks() {
+    var width=$("#centeralbook").width();
+    if(width>=1000)
+    {
+        return 4;
+    }
+    else if(width>=820)
+    {
+        return 3;
+    }
+    else if(width>=470)
+    {
+        return 2;
+    }
+    else if(width<470)
+    {
+        return 1;
+    }
 
-var subjects = ['CN', 'COA', 'WP', 'ITC', 'M1', 'ADBMS', 'PHYSICS', 'CHEMISTRY', 'ED', 'ADC', 'PADC']; //Default subject array
-
+}
 
 function getSubjectName(ind, myArray)
 {
@@ -19,16 +36,21 @@ function getSubjectName(ind, myArray)
 
 function getNotesNumber(myArray)
 {
-    var large= myArray[0].orderno;
-    for (var i=0; i < myArray.length; i++)
+    if("orderno" in myArray[0])
     {
-        if (myArray[i].orderno > large)
+        var large= myArray[0].orderno;
+        for (var i=0; i < myArray.length; i++)
         {
+            if (myArray[i].orderno > large)
+            {
 
-            large=myArray[i].orderno;
+                large=myArray[i].orderno;
+            }
         }
+        return large;
     }
-    return large;
+    return 0;
+
 }
 
 function getImageAddress(subject,pg, myArray) {
@@ -64,19 +86,25 @@ function getImagesNumber(subject ,myArray)
     {
         if (myArray[i].subject === subject)
         {
-
-            var large=myArray[i].data[0].pgno;
-
-            for(var j=0; j<myArray[i].data.length;j++)
+            if("data" in myArray[i])
             {
-                if (myArray[i].data[j].pgno > large)
-                {
+                var large=myArray[i].data[0].pgno;
 
-                   large=myArray[i].data[j].pgno
+                for(var j=0; j<myArray[i].data.length;j++)
+                {
+                    if (myArray[i].data[j].pgno > large)
+                    {
+
+                        large=myArray[i].data[j].pgno
+                    }
                 }
+                //noinspection JSAnnotator
+                return large;
             }
-            //noinspection JSAnnotator
-            return large;P
+
+            else
+                return 1;
+
         }
     }
 }
@@ -90,6 +118,19 @@ function getOrderNo(subject, myArray)
             return myArray[i].orderno;
         }
     }
+    return -1;
+}
+
+function getIndexToDelete(subject, myArray) {
+    for(var i=0;i<myArray.length;i++)
+    {
+        if(myArray[i].subject===subject)
+        {
+            return i;
+        }
+    }
+
+    return -1;
 }
 var notesData=
     [
@@ -154,7 +195,7 @@ var notesData=
         {
             id:476,
             orderno:4,
-            subject:"Maths",
+            subject:"MATHS",
             data:[
                 {
                     id:123,
@@ -172,7 +213,7 @@ var notesData=
         {
             id:376,
             orderno:5,
-            subject:"Physics",
+            subject:"PHYSICS",
             data:[
                 {
                     id:123,
@@ -392,22 +433,31 @@ function viewnotes()
 
 function adding() {
     var newsubject = document.getElementById("subject").value;
+    newsubject=newsubject.toUpperCase();
 
     if (newsubject=='')
     {
         document.getElementById("err").innerHTML = "<br>" + "<span style='color:red; font-size:15px; margin-left:40%; ' >" + "Invalid entry..." + "</span>" +"<br>"+"<br>";
 
     }
-    else if (subjects.indexOf((newsubject).toUpperCase()) >= 0 ) {
+    else if (getOrderNo(newsubject, notesData) >= 0 ) {
+
         document.getElementById("err").innerHTML = "<br>" + "<span style='color:red; font-size:15px; margin-left:40%; '>" + "Already present..." + "</span>" +"<br>"+"<br>"+"<br>";
     }
     else {
-        subjects[len] = (newsubject.toUpperCase());
+
+        var id=Math.floor(Math.random()*1000);
+
+        notesData.push(
+            {
+                "id":id,
+                "orderno":getNotesNumber(notesData)+1,
+                "subject":newsubject
+            });
         len = getNotesNumber(notesData);
         pages = Math.ceil((len / notesno));
 
         document.getElementById("subject").value = '';
-
         document.getElementById("hides1").click();
 
         init();
@@ -427,19 +477,28 @@ document.getElementById("hides2").onclick=function()
 }
 
 //Performs validation and deletes string from array
+
 function deleting() {
     var newsubject = document.getElementById("subject2").value;
+    newsubject=newsubject.toUpperCase();
 
-    if (subjects.indexOf(newsubject.toUpperCase()) < 0) {
+    if (newsubject=='')
+    {
+        document.getElementById("err2").innerHTML = "<br>" + "<span style='color:red; font-size:15px; margin-left:40%; ' >" + "Invalid entry..." + "</span>" +"<br>"+"<br>";
+
+    }
+
+    else if (getOrderNo(newsubject, notesData) < 0) {
         document.getElementById("err2").innerHTML = "<br>" +"<br>"+ "<span style='color:red; font-size:15px; margin-left:40%; '>" + "Subject not added..." + "</span>"+"<br>"+"<br>";
     }
     else {
-        var i = subjects.indexOf(newsubject.toUpperCase());
-        subjects.splice(i, 1);
+        var i = getIndexToDelete(newsubject,notesData);
+        notesData.splice(i, 1);
         len = getNotesNumber(notesData);
-        pages = Math.ceil((len / 4));
+        pages = Math.ceil((len / notesno));
         document.getElementById("subject2").value = "";
         document.getElementById("hides2").click();
+
         init();
     }
 }
@@ -910,100 +969,6 @@ function four() {
 }
 
 
-//Innitializing images//
-{
-    var Notes = new Array(len);
-    var uplen = 0;
-    Notes[0] = new Array(3);
-    Notes[0][0] = new Image();
-    Notes[0][0].src = "img/CN1.jpeg";
-    uplen++;
-    Notes[0][1] = new Image();
-    Notes[0][1].src = "img/CN2.jpg";
-    Notes[0][2] = new Image();
-    Notes[0][2].src = "img/CN3.jpg";
-    Notes[1] = new Array(3);
-    Notes[1][0] = new Image();
-    Notes[1][0].src = "img/COA1.jpeg";
-    uplen++;
-    Notes[1][1] = new Image();
-    Notes[1][1].src = "img/COA2.jpg";
-    Notes[1][2] = new Image();
-    Notes[1][2].src = "img/COA3.jpeg";
-    Notes[2] = new Array(3);
-    Notes[2][0] = new Image();
-    Notes[2][0].src = "img/WP1.jpeg";
-    uplen++;
-    Notes[2][1] = new Image();
-    Notes[2][1].src = "img/WP2.jpeg";
-    Notes[2][2] = new Image();
-    Notes[2][2].src = "img/WP3.jpeg";
-    Notes[3] = new Array(3);
-    Notes[3][0] = new Image();
-    Notes[3][0].src = "img/ITC1.png";
-    uplen++;
-    Notes[3][1] = new Image();
-    Notes[3][1].src = "img/ITC2.png";
-    Notes[3][2] = new Image();
-    Notes[3][2].src = "img/ITC3.png";
-    Notes[4] = new Array(3);
-    Notes[4][0] = new Image();
-    Notes[4][0].src = "img/M1.jpeg";
-    uplen++;
-    Notes[4][1] = new Image();
-    Notes[4][1].src = "img/M2.jpeg";
-    Notes[4][2] = new Image();
-    Notes[4][2].src = "img/M3.jpeg";
-    Notes[5] = new Array(3);
-    Notes[5][0] = new Image();
-    Notes[5][0].src = "img/ADBMS1.jpeg";
-    uplen++;
-    Notes[5][1] = new Image();
-    Notes[5][1].src = "img/ADBMS2.jpeg";
-    Notes[5][2] = new Image();
-    Notes[5][2].src = "img/ADBMS3.jpeg";
-    Notes[6] = new Array(3);
-    Notes[6][0] = new Image();
-    Notes[6][0].src = "img/Physics1.jpeg";
-    uplen++;
-    Notes[6][1] = new Image();
-    Notes[6][1].src = "img/Physics2.jpeg";
-    Notes[6][2] = new Image();
-    Notes[6][2].src = "img/Physics3.jpeg";
-    Notes[7] = new Array(3);
-    Notes[7][0] = new Image();
-    Notes[7][0].src = "img/Chemistry1.png";
-    uplen++;
-    Notes[7][1] = new Image();
-    Notes[7][1].src = "img/Chemistry2.png";
-    Notes[7][2] = new Image();
-    Notes[7][2].src = "img/Chemistry3.png";
-    Notes[8] = new Array(3);
-    Notes[8][0] = new Image();
-    Notes[8][0].src = "img/ED1.jpeg";
-    uplen++;
-    Notes[8][1] = new Image();
-    Notes[8][1].src = "img/ED2.jpg";
-    Notes[8][2] = new Image();
-    Notes[8][2].src = "img/ED3.jpeg";
-    Notes[9] = new Array(3);
-    Notes[9][0] = new Image();
-    Notes[9][0].src = "img/ADC1.jpeg";
-    uplen++;
-    Notes[9][1] = new Image();
-    Notes[9][1].src = "img/ADC2.jpg";
-    Notes[9][2] = new Image();
-    Notes[9][2].src = "img/ADC3.jpg";
-    Notes[10] = new Array(3);
-    Notes[10][0] = new Image();
-    Notes[10][0].src = "img/PADC1.png";
-    uplen++;
-    Notes[10][1] = new Image();
-    Notes[10][1].src = "img/PADC2.png";
-    Notes[10][2] = new Image();
-    Notes[10][2].src = "img/PADC3.png";
-}
-
 uplen=getNotesNumber(notesData);
 
 //Function of hide the image displaying modal
@@ -1083,16 +1048,6 @@ $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, 
         "pgno":pgno+1,
         "note": reader.result
     };
-    $.ajax({
-        url: url,
-        method: "POST",
-        data: data,
-        success: function (data) {
-            console.log(data);
-        },
-        error: function (err) {
-            console.log(err);
-        }
-    });
+
 
 });

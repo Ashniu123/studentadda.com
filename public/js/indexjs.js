@@ -111,12 +111,11 @@ $('#buttonForSignup').click(function(){
 
 $('#buttonForLogin').click(function(){
     var loginData={};
-    //TODO: Remove this shortcut
-    loginData.username=$('#inputEmailForLogin').val();//It is the Email!
-    loginData.password=$('#inputPasswordForLogin').val();
+    // loginData.username=$('#inputEmailForLogin').val();//It is the Email!
+    // loginData.password=$('#inputPasswordForLogin').val();
     //To save time
-    // loginData.username='abc@gmail.com';
-    // loginData.password='abcd';
+    loginData.username='xyz@gmail.com';
+    loginData.password='abcd';
     var url=window.location.href+'login';
     if(loginData.username.length>5 && loginData.password.length>3){
         $.ajax({
@@ -142,6 +141,6 @@ $('#buttonForLogin').click(function(){
     }
 });
 
-// $(document).ready(function(){
-//    $('#buttonForLogin').click();
-// });
+$(document).ready(function(){
+   $('#buttonForLogin').click();
+});

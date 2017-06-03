@@ -27,7 +27,7 @@ $("#changeSettingsModal").on('shown.bs.modal', function () {
 
 });
 
-//Avatar, Upload Not working
+//Avatar
 $("#inputAvatar").fileinput({
     overwriteInitial: false,
     maxFileSize: 1000,
