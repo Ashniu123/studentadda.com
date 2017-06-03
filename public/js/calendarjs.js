@@ -53,9 +53,7 @@ $(document).ready(function () {
     setTimeout(timer.resolve, 2000);
     var ajaxEventsCall = $.ajax({
         url: url,
-        method: "GET",
-        // dataType:'application/json',
-        headers: {'x-access-token': localStorage.token},
+        method: "GET"
     }).done(function (data) {
         data.forEach(function (val) {
             val.start = moment(parseInt(val.start)).local();
@@ -165,8 +163,8 @@ $(document).ready(function () {
 
                         //make better id by server
                         function getId() {
-                            return Math.floor(Math.random() * 999)
-                        };
+                            return Math.floor(Math.random() * 999);
+                        }
                         var id = getId(), flag = 0;
 
                         for (var i = 0; i < calendar.fullCalendar('clientEvents').length; i++) {
@@ -182,7 +180,7 @@ $(document).ready(function () {
                         }
                         //check if id exists in the events before render
 
-                        if (flag == 0) {//if id is unique only then
+                        if (!flag) {//if id is unique only then
                             //we only need to send this json to db then reload page or call rerenderEvents function
                             var event = {
                                 //Compulsory Id

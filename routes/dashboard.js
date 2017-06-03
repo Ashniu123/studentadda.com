@@ -29,7 +29,7 @@ router.route('/user')
     })
     .post(function (req, res) {
         var username = req.session.username;
-        User.findOneAndUpdate({username:username}, {
+        User.findOneAndUpdate({username: username}, {
             $set: {
                 gender: req.body.gender,
                 dob: new Date(req.body.dob),
@@ -46,15 +46,15 @@ router.route('/user')
         });
     });
 
-router.post('/user/avatar',function(req,res){
-    console.log("Avatar Body:",req.body);
-    var username=req.session.username;
-    User.update({username:username},{$set:{avatar:req.body.avatar}},function(err,response){
-       if(err) throw err;
-       else{
-           console.log(response);
-           res.status(200).send(response);
-       }
+router.post('/user/avatar', function (req, res) {
+    console.log("Avatar Body:", req.body);
+    var username = req.session.username;
+    User.update({username: username}, {$set: {avatar: req.body.avatar}}, function (err, response) {
+        if (err) throw err;
+        else {
+            console.log(response);
+            res.status(200).send(response);
+        }
     });
 });
 
@@ -86,26 +86,26 @@ router.route('/user/events')
     })
     .put(function (req, res) {
         var username = req.session.username;
-        Event.update({username:username,'events.id':req.body.id.toString()},{
-            $set:{
-                'events.$.allDay':req.body.allDay,
-                'events.$.textColor':req.body.textColor,
-                'events.$.color':req.body.color,
-                'events.$.description':req.body.description,
-                'events.$.start':req.body.start,
-                'events.$.end':req.body.end,
-                'events.$.dow':req.body.dow
+        Event.update({username: username, 'events.id': req.body.id.toString()}, {
+            $set: {
+                'events.$.allDay': req.body.allDay,
+                'events.$.textColor': req.body.textColor,
+                'events.$.color': req.body.color,
+                'events.$.description': req.body.description,
+                'events.$.start': req.body.start,
+                'events.$.end': req.body.end,
+                'events.$.dow': req.body.dow
             }
-        },function(err,response){
-            if(err) throw err;
-            else{
+        }, function (err, response) {
+            if (err) throw err;
+            else {
                 res.status(200).send(response);
             }
         });
     })
     .delete(function (req, res) {
         var username = req.session.username;
-        Event.update({username: username},{$pull:{events:{id:req.body.id}}}, function (err, response) {
+        Event.update({username: username}, {$pull: {events: {id: req.body.id}}}, function (err, response) {
             if (err) throw err;
             else {
                 console.log(response);
@@ -115,13 +115,53 @@ router.route('/user/events')
     });
 
 router.route('user/notes')
-    .get(function(req,res){
-
+    .get(function (req, res) {
+        Image.find({username: req.session.username}, function (err, notes) {
+            if (err) throw err;
+            else {
+                console.log("Get Notes", notes);
+                res.status(200).send(notes);
+            }
+        });
     })
-    .post(function(req,res){
-
+    .post(function (req, res) {//add a subject
+        Image.create({
+            username: req.session.username,
+            subject: req.body.subject,
+            orderno: req.body.orderno
+        }, function (err, response) {
+            if (err) throw err;
+            else {
+                console.log("Post Notes", req.body);
+                console.log(response);
+                res.status(200).send(response);
+            }
+        });
+    })
+    .put(function (req, res) {//add a note
+        Image.findOne({username: req.session.username, subject: req.body.subject}, function (err, notes) {
+            if (err) throw err;
+            else {
+                console.log("Put Notes", req.body);
+                notes.data.push(req.body);
+                notes.save(function (err, response) {
+                    if (err) throw err;
+                    console.log(response);
+                    res.status(200).send(response);
+                });
+            }
+        });
+    })
+    .delete(function (req, res) {//delete a subject
+        Image.deleteOne({username: req.session.username, subject: req.body.subject}, function (err, response) {
+            if (err) throw err;
+            else {
+                console.log("Delete Notes", req.body);
+                console.log(response);
+                res.status(200).send(response);
+            }
+        });
     });
-
 
 router.get('/logout', function (req, res) {
     req.logout();
