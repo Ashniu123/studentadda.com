@@ -863,13 +863,13 @@ $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, 
             var order=getIndexToDelete(title,notesData);
             var id = Math.floor(Math.random() * 1000);
             images=pgno+1;
-            alert(pgno);
+
             if(pgno == 0)
             {
-                $("#close1").click;
+                modalImg.src = reader.result;
                 notesData[order].data.push({"id":id,"pgno": pgno + 1,
                     "note": reader.result});
-                a();
+               pgno++;
             }
 
             notesData[order].data.push({"id":id,"pgno": pgno + 1,
