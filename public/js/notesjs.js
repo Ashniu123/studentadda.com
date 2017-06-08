@@ -15,6 +15,13 @@ $(document).ready(function(){
     }).fail(function (err) {
         console.log(err);
     });
+
+    toastr.options={
+        timeOut : 5000,
+        positionClass:'toast-top-center',
+        progressBar: 'checked'
+    }
+
 });
 
 
@@ -159,6 +166,7 @@ function getImageIndex(subject,pgno,myArray) {
 
 function removeImage()
 {
+    toastr.warning('Deleted!','');
    var delind=(getImageIndex(title,i,notesData));
    var ind,decInd;;
    for(ind=0;ind<notesData.length;ind++){
@@ -921,6 +929,7 @@ $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, 
         method: "PUT",
         data: data,
         success: function (data) {
+            toastr.success('','Added!');
             console.log(data);
             var order=getIndexToDelete(title,notesData);
             var id = Math.floor(Math.random() * 1000);
@@ -940,13 +949,17 @@ $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, 
 
                 console.log("Updates: "+parseInt(getImagesNumber(title, notesData)));
                 images=imgpgno;
+
             }
 
             else {
 
                 notesData[order].data.push({"id":id,"pgno": imgpgno + 1,
                     "note": reader.result});
+
             }
+
+
         },
         error: function (err) {
             console.log(err);
