@@ -157,38 +157,54 @@ function getImageIndex(subject,pgno,myArray) {
 
 }
 
-function removeImage()
-{
-    toastr.warning('Deleted!','');
-   var delind=(getImageIndex(title,i,notesData));
-   var ind,decInd;;
-   for(ind=0;ind<notesData.length;ind++){
-       if(notesData[ind].subject==title){
-           if(getImagesNumber(title,notesData)>1) {
-               console.log(images);
-               notesData[ind].data.splice(delind,1);
-               for(decInd=0;decInd<notesData[ind].data.length;decInd++){
-                   if(notesData[ind].data[decInd].pgno>i){
-                       notesData[ind].data[decInd].pgno--;
-                   }
-               }
-               a();
-               console.log(images);
-           }
-           else if(getImagesNumber(title,notesData)==1){
-               notesData[ind].data.splice(delind,1);
-               // notesData[ind].data.push({
-               //     "id":666,
-               //     "pgno":-1,
-               //     "note":"img/noimage"
-               // });
-               a();
+function removeImage() {
 
-           }
-       }
-   }
+    /*
+     var data={
+     "subject":title,
+     "index":delind,
+     "pgno":i
+     };
+     $.ajax({
+     url:url,
+     method:"PUT",
+     data:data,
+     success:function(data){
+     },
+     error:function(err){
+     }
+     })
+     */
+
+    var delind = (getImageIndex(title, i, notesData));
+
+    var ind, decInd;
+
+    for (ind = 0; ind < notesData.length; ind++) {
+        if (notesData[ind].subject == title) {
+            if (getImagesNumber(title, notesData) > 0) {
+                toastr.warning('Deleted!');
+                console.log(images);
+                notesData[ind].data.splice(delind, 1);
+                for (decInd = 0; decInd < notesData[ind].data.length; decInd++) {
+                    if (notesData[ind].data[decInd].pgno > i) {
+                        notesData[ind].data[decInd].pgno--;
+                        //         }
+                        //     }
+                        //     a();
+                        //     console.log(images);
+                        // }
+                        // // else if(getImagesNumber(title,notesData)==1){
+                        //     notesData[ind].data.splice(delind,1);
+
+
+                    }
+                }
+                a();
+            }
+        }
+    }
 }
-
 
 var len;
 
@@ -359,6 +375,7 @@ function adding() {
                 init();
             },
             error:function(err){
+                toastr.error('Try again!','Something went wrong in adding subject!');
                 console.log(err);
             }
         });
@@ -411,6 +428,7 @@ function deleting() {
                 init();
             },
             error:function(err){
+                toastr.error('Try again!','Something went wrong in deleting subject!');
                 console.log(err);
             }
         });
@@ -955,6 +973,7 @@ $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, 
 
         },
         error: function (err) {
+            toastr.error('Try again!','Something went wrong in uploading note!');
             console.log(err);
         }
     });

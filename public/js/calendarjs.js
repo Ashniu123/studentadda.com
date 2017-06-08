@@ -293,7 +293,7 @@ $(document).ready(function () {
                     sideBySide: true
                 });
 
-                if (event.allDay == true) {
+                if (event.allDay) {
                     $('#eventClickAllDay').prop('checked', true);
                 } else {
                     $('#eventClickAllDay').prop('checked', false);
