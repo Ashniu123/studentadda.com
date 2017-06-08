@@ -83,9 +83,13 @@ function getImageAddress(subject, pg, myArray) {
 
 function getImagesNumber(subject, myArray) {
     for (var i = 0; i < myArray.length; i++) {
+        var large=0;
         if (myArray[i].subject === subject) {
-            if ("data" in myArray[i]) {
-                var large = myArray[i].data[0].pgno;
+
+            if (myArray[i].data[0].pgno != -1)
+            {
+                console.log("Inside");
+                large = myArray[i].data[0].pgno;
                 for (var j = 0; j < myArray[i].data.length; j++) {
                     if (myArray[i].data[j].pgno > large) {
                         large = myArray[i].data[j].pgno
@@ -94,7 +98,11 @@ function getImagesNumber(subject, myArray) {
                 return large;
             }
             else
-                return 0;
+            {
+                console.log("Outside!!!!!");
+                return large;
+            }
+
         }
     }
 }
@@ -271,14 +279,21 @@ function adding() {
             url:url,
             data:data,
             success:function(data){
-                console.log(data);
+                //console.log("Added at: "+(getIndexToDelete(newsubject,notesData)));
 
                 notesData.push(
                     {
                         "id": id,
                         "orderno": getNotesNumber(notesData) + 1,
-                        "subject": newsubject
+                        "subject": newsubject,
+                        "data":[{
+                            "id":666,
+                            "pgno":-1,
+                            "note":"img/noimage"
+                        }]
                     });
+                console.log("Here : ");
+                console.log(notesData[getNotesNumber(notesData)-1]);
                 len = getNotesNumber(notesData);
                 pages = Math.ceil((len / notesno));
 
@@ -793,6 +808,7 @@ function a() //function to make the popup images visible
 
 function next() //Change image to next page
 {
+
     if (i < images) {
         i++;
         modalImg.src = getImageAddress(title, i, notesData);
@@ -828,19 +844,23 @@ $("#uploadNoteImage").fileinput({
     removeTitle: 'Cancel or reset changes',
     elErrorContainer: '#kv-avatar-errors',
     msgErrorClass: 'alert alert-block alert-danger',
-    allowedFileExtensions: ["jpg", "png", "jpeg"]
+    allowedFileExtensions: ["jpg", "png", "jpeg"],
+    showPreview: true,
+    showRemove: false
+
 });
 
 $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, reader) {
-    console.log("fileloaded");
+    //console.log("fileloaded");
     var url = noTrailingSlash(window.location.href) + '/user/notes';
-    var pgno = parseInt(getImagesNumber(title, notesData));
+    var imgpgno = parseInt(getImagesNumber(title, notesData));
+    console.log("Number of images: "+ imgpgno);
     var data = {
         "subject":title,
-        "pgno": pgno + 1,
+        "pgno": imgpgno + 1,
         "note": reader.result
     };
-    console.log("Sending data",data);
+    //console.log("Sending data",data);
     $.ajax({
         url: url,
         method: "PUT",
@@ -849,22 +869,28 @@ $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, 
             console.log(data);
             var order=getIndexToDelete(title,notesData);
             var id = Math.floor(Math.random() * 1000);
-            images=pgno+1;
+            images=imgpgno+1;
 
-            if(pgno == 0)
+            if(imgpgno == 0)
             {
+                console.log("No notes...Updating!");
                 modalImg.src = reader.result;
-                notesData[order].data.push({"id":id,"pgno": pgno + 1,
+                imgpgno++;
+               // console.log(imgpgno);
+                notesData[order].data.pop();
+                notesData[order].data.push({"id":id,"pgno": imgpgno,
                     "note": reader.result});
-               pgno++;
+                console.log("Updated notes!: "+parseInt(getImagesNumber(title, notesData)));
+
+                console.log("Updates: "+parseInt(getImagesNumber(title, notesData)));
+                images=imgpgno+1;
             }
 
-            notesData[order].data.push({"id":id,"pgno": pgno + 1,
-                "note": reader.result});
+            else {
 
-
-
-
+                notesData[order].data.push({"id":id,"pgno": imgpgno + 1,
+                    "note": reader.result});
+            }
         },
         error: function (err) {
             console.log(err);
