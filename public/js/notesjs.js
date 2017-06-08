@@ -117,6 +117,18 @@ function getIndexToDelete(subject, myArray) {
     return -1;
 }
 
+function decrementIndex(ind, myArray) {
+
+    for(var i=0; i<myArray.length; i++)
+    {
+        if(myArray[i].orderno>ind)
+        {
+            myArray[i].orderno--;
+        }
+    }
+
+}
+
 var len;
 
 var pages;
@@ -321,6 +333,7 @@ function deleting() {
                 console.log(data);
                 var i = getIndexToDelete(newsubject, notesData);
                 notesData.splice(i, 1);
+                decrementIndex(i,notesData);
                 len = getNotesNumber(notesData);
                 pages = Math.ceil((len / notesno));
                 document.getElementById("subject2").value = "";
@@ -773,6 +786,8 @@ function a() //function to make the popup images visible
     modalImg.src = getImageAddress(title, i, notesData);
     images = getImagesNumber(title, notesData);
 
+    $("#imgno").html("Pg."+1);
+
 }
 
 
@@ -781,7 +796,7 @@ function next() //Change image to next page
     if (i < images) {
         i++;
         modalImg.src = getImageAddress(title, i, notesData);
-        //alert(getImageAddress(title,i,notesData) );
+        $("#imgno").html("Pg."+i);
     }
 }
 
@@ -791,7 +806,7 @@ function previous() //Change image to previous page
     if (i > 1) {
         i--;
         modalImg.src = getImageAddress(title, i, notesData);
-        //alert(getImageAddress(title,i,notesData) );
+        $("#imgno").html("Pg."+i);
     } else {
         //No changes if first image
     }
@@ -832,6 +847,24 @@ $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, 
         data: data,
         success: function (data) {
             console.log(data);
+            var order=getIndexToDelete(title,notesData);
+            var id = Math.floor(Math.random() * 1000);
+            images=pgno+1;
+
+            if(pgno == 0)
+            {
+                modalImg.src = reader.result;
+                notesData[order].data.push({"id":id,"pgno": pgno + 1,
+                    "note": reader.result});
+               pgno++;
+            }
+
+            notesData[order].data.push({"id":id,"pgno": pgno + 1,
+                "note": reader.result});
+
+
+
+
         },
         error: function (err) {
             console.log(err);
