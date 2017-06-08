@@ -9,7 +9,7 @@ $(document).ready(function(){
         console.log(data);
         notesData=data;
         len = getNotesNumber(notesData);
-        console.log("Success!");
+        console.log("Success in fetching previous data!");
         init();
         col();
     }).fail(function (err) {
@@ -85,10 +85,11 @@ function getImagesNumber(subject, myArray) {
     for (var i = 0; i < myArray.length; i++) {
         var large=0;
         if (myArray[i].subject === subject) {
-
-            if (myArray[i].data[0].pgno != -1)
+           // alert(myArray[i].data.length);
+           // if (myArray[i].data[0].pgno != -1)
+             if(myArray[i].data.length>0)
             {
-                console.log("Inside");
+                console.log("Inside img no loop with length modification.");
                 large = myArray[i].data[0].pgno;
                 for (var j = 0; j < myArray[i].data.length; j++) {
                     if (myArray[i].data[j].pgno > large) {
@@ -99,10 +100,9 @@ function getImagesNumber(subject, myArray) {
             }
             else
             {
-                console.log("Outside!!!!!");
+                console.log("Outside img no loop with length modification.");
                 return large;
             }
-
         }
     }
 }
@@ -136,6 +136,58 @@ function decrementIndex(ind, myArray) {
     }
 
 }
+
+function getImageIndex(subject,pgno,myArray) {
+    var ind;
+    for(ind=0;ind<myArray.length;ind++)
+    {
+        if(subject==myArray[ind].subject)
+        {
+            var ind2;
+            for(ind2=0;ind2<getImagesNumber(subject,notesData);ind2++)
+            {
+                if(myArray[ind].data[ind2].pgno==pgno)
+                {
+                    return ind2;
+                }
+
+            }
+        }
+    }
+
+}
+
+function removeImage()
+{
+   var delind=(getImageIndex(title,i,notesData));
+   var ind,decInd;;
+   for(ind=0;ind<notesData.length;ind++){
+       if(notesData[ind].subject==title){
+           if(getImagesNumber(title,notesData)>1) {
+               console.log(images);
+               notesData[ind].data.splice(delind,1);
+               for(decInd=0;decInd<notesData[ind].data.length;decInd++){
+                   if(notesData[ind].data[decInd].pgno>i){
+                       notesData[ind].data[decInd].pgno--;
+                   }
+               }
+               a();
+               console.log(images);
+           }
+           else if(getImagesNumber(title,notesData)==1){
+               notesData[ind].data.splice(delind,1);
+               // notesData[ind].data.push({
+               //     "id":666,
+               //     "pgno":-1,
+               //     "note":"img/noimage"
+               // });
+               a();
+
+           }
+       }
+   }
+}
+
 
 var len;
 
@@ -270,9 +322,11 @@ function adding() {
 
         var id = Math.floor(Math.random() * 1000);
         var url = noTrailingSlash(window.location.href) + '/user/notes';
+
         var data = {
             "orderno": getNotesNumber(notesData) + 1,
             "subject": newsubject
+
         };
         $.ajax({
             method:"POST",
@@ -286,14 +340,14 @@ function adding() {
                         "id": id,
                         "orderno": getNotesNumber(notesData) + 1,
                         "subject": newsubject,
-                        "data":[{
-                            "id":666,
-                            "pgno":-1,
-                            "note":"img/noimage"
-                        }]
+                        "data": [
+                        //     {
+                        //     "id":666,
+                        //     "pgno":-1,
+                        //     "note":"img/noimage"
+                        // }
+                        ]
                     });
-                console.log("Here : ");
-                console.log(notesData[getNotesNumber(notesData)-1]);
                 len = getNotesNumber(notesData);
                 pages = Math.ceil((len / notesno));
 
@@ -798,6 +852,7 @@ var images;
 
 function a() //function to make the popup images visible
 {
+    i=1;
     modalImg.src = getImageAddress(title, i, notesData);
     images = getImagesNumber(title, notesData);
 
@@ -876,14 +931,15 @@ $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, 
                 console.log("No notes...Updating!");
                 modalImg.src = reader.result;
                 imgpgno++;
-               // console.log(imgpgno);
-                notesData[order].data.pop();
+                //console.log(imgpgno);
+                //notesData[order].data.pop();
+                console.log("Before Updated notes!: "+parseInt(getImagesNumber(title, notesData)));
                 notesData[order].data.push({"id":id,"pgno": imgpgno,
                     "note": reader.result});
-                console.log("Updated notes!: "+parseInt(getImagesNumber(title, notesData)));
+
 
                 console.log("Updates: "+parseInt(getImagesNumber(title, notesData)));
-                images=imgpgno+1;
+                images=imgpgno;
             }
 
             else {
