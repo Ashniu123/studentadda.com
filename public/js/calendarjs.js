@@ -102,7 +102,7 @@ $(document).ready(function () {
              */
             select: function (start, end, allDay) {
 
-                $('.modal-header').css({
+                $('.event-header').css({
                     'background-color': '#fff',
                     'color': '#000'
                 });
@@ -209,9 +209,11 @@ $(document).ready(function () {
                                         event,
                                         true // make the event "stick"
                                     );
+                                    toastr.success("Event Created Successfully");
                                 },
                                 error: function (err) {
                                     console.log(err);
+                                    toastr.error("Oops! Something Went Wrong","Please Try Again");
                                 }
                             });
 
@@ -262,17 +264,16 @@ $(document).ready(function () {
                 console.log("Event Id", event.id);
 
                 if (event.color) {
-                    $('.modal-header').css({
+                    $('.event-header').css({
                         'background-color': event.color,
                         'color': '#fff'
                     });
                 } else {
-                    $('.modal-header').css({
+                    $('.event-header').css({
                         'background-color': '#fff',
                         'color': '#000'
                     });
                 }
-                // console.log("Before everything:", event); //proper object here
 
                 $('#eventClickLabel').html(event.title);
 
@@ -305,8 +306,6 @@ $(document).ready(function () {
                         event.allDay = false;
                 });
 
-                // ColorPicker BFH: http://bootstrapformhelpers.com/colorpicker/#jquery-plugins
-                //Till then:
                 if (event.color)
                     $('#eventClickColor').val(event.color);
                 else
@@ -361,24 +360,23 @@ $(document).ready(function () {
                             data: data
                         }).done(function (response) {
                             console.log(response);
-                            data.start=moment(parseInt(event.start)).local();
-                            data.end=moment(parseInt(event.end)).local();
-                            event.start=data.start;
-                            event.end=data.end;
+                            event.start=moment($('#eventClickStartTime').val(), 'DD/MM/YYYY HH:mm', true);
+                            event.end=moment($('#eventClickEndTime').val(), 'DD/MM/YYYY HH:mm', true);
                             event.description=data.description;
                             event.color=data.color;
                             event.textColor=data.textColor;
                             calendar.fullCalendar('updateEvent', event);
+                            toastr.success("Event Updated Successfully");
                             // location.reload();
                         }).fail(function (err) {
+                            toastr.error("Oops! Something Went Wrong","Please Try Again");
                             console.log(err);
                         });
-
                     } else {
                         $('#eventClickError').html('Invalid Dates');
                     }
 
-                    $('#eventClickUpdate').off('click');
+                    $(this).off('click');
 
                 }); //end of button function
 
@@ -396,11 +394,13 @@ $(document).ready(function () {
                     }).done(function (data) {
                         console.log(data);
                         calendar.fullCalendar('removeEvents', event.id);
+                        toastr.success("Event Removed Successfully");
                         // location.reload();//need a better workaround than this
                     }).fail(function (err) {
+                        toastr.error("Oops! Something Went Wrong","Please Try Again");
                         console.log(err);
                     });
-                    $('#eventClickRemove').off('click');
+                    $(this).off('click');
                 });
             }, //eventClick ends
             eventRender: function (event, element) {

@@ -15,13 +15,6 @@ $(document).ready(function(){
     }).fail(function (err) {
         console.log(err);
     });
-
-    toastr.options={
-        timeOut : 5000 ,
-        positionClass:'toast-top-center',
-        progressBar: 'checked'
-    }
-
 });
 
 

@@ -12,6 +12,17 @@ $(document).ready(function(){
         dateFormat:"dd-mm-yy",
         maxDate:0
     });
+
+    toastr.options={
+        timeOut : 4000 ,
+        extendedTimeOut: 2000,
+        positionClass:'toast-top-center',
+        progressBar: 'checked',
+        closeButton: true,
+        showEasing: "swing",
+        closeEasing: "linear",
+        hideEasing: "linear"
+    }
 });
 
 //Update Year in footer automatically
@@ -67,8 +78,8 @@ $('#inputAvatar').on('fileloaded', function (event, file, previewId, index, read
         data: data,
         success: function (data) {
             console.log(data);
-            $('#personal-help-block').text('Avatar Successfully Uploaded');
             $('.profile-img').attr('src', reader.result);
+            toastr.warning("Avatar Successfuly Uploaded!");
         },
         error: function (err) {
             console.log(err);
@@ -184,9 +195,11 @@ function sendAndRetrieveUserData() {
         data: userData,
         success: function (data) {
             setUserData(data);
+            toastr.success("Your Details have been Saved!");
         },
         error: function (err) {
             console.log(err);
+            toastr.error("Oops! Something Went Wrong","Please Try Again");
         }
     });
 }

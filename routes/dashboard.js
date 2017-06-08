@@ -65,6 +65,7 @@ router.route('/user/events')
             if (err) {
                 throw err;
             } else {
+                console.log("GET events:",event.events);
                 res.status(200).send(event.events);
             }
         });
@@ -80,6 +81,7 @@ router.route('/user/events')
             if (err) {
                 throw err;
             } else {
+                console.log("POST event",event);
                 res.status(200).send(event);
             }
         });
@@ -93,12 +95,12 @@ router.route('/user/events')
                 'events.$.color': req.body.color,
                 'events.$.description': req.body.description,
                 'events.$.start': req.body.start,
-                'events.$.end': req.body.end,
-                'events.$.dow': req.body.dow
+                'events.$.end': req.body.end
             }
         }, function (err, response) {
             if (err) throw err;
             else {
+                console.log("PUT events",response);
                 res.status(200).send(response);
             }
         });
