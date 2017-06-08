@@ -12,16 +12,6 @@ $(document).ready(function(){
         console.log("Success!");
         init();
         col();
-        // console.log("LocalStorage "+localStorage.title+" "+localStorage.pgno);
-        /*if(localStorage.show){
-            title=localStorage.title;
-            i=localStorage.pgno;
-            a();
-            $('#noteImage').modal('show');
-            localStorage.show=false;
-            localStorage.title=undefined;
-            localStorage.pgno=undefined;
-        }*/
     }).fail(function (err) {
         console.log(err);
     });
@@ -842,14 +832,8 @@ $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, 
         data: data,
         success: function (data) {
             console.log(data);
-            // localStorage.title=title;
-            // localStorage.pgno=pgno+1;
-            // localStorage.show=true;
-            // $('#note-info-block').text('Success!');
-            location.reload();
         },
         error: function (err) {
-            // $('#note-info-block').text('Error!');
             console.log(err);
         }
     });

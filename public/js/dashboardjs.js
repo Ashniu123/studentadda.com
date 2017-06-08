@@ -6,6 +6,14 @@ $("#changeSettingsModal").on('show.bs.modal', function (e) {
     $(tab).addClass('active');
 });
 
+//DOB picker
+$(document).ready(function(){
+    $('#inputDOB').datepicker({
+        dateFormat:"dd-mm-yy",
+        maxDate:0
+    });
+});
+
 //Update Year in footer automatically
 $('#copyrightYear').html(new Date().getFullYear());
 
@@ -49,7 +57,6 @@ $("#inputAvatar").fileinput({
 
 $('#inputAvatar').on('fileloaded', function (event, file, previewId, index, reader) {
     console.log("fileloaded");
-    // console.log(reader.result);
     var url = noTrailingSlash(window.location.href) + '/user/avatar';
     var data = {
         "avatar": reader.result
@@ -60,6 +67,8 @@ $('#inputAvatar').on('fileloaded', function (event, file, previewId, index, read
         data: data,
         success: function (data) {
             console.log(data);
+            $('#personal-help-block').text('Avatar Successfully Uploaded');
+            $('.profile-img').attr('src', reader.result);
         },
         error: function (err) {
             console.log(err);
@@ -74,7 +83,10 @@ function noTrailingSlash(site) {
 
 function getUserData() {
     var data = {};
-    if (data.dob !== 'dd/mm/yyyy') data.dob = moment($('#inputDOB').val()).format('DD-MM-YYYY');
+    var getDOB = $( "#inputDOB" ).datepicker( "getDate" );
+    getDOB=moment(getDOB).local().toDate();
+    console.log("GetDob",getDOB);
+    if(getDOB!==null){data.dob=getDOB;}
     if ($('#genderMale').is(':checked')) {
         data.gender = 'male';
     } else if ($('#genderFemale').is(':checked')) {
@@ -99,7 +111,8 @@ function setUserData(data) {
     $('#inputLastName').val(data.lastName);
     $('#inputEmail').val(data.username);
     if (data.hasOwnProperty('dob')) {
-        $('#inputDOB').val(moment(data.dob).format('YYYY-DD-MM'));
+        console.log("SetDate",data.dob);
+        $("#inputDOB").datepicker( "setDate", moment(data.dob).local().format("DD-MM-YYYY"));
     }
     if (data.hasOwnProperty('gender') && data.gender != null) {
         if (data.gender == 'male') {
@@ -163,6 +176,7 @@ $(document).ready(function () {
 function sendAndRetrieveUserData() {
     var url = noTrailingSlash(window.location.href) + '/user';
     var userData = getUserData();
+    console.log(userData);
     console.log('getUserData\n', userData);
     $.ajax({
         url: url,

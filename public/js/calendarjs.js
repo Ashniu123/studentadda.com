@@ -147,10 +147,10 @@ $(document).ready(function () {
                         desc = $('#createEventInfo').val();
                     }
 
-                    var dow = [];
-                    $.each($("input[name='createEventRecurring']:checked"), function () {
-                        dow.push(parseInt($(this).val()));
-                    });
+                    // var dow = [];
+                    // $.each($("input[name='createEventRecurring']:checked"), function () {
+                    //     dow.push(parseInt($(this).val()));
+                    // });
 
                     if ($('#createEventStartTime').val() == '' || $('#createEventEndTime').val() == '') {
                         $('#createEventError').html('Start and End is Required');
@@ -181,7 +181,6 @@ $(document).ready(function () {
                         //check if id exists in the events before render
 
                         if (!flag) {//if id is unique only then
-                            //we only need to send this json to db then reload page or call rerenderEvents function
                             var event = {
                                 //Compulsory Id
                                 id: id,
@@ -191,20 +190,25 @@ $(document).ready(function () {
                                 description: desc,
                                 color: color,
                                 textColor: textColor,
-                                allDay: allDay,
-                                dow:dow
+                                allDay: allDay
                             };
 
                             var url = noTrailingSlash(window.location.href) + '/user/events';
                             $.ajax({
                                 url: url,
                                 method: "POST",
-                                // dataType:'application/json',
                                 data: event,
-                                headers: {'x-access-token': localStorage.token},
                                 success: function (data) {
+                                    console.log(data);
                                     eventsData = data;
-                                    location.reload();//need a better workaround than this
+                                    // location.reload();
+                                    event.start=moment(parseInt(event.start)).local();
+                                    event.end=moment(parseInt(event.end)).local();
+                                    console.log(event);
+                                    calendar.fullCalendar('renderEvent',
+                                        event,
+                                        true // make the event "stick"
+                                    );
                                 },
                                 error: function (err) {
                                     console.log(err);
@@ -231,7 +235,6 @@ $(document).ready(function () {
                     });
                     id = undefined;
                     title = undefined;
-
                 });
             },
             /*
@@ -325,10 +328,10 @@ $(document).ready(function () {
 
                 $('#eventClickUpdate').click(function() {
 
-                    var dow = [];
-                    $.each($("input[name='eventClickRecurring']:checked"), function () {
-                        dow.push(parseInt($(this).val()));
-                    });
+                    // var dow = [];
+                    // $.each($("input[name='eventClickRecurring']:checked"), function () {
+                    //     dow.push(parseInt($(this).val()));
+                    // });
 
                     var invertedColor;
                     if(event.color==$('#eventClickColor').val()){
@@ -346,8 +349,7 @@ $(document).ready(function () {
                         description: $('#eventClickInfo').val(),
                         color: $('#eventClickColor').val(),
                         textColor: invertedColor,
-                        allDay: event.allDay,
-                        dow:dow
+                        allDay: event.allDay
                     };
 
                     if (data.end - data.start > 0) {
@@ -357,18 +359,26 @@ $(document).ready(function () {
                             method: "PUT",
                             url: url,
                             data: data
-                        }).done(function (data) {
-                            location.reload();
+                        }).done(function (response) {
+                            console.log(response);
+                            data.start=moment(parseInt(event.start)).local();
+                            data.end=moment(parseInt(event.end)).local();
+                            event.start=data.start;
+                            event.end=data.end;
+                            event.description=data.description;
+                            event.color=data.color;
+                            event.textColor=data.textColor;
+                            calendar.fullCalendar('updateEvent', event);
+                            // location.reload();
                         }).fail(function (err) {
                             console.log(err);
                         });
 
-                        // calendar.fullCalendar('updateEvent', event);
                     } else {
                         $('#eventClickError').html('Invalid Dates');
                     }
 
-                    // $('#eventClickUpdate').off('click');
+                    $('#eventClickUpdate').off('click');
 
                 }); //end of button function
 
@@ -384,7 +394,9 @@ $(document).ready(function () {
                         data: data,
                         url: url
                     }).done(function (data) {
-                        location.reload();//need a better workaround than this
+                        console.log(data);
+                        calendar.fullCalendar('removeEvents', event.id);
+                        // location.reload();//need a better workaround than this
                     }).fail(function (err) {
                         console.log(err);
                     });

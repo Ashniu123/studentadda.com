@@ -148,8 +148,8 @@ router.route('/user/notes')
                 console.log("Query Notes", notes);
                 console.log("Put Notes", req.body);
                 notes.data.push({
-                    "pgno":req.body.pgno,
-                    "note":req.body.note
+                    "pgno": req.body.pgno,
+                    "note": req.body.note
                 });
                 notes.save(function (err, response) {
                     if (err) throw err;
@@ -160,12 +160,35 @@ router.route('/user/notes')
         });
     })
     .delete(function (req, res) {//delete a subject
-        Image.deleteOne({username: req.session.username, subject: req.body.subject}, function (err, response) {
+        Image.findOneAndRemove({
+            username: req.session.username, subject: req.body.subject
+        }, function (err, result) {
             if (err) throw err;
             else {
                 console.log("Delete Notes", req.body);
-                console.log(response);
-                res.status(200).send(response);
+                console.log(result);
+                var order=result.orderno,sendResponse={ok:1};
+                /*To update Orderno*/
+                Image.find({username: req.session.username, orderno: {$gt: order}}).sort({orderno:1}).exec(function (err, notes) {
+                    if(err) throw err;
+                    else {
+                        console.log("UPDATE DELETE:",notes);
+                        console.log("Order Start:",order);
+                        if(notes.length>0) {
+                            for (var i = 0; i < notes.length;i++) {
+                                var obj = notes[i];
+                                obj.orderno = order++;
+                                obj.save(function (err, response) {
+                                    if (err) throw err;
+                                    else {
+                                        sendResponse = response;
+                                    }
+                                });
+                            }
+                        }
+                        res.status(200).send(sendResponse);
+                    }
+                });
             }
         });
     });
