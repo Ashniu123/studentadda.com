@@ -17,7 +17,7 @@ $(document).ready(function(){
     });
 
     toastr.options={
-        timeOut : 5000,
+        timeOut : 5000 ,
         positionClass:'toast-top-center',
         progressBar: 'checked'
     }
@@ -319,12 +319,14 @@ function adding() {
     newsubject = newsubject.toUpperCase();
 
     if (newsubject == '') {
-        document.getElementById("err").innerHTML = "<br>" + "<span style='color:red; font-size:15px; margin-left:40%; ' >" + "Invalid entry..." + "</span>" + "<br>" + "<br>";
-
+        $("#err").html("<br><span style='color:red; font-size:15px; margin-left:40%;'>Invalid entry... </span><br><br><br>");
     }
     else if (getOrderNo(newsubject, notesData) >= 0) {
 
-        document.getElementById("err").innerHTML = "<br>" + "<span style='color:red; font-size:15px; margin-left:40%; '>" + "Already present..." + "</span>" + "<br>" + "<br>" + "<br>";
+        $("#err").html("<br><span style='color:red; font-size:15px; margin-left:40%;'>Already added... </span><br><br><br>");    }
+    else if(/<(.|\n)*?>/g.test(newsubject)) {
+        $("#err").html("<br><span style='color:red; font-size:15px; margin-left:40%;'>HTML Not Allowed... </span><br><br><br>");
+
     }
     else {
 
@@ -341,8 +343,7 @@ function adding() {
             url:url,
             data:data,
             success:function(data){
-                //console.log("Added at: "+(getIndexToDelete(newsubject,notesData)));
-
+                toastr.success('Now go upload notes!','Added successfully!');
                 notesData.push(
                     {
                         "id": id,
@@ -389,13 +390,11 @@ function deleting() {
     newsubject = newsubject.toUpperCase();
 
     if (newsubject == '') {
-        document.getElementById("err2").innerHTML = "<br>" + "<span style='color:red; font-size:15px; margin-left:40%; ' >" + "Invalid entry..." + "</span>" + "<br>" + "<br>";
-
+        $("#err2").html("<br><span style='color:red; font-size:15px; margin-left:40%;'>Invalid entry... </span><br><br><br>");
     }
 
     else if (getOrderNo(newsubject, notesData) < 0) {
-        document.getElementById("err2").innerHTML = "<br>" + "<br>" + "<span style='color:red; font-size:15px; margin-left:40%; '>" + "Subject not added..." + "</span>" + "<br>" + "<br>";
-    }
+        $("#err2").html("<br><span style='color:red; font-size:15px; margin-left:40%;'>Subject not added... </span><br><br><br>");    }
     else {
 
         var url=noTrailingSlash(window.location.href)+'/user/notes';
@@ -407,6 +406,7 @@ function deleting() {
             url:url,
             data:data,
             success:function(data){
+                toastr.warning('Less cluttered bookshelf!','Removed successfully!');
                 console.log(data);
                 var i = getIndexToDelete(newsubject, notesData);
                 notesData.splice(i, 1);
