@@ -1,6 +1,7 @@
 var notesData;
 
 $(document).ready(function(){
+
     var url=noTrailingSlash(window.location.href)+'/user/notes';
     $.ajax({
         url: url,
@@ -15,7 +16,60 @@ $(document).ready(function(){
     }).fail(function (err) {
         console.log(err);
     });
+
+    var tour = new Tour({
+        steps: [
+            {
+                element: "#addNoteButton",
+                title: "Add a subject",
+                content: "You can use '&#8963;+n' for quick access.",
+                duration:1000
+            },
+            {
+                element: "#deleteNoteButton",
+                title: "Delete a subject",
+                content: "You can use '&#8963;+&#9003;' or '&#8984;+&#9003;' for quick access.",
+                duration:1000,
+                placement:'bottom'
+
+            },
+            {
+                title: "Navigation",
+                content: "You can change page with '&larr;&#92;&rarr;' or click the white arrows.<br><hr>Press '&darr;' to go to events.<br><hr>Up '&uarr;' to view notes.",
+                duration:1000,
+                orphan:true
+
+            },
+            {
+                element:"#darkSwitchContainer",
+                title: "Dark mode",
+                content: "Press this button to go dark!",
+                duration:1000
+            },
+            {
+                element:"#calendar",
+                title: "Add your events",
+                content: "Use the toolbar to add your events.<br><hr>Drag on a date to add an event with multiple days.",
+                duration:1000,
+                placement:'top'
+            }
+        ]});
+
+// Initialize the tour
+    tour.init();
+
+// Start the tour
+    tour.start();
+
+    $("#help").click(function () {
+        tour.init();
+
+       tour.start(true);
+       tour.goTo(0);
+    });
 });
+
+
 
 
 var pgno = 1, notesno = getNumberOfBooks();
@@ -192,7 +246,7 @@ function removeImage() {
                     }
                 }
             }
-            toastr.success("Note Deleted Successfully!");
+            toastr.warning("Note Deleted Successfully!");
         },
         error:function(err){
             console.log(err);
@@ -885,3 +939,6 @@ $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, 
         }
     });
 });
+
+
+
