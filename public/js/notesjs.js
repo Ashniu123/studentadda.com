@@ -210,49 +210,52 @@ function getImageIndex(subject,pgno,myArray) {
 function removeImage() {
 
     var delind = (getImageIndex(title, i, notesData)),ind, decInd;
+    if(delind!= null)
+    {
+        var data={
+                "subject":title,
+                "index":delind,
+                "pgno":i,
+                "remove":1//so that it doesnt mix up with other operation
+            },
+            url=noTrailingSlash(window.location.href)+'/user/notes';
 
-    var data={
-        "subject":title,
-        "index":delind,
-        "pgno":i,
-        "remove":1//so that it doesnt mix up with other operation
-    },
-    url=noTrailingSlash(window.location.href)+'/user/notes';
-
-    $.ajax({
-        url:url,
-        method:"PUT",
-        data:data,
-        success:function(data){
-            console.log(data);
-            for (ind = 0; ind < notesData.length; ind++) {
-                if (notesData[ind].subject == title) {
-                    if (getImagesNumber(title, notesData) > 0) {
-                        console.log(images);
-                        notesData[ind].data.splice(delind, 1);
-                        for (decInd = 0; decInd < notesData[ind].data.length; decInd++) {
-                            if (notesData[ind].data[decInd].pgno > i) {
-                                notesData[ind].data[decInd].pgno--;
-                                //         }
-                                //     }
-                                //     a();
-                                //     console.log(images);
-                                // }
-                                // // else if(getImagesNumber(title,notesData)==1){
-                                //     notesData[ind].data.splice(delind,1);
+        $.ajax({
+            url:url,
+            method:"PUT",
+            data:data,
+            success:function(data){
+                console.log(data);
+                for (ind = 0; ind < notesData.length; ind++) {
+                    if (notesData[ind].subject == title) {
+                        if (getImagesNumber(title, notesData) > 0) {
+                            console.log(images);
+                            notesData[ind].data.splice(delind, 1);
+                            for (decInd = 0; decInd < notesData[ind].data.length; decInd++) {
+                                if (notesData[ind].data[decInd].pgno > i) {
+                                    notesData[ind].data[decInd].pgno--;
+                                    //         }
+                                    //     }
+                                    //     a();
+                                    //     console.log(images);
+                                    // }
+                                    // // else if(getImagesNumber(title,notesData)==1){
+                                    //     notesData[ind].data.splice(delind,1);
+                                }
                             }
+                            a();
                         }
-                        a();
                     }
                 }
+                toastr.warning("Note Deleted Successfully!");
+            },
+            error:function(err){
+                console.log(err);
+                toastr.error("Oops! Something went Wrong!","Please Try Again!");
             }
-            toastr.warning("Note Deleted Successfully!");
-        },
-        error:function(err){
-            console.log(err);
-            toastr.error("Oops! Something went Wrong!","Please Try Again!");
-        }
-    });
+        });
+    }
+
 }
 
 var len,pages,bks=0;
