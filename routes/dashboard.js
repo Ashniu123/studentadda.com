@@ -140,26 +140,48 @@ router.route('/user/notes')
             }
         });
     })
-    .put(function (req, res) {//add a note
-        Image.findOne({
-            username: req.session.username,
-            subject: req.body.subject
-        }, function (err, notes) {
-            if (err) throw err;
-            else {
+    .put(function (req, res) {//add&delete a note
+        if(req.body.remove){
+            Image.findOne({
+                username: req.session.username, subject: req.body.subject
+            }, function (err, notes) {
                 console.log("Query Notes", notes);
-                console.log("Put Notes", req.body);
-                notes.data.push({
-                    "pgno": req.body.pgno,
-                    "note": req.body.note
+                console.log("Delete Notes Body",req.body);
+                notes.data.splice(req.body.index,1);
+                var pgno=req.body.pgno;
+                for(var i=0;i<notes.data.length;i++){
+                    var obj=notes.data[i];
+                    obj.pgno=pgno++;
+                }
+                notes.save(function(err,response){
+                   if(err) throw err;
+                   else{
+                       console.log("Note Delete Save:",response);
+                       res.status(200).send(response);
+                   }
                 });
-                notes.save(function (err, response) {
-                    if (err) throw err;
-                    console.log(response);
-                    res.status(200).send(response);
-                });
-            }
-        });
+            });
+        }else{
+            Image.findOne({
+                username: req.session.username,
+                subject: req.body.subject
+            }, function (err, notes) {
+                if (err) throw err;
+                else {
+                    console.log("Query Notes", notes);
+                    console.log("Add Notes Body", req.body);
+                    notes.data.push({
+                        "pgno": req.body.pgno,
+                        "note": req.body.note
+                    });
+                    notes.save(function (err, response) {
+                        if (err) throw err;
+                        console.log(response);
+                        res.status(200).send(response);
+                    });
+                }
+            });
+        }
     })
     .delete(function (req, res) {//delete a subject
         Image.findOneAndRemove({

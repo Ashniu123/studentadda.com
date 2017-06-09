@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dashboard_style.css">
     <link rel="stylesheet" href="css/bootstrap-toggle.css">
-    <link rel="stylesheet" href="css/toastr.css"  type="text/css" />
+    <link rel="stylesheet" href="css/toastr.css" type="text/css"/>
 </head>
 
 <body style="height:100%; width:100%;">
@@ -35,8 +35,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="" style=""><img class="img-responsive" src="img/logo.svg"
-                                                          style="height:45px; margin-top: -13px" alt="Studentadda.com"></a>
+            <a class="navbar-brand" href="" style="">
+                <img class="img-responsive" src="img/logo.svg"
+                     style="height:45px; margin-top: -13px" alt="Studentadda.com">
+            </a>
         </div>
         <div id="myNavbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -111,11 +113,11 @@
                                                 </div>
                                                 <div class="col-xs-offset-3 col-xs-9 col-sm-offset-3 col-sm-9">
                                                     <!-- Avatar here -->
-                                                    <div class="kv-avatar center-block" style="width:250px;">
+                                                    <div class="kv-avatar centerFlex" style="width:250px;">
                                                         <input id="inputAvatar" name="inputAvatar" type="file"
                                                                class="file-loading">
                                                     </div>
-                                                    <p class="help-block" style="margin-left:-15px;">File size should
+                                                    <p class="help-block text-center" style="margin-left:-15px;">File size should
                                                         not exceed 1.0Mb.</p>
                                                 </div>
                                                 <!--<button type="button" class="btn btn-warning"-->
@@ -317,18 +319,18 @@
     <div class="row" id="notes" style="background-color: rgba(256,256,256,.6);">
 
         <div class="col-xs-2">
-            <img src="img/add.png" class="noteplus" data-toggle="modal" data-target="#newNoteName" id="addNoteButton">
+            <i class="glyphicon glyphicon-open-file pull-right noteplus" data-toggle="modal" data-target="#newNoteName"
+               id="addNoteButton"></i>
+            <!--<img src="img/add.png" class="noteplus" data-toggle="modal" data-target="#newNoteName" id="addNoteButton">-->
         </div>
-
         <div class="col-xs-8">
-
-            <h2 id="noteslable">NOTES</h2>
-
+            <h2 class="noteslabel">NOTES</h2>
         </div>
-
         <div class="col-xs-2">
-            <img src="img/thrash.png" class="deletenote" data-toggle="modal" data-target="#deleteNoteName"
-                 id="deleteNoteButton"/>
+            <i class="glyphicon glyphicon-trash deletenote" data-toggle="modal" data-target="#deleteNoteName"
+               id="deleteNoteButton"></i>
+            <!--<img src="img/thrash.png" class="deletenote" data-toggle="modal" data-target="#deleteNoteName"-->
+            <!--id="deleteNoteButton"/>-->
         </div>
 
     </div>
@@ -423,52 +425,62 @@
 </div>
 
 <!-- Modal to view notes-->
-<div class="modal fade" id="noteImage" role="dialog"
-     style="background-color:rgba(0,0,0,.9); width: 100%; height: 100%; ">
+<div class="modal fade" id="noteImage" role="dialog" style="background-color:rgba(0,0,0,.9); width: 100%; height: 100%; ">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content container-fluid col-xs-12" style="background-color:rgba(0,0,0,.9)">
+        <div class="modal-content" style="background-color:rgba(0,0,0,.9)">
             <div class="modal-header" style="border:none; padding: 30px; background-color:rgba(0,0,0,.9);">
-                <div class="row no-gutters">
-                    <div class="col-xs-1"><img src="img/thrash.png" class="img-responsive" style="margin-right: 10px;border: 1px solid red;" onclick="removeImage()"></div>
-                    <div class="col-xs-2"><span id="noteModalTitle" style="color: white;margin-left:10px;"></span></div>
-                    <div class="col-xs-8 text-center"><span id="imgno" style="color: white;"></span></div>
-                    <div class="col-xs-1">
-                        <button type="button" class="close" id="close1" data-dismiss="modal"
-                                style="color: red; height: 10%;">
-                            &#x2716;
-                        </button>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xs-1">
+                            <i class="glyphicon glyphicon-trash deletenote" style="color:#fff " onclick="removeImage();"></i>
+                            <!--<img src="img/thrash.png" class="img-responsive" -->
+                                 <!--style="margin-right: 10px;border: 1px solid red;" onclick="removeImage()">-->
+                        </div>
+                        <div class="col-xs-10 text-center"><span id="noteModalTitle" style="color: white"></span></div>
+                        <div class="col-xs-1">
+                            <button type="button" class="close" id="close1" data-dismiss="modal"
+                                    style="color: red; font-size: 4rem;">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-offset-3 col-xs-6 text-center"><span id="imgno" style="color: white;"></span></div>
                     </div>
                 </div>
             </div>
             <div class="modal-body">
-                <div class="row no-gutters">
-                    <div class="col-xs-12">
-                        <img id="img01">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <img id="img01">
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer" style="padding: 0px; border: none;">
-                <br>
-                <div class="row no-gutters">
-                    <div class="col-xs-4">
-                        <img src="img/orangearrow.png" class="prev rotate" id="previmg"
-                             style="width:20%; margin-riht:-10%;" onclick="previous()">
-                    </div>
-                    <div class="col-xs-4">
-                        <div class="kv-avatar center-block" style="width: 2%; margin-left: 20%;">
-                            <input id="uploadNoteImage" name="uploadNoteImage" type="file" class="file-loading">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <i class="fa fa-arrow-left prev" id="previmg" onclick="previous()" aria-hidden="true"></i>
+                            <!--<img src="img/orangearrow.png" class="prev rotate" id="previmg"-->
+                            <!--style="width:20%; margin-right:-10%;" onclick="previous()">-->
                         </div>
-                        <p class="help-block" style="margin-left:0px;">File size should
-                            not exceed 5.0Mb.</p>
-                        <p id="note-info-block" style="margin-left:0px;"></p>
-                    </div>
-
-                    <div class="col-xs-4">
-                        <img src="img/orangearrow.png" class="next" id="nextimg" style="width:20%; margin-right: -7%;"
-                             onclick="next()">
+                        <div class="col-xs-8">
+                            <div class="kv-avatar centerFlex">
+                                <input id="uploadNoteImage" name="uploadNoteImage" type="file" class="file-loading">
+                            </div>
+                            <p class="help-block text-center">File size should
+                                not exceed 5.0Mb.</p>
+                            <p id="note-info-block"></p>
+                        </div>
+                        <div class="col-xs-2">
+                            <i class="fa fa-arrow-right next" id="nextimg" onclick="next();" aria-hidden="true"></i>
+                            <!--<img src="img/orangearrow.png" class="next" id="nextimg" style="width:20%; margin-right: -7%;"-->
+                            <!--onclick="next()">-->
+                        </div>
                     </div>
                 </div>
-                <br>
             </div>
 
         </div>
@@ -502,7 +514,8 @@
                             <div class="form-group">
                                 <label for="subject" class="col-xs-3 control-label">Subject Name</label>
                                 <div class="col-xs-9">
-                                    <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject">
+                                    <input type="text" class="form-control" id="subject" name="subject"
+                                           placeholder="Subject">
                                 </div>
                             </div>
                         </div>
@@ -554,7 +567,8 @@
                             <div class="form-group">
                                 <label for="subject2" class="col-xs-3 control-label">Subject Name</label>
                                 <div class="col-xs-9">
-                                    <input type="text" class="form-control" id="subject2" name="subject2" placeholder="Subject">
+                                    <input type="text" class="form-control" id="subject2" name="subject2"
+                                           placeholder="Subject">
                                 </div>
                             </div>
                         </div>
@@ -566,7 +580,8 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-6">
-                            <button type="button" class="btn btn-danger btn-block" id="delNote" onclick="deleting()">Delete
+                            <button type="button" class="btn btn-danger btn-block" id="delNote" onclick="deleting()">
+                                Delete
                             </button>
                         </div>
                         <div class="col-xs-6">
@@ -743,33 +758,33 @@
                                     </div>
                                 </div>
                                 <!--<div class="form-group">-->
-                                    <!--<label class="control-label col-xs-3">Repeat:</label>-->
-                                    <!--<div class="col-xs-9">-->
-                                        <!--<label class="checkbox-inline">-->
-                                            <!--<input type="checkbox" name="createEventRecurring" value="1"> Monday-->
-                                        <!--</label>-->
-                                        <!--<label class="checkbox-inline">-->
-                                            <!--<input type="checkbox" name="createEventRecurring" value="2"> Tuesday-->
-                                        <!--</label>-->
-                                        <!--<label class="checkbox-inline">-->
-                                            <!--<input type="checkbox" name="createEventRecurring" value="3"> Wednesday-->
-                                        <!--</label>-->
-                                        <!--<label class="checkbox-inline">-->
-                                            <!--<input type="checkbox" name="createEventRecurring" value="4"> Thursday-->
-                                        <!--</label>-->
-                                    <!--</div>-->
-                                    <!--<div class="col-xs-offset-3 col-xs-9">-->
-                                        <!--<label class="checkbox-inline">-->
-                                            <!--<input type="checkbox" name="createEventRecurring" value="5"> Friday-->
-                                        <!--</label>-->
+                                <!--<label class="control-label col-xs-3">Repeat:</label>-->
+                                <!--<div class="col-xs-9">-->
+                                <!--<label class="checkbox-inline">-->
+                                <!--<input type="checkbox" name="createEventRecurring" value="1"> Monday-->
+                                <!--</label>-->
+                                <!--<label class="checkbox-inline">-->
+                                <!--<input type="checkbox" name="createEventRecurring" value="2"> Tuesday-->
+                                <!--</label>-->
+                                <!--<label class="checkbox-inline">-->
+                                <!--<input type="checkbox" name="createEventRecurring" value="3"> Wednesday-->
+                                <!--</label>-->
+                                <!--<label class="checkbox-inline">-->
+                                <!--<input type="checkbox" name="createEventRecurring" value="4"> Thursday-->
+                                <!--</label>-->
+                                <!--</div>-->
+                                <!--<div class="col-xs-offset-3 col-xs-9">-->
+                                <!--<label class="checkbox-inline">-->
+                                <!--<input type="checkbox" name="createEventRecurring" value="5"> Friday-->
+                                <!--</label>-->
 
-                                        <!--<label class="checkbox-inline">-->
-                                            <!--<input type="checkbox" name="createEventRecurring" value="6"> Saturday-->
-                                        <!--</label>-->
-                                        <!--<label class="checkbox-inline">-->
-                                            <!--<input type="checkbox" name="createEventRecurring" value="0"> Sunday-->
-                                        <!--</label>-->
-                                    <!--</div>-->
+                                <!--<label class="checkbox-inline">-->
+                                <!--<input type="checkbox" name="createEventRecurring" value="6"> Saturday-->
+                                <!--</label>-->
+                                <!--<label class="checkbox-inline">-->
+                                <!--<input type="checkbox" name="createEventRecurring" value="0"> Sunday-->
+                                <!--</label>-->
+                                <!--</div>-->
                                 <!--</div>-->
                                 <div class="form-group">
                                     <div class="col-xs-3 col-xs-offset-3">
@@ -820,7 +835,6 @@
 
     </div>
     <div class="container" id="events">
-
         <div class="row" style="margin-top: 20px;">
             <div class="col-xs-2">
                 <!-- <label class="switch" style="">
@@ -835,7 +849,7 @@
             </div>
 
             <div class="col-xs-8">
-                <h1 style="text-align:center; margin-left: -40px; " id="eventtitle">Events</h1>
+                <h1 class="noteslabel">Events</h1>
             </div>
             <div class="col-xs-2">
                 <h5 style="float:right"><span id="calendarHelp" data-toggle="tooltip" data-placement="bottom"
@@ -843,16 +857,11 @@
             </div>
         </div>
 
-
         <div class="row row-content row-calendar">
-
-
             <div class="col-xs-12">
                 <div id="calendar"></div>
                 <!--calendar-->
             </div>
-
-
         </div>
     </div>
 </div>

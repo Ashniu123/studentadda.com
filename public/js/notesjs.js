@@ -34,7 +34,6 @@ function getNumberOfBooks() {
     else if (width < 470) {
         return 1;
     }
-
 }
 
 function getSubjectName(ind, myArray) {
@@ -59,7 +58,6 @@ function getNotesNumber(myArray) {
         }
     }
     return 0;
-
 }
 
 function getImageAddress(subject, pg, myArray) {
@@ -134,7 +132,6 @@ function decrementIndex(ind, myArray) {
             myArray[i].orderno--;
         }
     }
-
 }
 
 function getImageIndex(subject,pgno,myArray) {
@@ -150,7 +147,6 @@ function getImageIndex(subject,pgno,myArray) {
                 {
                     return ind2;
                 }
-
             }
         }
     }
@@ -159,58 +155,53 @@ function getImageIndex(subject,pgno,myArray) {
 
 function removeImage() {
 
-    /*
-     var data={
-     "subject":title,
-     "index":delind,
-     "pgno":i
-     };
-     $.ajax({
-     url:url,
-     method:"PUT",
-     data:data,
-     success:function(data){
-     },
-     error:function(err){
-     }
-     })
-     */
+    var delind = (getImageIndex(title, i, notesData)),ind, decInd;
 
-    var delind = (getImageIndex(title, i, notesData));
+    var data={
+        "subject":title,
+        "index":delind,
+        "pgno":i,
+        "remove":1//so that it doesnt mix up with other operation
+    },
+    url=noTrailingSlash(window.location.href)+'/user/notes';
 
-    var ind, decInd;
-
-    for (ind = 0; ind < notesData.length; ind++) {
-        if (notesData[ind].subject == title) {
-            if (getImagesNumber(title, notesData) > 0) {
-                toastr.warning('Deleted!');
-                console.log(images);
-                notesData[ind].data.splice(delind, 1);
-                for (decInd = 0; decInd < notesData[ind].data.length; decInd++) {
-                    if (notesData[ind].data[decInd].pgno > i) {
-                        notesData[ind].data[decInd].pgno--;
-                        //         }
-                        //     }
-                        //     a();
-                        //     console.log(images);
-                        // }
-                        // // else if(getImagesNumber(title,notesData)==1){
-                        //     notesData[ind].data.splice(delind,1);
-
-
+    $.ajax({
+        url:url,
+        method:"PUT",
+        data:data,
+        success:function(data){
+            console.log(data);
+            for (ind = 0; ind < notesData.length; ind++) {
+                if (notesData[ind].subject == title) {
+                    if (getImagesNumber(title, notesData) > 0) {
+                        console.log(images);
+                        notesData[ind].data.splice(delind, 1);
+                        for (decInd = 0; decInd < notesData[ind].data.length; decInd++) {
+                            if (notesData[ind].data[decInd].pgno > i) {
+                                notesData[ind].data[decInd].pgno--;
+                                //         }
+                                //     }
+                                //     a();
+                                //     console.log(images);
+                                // }
+                                // // else if(getImagesNumber(title,notesData)==1){
+                                //     notesData[ind].data.splice(delind,1);
+                            }
+                        }
+                        a();
                     }
                 }
-                a();
             }
+            toastr.success("Note Deleted Successfully!");
+        },
+        error:function(err){
+            console.log(err);
+            toastr.error("Oops! Something went Wrong!","Please Try Again!");
         }
-    }
+    });
 }
 
-var len;
-
-var pages;
-
-var bks = 0;
+var len,pages,bks=0;
 
 $(window).resize(function () {
     init();
@@ -291,16 +282,13 @@ $(document).keydown(function (e) {
     }
 }); //Configuring enter key for modals
 
-
 $(document).keydown(function (e) {
-
     if (e.keyCode == 38) {
         document.getElementById('gotonote').click();
     }
 });// Go to notes page
 
 $(document).keydown(function (e) {
-
     if (e.keyCode == 40) {
         viewevents();
     }
@@ -320,7 +308,6 @@ function viewnotes() {
 
 //Shows the modal on screen
 
-
 //Performs validation and adds to subject name array
 
 function adding() {
@@ -331,28 +318,23 @@ function adding() {
         $("#err").html("<br><span style='color:red; font-size:15px; margin-left:40%;'>Invalid entry... </span><br><br><br>");
     }
     else if (getOrderNo(newsubject, notesData) >= 0) {
-
         $("#err").html("<br><span style='color:red; font-size:15px; margin-left:40%;'>Already added... </span><br><br><br>");    }
     else if(/<(.|\n)*?>/g.test(newsubject)) {
         $("#err").html("<br><span style='color:red; font-size:15px; margin-left:40%;'>HTML Not Allowed... </span><br><br><br>");
-
     }
     else {
-
         var id = Math.floor(Math.random() * 1000);
         var url = noTrailingSlash(window.location.href) + '/user/notes';
-
         var data = {
             "orderno": getNotesNumber(notesData) + 1,
             "subject": newsubject
-
         };
         $.ajax({
             method:"POST",
             url:url,
             data:data,
             success:function(data){
-                toastr.success('Now go upload notes!','Added successfully!');
+                toastr.success('Now you can Upload Notes!','Subject Added successfully!');
                 notesData.push(
                     {
                         "id": id,
@@ -379,22 +361,19 @@ function adding() {
                 console.log(err);
             }
         });
-
     }
-
 }
 
 document.getElementById("hides1").onclick = function () {
     reset1();
-}
+};
 
 
 document.getElementById("hides2").onclick = function () {
     reset2();
-}
+};
 
 //Performs validation and deletes string from array
-
 function deleting() {
     var newsubject = document.getElementById("subject2").value;
     newsubject = newsubject.toUpperCase();
@@ -402,11 +381,9 @@ function deleting() {
     if (newsubject == '') {
         $("#err2").html("<br><span style='color:red; font-size:15px; margin-left:40%;'>Invalid entry... </span><br><br><br>");
     }
-
     else if (getOrderNo(newsubject, notesData) < 0) {
         $("#err2").html("<br><span style='color:red; font-size:15px; margin-left:40%;'>Subject not added... </span><br><br><br>");    }
     else {
-
         var url=noTrailingSlash(window.location.href)+'/user/notes';
         var data={
           "subject":newsubject
@@ -436,7 +413,6 @@ function deleting() {
 }
 
 //Functions to reset the text input field to blank in case of both modals to add and delete notes
-
 function reset1() {
     document.getElementById("subject").value = '';
     document.getElementById("err").innerHTML = "<br>" + "<br>" + "<br>" + "<br>";
@@ -452,13 +428,10 @@ function replaceAt(string, index, replace) {
     return string.substring(0, index) + replace + string.substring(index + 1);
 }
 
-
 function col() //Assignes random color
 {
 
-
     var colors = ['#003300', '#006666', '#0099ff', '#00cc66', '#00cc99', '#00ccff', '#660033', '#660099', '#6633ff', '#666699', '#6699cc', '#990033', '#9900ff', '#cc0033', '#cc6666', '#cccc00', '#ff0099', '#ff3300', '#ff6600', '#ff6699', '#ff9966', '#ffff66', '#ffccff'];
-
     var i, c, j, d;
 
     // $("#note1").css('background-color', '#' + (Math.random() * 0xFFFFFF << 0).toString(16));
@@ -481,14 +454,12 @@ function col() //Assignes random color
 
     $("#note2").css('background', 'linear-gradient(to bottom,' + i + ',' + j + ')');
 
-
     c = Math.floor(Math.random() * 10000 % 23);
     i = colors[c];
     j = replaceAt(i, 1, '6');
     // j=replaceAt(j,3,'2');
     // j=replaceAt(j,6,'1');
     $("#note3").css('background', 'linear-gradient(to bottom,' + i + ',' + j + ')');
-
 
     c = Math.floor(Math.random() * 10000 % 23);
     i = colors[c];
@@ -502,9 +473,8 @@ var ind;
 
 function prevsub() {
     bks = 0;
-    if (pgno == 1) {
+    if (pgno != 1) {
         //No changes if user on first page
-    } else {
         pgno--;
         ind = notesno * (pgno - 1);
         if (notesno == 4) {
@@ -517,7 +487,6 @@ function prevsub() {
             document.getElementById("s4").innerHTML = getSubjectName(ind + 3, notesData);
             note4.style.display = "block";
         }
-
         else if (notesno == 3) {
             document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
             note1.style.display = "block";
@@ -526,21 +495,16 @@ function prevsub() {
             document.getElementById("s3").innerHTML = getSubjectName(ind + 2, notesData);
             note3.style.display = "block";
         }
-
         else if (notesno == 2) {
             document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
             note1.style.display = "block";
             document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
             note2.style.display = "block";
         }
-
         else if (notesno == 1) {
             document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
             note1.style.display = "block";
-
         }
-
-
         if (ind > len - 1) {
             note1.style.display = "none";
             bks++;
@@ -560,13 +524,10 @@ function prevsub() {
     }
 }
 
-
 function nextsub() {
     bks = 0;
-    if (pgno == pages) {
+    if (pgno != pages) {
         //No changes if user on last page
-    } else {
-
         pgno++;
         ind = notesno * (pgno - 1);
         if (notesno == 4) {
@@ -579,7 +540,6 @@ function nextsub() {
             document.getElementById("s4").innerHTML = getSubjectName(ind + 3, notesData);
             note4.style.display = "block";
         }
-
         else if (notesno == 3) {
             document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
             note1.style.display = "block";
@@ -588,20 +548,16 @@ function nextsub() {
             document.getElementById("s3").innerHTML = getSubjectName(ind + 2, notesData);
             note3.style.display = "block";
         }
-
         else if (notesno == 2) {
             document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
             note1.style.display = "block";
             document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
             note2.style.display = "block";
         }
-
         else if (notesno == 1) {
             document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
             note1.style.display = "block";
-
         }
-
         if (ind > len - 1) {
             note1.style.display = "none";
             bks++;
@@ -618,8 +574,6 @@ function nextsub() {
             note4.style.display = "none";
             bks++;
         }
-
-
     }
 }
 
@@ -632,10 +586,8 @@ function init() {
     // var sheight=$(window).height();
     // $('#img01').css('height',sheight);
 
-
     bks = 0;
     {
-
         $('#note1').css({'height': '300px', 'width': '230px', 'margin-top': 'auto'});
         // alert('here');
         $('.changenotes').css('height', '380px');
@@ -647,7 +599,6 @@ function init() {
         $("#books").css('margin-top', 'auto');
 
         var width = $("#centeralbook").width();
-
 
         if (width >= 1000) //Full screen
         {
@@ -676,11 +627,9 @@ function init() {
                         else {
                             note4.style.display = "none";
                         }
-
                     }
                     else {
                         note3.style.display = "none";
-
                     }
                 }
                 else {
@@ -695,7 +644,6 @@ function init() {
                 }
             }
         }
-
         else if (width >= 820) // 3/4rth width
         {
 
@@ -717,11 +665,9 @@ function init() {
                         document.getElementById("s3").innerHTML = getSubjectName(ind + 2, notesData);
                         note3.style.display = "block";
                         note4.style.display = "none";
-
                     }
                     else {
                         note3.style.display = "none";
-
                     }
                 }
                 else {
@@ -734,25 +680,18 @@ function init() {
                     pgno--;
                     init();
                 }
-
-
             }
-
         }
-
         else if (width >= 470) //1/2 width
         {
-
             $(".fc-toolbar").css({'font-size': '12px'});
 
             pages = Math.ceil((len / 2));
             notesno = 2;
             pgno = Math.ceil((oldnotesno * (oldpgno - 1) + 1) / notesno);
             ind = notesno * (pgno - 1);
-
             if (ind < len) {
                 document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
-                ;
                 note1.style.display = "block";
 
                 if (ind + 1 < len) {
@@ -760,7 +699,6 @@ function init() {
                     note2.style.display = "block";
                     note3.style.display = "none";
                     note4.style.display = "none";
-
                 }
                 else {
                     note2.style.display = "none";
@@ -768,16 +706,12 @@ function init() {
             }
             else {
                 note1.style.display = "none";
-
                 if (pgno != 1) {
                     pgno--;
                     init();
-
                 }
-
             }
         }
-
         else if (width < 470)  // Phablet width
         {
             $(".fc-toolbar").css({'font-size': '9px'});
@@ -785,7 +719,6 @@ function init() {
 
             var h2 = $(window).height();
             if (h2 < 600) {
-
 
                 //  $('#note1').css({'height':'305px','width':'192px','margin-top':'-5px'});
                 //  $('.changenotes').css('height','250px');
@@ -799,7 +732,6 @@ function init() {
             pages = Math.ceil((len / 1));
             notesno = 1;
             pgno = Math.ceil((oldnotesno * (oldpgno - 1) + 1) / notesno);
-
             ind = notesno * (pgno - 1);
 
             if (ind < len) {
@@ -816,17 +748,12 @@ function init() {
                     init();
                 }
             }
-
         }
-
     }
 }
 
 //Functions to identify the note number pressed ie. first note from left,second from left et...
-
-var i;
-var index;
-var title;
+var i,index,title;
 
 function one() {
 
@@ -862,27 +789,20 @@ function off() {
     modal.style.display = "none";
 }
 
-
-var modal = document.getElementById('myModal');
-
-var modalImg = document.getElementById("img01");
-
-var images;
+var modal = document.getElementById('myModal'),
+    modalImg = document.getElementById("img01"),
+    images;
 
 function a() //function to make the popup images visible
 {
     i=1;
     modalImg.src = getImageAddress(title, i, notesData);
     images = getImagesNumber(title, notesData);
-
     $("#imgno").html("Pg."+1);
-
 }
-
 
 function next() //Change image to next page
 {
-
     if (i < images) {
         i++;
         modalImg.src = getImageAddress(title, i, notesData);
@@ -892,15 +812,11 @@ function next() //Change image to next page
 
 function previous() //Change image to previous page
 {
-
-    if (i > 1) {
+    if (i > 1) { //No changes if first image
         i--;
         modalImg.src = getImageAddress(title, i, notesData);
         $("#imgno").html("Pg."+i);
-    } else {
-        //No changes if first image
     }
-
 }
 
 $("#uploadNoteImage").fileinput({
@@ -921,7 +837,6 @@ $("#uploadNoteImage").fileinput({
     allowedFileExtensions: ["jpg", "png", "jpeg"],
     showPreview: true,
     showRemove: false
-
 });
 
 $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, reader) {
@@ -956,21 +871,13 @@ $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, 
                 console.log("Before Updated notes!: "+parseInt(getImagesNumber(title, notesData)));
                 notesData[order].data.push({"id":id,"pgno": imgpgno,
                     "note": reader.result});
-
-
                 console.log("Updates: "+parseInt(getImagesNumber(title, notesData)));
                 images=imgpgno;
-
             }
-
             else {
-
                 notesData[order].data.push({"id":id,"pgno": imgpgno + 1,
                     "note": reader.result});
-
             }
-
-
         },
         error: function (err) {
             toastr.error('Try again!','Something went wrong in uploading note!');
