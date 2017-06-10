@@ -25,10 +25,12 @@ router.route('/user')
             if (err) throw err;
             else {
                 res.status(200).json(user);
-                user.tutorial=false;
-                user.save(function(err,response){
-                    console.log("Changed Tutorial!");
-                });
+                if(user.tutorial===true) {
+                    user.tutorial = false;
+                    user.save(function (err, response) {
+                        console.log("Changed Tutorial!");
+                    });
+                }
             }
         });
     })
