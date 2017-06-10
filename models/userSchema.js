@@ -14,7 +14,8 @@ var User = new Schema(
         college:String,
         stream:String,
         current:String,
-        branch:String
+        branch:String,
+        tutorial:Boolean
     },
     {
         timestamps : true

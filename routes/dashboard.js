@@ -24,6 +24,10 @@ router.route('/user')
             if (err) throw err;
             else {
                 res.status(200).json(user);
+                user.tutorial=false;
+                user.save(function(err,response){
+                    console.log("Changed Tutorial!");
+                });
             }
         });
     })
@@ -44,6 +48,15 @@ router.route('/user')
                 res.status(200).json(user);
             }
         });
+    })
+    .put(function (req,res) {
+        if(req.body.tutorial) {
+            User.update({username: req.session.username}, {$set: {tutorial: false}}, function (err, response) {
+                if(err) throw err;
+                console.log("Tutorial Response", response);
+                res.status(200).send(response);
+            });
+        }
     });
 
 router.post('/user/avatar', function (req, res) {
@@ -149,14 +162,15 @@ router.route('/user/notes')
                 console.log("Delete Notes Body",req.body);
                 notes.data.splice(req.body.index,1);
                 var pgno=req.body.pgno;
-                for(var i=0;i<notes.data.length;i++){
+                for(var i=req.body.index;i<notes.data.length;i++){
                     var obj=notes.data[i];
                     obj.pgno=pgno++;
+                    console.log(pgno+" Object:\n"+obj.pgno);
                 }
                 notes.save(function(err,response){
                    if(err) throw err;
                    else{
-                       console.log("Note Delete Save:",response);
+                       // console.log("Note Delete Save:",response);
                        res.status(200).send(response);
                    }
                 });

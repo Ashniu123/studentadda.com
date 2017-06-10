@@ -7,16 +7,18 @@ $("#changeSettingsModal").on('show.bs.modal', function (e) {
 });
 
 //DOB picker
-$(document).ready(function(){
+$(document).ready(function () {
     $('#inputDOB').datepicker({
-        dateFormat:"dd-mm-yy",
-        maxDate:0
+        dateFormat: "dd-mm-yy",
+        maxDate: 0
     });
 
-    toastr.options={
-        timeOut : 4000 ,
+    tour.init();
+
+    toastr.options = {
+        timeOut: 4000,
         extendedTimeOut: 2000,
-        positionClass:'toast-top-center',
+        positionClass: 'toast-top-center',
         progressBar: 'checked',
         closeButton: true,
         showEasing: "swing",
@@ -87,6 +89,86 @@ $('#inputAvatar').on('fileloaded', function (event, file, previewId, index, read
     });
 });
 
+//Modal Autofocus
+$('#newNoteName').on('shown.bs.modal', function () {
+    $('#subject').focus();
+});
+
+$('#deleteNoteName').on('shown.bs.modal', function () {
+    $('#subject2').focus();
+});
+
+
+//Bootstrap Tour
+var tour = new Tour({
+    name: "studentaddaTour",
+    // smartPlacement: true,
+    template: `
+    <div class='popover tour'>
+    <div class='arrow'></div>
+    <h3 class='popover-title' style="background-color: #eb9316;"></h3>
+    <div class='popover-content' id="tour_content"></div>
+    <div class='popover-navigation'>
+        <button class='btn btn-default' data-role='prev'>« Prev</button>
+        <span data-role='separator'>|</span>
+        <button class='btn btn-default' data-role='next'>Next »</button>
+        <button class='btn btn-warning' data-role='end'>End tour</button>
+    </div>
+    </div>
+    `,
+    onEnd: function (tour) {
+        $('html, body').animate({
+            scrollTop: $("#myNavbar").offset().top
+        }, 2000);
+    },
+    steps: [
+        {
+            element: "#addNoteButton",
+            title: "Add a subject",
+            content: "You can use '&#8963;+n' for quick access.",
+            duration: 3000,
+            backdrop: true
+        },
+        {
+            element: "#deleteNoteButton",
+            title: "Delete a subject",
+            content: "You can use '&#8963;+&#9003;' or '&#8984;+&#9003;' for quick access.",
+            duration: 3000,
+            placement: 'bottom',
+            backdrop: true
+
+        },
+        {
+            title: "Navigation",
+            content: "You can change page with '&larr;&#92;&rarr;' or click the white arrows.<br><hr>Press '&darr;' to go to events.<br><hr>Up '&uarr;' to view notes.",
+            duration: 3000,
+            orphan: true,
+            backdrop: true
+        },
+        {
+            element: "#darkSwitchContainer",
+            title: "Dark mode",
+            content: "Press this button to go dark!",
+            duration: 3000,
+            backdrop: true
+        },
+        {
+            element: "#tour_event",
+            title: "Add your events",
+            content: "Use the toolbar to add your events.<br><hr>Drag on a date to add an event with multiple days.",
+            // duration:3000,
+            placement: 'top',
+            backdrop: true
+        }
+    ]
+});
+
+$("#help").click(function () {
+    tour.start(true);
+    tour.goTo(0);
+});
+
+
 //Ajax Calls here
 function noTrailingSlash(site) {
     return site.replace(/\/$/g, "");
@@ -94,10 +176,12 @@ function noTrailingSlash(site) {
 
 function getUserData() {
     var data = {};
-    var getDOB = $( "#inputDOB" ).datepicker( "getDate" );
-    getDOB=moment(getDOB).local().toDate();
-    console.log("GetDob",getDOB);
-    if(getDOB!==null){data.dob=getDOB;}
+    var getDOB = $("#inputDOB").datepicker("getDate");
+    getDOB = moment(getDOB).local().toDate();
+    console.log("GetDob", getDOB);
+    if (getDOB !== null) {
+        data.dob = getDOB;
+    }
     if ($('#genderMale').is(':checked')) {
         data.gender = 'male';
     } else if ($('#genderFemale').is(':checked')) {
@@ -122,8 +206,8 @@ function setUserData(data) {
     $('#inputLastName').val(data.lastName);
     $('#inputEmail').val(data.username);
     if (data.hasOwnProperty('dob')) {
-        console.log("SetDate",data.dob);
-        $("#inputDOB").datepicker( "setDate", moment(data.dob).local().format("DD-MM-YYYY"));
+        console.log("SetDate", data.dob);
+        $("#inputDOB").datepicker("setDate", moment(data.dob).local().format("DD-MM-YYYY"));
     }
     if (data.hasOwnProperty('gender') && data.gender != null) {
         if (data.gender == 'male') {
@@ -147,6 +231,10 @@ function setUserData(data) {
     if (data.hasOwnProperty('avatar')) {
         $('.file-default-preview>img').attr('src', data.avatar);
         $('.profile-img').attr('src', data.avatar);
+    }
+    if (data.hasOwnProperty('tutorial') && data.tutorial == true) {
+        // Start the tour
+        tour.start();
     }
 }
 
@@ -199,7 +287,7 @@ function sendAndRetrieveUserData() {
         },
         error: function (err) {
             console.log(err);
-            toastr.error("Oops! Something Went Wrong","Please Try Again");
+            toastr.error("Oops! Something Went Wrong", "Please Try Again");
         }
     });
 }

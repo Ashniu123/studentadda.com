@@ -29,6 +29,7 @@ router.post('/signup', function (req, res) {
         if (req.body.lastName) {
             user.lastName = req.body.lastName;
         }
+        user.tutorial=true;
         user.save(function (err, user) {
             if(err) throw err;
             else {
