@@ -102,7 +102,7 @@ $('#deleteNoteName').on('shown.bs.modal', function () {
 //Bootstrap Tour
 var tour = new Tour({
     name: "studentaddaTour",
-    // smartPlacement: true,
+    smartPlacement: true,
     template: `
     <div class='popover tour'>
     <div class='arrow'></div>
@@ -125,14 +125,14 @@ var tour = new Tour({
         {
             element: "#addNoteButton",
             title: "Add a subject",
-            content: "You can use '&#8963;+n' for quick access.",
+            content: "You can use '&#8963; + n' for quick access.",
             duration: 3000,
             backdrop: true
         },
         {
             element: "#deleteNoteButton",
             title: "Delete a subject",
-            content: "You can use '&#8963;+&#9003;' or '&#8984;+&#9003;' for quick access.",
+            content: "You can use '&#8963; + &#9003;' or '&#8984;/Ctrl + &#9003;' for quick access.",
             duration: 3000,
             placement: 'bottom',
             backdrop: true
@@ -148,6 +148,7 @@ var tour = new Tour({
         {
             element: "#darkSwitchContainer",
             title: "Dark mode",
+            backdrop:true,
             content: "Press this button to go dark!",
             duration: 3000
         },
@@ -155,8 +156,16 @@ var tour = new Tour({
             element: "#tour_event",
             title: "Add your events",
             content: "Use the toolbar to add your events.<br><hr>Drag on a date to add an event with multiple days.",
-            // duration:3000,
+            duration:3000,
+            backdrop:true,
             placement: 'top'
+        },
+        {
+            element: "#help",
+            title: "Tour Help",
+            content: "To Review the Tour, you can Click here at any Time!",
+            placement: "bottom",
+            backdrop:true
         }
     ]
 });
