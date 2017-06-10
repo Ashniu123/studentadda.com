@@ -44,7 +44,7 @@
         <div id="myNavbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <i class="fa fa-question" aria-hidden="true" id="help"></i>
+                    <i class="fa fa-question" aria-hidden="true" id="tour_help"></i>
                 </li>
                 <li class="dropdown">
                     <a tabindex="1" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -175,23 +175,23 @@
                                                 </div>
                                                 <div class="form-group col-xs-10 col-sm-8">
                                                     <!-- Add country option here  -->
-                                                    <div class="bfh-selectbox bfh-countries" data-country="IN"
-                                                         data-flags="true">
-                                                        <input type="hidden" value="">
-                                                        <a class="bfh-selectbox-toggle" role="button"
-                                                           data-toggle="bfh-selectbox" href="">
-                                                            <span class="bfh-selectbox-option input-medium"
-                                                                  data-option=""></span>
-                                                            <b class="caret"></b>
-                                                        </a>
-                                                        <div class="bfh-selectbox-options">
-                                                            <input type="text" class="bfh-selectbox-filter">
-                                                            <div role="listbox">
-                                                                <ul role="option">
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    <!--<div class="bfh-selectbox bfh-countries" data-country="IN"-->
+                                                         <!--data-flags="true">-->
+                                                        <!--<input type="hidden" value="">-->
+                                                        <!--<a class="bfh-selectbox-toggle" role="button"-->
+                                                           <!--data-toggle="bfh-selectbox" href="">-->
+                                                            <!--<span class="bfh-selectbox-option input-medium"-->
+                                                                  <!--data-option=""></span>-->
+                                                            <!--<b class="caret"></b>-->
+                                                        <!--</a>-->
+                                                        <!--<div class="bfh-selectbox-options">-->
+                                                            <!--<input type="text" class="bfh-selectbox-filter">-->
+                                                            <!--<div role="listbox">-->
+                                                                <!--<ul role="option">-->
+                                                                <!--</ul>-->
+                                                            <!--</div>-->
+                                                        <!--</div>-->
+                                                    <!--</div>-->
                                                 </div>
                                                 <div class="col-xs-12">
                                                     <!--<p id="personal-help-block"></p>-->
@@ -279,11 +279,11 @@
                                                             id="inputCollegeYear" name="inputCollegeYear"
                                                             title="Please use alphabets only."
                                                             required>
-                                                        <option selected>--Current Year--</option>
-                                                        <option>First Year</option>
-                                                        <option>Second Year</option>
-                                                        <option>Third Year</option>
-                                                        <option>Final Year</option>
+                                                        <option selected="true">--Current Year--</option>
+                                                        <option value="First Year">First Year</option>
+                                                        <option value="Second Year">Second Year</option>
+                                                        <option value="Third Year">Third Year</option>
+                                                        <option value="Final Year">Final Year</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-xs-12 col-sm-12">
@@ -361,7 +361,7 @@
                     <div style=" background-color:#7AD47A; margin-left:0%;" id="note1" onclick="one();a();"
                          data-toggle="modal" data-target="#noteImage">
 
-                        <img src="img/bookmark.png" class="bm">
+                        <img src="img/bookmark.png" class="bookmark">
 
 
                         <p>
@@ -381,7 +381,7 @@
                     <i class="fa fa-times" id="del2" onclick="two(); deleting();"></i>
                     <div style=" background-color:#3E5D76;  margin-left: 0%;" id="note2" onclick="two();a();"
                          data-toggle="modal" data-target="#noteImage">
-                        <img src="img/bookmark.png" class="bm">
+                        <img src="img/bookmark.png" class="bookmark">
 
                         <p>
                         <h1 id="s2"></h1></p>
@@ -400,7 +400,7 @@
                     <i class="fa fa-times" id="del3" onclick="three(); deleting();;"></i>
                     <div style=" background-color:#D3523E; margin-left:0%;" id="note3" onclick="three();a();"
                          data-toggle="modal" data-target="#noteImage">
-                        <img src="img/bookmark.png" class="bm">
+                        <img src="img/bookmark.png" class="bookmark">
                         <p>
                         <h1 id="s3"></h1></p>
                         <br>
@@ -419,7 +419,7 @@
                     <i class="fa fa-times" id="del4" onclick="four(); deleting();"></i>
                     <div style=" background-color:#D3523E;  margin-left:0%;" id="note4" onclick="four();a();"
                          data-toggle="modal" data-target="#noteImage">
-                        <img src="img/bookmark.png" class="bm">
+                        <img src="img/bookmark.png" class="bookmark">
 
                         <p>
                         <h1 id="s4"></h1></p>
@@ -862,7 +862,7 @@
             </div>
 
             <div class="col-xs-8">
-                <h1 class="noteslabel" id="tour_event">Events</h1>
+                <h1 class="eventslabel" id="tour_event">Events</h1>
             </div>
             <div class="col-xs-2">
                 <h5 style="float:right"><span id="calendarHelp" data-toggle="tooltip" data-placement="bottom"

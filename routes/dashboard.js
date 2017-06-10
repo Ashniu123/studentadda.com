@@ -9,7 +9,7 @@ var moment = require('moment');
 
 var router = express.Router();
 
-/* GET home page. */
+/* GET dashboard page. */
 router.get('/', function (req, res, next) {
     if (req.session.username)
         res.sendFile(path.join(__dirname, '../public', 'dashboard.html'));
@@ -17,6 +17,7 @@ router.get('/', function (req, res, next) {
         res.redirect('/');
 });
 
+/*For User Details*/
 router.route('/user')
     .get(function (req, res) {
         var username = req.session.username;
@@ -59,6 +60,7 @@ router.route('/user')
         }
     });
 
+/*To Update the Avatar of User*/
 router.post('/user/avatar', function (req, res) {
     console.log("Avatar Body:", req.body);
     var username = req.session.username;
@@ -71,6 +73,7 @@ router.post('/user/avatar', function (req, res) {
     });
 });
 
+/*For User Events*/
 router.route('/user/events')
     .get(function (req, res) {
         var username = req.session.username;
@@ -129,6 +132,7 @@ router.route('/user/events')
         });
     });
 
+/*For User Notes*/
 router.route('/user/notes')
     .get(function (req, res) { //get subject data
         Image.find({username: req.session.username}, function (err, notes) {
@@ -170,7 +174,7 @@ router.route('/user/notes')
                 notes.save(function(err,response){
                    if(err) throw err;
                    else{
-                       // console.log("Note Delete Save:",response);
+                       console.log("Note Delete Save:",response);
                        res.status(200).send(response);
                    }
                 });
@@ -231,6 +235,7 @@ router.route('/user/notes')
         });
     });
 
+/*Logout and Destroy Session*/
 router.get('/logout', function (req, res) {
     req.logout();
     req.session.destroy(function (err) {

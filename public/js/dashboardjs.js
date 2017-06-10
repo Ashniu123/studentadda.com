@@ -2,7 +2,7 @@
 $("#changeSettingsModal").on('show.bs.modal', function (e) {
     var tab = e.relatedTarget.hash;
     console.log(tab);
-    $('.nav-pills a[href="' + tab + '"]').tab('show')
+    $('.nav-pills a[href="' + tab + '"]').tab('show');
     $(tab).addClass('active');
 });
 
@@ -45,7 +45,6 @@ $("#changeSettingsModal").on('shown.bs.modal', function () {
             $('#validityError').html('The two passwords must match.');
         }
     });
-
 });
 
 //Avatar
@@ -116,23 +115,19 @@ var tour = new Tour({
     </div>
     </div>
     `,
-    onEnd: function (tour) {
-        $('html, body').animate({
-            scrollTop: $("#myNavbar").offset().top
-        }, 2000);
-    },
+    backdropPadding:10,
     steps: [
         {
             element: "#addNoteButton",
             title: "Add a subject",
-            content: "You can use '&#8963; + n' for quick access.",
+            content: "You can use '&#8963; + n' for Quick Access.",
             duration: 3000,
             backdrop: true
         },
         {
             element: "#deleteNoteButton",
             title: "Delete a subject",
-            content: "You can use '&#8963; + &#9003;' or '&#8984;/Ctrl + &#9003;' for quick access.",
+            content: "You can use '&#8963; + &#9003;' or '&#8984;/Ctrl + &#9003;' for Quick Access.",
             duration: 3000,
             placement: 'bottom',
             backdrop: true
@@ -146,10 +141,10 @@ var tour = new Tour({
             backdrop: true
         },
         {
-            element: "#darkSwitchContainer",
+            element: ".ios",
             title: "Dark mode",
             backdrop:true,
-            content: "Press this button to go dark!",
+            content: "Press this button to go <strong>Dark</strong>!",
             duration: 3000
         },
         {
@@ -161,31 +156,30 @@ var tour = new Tour({
             placement: 'top'
         },
         {
-            element: "#help",
+            element: "#tour_help",
             title: "Tour Help",
-            content: "To Review the Tour, you can Click here at any Time!",
+            content: "To Review the Tour, you can Click here at any time when in doubt!<br>Click on <span class='text-warning'>End Tour</span> to Finish the Tour!",
             placement: "bottom",
             backdrop:true
         }
     ]
 });
 
-$("#help").click(function () {
+$("#tour_help").click(function () {
     tour.start(true);
     tour.goTo(0);
 });
 
-
 //Ajax Calls here
-function noTrailingSlash(site) {
-    return site.replace(/\/$/g, "");
+
+function noTrailingSlash(site) {// Removes Trailing / or # in webpage's URL
+    return site.replace(/(\/|#)$|/g, "");
 }
 
 function getUserData() {
     var data = {};
     var getDOB = $("#inputDOB").datepicker("getDate");
     getDOB = moment(getDOB).local().toDate();
-    console.log("GetDob", getDOB);
     if (getDOB !== null) {
         data.dob = getDOB;
     }
@@ -213,13 +207,12 @@ function setUserData(data) {
     $('#inputLastName').val(data.lastName);
     $('#inputEmail').val(data.username);
     if (data.hasOwnProperty('dob')) {
-        console.log("SetDate", data.dob);
         $("#inputDOB").datepicker("setDate", moment(data.dob).local().format("DD-MM-YYYY"));
     }
-    if (data.hasOwnProperty('gender') && data.gender != null) {
-        if (data.gender == 'male') {
+    if (data.hasOwnProperty('gender') && data.gender !== null) {
+        if (data.gender === 'male') {
             $('#genderMale').prop('checked', true);
-        } else if (data.gender == 'female') {
+        } else if (data.gender === 'female') {
             $('#genderFemale').prop('checked', true);
         }
     }
@@ -262,8 +255,6 @@ $('#logoutButton').click(function () {
     })
 });
 
-
-//TODO: Avatar and user info
 $(document).ready(function () {
     var url = noTrailingSlash(window.location.href) + '/user';
     $.ajax({
@@ -301,3 +292,97 @@ function sendAndRetrieveUserData() {
 
 $('#buttonForPersonal').click(sendAndRetrieveUserData);
 $('#buttonForCollege').click(sendAndRetrieveUserData);
+
+/*Setting Key Presses*/
+$(document).keydown(function (e) {
+    if (e.keyCode == 78 && e.ctrlKey || e.keyCode == 78 && e.metaKey) {
+        document.getElementById('addNoteButton').click();
+    }
+}); //New Note
+
+
+$(document).keydown(function (e) {
+    if ((e.keyCode == 8 && e.ctrlKey) || e.keyCode == 8 && e.metaKey) {
+        document.getElementById('deleteNoteButton').click();
+    }
+}); // Delete Note
+
+
+$(document).keydown(function (e) {
+    if (e.keyCode == 37) {
+        var check = $('#noteImage').is(':visible');
+        if (check == false) {
+            document.getElementById('goleft').click();
+        }
+        else if (check == true) {
+            document.getElementById('previmg').click();
+        }
+    }
+}); //Previous page
+
+
+$(document).keydown(function (e) {
+    if (e.keyCode == 39) {
+        var check = $('#noteImage').is(':visible');
+        if (check == false) {
+            document.getElementById('goright').click();
+        }
+        else if (check == true) {
+            document.getElementById('nextimg').click();
+        }
+    }
+});// Next Page
+
+
+$(document).keydown(function (e) {
+    if (e.keyCode == 27) {
+
+        var ch1 = $('#noteImage').is(':visible');
+        var ch2 = $('#newNoteName').is(':visible');
+        var ch3 = $('#deleteNoteName').is(':visible');
+
+        if (ch1 == true) {
+            document.getElementById('close1').click();
+        }
+        if (ch2 == true) {
+            document.getElementById('hides1').click();
+        }
+        if (ch3 == true) {
+            document.getElementById('hides2').click();
+        }
+    }
+}); //Configuring escape key for modals
+
+
+$(document).keydown(function (e) {
+    if (e.keyCode == 13) {
+
+        var ch2 = $('#newNoteName').is(':visible');
+        var ch3 = $('#deleteNoteName').is(':visible');
+
+        if (ch2 == true) {
+            document.getElementById('addNote').click();
+        }
+        if (ch3 == true) {
+            document.getElementById('delNote').click();
+        }
+    }
+}); //Configuring enter key for modals
+
+$(document).keydown(function (e) {
+    if (e.keyCode == 38) {
+        // Go to notes page
+        $('html, body').animate({
+            scrollTop: $("#notes").offset().top
+        }, 500);
+    }
+});// Go to notes page
+
+$(document).keydown(function (e) {
+    if (e.keyCode == 40) {
+        // Go to events page
+        $('html, body').animate({
+            scrollTop: $("#events").offset().top
+        }, 500);
+    }
+});

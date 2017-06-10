@@ -1,9 +1,5 @@
-$('#calendar').css('font-size', '20px');
-$('#calendar').css('color', 'black');
-
 //Dark mode Toggle
 $("#darkswitch").change(function () {
-
     var on = $('#darkswitch').prop('checked');
     if (on) {
         $("#calbg").css({
@@ -13,10 +9,9 @@ $("#darkswitch").change(function () {
             '-o-background-size': 'cover',
             'background-size': 'cover'
         });
-        $('#calendar').css('color', 'white');
-        $('#eventtitle').css('color', 'white');
-
-        $('#calendarHelp').css({'color': '#fff', 'background-color': '#000'});
+        $('#calendar').css('color', '#ffffff');
+        $('.eventslabel').css('color', '#ffffff');
+        $('#calendarHelp').css({'color': '#ffffff', 'background-color': '#000000'});
     } else {
         $("#calbg").css({
             'background': 'url(img/calendar5.jpg) no-repeat center center fixed',
@@ -25,13 +20,11 @@ $("#darkswitch").change(function () {
             '-o-background-size': 'cover',
             'background-size': 'cover'
         });
-        $('#calendar').css('color', 'black');
-        $('#eventtitle').css('color', 'black');
-        $('#calendarHelp').css({'color': '#000', 'background-color': 'transparent'});
+        $('#calendar').css('color', '#000000');
+        $('.eventslabel').css('color', '#000000');
+        $('#calendarHelp').css({'color': '#000000', 'background-color': 'transparent'});
     }
-
 });
-
 
 //To invert Color
 function invertColor(hexTripletColor) {
@@ -101,10 +94,9 @@ $(document).ready(function () {
              when user select timeslot this option code will execute.
              */
             select: function (start, end, allDay) {
-
                 $('.event-header').css({
-                    'background-color': '#fff',
-                    'color': '#000'
+                    'background-color': '#ffffff',
+                    'color': '#000000'
                 });
                 $('#createEventModal').modal();
 
@@ -160,16 +152,16 @@ $(document).ready(function () {
 
                         $('#createEventError').html('');
 
-
                         //make better id by server
                         function getId() {
                             return Math.floor(Math.random() * 999);
                         }
+
                         var id = getId(), flag = 0;
 
                         for (var i = 0; i < calendar.fullCalendar('clientEvents').length; i++) {
                             var temp_id = calendar.fullCalendar('clientEvents')[i].id;
-                            if (id == temp_id) {
+                            if (id === temp_id) {
                                 id = getId();
                                 i = 0;
                                 flag = 1;
@@ -202,8 +194,8 @@ $(document).ready(function () {
                                     console.log(data);
                                     eventsData = data;
                                     // location.reload();
-                                    event.start=moment(parseInt(event.start)).local();
-                                    event.end=moment(parseInt(event.end)).local();
+                                    event.start = moment(parseInt(event.start)).local();
+                                    event.end = moment(parseInt(event.end)).local();
                                     console.log(event);
                                     calendar.fullCalendar('renderEvent',
                                         event,
@@ -213,7 +205,7 @@ $(document).ready(function () {
                                 },
                                 error: function (err) {
                                     console.log(err);
-                                    toastr.error("Oops! Something Went Wrong","Please Try Again");
+                                    toastr.error("Oops! Something Went Wrong", "Please Try Again");
                                 }
                             });
 
@@ -232,9 +224,9 @@ $(document).ready(function () {
                         .removeAttr('selected');
                     $('#createEventColor').val('#000000');
                     //trying to unset things
-                    $.each($("input[name='eventClickRecurring']"), function () {
-                        $(this).prop('checked', false);
-                    });
+                    /*$.each($("input[name='eventClickRecurring']"), function () {
+                     $(this).prop('checked', false);
+                     });*/
                     id = undefined;
                     title = undefined;
                 });
@@ -250,28 +242,27 @@ $(document).ready(function () {
              add ajax/get from db here or whatever
              */
             eventClick: function onEventClick(event, jsEvent, view) {
-
                 //run this code on click also
                 $('#eventClickError').html('');
 
                 $('#eventClickModal').on('show.bs.modal', function () {
-                    $('#eventClickStartTime').val(moment(event.start).format('DD/MM/YYYY HH:mm',true));
-                    $('#eventClickEndTime').val(moment(event.end).format('DD/MM/YYYY HH:mm',true));
+                    $('#eventClickStartTime').val(moment(event.start).format('DD/MM/YYYY HH:mm', true));
+                    $('#eventClickEndTime').val(moment(event.end).format('DD/MM/YYYY HH:mm', true));
                 });
 
                 $('#eventClickModal').modal('show');
 
-                console.log("Event Id", event.id);
+                // console.log("Event Id", event.id);
 
                 if (event.color) {
                     $('.event-header').css({
                         'background-color': event.color,
-                        'color': '#fff'
+                        'color': '#ffffff'
                     });
                 } else {
                     $('.event-header').css({
                         'background-color': '#fff',
-                        'color': '#000'
+                        'color': '#000000'
                     });
                 }
 
@@ -293,7 +284,7 @@ $(document).ready(function () {
                     sideBySide: true
                 });
 
-                if (event.allDay) {
+                if (event.allDay == true) {
                     $('#eventClickAllDay').prop('checked', true);
                 } else {
                     $('#eventClickAllDay').prop('checked', false);
@@ -311,21 +302,21 @@ $(document).ready(function () {
                 else
                     $('#eventClickColor').val('#ffffff');
 
-                if (event.dow) { //If repeated events exist then check checkbox with the corresponding day
-                    $.each($("input[name='eventClickRecurring']"), function () {
-                        if ($.inArray(parseInt($(this).val()), event.dow) + 1) {
-                            console.log(this);
-                            console.log($.inArray(parseInt($(this).val()), event.dow));
-                            $(this).prop('checked', true);
-                        }
-                    });
-                } else {
-                    $.each($("input[name='eventClickRecurring']"), function () {
-                        $(this).prop('checked', false);
-                    });
-                }
+                /*if (event.dow) { //If repeated events exist then check checkbox with the corresponding day
+                 $.each($("input[name='eventClickRecurring']"), function () {
+                 if ($.inArray(parseInt($(this).val()), event.dow) + 1) {
+                 console.log(this);
+                 console.log($.inArray(parseInt($(this).val()), event.dow));
+                 $(this).prop('checked', true);
+                 }
+                 });
+                 } else {
+                 $.each($("input[name='eventClickRecurring']"), function () {
+                 $(this).prop('checked', false);
+                 });
+                 }*/
 
-                $('#eventClickUpdate').click(function() {
+                $('#eventClickUpdate').click(function () {
 
                     // var dow = [];
                     // $.each($("input[name='eventClickRecurring']:checked"), function () {
@@ -333,10 +324,10 @@ $(document).ready(function () {
                     // });
 
                     var invertedColor;
-                    if(event.color==$('#eventClickColor').val()){
-                        invertedColor=event.textColor;
-                    }else{
-                        invertedColor=invertColor($('#eventClickColor').val());
+                    if (event.color == $('#eventClickColor').val()) {
+                        invertedColor = event.textColor;
+                    } else {
+                        invertedColor = invertColor($('#eventClickColor').val());
                     }
 
                     var data = {
@@ -360,16 +351,16 @@ $(document).ready(function () {
                             data: data
                         }).done(function (response) {
                             console.log(response);
-                            event.start=moment($('#eventClickStartTime').val(), 'DD/MM/YYYY HH:mm', true);
-                            event.end=moment($('#eventClickEndTime').val(), 'DD/MM/YYYY HH:mm', true);
-                            event.description=data.description;
-                            event.color=data.color;
-                            event.textColor=data.textColor;
+                            event.start = moment($('#eventClickStartTime').val(), 'DD/MM/YYYY HH:mm', true);
+                            event.end = moment($('#eventClickEndTime').val(), 'DD/MM/YYYY HH:mm', true);
+                            event.description = data.description;
+                            event.color = data.color;
+                            event.textColor = data.textColor;
                             calendar.fullCalendar('updateEvent', event);
                             toastr.success("Event Updated Successfully");
                             // location.reload();
                         }).fail(function (err) {
-                            toastr.error("Oops! Something Went Wrong","Please Try Again");
+                            toastr.error("Oops! Something Went Wrong", "Please Try Again");
                             console.log(err);
                         });
                     } else {
@@ -382,8 +373,8 @@ $(document).ready(function () {
 
                 $('#eventClickRemove').click(function () {
 
-                    var data={
-                        id:event.id
+                    var data = {
+                        id: event.id
                     };
 
                     var url = noTrailingSlash(window.location.href) + '/user/events';
@@ -397,7 +388,7 @@ $(document).ready(function () {
                         toastr.success("Event Removed Successfully");
                         // location.reload();//need a better workaround than this
                     }).fail(function (err) {
-                        toastr.error("Oops! Something Went Wrong","Please Try Again");
+                        toastr.error("Oops! Something Went Wrong", "Please Try Again");
                         console.log(err);
                     });
                     $(this).off('click');
@@ -443,10 +434,8 @@ $(document).ready(function () {
                             container: "body"
                         });
                 }
-
             },
             eventLimit: true
-
         });
     });
 });

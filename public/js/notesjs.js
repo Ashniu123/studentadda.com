@@ -1,7 +1,9 @@
-var notesData;
+var notesData,pgno = 1, notesno = getNumberOfBooks(),images,
+    delTrack="none", toggle=1, i,index,title,len,pages,bks=0,ind,
+    modal = document.getElementById('myModal'),
+    modalImg = document.getElementById("img01");
 
 $(document).ready(function(){
-
     var url=noTrailingSlash(window.location.href)+'/user/notes';
     $.ajax({
         url: url,
@@ -18,13 +20,6 @@ $(document).ready(function(){
     })
 
 });
-
-
-
-
-var pgno = 1, notesno = getNumberOfBooks();
-var delTrack="none";
-var toggle=1;
 
 function toggleX() {
 
@@ -49,7 +44,6 @@ function toggleX() {
         $("#note4").removeClass("wiggles");
     }
     init();
-
 }
 
 function getNumberOfBooks() {
@@ -70,7 +64,6 @@ function getNumberOfBooks() {
 }
 
 function getSubjectName(ind, myArray) {
-
     console.log("In / getSubjectName /");
 
     for (var i = 0; i < myArray.length; i++) {
@@ -98,7 +91,6 @@ function getNotesNumber(myArray) {
 }
 
 function getImageAddress(subject, pg, myArray) {
-
     console.log("In / getImageAddress /");
 
     for (var i = 0; i < myArray.length; i++) {
@@ -147,7 +139,6 @@ function getImagesNumber(subject, myArray) {
 }
 
 function getOrderNo(subject, myArray) {
-
     console.log("In / getOrderNo /");
 
     for (var i = 0; i < myArray.length; i++) {
@@ -182,7 +173,6 @@ function decrementIndex(ind, myArray) {
 }
 
 function getImageIndex(subject,pgno,myArray) {
-
     console.log("In / getImageIndex /");
 
     var ind;
@@ -255,115 +245,11 @@ function removeImage() {
 
 }
 
-var len,pages,bks=0;
-
 $(window).resize(function () {
     init();
 });
 
-$(document).keydown(function (e) {
-    if (e.keyCode == 78 && e.ctrlKey || e.keyCode == 78 && e.metaKey) {
-        document.getElementById('addNoteButton').click();
-    }
-}); //New Note
-
-
-$(document).keydown(function (e) {
-    if ((e.keyCode == 8 && e.ctrlKey) || e.keyCode == 8 && e.metaKey) {
-        document.getElementById('deleteNoteButton').click();
-    }
-}); // Delete Note
-
-
-$(document).keydown(function (e) {
-    if (e.keyCode == 37) {
-        var check = $('#noteImage').is(':visible');
-        if (check == false) {
-            document.getElementById('goleft').click();
-        }
-        else if (check == true) {
-            document.getElementById('previmg').click();
-        }
-    }
-}); //Previous page
-
-
-$(document).keydown(function (e) {
-    if (e.keyCode == 39) {
-        var check = $('#noteImage').is(':visible');
-        if (check == false) {
-            document.getElementById('goright').click();
-        }
-        else if (check == true) {
-            document.getElementById('nextimg').click();
-        }
-    }
-});// Next Page
-
-
-$(document).keydown(function (e) {
-    if (e.keyCode == 27) {
-
-        var ch1 = $('#noteImage').is(':visible');
-        var ch2 = $('#newNoteName').is(':visible');
-        var ch3 = $('#deleteNoteName').is(':visible');
-
-        if (ch1 == true) {
-            document.getElementById('close1').click();
-        }
-        if (ch2 == true) {
-            document.getElementById('hides1').click();
-        }
-        if (ch3 == true) {
-            document.getElementById('hides2').click();
-        }
-    }
-}); //Configuring escape key for modals
-
-
-$(document).keydown(function (e) {
-    if (e.keyCode == 13) {
-
-        var ch2 = $('#newNoteName').is(':visible');
-        var ch3 = $('#deleteNoteName').is(':visible');
-
-        if (ch2 == true) {
-            document.getElementById('addNote').click();
-        }
-        if (ch3 == true) {
-            document.getElementById('delNote').click();
-        }
-    }
-}); //Configuring enter key for modals
-
-$(document).keydown(function (e) {
-    if (e.keyCode == 38) {
-        document.getElementById('gotonote').click();
-    }
-});// Go to notes page
-
-$(document).keydown(function (e) {
-    if (e.keyCode == 40) {
-        viewevents();
-    }
-}); // Go to events page
-
-function viewevents() {
-    $('html, body').animate({
-        scrollTop: $("#events").offset().top
-    }, 500);
-}
-
-function viewnotes() {
-    $('html, body').animate({
-        scrollTop: $("#nav").offset().top
-    }, 500);
-}
-
-//Shows the modal on screen
-
 //Performs validation and adds to subject name array
-
 function adding() {
     console.log("In / adding /");
     var newsubject = document.getElementById("subject").value;
@@ -482,7 +368,6 @@ function reset2() {
     document.getElementById("err2").innerHTML = "<br>" + "<br>" + "<br>" + "<br>";
 }
 
-//Update by Parth 9/3/17 Add/Delete Notes
 function replaceAt(string, index, replace) {
     return string.substring(0, index) + replace + string.substring(index + 1);
 }
@@ -491,7 +376,9 @@ function col() //Assignes random color
 {
     console.log("In / col /");
 
-    var colors = ['#003300', '#006666', '#0099ff', '#00cc66', '#00cc99', '#00ccff', '#660033', '#660099', '#6633ff', '#666699', '#6699cc', '#990033', '#9900ff', '#cc0033', '#cc6666', '#cccc00', '#ff0099', '#ff3300', '#ff6600', '#ff6699', '#ff9966', '#ffff66', '#ffccff'];
+    var colors = ['#003300', '#006666', '#0099ff', '#00cc66', '#00cc99', '#00ccff', '#660033', '#660099',
+        '#6633ff', '#666699', '#6699cc', '#990033', '#9900ff', '#cc0033', '#cc6666', '#cccc00', '#ff0099',
+        '#ff3300', '#ff6600', '#ff6699', '#ff9966', '#ffff66', '#ffccff'];
     var i, c, j, d;
 
     // $("#note1").css('background-color', '#' + (Math.random() * 0xFFFFFF << 0).toString(16));
@@ -528,8 +415,6 @@ function col() //Assignes random color
     // j=replaceAt(j,6,'7');
     $("#note4").css('background', 'linear-gradient(to bottom,' + i + ',' + j + ')');
 }
-
-var ind;
 
 function prevsub() {
     bks = 0;
@@ -915,8 +800,6 @@ function init() {
 }
 
 //Functions to identify the note number pressed ie. first note from left,second from left et...
-var i,index,title;
-
 function one() {
 
     title = document.getElementById("s1").innerHTML;
@@ -955,10 +838,6 @@ function four() {
 function off() {
     modal.style.display = "none";
 }
-
-var modal = document.getElementById('myModal'),
-    modalImg = document.getElementById("img01"),
-    images;
 
 function a() //function to make the popup images visible
 {
@@ -1006,7 +885,6 @@ $("#uploadNoteImage").fileinput({
 });
 
 $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, reader) {
-    //console.log("fileloaded");
     var url = noTrailingSlash(window.location.href) + '/user/notes';
     var imgpgno = parseInt(getImagesNumber(title, notesData));
     console.log("Number of images: "+ imgpgno);

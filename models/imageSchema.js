@@ -6,6 +6,7 @@ var image = new Schema(
         username: String,//EmailId
         subject: String,
         orderno: Number,
+        color:String,
         data: []
     },
     {
