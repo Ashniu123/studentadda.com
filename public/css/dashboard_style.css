@@ -76,9 +76,9 @@
     /*So that the background color is visible and does not look like a box*/
 }
 
-#calendar{
+#calendar {
     font-size: 2rem;
-    color:#000000;
+    color: #000000;
 }
 
 .fc-center h2 {
@@ -287,7 +287,7 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     background-size: cover;
 }
 
-.noteslabel,.eventslabel {
+.noteslabel, .eventslabel {
     font-size: 4rem;
     text-align: center;
     text-decoration: underline;

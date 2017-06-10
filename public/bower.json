@@ -1,0 +1,39 @@
+{
+  "name": "studentadda",
+  "homepage": "https://github.com/Ashniu123/studentadda.com",
+  "authors": [
+    "ashniu123 <nisheet1.sinvhal@gmail.com>"
+  ],
+  "description": "Student Notes and Planner",
+  "main": "",
+  "keywords": [
+    "student",
+    "notes",
+    "planner",
+    "nodejs",
+    "ajax",
+    "project"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "fullcalendar": "^3.4.0",
+    "bootstrap": "3.3.7",
+    "jquery-ui": "^1.12.1",
+    "jquery": "^3.2.1",
+    "bootstrap-fileinput": "^4.4.1",
+    "font-awesome": "fontawesome#^4.7.0",
+    "toastr": "^2.1.3",
+    "bootstrap-tour": "^0.11.0",
+    "bootstrap-toggle": "^2.2.2",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.47",
+    "moment": "^2.18.1"
+  }
+}

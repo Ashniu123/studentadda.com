@@ -1,14 +1,19 @@
 /*****************General****************/
 a {
-  color: #df8312;
-  text-decoration: none;
-}
-a:hover,
-a:focus {
-  color: #E84D35;
-  text-decoration: underline;
+    color: #df8312;
+    text-decoration: none;
 }
 
+a:hover,
+a:focus {
+    color: #E84D35;
+    text-decoration: underline;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+}
 
 /*****************Navbar****************/
 
@@ -16,111 +21,115 @@ a:focus {
     margin-bottom: 0;
 }
 
-.navbar-inverse{
-  background: #282828;
-  color: #fff;
+.navbar-inverse {
+    background: #282828;
+    color: #fff;
 }
 
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
-  color: #ff7600;
-  background-color: transparent;
+    color: #ff7600;
+    background-color: transparent;
 }
 
 .navbar-inverse .navbar-text {
-  color: #fff;
-}
-.navbar-inverse .navbar-nav > li > a {
-  transition: background linear 0.5s,color ease-out 0.5s;
-  /*transition for the navbar*/
-  color: #fff;
-}
-.navbar-inverse .navbar-nav > li > a:hover,
-.navbar-inverse .navbar-nav > li > a:focus {
-  color: #fff;
-  background-color: transparent;
+    color: #fff;
 }
 
-.navbar-inverse .navbar-nav>.active>a,
-.navbar-inverse .navbar-nav>.active>a:hover,
-.navbar-inverse .navbar-nav>.active>a:focus{
-  color: #ff7600;
-  background: transparent;
+.navbar-inverse .navbar-nav > li > a {
+    transition: background linear 0.5s, color ease-out 0.5s;
+    /*transition for the navbar*/
+    color: #fff;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+    color: #fff;
+    background-color: transparent;
+}
+
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus {
+    color: #ff7600;
+    background: transparent;
 }
 
 .navbar-inverse .navbar-toggle {
-  border-color: #FFF9F6;
+    border-color: #FFF9F6;
 }
+
 .navbar-inverse .navbar-toggle:hover,
 .navbar-inverse .navbar-toggle:focus {
-  background-color: #543a15;
+    background-color: #543a15;
 }
 
 .navbar-inverse .navbar-toggle .icon-bar {
-  background-color: #fff;
+    background-color: #fff;
 }
 
-.navbar-inverse .navbar-nav>.open>a,
-.navbar-inverse .navbar-nav>.open>a:hover,
-.navbar-inverse .navbar-nav>.open>a:focus{
-  color: #ff7600;
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus {
+    color: #ff7600;
 
 }
 
-.navbar-inverse .navbar-nav>li>a:hover,
-.navbar-inverse .navbar-nav>li>a:focus{
-  color: #ff7600;
-  background-color: #FFF9F6;
-  text-shadow: none;
-  cursor: pointer;
-  /*Problem with focus here*/
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+    color: #ff7600;
+    background-color: #FFF9F6;
+    text-shadow: none;
+    cursor: pointer;
+    /*Problem with focus here*/
 }
 
-
-.navbar-inverse .navbar-nav .open .dropdown-menu>li>a,
-.navbar-inverse .navbar-nav .open .dropdown-menu{
-  color: #ff7600;
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a,
+.navbar-inverse .navbar-nav .open .dropdown-menu {
+    color: #ff7600;
 }
 
-
-.navbar-inverse .navbar-nav .open .dropdown-menu li a:hover{
-  background:#ff7600;
-  color: #fff;
+.navbar-inverse .navbar-nav .open .dropdown-menu li a:hover {
+    background: #ff7600;
+    color: #fff;
 }
 
-.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+.nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
     color: #fff;
     background-color: #ff7600;
 }
 
 /*****************Tabs***********************/
 
-
 /********************Buttons***************************/
 
 .btn-pink {
-  color: #fff;
-  background-color: #bd22b2;
-  border-color: #a42ea3;
+    color: #fff;
+    background-color: #bd22b2;
+    border-color: #a42ea3;
 }
+
 .btn-pink:focus,
 .btn-pink.focus {
-  color: #fff;
-  background-color: #bd22b2;
-  border-color: #3f1240;
+    color: #fff;
+    background-color: #bd22b2;
+    border-color: #3f1240;
 }
+
 .btn-pink:hover {
-  color: #fff;
-  background-color: #962f8f;
-  border-color: #722074;
+    color: #fff;
+    background-color: #962f8f;
+    border-color: #722074;
 }
+
 .btn-pink:active,
 .btn-pink.active,
 .open > .dropdown-toggle.btn-pink {
-  color: #fff;
-  background-color: #822e7c;
-  border-color: #722074;
+    color: #fff;
+    background-color: #822e7c;
+    border-color: #722074;
 }
+
 .btn-pink:active:hover,
 .btn-pink.active:hover,
 .open > .dropdown-toggle.btn-pink:hover,
@@ -130,15 +139,17 @@ a:focus {
 .btn-pink:active.focus,
 .btn-pink.active.focus,
 .open > .dropdown-toggle.btn-pink.focus {
-  color: #fff;
-  background-color: #722074;
-  border-color: #3c1240;
+    color: #fff;
+    background-color: #722074;
+    border-color: #3c1240;
 }
+
 .btn-pink:active,
 .btn-pink.active,
 .open > .dropdown-toggle.btn-pink {
-  background-image: none;
+    background-image: none;
 }
+
 .btn-pink.disabled:hover,
 .btn-pink[disabled]:hover,
 fieldset[disabled] .btn-pink:hover,
@@ -148,33 +159,37 @@ fieldset[disabled] .btn-pink:focus,
 .btn-pink.disabled.focus,
 .btn-pink[disabled].focus,
 fieldset[disabled] .btn-pink.focus {
-  background-color: #862b77;
-  border-color: #a42e92;
+    background-color: #862b77;
+    border-color: #a42e92;
 }
+
 .btn-pink .badge {
-  color: #b833a2;
-  background-color: #fff;
+    color: #b833a2;
+    background-color: #fff;
 }
+
 /*********Media*********/
-.media-body{
-  font-size: 102%;
+.media-body {
+    font-size: 102%;
 }
 
 /*****************UDC**************/
 
 .row-header {
-  margin: 0px auto;
-  padding: 0px 0px;
+    margin: 0px auto;
+    padding: 0px 0px;
 }
+
 .row-content {
-  margin: 0px auto;
-  padding: 10% 0px;
-  border-bottom: 1px ridge;
-  min-height: 500px;
+    margin: 0px auto;
+    padding: 10% 0px;
+    border-bottom: 1px ridge;
+    min-height: 500px;
 }
+
 .row-footer {
-  margin: 0px auto;
-  padding: 2% 0px;
-  background-color: #F4D06F;
-  /*background-color: #DAC9AF;#E9F1F7-white*/
+    margin: 0px auto;
+    padding: 2% 0px;
+    background-color: #F4D06F;
+    /*background-color: #DAC9AF;#E9F1F7-white*/
 }

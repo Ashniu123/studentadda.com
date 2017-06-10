@@ -111,11 +111,11 @@ $('#buttonForSignup').click(function(){
 
 $('#buttonForLogin').click(function(){
     var loginData={};
-    loginData.username=$('#inputEmailForLogin').val();//It is the Email!
-    loginData.password=$('#inputPasswordForLogin').val();
+    // loginData.username=$('#inputEmailForLogin').val();//It is the Email!
+    // loginData.password=$('#inputPasswordForLogin').val();
     //To save time
-    // loginData.username='xyz@gmail.com';
-    // loginData.password='abcd';
+    loginData.username='xyz@gmail.com';
+    loginData.password='abcd';
     loginData.rememberme=0;
     if($('#remember_me').is(':checked')){
         loginData.rememberme=1;
@@ -145,6 +145,6 @@ $('#buttonForLogin').click(function(){
     }
 });
 
-// $(document).ready(function(){
-//    $('#buttonForLogin').click();
-// });
+$(document).ready(function(){
+   $('#buttonForLogin').click();
+});
