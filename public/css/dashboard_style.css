@@ -457,3 +457,8 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     75% {transform: rotate(-2deg);}
     100% {transform: rotate(2deg);}
 }
+
+.addImageKv .file-preview
+{
+    display: none;
+}

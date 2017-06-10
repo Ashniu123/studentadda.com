@@ -929,7 +929,6 @@ $("#uploadNoteImage").fileinput({
     elErrorContainer: '#kv-avatar-errors',
     msgErrorClass: 'alert alert-block alert-danger',
     allowedFileExtensions: ["jpg", "png", "jpeg"],
-    showPreview: false,
     showRemove: false
 });
 
