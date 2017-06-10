@@ -28,6 +28,8 @@ var toggle=1;
 
 function toggleX() {
 
+    console.log("In / toggleX /");
+
     if(toggle==1)
     {
         delTrack="block";
@@ -50,8 +52,8 @@ function toggleX() {
 
 }
 
-
 function getNumberOfBooks() {
+    console.log("In / getNumberOfBooks /");
     var width = $("#centeralbook").width();
     if (width >= 1000) {
         return 4;
@@ -68,6 +70,9 @@ function getNumberOfBooks() {
 }
 
 function getSubjectName(ind, myArray) {
+
+    console.log("In / getSubjectName /");
+
     for (var i = 0; i < myArray.length; i++) {
         if (myArray[i].orderno === ind + 1) {
             return myArray[i].subject;
@@ -76,6 +81,7 @@ function getSubjectName(ind, myArray) {
 }
 
 function getNotesNumber(myArray) {
+    console.log("In / getNotesNumber /");
     if(myArray.length){
         if ("orderno" in myArray[0]) {
             var large = myArray[0].orderno;
@@ -92,6 +98,8 @@ function getNotesNumber(myArray) {
 }
 
 function getImageAddress(subject, pg, myArray) {
+
+    console.log("In / getImageAddress /");
 
     for (var i = 0; i < myArray.length; i++) {
         if (myArray[i].subject === subject) {
@@ -111,6 +119,8 @@ function getImageAddress(subject, pg, myArray) {
 }
 
 function getImagesNumber(subject, myArray) {
+    console.log("In / getImagesNumber /");
+
     for (var i = 0; i < myArray.length; i++) {
         var large=0;
         if (myArray[i].subject === subject) {
@@ -137,6 +147,9 @@ function getImagesNumber(subject, myArray) {
 }
 
 function getOrderNo(subject, myArray) {
+
+    console.log("In / getOrderNo /");
+
     for (var i = 0; i < myArray.length; i++) {
         if (myArray[i].subject === subject) {
             return myArray[i].orderno;
@@ -146,6 +159,8 @@ function getOrderNo(subject, myArray) {
 }
 
 function getIndexToDelete(subject, myArray) {
+    console.log("In / getIndexToDelete /");
+
     for (var i = 0; i < myArray.length; i++) {
         if (myArray[i].subject === subject) {
             return i;
@@ -155,6 +170,7 @@ function getIndexToDelete(subject, myArray) {
 }
 
 function decrementIndex(ind, myArray) {
+    console.log("In / decrementIndex /");
 
     for(var i=0; i<myArray.length; i++)
     {
@@ -166,6 +182,9 @@ function decrementIndex(ind, myArray) {
 }
 
 function getImageIndex(subject,pgno,myArray) {
+
+    console.log("In / getImageIndex /");
+
     var ind;
     for(ind=0;ind<myArray.length;ind++)
     {
@@ -185,6 +204,7 @@ function getImageIndex(subject,pgno,myArray) {
 }
 
 function removeImage() {
+    console.log("In / removeImage /");
 
     var delind = (getImageIndex(title, i, notesData)),ind, decInd;
     if(delind!= null)
@@ -345,6 +365,7 @@ function viewnotes() {
 //Performs validation and adds to subject name array
 
 function adding() {
+    console.log("In / adding /");
     var newsubject = document.getElementById("subject").value;
     newsubject = newsubject.toUpperCase();
 
@@ -409,6 +430,7 @@ document.getElementById("hides2").onclick = function () {
 
 //Performs validation and deletes string from array
 function deleting() {
+    console.log("In / deleting /");
     // var newsubject = document.getElementById("subject2").value;
     var newsubject=title;
     newsubject = newsubject.toUpperCase();
@@ -449,11 +471,13 @@ function deleting() {
 
 //Functions to reset the text input field to blank in case of both modals to add and delete notes
 function reset1() {
+    console.log("In / reset1 /");
     document.getElementById("subject").value = '';
     document.getElementById("err").innerHTML = "<br>" + "<br>" + "<br>" + "<br>";
 }
 
 function reset2() {
+    console.log("In / reset2 /");
     document.getElementById("subject2").value = '';
     document.getElementById("err2").innerHTML = "<br>" + "<br>" + "<br>" + "<br>";
 }
@@ -465,6 +489,7 @@ function replaceAt(string, index, replace) {
 
 function col() //Assignes random color
 {
+    console.log("In / col /");
 
     var colors = ['#003300', '#006666', '#0099ff', '#00cc66', '#00cc99', '#00ccff', '#660033', '#660099', '#6633ff', '#666699', '#6699cc', '#990033', '#9900ff', '#cc0033', '#cc6666', '#cccc00', '#ff0099', '#ff3300', '#ff6600', '#ff6699', '#ff9966', '#ffff66', '#ffccff'];
     var i, c, j, d;
@@ -511,65 +536,69 @@ function prevsub() {
     if (pgno != 1) {
         //No changes if user on first page
         pgno--;
-        ind = notesno * (pgno - 1);
-        if (notesno == 4) {
-            document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
-            note1.style.display = "block";
-            del1.style.display=delTrack;
-            document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
-            note2.style.display = "block";
-            del2.style.display=delTrack;
-            document.getElementById("s3").innerHTML = getSubjectName(ind + 2, notesData);
-            note3.style.display = "block";
-            del3.style.display=delTrack;
-            document.getElementById("s4").innerHTML = getSubjectName(ind + 3, notesData);
-            note4.style.display = "block";
-            del4.style.display=delTrack;
-        }
-        else if (notesno == 3) {
-            document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
-            note1.style.display = "block";
-            del1.style.display=delTrack;
-            document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
-            note2.style.display = "block";
-            del2.style.display=delTrack;
-            document.getElementById("s3").innerHTML = getSubjectName(ind + 2, notesData);
-            note3.style.display = "block";
-            del3.style.display=delTrack;
-        }
-        else if (notesno == 2) {
-            document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
-            note1.style.display = "block";
-            del1.style.display=delTrack;
-            document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
-            note2.style.display = "block";
-            del2.style.display=delTrack;
-        }
-        else if (notesno == 1) {
-            document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
-            note1.style.display = "block";
-            del1.style.display=delTrack;
-        }
-        if (ind > len - 1) {
-            note1.style.display = "none";
-            del1.style.display="none";
-            bks++;
-        }
-        if (ind + 1 > len - 1) {
-            note2.style.display = "none";
-            del2.style.display="none";
-            bks++;
-        }
-        if (ind + 2 > len - 1) {
-            note3.style.display = "none";
-            del3.style.display="none";
-            bks++;
-        }
-        if (ind + 3 > len - 1) {
-            note4.style.display = "none";
-            del4.style.display="none";
-            bks++;
-        }
+        init();
+        // {
+        //     ind = notesno * (pgno - 1);
+        //     if (notesno == 4) {
+        //         document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
+        //         note1.style.display = "block";
+        //         del1.style.display=delTrack;
+        //         document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
+        //         note2.style.display = "block";
+        //         del2.style.display=delTrack;
+        //         document.getElementById("s3").innerHTML = getSubjectName(ind + 2, notesData);
+        //         note3.style.display = "block";
+        //         del3.style.display=delTrack;
+        //         document.getElementById("s4").innerHTML = getSubjectName(ind + 3, notesData);
+        //         note4.style.display = "block";
+        //         del4.style.display=delTrack;
+        //     }
+        //     else if (notesno == 3) {
+        //         document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
+        //         note1.style.display = "block";
+        //         del1.style.display=delTrack;
+        //         document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
+        //         note2.style.display = "block";
+        //         del2.style.display=delTrack;
+        //         document.getElementById("s3").innerHTML = getSubjectName(ind + 2, notesData);
+        //         note3.style.display = "block";
+        //         del3.style.display=delTrack;
+        //     }
+        //     else if (notesno == 2) {
+        //         document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
+        //         note1.style.display = "block";
+        //         del1.style.display=delTrack;
+        //         document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
+        //         note2.style.display = "block";
+        //         del2.style.display=delTrack;
+        //     }
+        //     else if (notesno == 1) {
+        //         document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
+        //         note1.style.display = "block";
+        //         del1.style.display=delTrack;
+        //     }
+        //     if (ind > len - 1) {
+        //         note1.style.display = "none";
+        //         del1.style.display="none";
+        //         bks++;
+        //     }
+        //     if (ind + 1 > len - 1) {
+        //         note2.style.display = "none";
+        //         del2.style.display="none";
+        //         bks++;
+        //     }
+        //     if (ind + 2 > len - 1) {
+        //         note3.style.display = "none";
+        //         del3.style.display="none";
+        //         bks++;
+        //     }
+        //     if (ind + 3 > len - 1) {
+        //         note4.style.display = "none";
+        //         del4.style.display="none";
+        //         bks++;
+        //     }
+        // }
+
     }
 }
 
@@ -578,81 +607,84 @@ function nextsub() {
     if (pgno != pages) {
         //No changes if user on last page
         pgno++;
-        ind = notesno * (pgno - 1);
-        if (notesno == 4) {
-            document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
-            note1.style.display = "block";
-            del1.style.display=delTrack;
-            document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
-            note2.style.display = "block";
-            del2.style.display=delTrack;
-            document.getElementById("s3").innerHTML = getSubjectName(ind + 2, notesData);
-            note3.style.display = "block";
-            del3.style.display=delTrack;
-            document.getElementById("s4").innerHTML = getSubjectName(ind + 3, notesData);
-            note4.style.display = "block";
-            del3.style.display=delTrack;
-        }
-        else if (notesno == 3) {
-            document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
-            note1.style.display = "block";
-            del1.style.display=delTrack;
-            document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
-            note2.style.display = "block";
-            del2.style.display=delTrack;
-            document.getElementById("s3").innerHTML = getSubjectName(ind + 2, notesData);
-            note3.style.display = "block";
-            del3.style.display=delTrack;
-        }
-        else if (notesno == 2) {
-            document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
-            note1.style.display = "block";
-            del1.style.display=delTrack;
-            document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
-            note2.style.display = "block";
-            del2.style.display=delTrack;
-        }
-        else if (notesno == 1) {
-            document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
-            note1.style.display = "block";
-            del1.style.display=delTrack;
-        }
-        if (ind > len - 1) {
-            note1.style.display = "none";
-            del1.style.display="none";
-            bks++;
-        }
-        if (ind + 1 > len - 1) {
-            note2.style.display = "none";
-            del2.style.display="none";
-            bks++;
-        }
-        if (ind + 2 > len - 1) {
-            note3.style.display = "none";
-            del3.style.display="none";
-            bks++;
-        }
-        if (ind + 3 > len - 1) {
-            note4.style.display = "none";
-            del4.style.display="none";
-            bks++;
-        }
+        init();
+        // {
+        //     ind = notesno * (pgno - 1);
+        //     if (notesno == 4) {
+        //         document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
+        //         note1.style.display = "block";
+        //         del1.style.display=delTrack;
+        //         document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
+        //         note2.style.display = "block";
+        //         del2.style.display=delTrack;
+        //         document.getElementById("s3").innerHTML = getSubjectName(ind + 2, notesData);
+        //         note3.style.display = "block";
+        //         del3.style.display=delTrack;
+        //         document.getElementById("s4").innerHTML = getSubjectName(ind + 3, notesData);
+        //         note4.style.display = "block";
+        //         del3.style.display=delTrack;
+        //     }
+        //     else if (notesno == 3) {
+        //         document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
+        //         note1.style.display = "block";
+        //         del1.style.display=delTrack;
+        //         document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
+        //         note2.style.display = "block";
+        //         del2.style.display=delTrack;
+        //         document.getElementById("s3").innerHTML = getSubjectName(ind + 2, notesData);
+        //         note3.style.display = "block";
+        //         del3.style.display=delTrack;
+        //     }
+        //     else if (notesno == 2) {
+        //         document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
+        //         note1.style.display = "block";
+        //         del1.style.display=delTrack;
+        //         document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
+        //         note2.style.display = "block";
+        //         del2.style.display=delTrack;
+        //     }
+        //     else if (notesno == 1) {
+        //         document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
+        //         note1.style.display = "block";
+        //         del1.style.display=delTrack;
+        //     }
+        //     if (ind > len - 1) {
+        //         note1.style.display = "none";
+        //         del1.style.display="none";
+        //         bks++;
+        //     }
+        //     if (ind + 1 > len - 1) {
+        //         note2.style.display = "none";
+        //         del2.style.display="none";
+        //         bks++;
+        //     }
+        //     if (ind + 2 > len - 1) {
+        //         note3.style.display = "none";
+        //         del3.style.display="none";
+        //         bks++;
+        //     }
+        //     if (ind + 3 > len - 1) {
+        //         note4.style.display = "none";
+        //         del4.style.display="none";
+        //         bks++;
+        //     }
+        // }
+
     }
 }
 
 
 function init() {
-
+    console.log("In / init /");
     var oldpgno = pgno;
     var oldnotesno = notesno;
 
     // var sheight=$(window).height();
     // $('#img01').css('height',sheight);
-
     bks = 0;
     {
 
-        // alert('here');
+        //alert('here');
         $('.changenotes').css('height', '380px');
         $('#gotoevent').css('margin-top', '145px');
         $('#goleft').css('top', '200px');
@@ -670,7 +702,6 @@ function init() {
             notesno = 4;
             pgno = Math.ceil((oldnotesno * (oldpgno - 1) + 1) / notesno);
             ind = notesno * (pgno - 1);
-
             if (ind < len) {
                 document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
                 note1.style.display = "block";
@@ -699,16 +730,29 @@ function init() {
                     else {
                         note3.style.display = "none";
                         del3.style.display="none";
+                        note4.style.display = "none";
+                        del4.style.display="none";
                     }
                 }
                 else {
                     note2.style.display = "none";
                     del2.style.display="none";
+                    note3.style.display = "none";
+                    del3.style.display="none";
+                    note4.style.display = "none";
+                    del4.style.display="none";
                 }
             }
             else {
                 note1.style.display = "none";
                 del1.style.display="none";
+                note2.style.display = "none";
+                del2.style.display="none";
+                note3.style.display = "none";
+                del3.style.display="none";
+                note4.style.display = "none";
+                del4.style.display="none";
+
                 if (pgno != 1) {
                     pgno--;
                     init();
@@ -744,16 +788,28 @@ function init() {
                     else {
                         note3.style.display = "none";
                         del3.style.display="none";
+                        note4.style.display = "none";
+                        del4.style.display="none";
                     }
                 }
                 else {
                     note2.style.display = "none";
                     del2.style.display="none";
+                    note3.style.display = "none";
+                    del3.style.display="none";
+                    note4.style.display = "none";
+                    del4.style.display="none";
                 }
             }
             else {
                 note1.style.display = "none";
                 del1.style.display="none";
+                note2.style.display = "none";
+                del2.style.display="none";
+                note3.style.display = "none";
+                del3.style.display="none";
+                note4.style.display = "none";
+                del4.style.display="none";
                 if (pgno != 1) {
                     pgno--;
                     init();
@@ -785,11 +841,22 @@ function init() {
                 else {
                     note2.style.display = "none";
                     del2.style.display="none";
+                    note3.style.display = "none";
+                    del3.style.display="none";
+                    note4.style.display = "none";
+                    del4.style.display="none";
                 }
             }
             else {
                 note1.style.display = "none";
                 del1.style.display="none";
+                note2.style.display = "none";
+                del2.style.display="none";
+                note3.style.display = "none";
+                del3.style.display="none";
+                note4.style.display = "none";
+                del4.style.display="none";
+
                 if (pgno != 1) {
                     pgno--;
                     init();
@@ -832,6 +899,12 @@ function init() {
             else {
                 note1.style.display = "none";
                 del1.style.display="none";
+                note2.style.display = "none";
+                del2.style.display="none";
+                note3.style.display = "none";
+                del3.style.display="none";
+                note4.style.display = "none";
+                del4.style.display="none";
                 if (pgno != 1) {
                     pgno--;
                     init();

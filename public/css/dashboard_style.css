@@ -280,6 +280,7 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     flex-wrap: nowrap;
     margin-bottom: 30px;
     justify-content: space-around;
+    margin-top: auto;
 }
 
 #mynotes {
@@ -425,10 +426,10 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
 .wiggles{
     -webkit-animation-name: wiggle;
     -ms-animation-name: wiggle;
-    -ms-animation-duration: 1000ms;
-    -webkit-animation-duration: 1000ms;
-    -webkit-animation-iteration-count: 1000;
-    -ms-animation-iteration-count: 1000;
+    -ms-animation-duration: 500ms;
+    -webkit-animation-duration: 500ms;
+    -webkit-animation-iteration-count: 1000000000;
+    -ms-animation-iteration-count: 100000000;
     -webkit-animation-timing-function: ease-in-out;
     -ms-animation-timing-function: ease-in-out;
 }
