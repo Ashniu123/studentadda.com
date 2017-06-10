@@ -149,16 +149,14 @@ var tour = new Tour({
             element: "#darkSwitchContainer",
             title: "Dark mode",
             content: "Press this button to go dark!",
-            duration: 3000,
-            backdrop: true
+            duration: 3000
         },
         {
             element: "#tour_event",
             title: "Add your events",
             content: "Use the toolbar to add your events.<br><hr>Drag on a date to add an event with multiple days.",
             // duration:3000,
-            placement: 'top',
-            backdrop: true
+            placement: 'top'
         }
     ]
 });

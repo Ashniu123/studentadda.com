@@ -331,7 +331,9 @@
             <h2 class="noteslabel">NOTES</h2>
         </div>
         <div class="col-xs-2">
-            <i class="glyphicon glyphicon-trash deletenote" data-toggle="modal" data-target="#deleteNoteName"
+            <!--<i class="glyphicon glyphicon-trash deletenote" data-toggle="modal" data-target="#deleteNoteName"-->
+               <!--id="deleteNoteButton"></i>-->
+            <i class="glyphicon glyphicon-trash deletenote" onclick="toggleX()"
                id="deleteNoteButton"></i>
             <!--<img src="img/thrash.png" class="deletenote" data-toggle="modal" data-target="#deleteNoteName"-->
             <!--id="deleteNoteButton"/>-->
@@ -354,75 +356,88 @@
         <div id="centeralbook" class="col-xs-10" style=" ">
             <div id="books" style="margin-top: 50px">
 
-                <div style=" background-color:#7AD47A; margin-left:0%;" id="note1" onclick="one();a();"
-                     data-toggle="modal" data-target="#noteImage">
+                <div>
+                    <i class="fa fa-times" id="del1" onclick="one(); deleting();"></i>
+                    <div style=" background-color:#7AD47A; margin-left:0%;" id="note1" onclick="one();a();"
+                         data-toggle="modal" data-target="#noteImage">
 
-                    <img src="img/bookmark.png" class="bm">
+                        <img src="img/bookmark.png" class="bm">
 
 
-                    <p>
-                    <h1 id="s1"></h1></p>
-                    <br>
-                    <hr class='l1'>
-                    <hr class='l2'>
-                    <hr class='l3'>
-                    <hr class='l4'>
-                    <hr class='l5'>
-                    <hr class='l6'>
+                        <p>
+                        <h1 id="s1"></h1></p>
+                        <br>
+                        <hr class='l1'>
+                        <hr class='l2'>
+                        <hr class='l3'>
+                        <hr class='l4'>
+                        <hr class='l5'>
+                        <hr class='l6'>
 
+                    </div>
                 </div>
 
-                <div style=" background-color:#3E5D76;  margin-left: 0%;" id="note2" onclick="two();a();"
-                     data-toggle="modal" data-target="#noteImage">
-                    <img src="img/bookmark.png" class="bm">
+                <div>
+                    <i class="fa fa-times" id="del2" onclick="two(); deleting();"></i>
+                    <div style=" background-color:#3E5D76;  margin-left: 0%;" id="note2" onclick="two();a();"
+                         data-toggle="modal" data-target="#noteImage">
+                        <img src="img/bookmark.png" class="bm">
 
-                    <p>
-                    <h1 id="s2"></h1></p>
-                    <br>
-                    <hr class='l1'>
-                    <hr class='l2'>
-                    <hr class='l3'>
-                    <hr class='l4'>
-                    <hr class='l5'>
-                    <hr class='l6'>
+                        <p>
+                        <h1 id="s2"></h1></p>
+                        <br>
+                        <hr class='l1'>
+                        <hr class='l2'>
+                        <hr class='l3'>
+                        <hr class='l4'>
+                        <hr class='l5'>
+                        <hr class='l6'>
 
+                    </div>
                 </div>
 
-                <div style=" background-color:#D3523E; margin-left:0%;" id="note3" onclick="three();a();"
-                     data-toggle="modal" data-target="#noteImage">
-                    <img src="img/bookmark.png" class="bm">
-                    <p>
-                    <h1 id="s3"></h1></p>
-                    <br>
-                    <hr class='l1'>
-                    <hr class='l2'>
-                    <hr class='l3'>
-                    <hr class='l4'>
-                    <hr class='l5'>
-                    <hr class='l6'>
+                <div>
+                    <i class="fa fa-times" id="del3" onclick="three(); deleting();;"></i>
+                    <div style=" background-color:#D3523E; margin-left:0%;" id="note3" onclick="three();a();"
+                         data-toggle="modal" data-target="#noteImage">
+                        <img src="img/bookmark.png" class="bm">
+                        <p>
+                        <h1 id="s3"></h1></p>
+                        <br>
+                        <hr class='l1'>
+                        <hr class='l2'>
+                        <hr class='l3'>
+                        <hr class='l4'>
+                        <hr class='l5'>
+                        <hr class='l6'>
 
+                    </div>
                 </div>
 
-                <div style=" background-color:#D3523E;  margin-left:0%;" id="note4" onclick="four();a();"
-                     data-toggle="modal" data-target="#noteImage">
-                    <img src="img/bookmark.png" class="bm">
 
-                    <p>
-                    <h1 id="s4"></h1></p>
-                    <br>
-                    <hr class='l1'>
-                    <hr class='l2'>
-                    <hr class='l3'>
-                    <hr class='l4'>
-                    <hr class='l5'>
-                    <hr class='l6'>
+                <div>
+                    <i class="fa fa-times" id="del4" onclick="four(); deleting();"></i>
+                    <div style=" background-color:#D3523E;  margin-left:0%;" id="note4" onclick="four();a();"
+                         data-toggle="modal" data-target="#noteImage">
+                        <img src="img/bookmark.png" class="bm">
 
+                        <p>
+                        <h1 id="s4"></h1></p>
+                        <br>
+                        <hr class='l1'>
+                        <hr class='l2'>
+                        <hr class='l3'>
+                        <hr class='l4'>
+                        <hr class='l5'>
+                        <hr class='l6'>
+                    </div>
                 </div>
+
             </div>
         </div>
 
         <div class="col-xs-1">
-            <div class="changenotes" onclick="nextsub();">
+            <div class="changenotes" onclick="nextsub(); deleting();">
                 <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" id="goright"></span>
             </div>
         </div>
