@@ -21,6 +21,12 @@ $(document).ready(function(){
 
 });
 
+function jumpToPage(newPage) {
+
+    pgno=newPage;
+    init();
+
+}
 function toggleX() {
 
     console.log("In / toggleX /");
@@ -759,7 +765,7 @@ function init() {
                 //  $('#goleft').css('top','150px');
                 //  $('#goright').css('top','150px');
                 //  $('#mynotes').css('height','529px');
-                $('#foot').css('margin-top', '-150px');
+                //$('#foot').css('margin-top', '-150px');
             }
 
             pages = Math.ceil((len / 1));
@@ -804,11 +810,11 @@ function init() {
         var dotsContaint=$("#pageDots").html();
         console.log(dotsContaint);
         if(pgno!=dotCounter){
-            $("#pageDots").html(dotsContaint+"<i class='fa fa-dot-circle-o' style='color: ghostwhite;' aria-hidden='true'></i> ");
+            $("#pageDots").html(dotsContaint+"<i class='fa fa-dot-circle-o dots'  style='color: ghostwhite;' aria-hidden='true' onclick='jumpToPage("+dotCounter+")'></i> ");
         }
 
         else if(pgno == dotCounter){
-            $("#pageDots").html(dotsContaint+"<i class='fa fa-circle' style='color: snow;' aria-hidden='true'></i> ");
+            $("#pageDots").html(dotsContaint+"<i class='fa fa-circle dots' style='color: snow;' aria-hidden='true' onclick='jumpToPage("+dotCounter+")'></i> ");
         }
 
     }
