@@ -574,11 +574,7 @@ function init() {
 
         //alert('here');
         $('.changenotes').css('height', '380px');
-        $('#gotoevent').css('margin-top', '145px');
-        $('#goleft').css('top', '200px');
-        $('#goright').css('top', '200px');
         $('#mynotes').css('height', '760px');
-        $('#foot').css('margin-top', 'auto');
         $("#books").css('margin-top', 'auto');
 
         var width = $("#centeralbook").width();

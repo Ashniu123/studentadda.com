@@ -59,10 +59,6 @@ $(document).ready(function () {
         console.log(err);
     });
 
-    $('#calendarHelp').tooltip({
-        trigger: 'hover',
-        title: 'Click/Drag across day(s) to Create an Event!'
-    });
     //when timer is up and data is parsed
     $.when(timer, ajaxEventsCall).done(function () {
         var calendar = $('#calendar').fullCalendar({
