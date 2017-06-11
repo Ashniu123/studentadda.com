@@ -563,9 +563,6 @@ function init() {
     console.log("In / init /");
     var oldpgno = pgno;
     var oldnotesno = notesno;
-
-    // var sheight=$(window).height();
-    // $('#img01').css('height',sheight);
     bks = 0;
     {
 
@@ -796,6 +793,24 @@ function init() {
                 }
             }
         }
+    }
+
+    var dotCounter;
+
+    $("#pageDots").empty();
+
+    for(dotCounter=1;dotCounter<=pages; dotCounter++)
+    {
+        var dotsContaint=$("#pageDots").html();
+        console.log(dotsContaint);
+        if(pgno!=dotCounter){
+            $("#pageDots").html(dotsContaint+"<i class='fa fa-dot-circle-o' style='color: ghostwhite;' aria-hidden='true'></i> ");
+        }
+
+        else if(pgno == dotCounter){
+            $("#pageDots").html(dotsContaint+"<i class='fa fa-circle' style='color: snow;' aria-hidden='true'></i> ");
+        }
+
     }
 }
 
