@@ -280,9 +280,10 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
 }
 
 #mynotes {
+    background: no-repeat center center fixed;
     max-height: 560px;
     width: 100%;
-    background: no-repeat center center fixed;
+
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -320,6 +321,7 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     min-width: 20px;
     height: 364px;
     margin-left: 0;
+    cursor: pointer;
 }
 
 #gotonote {
@@ -341,7 +343,6 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     margin-left: 10px;
     font-size: 30px;
     top: 190px;
-    cursor: pointer;
     color: #ffffff;
 }
 
@@ -349,7 +350,6 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     margin-left: 10px;
     font-size: 30px;
     top: 190px;
-    cursor: pointer;
     color: #FFFFFF;
 }
 
@@ -519,6 +519,6 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     }
 }
 
-.addImageKv .file-preview {
+.addNotesKrejee .file-preview {
     display: none;
 }

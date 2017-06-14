@@ -96,7 +96,7 @@ function getNotesNumber(myArray) {
     return 0;
 }
 
-function getImageAddress(subject, pg, myArray) {
+function getNoteAddress(subject, pg, myArray) {
     console.log("In / getImageAddress /");
 
     for (var i = 0; i < myArray.length; i++) {
@@ -116,7 +116,7 @@ function getImageAddress(subject, pg, myArray) {
     }
 }
 
-function getImagesNumber(subject, myArray) {
+function getNotesLength(subject, myArray) {
     console.log("In / getImagesNumber /");
 
     for (var i = 0; i < myArray.length; i++) {
@@ -187,7 +187,7 @@ function getImageIndex(subject,pgno,myArray) {
         if(subject==myArray[ind].subject)
         {
             var ind2;
-            for(ind2=0;ind2<getImagesNumber(subject,notesData);ind2++)
+            for(ind2=0;ind2<getNotesLength(subject,notesData);ind2++)
             {
                 if(myArray[ind].data[ind2].pgno==pgno)
                 {
@@ -199,7 +199,7 @@ function getImageIndex(subject,pgno,myArray) {
 
 }
 
-function removeImage() {
+function deleteNote() {
     console.log("In / removeImage /");
 
     var delind = (getImageIndex(title, i, notesData)),ind, decInd;
@@ -221,7 +221,7 @@ function removeImage() {
                 console.log(data);
                 for (ind = 0; ind < notesData.length; ind++) {
                     if (notesData[ind].subject == title) {
-                        if (getImagesNumber(title, notesData) > 0) {
+                        if (getNotesLength(title, notesData) > 0) {
                             console.log(images);
                             notesData[ind].data.splice(delind, 1);
                             for (decInd = 0; decInd < notesData[ind].data.length; decInd++) {
@@ -229,14 +229,14 @@ function removeImage() {
                                     notesData[ind].data[decInd].pgno--;
                                     //         }
                                     //     }
-                                    //     a();
+                                    //     displayNote();
                                     //     console.log(images);
                                     // }
-                                    // // else if(getImagesNumber(title,notesData)==1){
+                                    // // else if(getNotesLength(title,notesData)==1){
                                     //     notesData[ind].data.splice(delind,1);
                                 }
                             }
-                            a();
+                            displayNote();
                         }
                     }
                 }
@@ -256,7 +256,7 @@ $(window).resize(function () {
 });
 
 //Performs validation and adds to subject name array
-function adding() {
+function addSubject() {
     console.log("In / adding /");
     var newsubject = document.getElementById("subject").value;
     newsubject = newsubject.toUpperCase();
@@ -321,7 +321,7 @@ document.getElementById("hides2").onclick = function () {
 };
 
 //Performs validation and deletes string from array
-function deleting() {
+function deleteSubject() {
     console.log("In / deleting /");
     // var newsubject = document.getElementById("subject2").value;
     var newsubject=title;
@@ -856,11 +856,11 @@ function off() {
     modal.style.display = "none";
 }
 
-function a() //function to make the popup images visible
+function displayNote() //function to make the popup images visible
 {
     i=1;
-    modalImg.src = getImageAddress(title, i, notesData);
-    images = getImagesNumber(title, notesData);
+    modalImg.src = getNoteAddress(title, i, notesData);
+    images = getNotesLength(title, notesData);
     $("#imgno").html("Pg."+1);
 }
 
@@ -868,7 +868,7 @@ function next() //Change image to next page
 {
     if (i < images) {
         i++;
-        modalImg.src = getImageAddress(title, i, notesData);
+        modalImg.src = getNoteAddress(title, i, notesData);
         $("#imgno").html("Pg."+i);
     }
 }
@@ -877,7 +877,7 @@ function previous() //Change image to previous page
 {
     if (i > 1) { //No changes if first image
         i--;
-        modalImg.src = getImageAddress(title, i, notesData);
+        modalImg.src = getNoteAddress(title, i, notesData);
         $("#imgno").html("Pg."+i);
     }
 }
@@ -893,17 +893,17 @@ $("#uploadNoteImage").fileinput({
     uploadLabel: '',
     browseIcon: '<i class="glyphicon glyphicon-folder-open"></i> ',
     browseTitle: 'Choose Notes',
-    removeIcon: '<i class="glyphicon glyphicon-remove"></i> ',
-    removeTitle: 'Cancel or reset changes',
-    elErrorContainer: '#kv-avatar-errors',
+    elErrorContainer: '#notesUploadError',
     msgErrorClass: 'alert alert-block alert-danger',
     allowedFileExtensions: ["jpg", "png", "jpeg"],
-    showRemove: false
+    showRemove: false,
+    maxFileCount: 10,
+    validateInitialCount: true
 });
 
 $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, reader) {
     var url = noTrailingSlash(window.location.href) + '/user/notes';
-    var imgpgno = parseInt(getImagesNumber(title, notesData));
+    var imgpgno = parseInt(getNotesLength(title, notesData));
     console.log("Number of images: "+ imgpgno);
     var data = {
         "subject":title,
@@ -929,10 +929,10 @@ $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, 
                 imgpgno++;
                 //console.log(imgpgno);
                 //notesData[order].data.pop();
-                console.log("Before Updated notes!: "+parseInt(getImagesNumber(title, notesData)));
+                console.log("Before Updated notes!: "+parseInt(getNotesLength(title, notesData)));
                 notesData[order].data.push({"id":id,"pgno": imgpgno,
                     "note": reader.result});
-                console.log("Updates: "+parseInt(getImagesNumber(title, notesData)));
+                console.log("Updates: "+parseInt(getNotesLength(title, notesData)));
                 images=imgpgno;
             }
             else {
@@ -947,5 +947,126 @@ $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, 
     });
 });
 
+//Click events
+
+$("#deleteSubjectButton").click(function () {  toggleX(); });
+
+$("#previousSubjectArrowDiv").click(function(){ prevsub(); });
+
+$("#nextSubjectArrowDiv").click(function(){ nextsub(); });
+
+$("#note1").click(function(){ one();displayNote(); });
+$("#note2").click(function(){ two();displayNote(); });
+$("#note3").click(function(){ three();displayNote(); });
+$("#note4").click(function(){ four();displayNote(); });
+
+$("#del1").click(function(){ one();deleteSubject(); });
+$("#del2").click(function(){ two();deleteSubject(); });
+$("#del3").click(function(){ three();deleteSubject(); });
+$("#del4").click(function(){ four();deleteSubject(); });
+
+$("#deleteNoteButton").click(function(){ deleteNote(); });
+
+$("#prevNote").click(function(){ previous(); });
+$("#nextNote").click(function(){ next(); });
+
+$("#addSubjectButton").click(function () { addSubject(); });
+$("#clearSubjectEntered").click(function(){ reset1(); });
 
 
+$("#deleteSubject").click(function(){ deleteSubject(); });
+$("#clearDeleteSubjectEntered").click(function(){ reset2(); });
+
+/*Setting Key Presses*/
+$(document).keydown(function (e) {
+    if (e.keyCode == 78 && e.ctrlKey || e.keyCode == 78 && e.metaKey) {
+        document.getElementById('addNoteButton').click();
+    }
+}); //New Note
+
+
+$(document).keydown(function (e) {
+    if ((e.keyCode == 8 && e.ctrlKey) || e.keyCode == 8 && e.metaKey) {
+        document.getElementById('deleteNoteButton').click();
+    }
+}); // Delete Note
+
+
+$(document).keydown(function (e) {
+    if (e.keyCode == 37) {
+        var check = $('#noteImage').is(':visible');
+        if (check == false) {
+            document.getElementById('goleft').click();
+        }
+        else if (check == true) {
+            document.getElementById('prevNote').click();
+        }
+    }
+}); //Previous page
+
+
+$(document).keydown(function (e) {
+    if (e.keyCode == 39) {
+        var check = $('#noteImage').is(':visible');
+        if (check == false) {
+            document.getElementById('goright').click();
+        }
+        else if (check == true) {
+            document.getElementById('nextNote').click();
+        }
+    }
+});// Next Page
+
+
+$(document).keydown(function (e) {
+    if (e.keyCode == 27) {
+
+        var ch1 = $('#noteImage').is(':visible');
+        var ch2 = $('#newNoteName').is(':visible');
+        var ch3 = $('#deleteNoteName').is(':visible');
+
+        if (ch1 == true) {
+            document.getElementById('close1').click();
+        }
+        if (ch2 == true) {
+            document.getElementById('hides1').click();
+        }
+        if (ch3 == true) {
+            document.getElementById('hides2').click();
+        }
+    }
+}); //Configuring escape key for modals
+
+
+$(document).keydown(function (e) {
+    if (e.keyCode == 13) {
+
+        var ch2 = $('#newNoteName').is(':visible');
+        var ch3 = $('#deleteNoteName').is(':visible');
+
+        if (ch2 == true) {
+            document.getElementById('addSubjectButton').click();
+        }
+        if (ch3 == true) {
+            document.getElementById("deleteSubject").click();
+        }
+    }
+}); //Configuring enter key for modals
+
+$(document).keydown(function (e) {
+    if (e.keyCode == 38) {
+        // Go to notes page
+        $('html, body').animate({
+            scrollTop: $("#notes").offset().top
+        }, 500);
+    }
+});// Go to notes page
+
+$(document).keydown(function (e) {
+    if (e.keyCode == 40) {
+        // Go to events page
+        $('html, body').animate({
+            scrollTop: $("#events").offset().top
+        }, 500);
+    }
+});

@@ -125,7 +125,7 @@ var tour = new Tour({
             backdrop: true
         },
         {
-            element: "#deleteNoteButton",
+            element: "#deleteSubjectButton",
             title: "Delete a subject",
             content: "You can use '&#8963; + &#9003;' or '&#8984;/Ctrl + &#9003;' for Quick Access.",
             duration: 3000,
@@ -292,97 +292,3 @@ function sendAndRetrieveUserData() {
 
 $('#buttonForPersonal').click(sendAndRetrieveUserData);
 $('#buttonForCollege').click(sendAndRetrieveUserData);
-
-/*Setting Key Presses*/
-$(document).keydown(function (e) {
-    if (e.keyCode == 78 && e.ctrlKey || e.keyCode == 78 && e.metaKey) {
-        document.getElementById('addNoteButton').click();
-    }
-}); //New Note
-
-
-$(document).keydown(function (e) {
-    if ((e.keyCode == 8 && e.ctrlKey) || e.keyCode == 8 && e.metaKey) {
-        document.getElementById('deleteNoteButton').click();
-    }
-}); // Delete Note
-
-
-$(document).keydown(function (e) {
-    if (e.keyCode == 37) {
-        var check = $('#noteImage').is(':visible');
-        if (check == false) {
-            document.getElementById('goleft').click();
-        }
-        else if (check == true) {
-            document.getElementById('previmg').click();
-        }
-    }
-}); //Previous page
-
-
-$(document).keydown(function (e) {
-    if (e.keyCode == 39) {
-        var check = $('#noteImage').is(':visible');
-        if (check == false) {
-            document.getElementById('goright').click();
-        }
-        else if (check == true) {
-            document.getElementById('nextimg').click();
-        }
-    }
-});// Next Page
-
-
-$(document).keydown(function (e) {
-    if (e.keyCode == 27) {
-
-        var ch1 = $('#noteImage').is(':visible');
-        var ch2 = $('#newNoteName').is(':visible');
-        var ch3 = $('#deleteNoteName').is(':visible');
-
-        if (ch1 == true) {
-            document.getElementById('close1').click();
-        }
-        if (ch2 == true) {
-            document.getElementById('hides1').click();
-        }
-        if (ch3 == true) {
-            document.getElementById('hides2').click();
-        }
-    }
-}); //Configuring escape key for modals
-
-
-$(document).keydown(function (e) {
-    if (e.keyCode == 13) {
-
-        var ch2 = $('#newNoteName').is(':visible');
-        var ch3 = $('#deleteNoteName').is(':visible');
-
-        if (ch2 == true) {
-            document.getElementById('addNote').click();
-        }
-        if (ch3 == true) {
-            document.getElementById('delNote').click();
-        }
-    }
-}); //Configuring enter key for modals
-
-$(document).keydown(function (e) {
-    if (e.keyCode == 38) {
-        // Go to notes page
-        $('html, body').animate({
-            scrollTop: $("#notes").offset().top
-        }, 500);
-    }
-});// Go to notes page
-
-$(document).keydown(function (e) {
-    if (e.keyCode == 40) {
-        // Go to events page
-        $('html, body').animate({
-            scrollTop: $("#events").offset().top
-        }, 500);
-    }
-});

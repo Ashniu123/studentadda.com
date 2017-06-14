@@ -197,7 +197,9 @@ $(document).ready(function () {
                                         event,
                                         true // make the event "stick"
                                     );
+                                    $('#createEventModal').modal('toggle');
                                     toastr.success("Event Created Successfully");
+
                                 },
                                 error: function (err) {
                                     console.log(err);

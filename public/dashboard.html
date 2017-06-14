@@ -332,8 +332,8 @@
         <div class="col-xs-2">
             <!--<i class="glyphicon glyphicon-trash deletenote" data-toggle="modal" data-target="#deleteNoteName"-->
                <!--id="deleteNoteButton"></i>-->
-            <i class="glyphicon glyphicon-trash deletenote" onclick="toggleX()"
-               id="deleteNoteButton"></i>
+            <i class="glyphicon glyphicon-trash deletenote"
+               id="deleteSubjectButton"></i>
             <!--<img src="img/thrash.png" class="deletenote" data-toggle="modal" data-target="#deleteNoteName"-->
             <!--id="deleteNoteButton"/>-->
         </div>
@@ -346,7 +346,7 @@
         <div class="col-xs-1" style="height: 100%;">
 
 
-            <div class="changenotes" onclick="prevsub()">
+            <div class="changenotes" id="previousSubjectArrowDiv">
                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true" id="goleft"></span>
             </div>
         </div>
@@ -356,8 +356,8 @@
             <div id="books">
 
                 <div>
-                    <i class="fa fa-times" id="del1" onclick="one(); deleting();"></i>
-                    <div style=" background-color:#7AD47A; margin-left:5%;" id="note1" onclick="one();a();"
+                    <i class="fa fa-times" id="del1"></i>
+                    <div style=" background-color:#7AD47A; margin-left:5%;" id="note1"
                          data-toggle="modal" data-target="#noteImage">
 
                         <img src="img/bookmark.png" class="bookmark">
@@ -377,8 +377,8 @@
                 </div>
 
                 <div>
-                    <i class="fa fa-times" id="del2" onclick="two(); deleting();"></i>
-                    <div style=" background-color:#3E5D76;  margin-left: 5%;" id="note2" onclick="two();a();"
+                    <i class="fa fa-times" id="del2"></i>
+                    <div style=" background-color:#3E5D76;  margin-left: 5%;" id="note2"
                          data-toggle="modal" data-target="#noteImage">
                         <img src="img/bookmark.png" class="bookmark">
 
@@ -396,8 +396,8 @@
                 </div>
 
                 <div>
-                    <i class="fa fa-times" id="del3" onclick="three(); deleting();;"></i>
-                    <div style=" background-color:#D3523E; margin-left:5%;" id="note3" onclick="three();a();"
+                    <i class="fa fa-times" id="del3"></i>
+                    <div style=" background-color:#D3523E; margin-left:5%;" id="note3"
                          data-toggle="modal" data-target="#noteImage">
                         <img src="img/bookmark.png" class="bookmark">
                         <p>
@@ -415,8 +415,8 @@
 
 
                 <div>
-                    <i class="fa fa-times" id="del4" onclick="four(); deleting();"></i>
-                    <div style=" background-color:#D3523E;  margin-left:5%;" id="note4" onclick="four();a();"
+                    <i class="fa fa-times" id="del4"></i>
+                    <div style=" background-color:#D3523E;  margin-left:5%;" id="note4"
                          data-toggle="modal" data-target="#noteImage">
                         <img src="img/bookmark.png" class="bookmark">
 
@@ -436,7 +436,7 @@
         </div>
 
         <div class="col-xs-1">
-            <div class="changenotes" onclick="nextsub();">
+            <div class="changenotes" id="nextSubjectArrowDiv">
                 <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" id="goright"></span>
             </div>
         </div>
@@ -457,7 +457,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-xs-2">
-                            <i class="glyphicon glyphicon-trash deletenote" style="color:#fff " onclick="removeImage();"></i>
+                            <i class="glyphicon glyphicon-trash deletenote" style="color:#fff " id="deleteNoteButton"></i>
                         </div>
                         <div class="col-xs-8 text-center"><span id="noteModalTitle" style="color: white"></span></div>
                         <div class="col-xs-2">
@@ -484,21 +484,24 @@
             <div class="modal-footer" style="padding: 0px; border: none;">
                 <div class="container-fluid">
                     <div class="row">
+                        <div class="col-xs-8 col-xs-offset-2 text-center" id="notesUploadError"></div>
+                    </div>
+                    <div class="row">
                         <div class="col-xs-2">
-                            <i class="fa fa-arrow-left prev" id="previmg" onclick="previous()" aria-hidden="true"></i>
+                            <i class="fa fa-arrow-left prev" id="prevNote" aria-hidden="true"></i>
                             <!--<img src="img/orangearrow.png" class="prev rotate" id="previmg"-->
                             <!--style="width:20%; margin-right:-10%;" onclick="previous()">-->
                         </div>
-                        <div class="col-xs-8 addImageKv">
+                        <div class="col-xs-8 addNotesKrejee">
                             <div class="kv-avatar centerFlex">
-                                <input id="uploadNoteImage" name="uploadNoteImage" type="file" class="file-loading">
+                                <input id="uploadNoteImage" name="uploadNoteImage" multiple type="file" class="file-loading">
                             </div>
                             <p class="help-block text-center">File size should
                                 not exceed 5.0Mb.</p>
                             <p id="note-info-block"></p>
                         </div>
-                        <div class="col-xs-2">
-                            <i class="fa fa-arrow-right next" id="nextimg" onclick="next();" aria-hidden="true"></i>
+                        <div class="col-xs-2 text-center">
+                            <i class="fa fa-arrow-right next" id="nextNote" aria-hidden="true"></i>
                             <!--<img src="img/orangearrow.png" class="next" id="nextimg" style="width:20%; margin-right: -7%;"-->
                             <!--onclick="next()">-->
                         </div>
@@ -550,11 +553,11 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-6">
-                            <button type="button" class="btn btn-success btn-block" id="addNote" onclick="adding()">Add
+                            <button type="button" class="btn btn-success btn-block" id="addSubjectButton">Add
                             </button>
                         </div>
                         <div class="col-xs-6">
-                            <button type="button" class="btn btn-warning btn-block" onclick="reset1()">
+                            <button type="button" class="btn btn-warning btn-block" id="clearSubjectEntered">
                                 Reset
                             </button>
                         </div>
@@ -603,12 +606,12 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-6">
-                            <button type="button" class="btn btn-danger btn-block" id="delNote" onclick="deleting()">
+                            <button type="button" class="btn btn-danger btn-block" id="deleteSubject">
                                 Delete
                             </button>
                         </div>
                         <div class="col-xs-6">
-                            <button type="button" class="btn btn-warning btn-block" onclick="reset2()">
+                            <button type="button" class="btn btn-warning btn-block" id="clearDeleteSubjectEntered">
                                 Reset
                             </button>
                         </div>
