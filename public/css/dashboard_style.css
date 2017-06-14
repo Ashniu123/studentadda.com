@@ -274,10 +274,12 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     display: -ms-flexbox;      /* TWEENER - IE 10 */
     display: -webkit-flex;     /* NEW - Chrome */
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     -webkit-justify-content: space-around;
     margin-top: auto;
     height: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #mynotes {
@@ -321,7 +323,8 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
 .changenotes {
     min-width: 20px;
     height: 364px;
-    margin-left: 0;
+    margin-left: auto;
+    margin-right: auto;
     cursor: pointer;
 }
 
@@ -393,7 +396,7 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     font-size: 25px;
     color: #ffffff;
     margin-left: 210px;
-    margin-top: 30px;
+    margin-top: 2px;
     position: absolute;
     display: none;
     cursor: pointer;
@@ -524,19 +527,6 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     display: none;
 }
 
-/*table tr td, table tr th{*/
-    /*background-color: rgba(0,0,0,0.0) !important;*/
-/*}*/
-
-/*.dataTables_paginate {*/
-
-    /*display: none;*/
-
-/*}*/
-
-/*.dataTables_info{*/
-    /*display: none;*/
-/*}*/
 
 .next,.previous,.dataTables_paginate ,.paging_simple_numbers{
     display: none;
@@ -562,7 +552,14 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     font-size: 15px;
 }
 #miniTable{
-    margin-top: 10px;
+    margin-top: 20px;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
 
 .dataTables_length{
@@ -575,8 +572,9 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
 }
 
 #showFullCalendar{
-    font-size: 35px;
+    font-size: 25px;
     color: whitesmoke;
+    margin-top: 10px;
 
 }
 
@@ -587,7 +585,6 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
 #eventsBanner{
     font-size: 30px;
     color: whitesmoke;
-    margin-left: 50px;
     text-decoration: underline;
 }
 
@@ -596,4 +593,6 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     margin-top: 50px;
     font-size: 20px;
     cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
 }

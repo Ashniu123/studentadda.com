@@ -472,7 +472,7 @@ $(document).ready(function () {
             //alert( 'You clicked on "'+data.title+'" row.This will be replaced with relevant uploaded note modal opening event using regex matching. Maybe tomorrow.' );
             for(var subjectsCtr=0;subjectsCtr<notesData.length;subjectsCtr++){
                 console.log("Current similarity is:"+similarity(data.title,notesData[subjectsCtr].subject)+" "+notesData[subjectsCtr].subject);
-                if(similarity(data.title,notesData[subjectsCtr].subject)>.5) {
+                if(similarity(data.title,notesData[subjectsCtr].subject)>.6) {
 
                     noteTitle=notesData[subjectsCtr].subject;
                     index = getOrderNo(noteTitle, notesData);

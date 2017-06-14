@@ -141,6 +141,25 @@ var tour = new Tour({
             backdrop: true
         },
         {
+            element:"#miniEvents",
+            title:"Upcoming Events",
+            content:"Your upcoming events will be displayed here.Click a row to view uploaded notes if any.",
+            duration: 3000,
+            placement: 'bottom',
+            backdrop: true
+        },
+        {
+            element:"#showFullCalendar",
+            title:"Add events!",
+            content:"Press this button to view full calendar to add events.",
+            duration: 3000,
+            placement: "bottom",
+            backdrop:true,
+            onHide: function () {
+                $("#showFullCalendar").click();
+            }
+        },
+        {
             element: ".ios",
             title: "Dark mode",
             backdrop:true,
@@ -153,7 +172,10 @@ var tour = new Tour({
             content: "Use the toolbar to add your events.<br><hr>Drag on a date to add an event with multiple days.",
             duration:3000,
             backdrop:true,
-            placement: 'top'
+            placement: 'top',
+            onHide:function () {
+                scrollToNote();
+            }
         },
         {
             element: "#tour_help",

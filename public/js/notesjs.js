@@ -569,6 +569,7 @@ function init() {
     console.log("In / init /");
     var oldpgno = pgno;
     var oldnotesno = notesno;
+    $("#books").css({"justify-content":"space-around"});
     bks = 0;
     {
 
@@ -750,7 +751,7 @@ function init() {
         else if (width < 470)  // Phablet width
         {
             $(".fc-toolbar").css({'font-size': '9px'});
-
+            $("#books").css({"justify-content":"center"});
 
             var h2 = $(window).height();
             if (h2 < 600) {
