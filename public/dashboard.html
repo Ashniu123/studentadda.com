@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, inital-scale=1, shrink-to-fit=no">
@@ -361,7 +362,7 @@
                 <div>
                     <i class="fa fa-times" id="del1"></i>
                     <div style=" background-color:#7AD47A; margin-left:5%;" id="note1"
-                         data-toggle="modal" data-target="#noteImage">
+                         data-toggle="modal" data-target="#noteImage" ontouchstart="touchStart(event,&#39;books&#39;);" ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);">
                         <img src="img/bookmark.png" class="bookmark">
                         <p><h1 id="s1"></h1></p>
                         <br>
@@ -498,7 +499,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-xs-12">
-                            <img id="img01">
+                            <img id="img01" ontouchstart="touchStart(event,&#39;img01&#39;);" ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);">
                         </div>
                     </div>
                 </div>
@@ -931,7 +932,7 @@
         </div>
     </div>
 </footer>
-
+<script src="js/touchSupport.js"></script>
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="bower_components/moment/moment.js"></script>

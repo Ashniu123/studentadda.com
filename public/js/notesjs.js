@@ -1083,3 +1083,24 @@ function scrollToNote() {
 function setTitleExternally(title){
     noteTitle=title;
 }
+
+function touchHandle(touchedElement) {
+    //alert(touchedElement);
+
+    if(touchedElement=="books") {
+        if(swipeDirection=="left"){
+            $("#nextSubjectArrowDiv").click();
+        }else if(swipeDirection=="right"){
+            $("#previousSubjectArrowDiv").click();
+        }else if(swipeDirection=="click"){
+            one();displayNote();
+            $("#noteImage").modal("show");
+        }
+    }else if(touchedElement=="img01"){
+        if(swipeDirection=="left"){
+                next();
+            }else if(swipeDirection=="right"){
+                previous();
+            }
+    }
+}
