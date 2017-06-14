@@ -149,7 +149,7 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     height: 300px;
     min-width: 230px;
     display: none;
-    margin-top: 60px;
+    margin-top: 30px;
 
 }
 
@@ -277,11 +277,12 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     justify-content: space-between;
     -webkit-justify-content: space-around;
     margin-top: auto;
+    height: auto;
 }
 
 #mynotes {
     background: no-repeat center center fixed;
-    max-height: 560px;
+
     width: 100%;
 
     -webkit-background-size: cover;
@@ -521,4 +522,74 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
 
 .addNotesKrejee .file-preview {
     display: none;
+}
+
+/*table tr td, table tr th{*/
+    /*background-color: rgba(0,0,0,0.0) !important;*/
+/*}*/
+
+/*.dataTables_paginate {*/
+
+    /*display: none;*/
+
+/*}*/
+
+/*.dataTables_info{*/
+    /*display: none;*/
+/*}*/
+
+.next,.previous,.dataTables_paginate ,.paging_simple_numbers{
+    display: none;
+}
+
+#miniTable table,#miniTable td,#miniTable tr, #miniTable th{
+    border: 1px solid black;
+    background-color: rgba(244,164,96,.4);
+    text-align:center;
+    cursor: pointer;
+    height: 30px;
+}
+
+#miniTable th {
+    font-size: 20px;
+    font-weight: bold;
+}
+#miniTable td{
+    font-size: 15px;
+}
+#miniTable{
+    margin-top: 10px;
+}
+
+.dataTables_length{
+    display: none;
+}
+
+.dataTables_filter
+{
+    width: 30%;
+}
+
+#showFullCalendar{
+    font-size: 35px;
+    color: whitesmoke;
+
+}
+
+#miniEvents{
+    margin-top: 40px;
+}
+
+#eventsBanner{
+    font-size: 30px;
+    color: whitesmoke;
+    margin-left: 50px;
+    text-decoration: underline;
+}
+
+#prevMiniEventPage, #nextMiniEventPage{
+    color: whitesmoke;
+    margin-top: 50px;
+    font-size: 20px;
+    cursor: pointer;
 }

@@ -1055,18 +1055,27 @@ $(document).keydown(function (e) {
 
 $(document).keydown(function (e) {
     if (e.keyCode == 38) {
-        // Go to notes page
-        $('html, body').animate({
-            scrollTop: $("#notes").offset().top
-        }, 500);
+        scrollToNote();
     }
 });// Go to notes page
 
 $(document).keydown(function (e) {
     if (e.keyCode == 40) {
+        scrollToEvent();
         // Go to events page
-        $('html, body').animate({
-            scrollTop: $("#events").offset().top
-        }, 500);
+
     }
 });
+
+function scrollToEvent() {
+    $('html, body').animate({
+        scrollTop: $("#events").offset().top
+    }, 500);
+}
+
+function scrollToNote() {
+        $('html, body').animate({
+            scrollTop: $("#myNavbar").offset().top
+        }, 500);
+    setTimeout(function () { $("#events").hide() },500);
+}

@@ -38,9 +38,9 @@ function invertColor(hexTripletColor) {
     return color;
 }
 
+var eventsData;
 $(document).ready(function () {
     /******Ajax Calls******/
-    var eventsData;
     var url = noTrailingSlash(window.location.href) + '/user/events';
     var timer = $.Deferred();
     setTimeout(timer.resolve, 50);
@@ -435,5 +435,64 @@ $(document).ready(function () {
             },
             eventLimit: true
         });
+
+
+        $("#events").hide();
+        var miniTableEvents=new Array();
+        for(var miniCtr=0;miniCtr<eventsData.length;miniCtr++) {
+            var entry=new Date(eventsData[miniCtr].start);
+            var today= new Date().getTime();
+            entry=entry.getTime();
+            if(entry>=today) { //Show only future events
+                var title=eventsData[miniCtr].title;
+                var startEvent=moment(eventsData[miniCtr].start).format('DD/MM/YYYY', true);
+                var endEvent=moment(eventsData[miniCtr].end).format('DD/MM/YYYY', true);
+                var miniEvent={"title":title,"start":startEvent,"end":endEvent};
+                miniTableEvents.push(miniEvent);
+            }
+        }
+
+        var table= $('#miniTable').DataTable({
+            responsive: false,
+            "pageLength": 3,
+            "data": miniTableEvents,
+            "info":false,
+            "paging": true,
+            "searching": false,
+            "order": [[ 1, "desc" ]],
+            "columns":[
+                {"data":"title"},
+                {"data":"start"},
+                {"data":"end"}
+            ]
+        });
+        $('#miniTable tbody').on('click', 'tr', function () {
+            var data = table.row( this ).data();
+            console.log(data);
+            alert( 'You clicked on "'+data.title+'" row.This will be replaced with relevant uploaded note modal opening event using regex matching. Maybe tomorrow.' );
+        });
+        $("#showFullCalendar").click(function () {
+            $("#events").show();
+            scrollToEvent();
+        });
+
+        $("#prevMiniEventPage").click(function () {
+            $(".previous").click();
+        });
+
+        $("#nextMiniEventPage").click(function () {
+            $(".next").click();
+        });
+
+        $(document).keydown(function (e) {
+            if(e.keyCode==13){
+                var ch1 = $('#createEventModal').is(':visible');
+                if(ch1){
+                    $("#createEventButton").click();
+                }
+            }
+        });
     });
+
+
 });

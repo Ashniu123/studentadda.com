@@ -18,6 +18,9 @@
     <link rel="stylesheet" href="bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css">
     <link rel="stylesheet" href="bower_components/bootstrap-toggle/css/bootstrap-toggle.min.css">
     <link rel="stylesheet" href="bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="bower_components/datatables.net-responsive-dt/css/responsive.dataTables.min.css">
+    <!--<link rel="stylesheet" href="bower_components/datatables.net-dt/css/jquery.dataTables.min.css">-->
+    <!--<link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">-->
     <link rel="stylesheet" href="css/bootstrap-social-mod.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dashboard_style.css">
@@ -359,12 +362,8 @@
                     <i class="fa fa-times" id="del1"></i>
                     <div style=" background-color:#7AD47A; margin-left:5%;" id="note1"
                          data-toggle="modal" data-target="#noteImage">
-
                         <img src="img/bookmark.png" class="bookmark">
-
-
-                        <p>
-                        <h1 id="s1"></h1></p>
+                        <p><h1 id="s1"></h1></p>
                         <br>
                         <hr class='l1'>
                         <hr class='l2'>
@@ -372,7 +371,6 @@
                         <hr class='l4'>
                         <hr class='l5'>
                         <hr class='l6'>
-
                     </div>
                 </div>
 
@@ -381,9 +379,7 @@
                     <div style=" background-color:#3E5D76;  margin-left: 5%;" id="note2"
                          data-toggle="modal" data-target="#noteImage">
                         <img src="img/bookmark.png" class="bookmark">
-
-                        <p>
-                        <h1 id="s2"></h1></p>
+                        <p><h1 id="s2"></h1></p>
                         <br>
                         <hr class='l1'>
                         <hr class='l2'>
@@ -391,7 +387,6 @@
                         <hr class='l4'>
                         <hr class='l5'>
                         <hr class='l6'>
-
                     </div>
                 </div>
 
@@ -400,8 +395,7 @@
                     <div style=" background-color:#D3523E; margin-left:5%;" id="note3"
                          data-toggle="modal" data-target="#noteImage">
                         <img src="img/bookmark.png" class="bookmark">
-                        <p>
-                        <h1 id="s3"></h1></p>
+                        <p><h1 id="s3"></h1></p>
                         <br>
                         <hr class='l1'>
                         <hr class='l2'>
@@ -409,7 +403,6 @@
                         <hr class='l4'>
                         <hr class='l5'>
                         <hr class='l6'>
-
                     </div>
                 </div>
 
@@ -419,10 +412,7 @@
                     <div style=" background-color:#D3523E;  margin-left:5%;" id="note4"
                          data-toggle="modal" data-target="#noteImage">
                         <img src="img/bookmark.png" class="bookmark">
-
-                        <p>
-                        <h1 id="s4"></h1></p>
-                        <br>
+                        <p><h1 id="s4"></h1></p><br>
                         <hr class='l1'>
                         <hr class='l2'>
                         <hr class='l3'>
@@ -447,7 +437,40 @@
 
         </div>
     </div>
+
+    <div id="miniEvents" class="container-fluid">
+        <div class="row">
+            <div class="row">
+                <div class="col-xs-10 text-center" id="eventsBanner"> Upcoming Events</div>
+                <div class="col-xs-1">
+                    <i class="fa fa-calendar-plus-o pull-right" aria-hidden="true" id="showFullCalendar"></i>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-1" id="prevMiniEventPage">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            </div>
+            <div class="col-xs-10">
+                <table id="miniTable" class="cell-border compact stripe" width="100%">
+                    <thead>
+                    <tr><th>Title</th><th>Start</th><th>End</th></tr>
+                    </thead>
+                    <tbody>
+                    <tr><td>11</td></tr>
+                    <tr><td>22</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-xs-1" id="nextMiniEventPage">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            </div>
+        </div>
+
+
+    </div>
 </div>
+
 
 <!-- Modal to view notes-->
 <div class="modal fade" id="noteImage" role="dialog" style="background-color:rgba(0,0,0,.9); width: 100%; height: 100%; ">
@@ -919,7 +942,9 @@
 <script src="bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js"></script>
 <script src="bower_components/toastr/toastr.min.js"></script>
 <script src="bower_components/bootstrap-fileinput/js/fileinput.min.js"></script>
+<script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="js/dashboardjs.js"></script>
+<script src="bower_components/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
 <script src="js/notesjs.js"></script>
 <script src="js/calendarjs.js"></script>
 </body>
