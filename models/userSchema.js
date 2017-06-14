@@ -15,7 +15,8 @@ var User = new Schema(
         stream:String,
         current:String,
         branch:String,
-        tutorial:Boolean
+        tutorial:Boolean,
+        verified:Boolean
     },
     {
         timestamps : true
@@ -23,4 +24,5 @@ var User = new Schema(
 );
 
 User.plugin(passportlocalmongoose);
+
 module.exports = mongoose.model('user',User);

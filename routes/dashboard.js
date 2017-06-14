@@ -10,7 +10,7 @@ var moment = require('moment');
 var router = express.Router();
 
 /* GET dashboard page. */
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
     if (req.session.username)
         res.sendFile(path.join(__dirname, '../public', 'dashboard.html'));
     else
@@ -28,7 +28,10 @@ router.route('/user')
                 if(user.tutorial===true) {
                     user.tutorial = false;
                     user.save(function (err, response) {
-                        console.log("Changed Tutorial!");
+                        if(err) throw err;
+                        else{
+                            console.log("Changed Tutorial!");
+                        }
                     });
                 }
             }

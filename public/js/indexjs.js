@@ -102,8 +102,8 @@ $('#buttonForSignup').click(function(){
                }
            },
            error:function(err){
-               console.log(err.responseText);
-               console.log('error');
+               console.log(err);
+               $('#validityError').html('Registration Unsuccessful! User Already Exists!');
            }
        });
    }
@@ -136,7 +136,6 @@ $('#buttonForLogin').click(function(){
                 }
             },
             error:function(err){
-                console.log(err);
                 console.log('error');
             }
         });

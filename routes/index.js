@@ -4,8 +4,28 @@ var User = require('../models/userSchema');
 var Image=require('../models/imageSchema');
 var Event=require('../models/eventSchema');
 var passport=require('passport');
+var nodemailer=require('nodemailer');
+var crypto=require('crypto');
+
+var cryptoKey="ABCDE-ZYXWV-ZYXWV-ABCDE",cryptoAlgo='aes-256-ctr';
 
 var router = express.Router();
+
+/*Initialize NodeMailer*/
+var transporter = nodemailer.createTransport({
+    host: "smtp-mail.outlook.com", // hostname
+    secureConnection: false, // TLS requires secureConnection to be false
+    port: 587, // port for secure SMTP
+    tls: {
+        ciphers:'SSLv3'
+    },
+    auth: {
+        user: 'studentadda@outlook.com',
+        pass: 'QWERTY))&'//To be hidden later
+    }
+});
+
+
 
 /* GET home page. */
 router.get('/', function (req, res) {
@@ -30,9 +50,34 @@ router.post('/signup', function (req, res) {
             user.lastName = req.body.lastName;
         }
         user.tutorial=true;
+        user.verified=false;
         user.save(function (err, user) {
             if(err) throw err;
             else {
+                /*Sending Mail*/
+                //Not Secure Yet
+                var cipher=crypto.createCipher(cryptoAlgo,cryptoKey);
+                var cipherId=cipher.update(user._id.toString(),'utf8','hex');
+                cipherId+=cipher.final('hex');
+                console.log("CipherId",cipherId);
+                var urlToSendTo=req.protocol + '://' + req.get('host') + '/verify?q='+cipherId;
+                // var urlToSendTo2=req.protocol + '://' + req.hostname + '/verify/'+cipherId;
+
+                // setup e-mail data, even with unicode symbols
+                var mailOptions = {
+                    from: '"Studentadda" <studentadda@outlook.com>', // sender address (who sends)
+                    to: req.body.email, // list of receivers (who receives)
+                    subject: 'Welcome to Studentadda', // Subject line
+                    html: 'To <strong>Verify</strong> your email address, Please goto <a href="'+urlToSendTo+'">' + urlToSendTo + '</a>' // html body
+                };
+
+                // send mail with defined transport object
+                transporter.sendMail(mailOptions, function(err, info){
+                    if(err) throw err;
+                    console.log('Message sent: ' + info.response);
+                });
+
+                /*Creating Empty Event object*/
                 Event.create({username:req.body.email,events:[]},function(err,event){
                     if(err) throw err;
                     else{
@@ -75,7 +120,4 @@ router.post('/login', function(req, res, next) {
     })(req,res,next);
 });
 
-router.post('/forgot',function(req,res,next){
-    //send mail to email in req.body.email
-});
 module.exports = router;
