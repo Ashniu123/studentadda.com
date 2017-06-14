@@ -542,6 +542,10 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     display: none;
 }
 
+#nextNote.next{
+    display: block;
+}
+
 #miniTable table,#miniTable td,#miniTable tr, #miniTable th{
     border: 1px solid black;
     background-color: rgba(244,164,96,.4);

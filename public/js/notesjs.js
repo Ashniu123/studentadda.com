@@ -1,5 +1,5 @@
 var notesData,pgno = 1, notesno = getNumberOfBooks(),images,
-    delTrack="none", toggle=1, i,index,title,len,pages,bks=0,ind,
+    delTrack="none", toggle=1, i,index,noteTitle,len,pages,bks=0,ind,
     modal = document.getElementById('myModal'),
     modalImg = document.getElementById("img01");
 
@@ -202,11 +202,11 @@ function getImageIndex(subject,pgno,myArray) {
 function deleteNote() {
     console.log("In / removeImage /");
 
-    var delind = (getImageIndex(title, i, notesData)),ind, decInd;
+    var delind = (getImageIndex(noteTitle, i, notesData)),ind, decInd;
     if(delind!= null)
     {
         var data={
-                "subject":title,
+                "subject":noteTitle,
                 "index":delind,
                 "pgno":i,
                 "remove":1//so that it doesnt mix up with other operation
@@ -220,8 +220,8 @@ function deleteNote() {
             success:function(data){
                 console.log(data);
                 for (ind = 0; ind < notesData.length; ind++) {
-                    if (notesData[ind].subject == title) {
-                        if (getNotesLength(title, notesData) > 0) {
+                    if (notesData[ind].subject == noteTitle) {
+                        if (getNotesLength(noteTitle, notesData) > 0) {
                             console.log(images);
                             notesData[ind].data.splice(delind, 1);
                             for (decInd = 0; decInd < notesData[ind].data.length; decInd++) {
@@ -232,7 +232,7 @@ function deleteNote() {
                                     //     displayNote();
                                     //     console.log(images);
                                     // }
-                                    // // else if(getNotesLength(title,notesData)==1){
+                                    // // else if(getNotesLength(noteTitle,notesData)==1){
                                     //     notesData[ind].data.splice(delind,1);
                                 }
                             }
@@ -324,7 +324,7 @@ document.getElementById("hides2").onclick = function () {
 function deleteSubject() {
     console.log("In / deleting /");
     // var newsubject = document.getElementById("subject2").value;
-    var newsubject=title;
+    var newsubject=noteTitle;
     newsubject = newsubject.toUpperCase();
 
     if (newsubject == '') {
@@ -819,33 +819,33 @@ function init() {
 //Functions to identify the note number pressed ie. first note from left,second from left et...
 function one() {
 
-    title = document.getElementById("s1").innerHTML;
-    index = getOrderNo(title, notesData);
-    $("#noteModalTitle").html(title);
+    noteTitle = document.getElementById("s1").innerHTML;
+    index = getOrderNo(noteTitle, notesData);
+    $("#noteModalTitle").html(noteTitle);
     i = 1;
 
 }
 
 function two() {
-    title = document.getElementById('s2').innerHTML;
-    index = getOrderNo(title, notesData);
-    $("#noteModalTitle").html(title);
+    noteTitle = document.getElementById('s2').innerHTML;
+    index = getOrderNo(noteTitle, notesData);
+    $("#noteModalTitle").html(noteTitle);
     i = 1;
 
 }
 
 function three() {
-    title = document.getElementById('s3').innerHTML;
-    index = getOrderNo(title, notesData);
-    $("#noteModalTitle").html(title);
+    noteTitle = document.getElementById('s3').innerHTML;
+    index = getOrderNo(noteTitle, notesData);
+    $("#noteModalTitle").html(noteTitle);
     i = 1;
 
 }
 
 function four() {
-    title = document.getElementById('s4').innerHTML;
-    index = getOrderNo(title, notesData);
-    $("#noteModalTitle").html(title);
+    noteTitle = document.getElementById('s4').innerHTML;
+    index = getOrderNo(noteTitle, notesData);
+    $("#noteModalTitle").html(noteTitle);
     i = 1;
 
 
@@ -859,8 +859,8 @@ function off() {
 function displayNote() //function to make the popup images visible
 {
     i=1;
-    modalImg.src = getNoteAddress(title, i, notesData);
-    images = getNotesLength(title, notesData);
+    modalImg.src = getNoteAddress(noteTitle, i, notesData);
+    images = getNotesLength(noteTitle, notesData);
     $("#imgno").html("Pg."+1);
 }
 
@@ -868,7 +868,7 @@ function next() //Change image to next page
 {
     if (i < images) {
         i++;
-        modalImg.src = getNoteAddress(title, i, notesData);
+        modalImg.src = getNoteAddress(noteTitle, i, notesData);
         $("#imgno").html("Pg."+i);
     }
 }
@@ -877,7 +877,7 @@ function previous() //Change image to previous page
 {
     if (i > 1) { //No changes if first image
         i--;
-        modalImg.src = getNoteAddress(title, i, notesData);
+        modalImg.src = getNoteAddress(noteTitle, i, notesData);
         $("#imgno").html("Pg."+i);
     }
 }
@@ -900,13 +900,14 @@ $("#uploadNoteImage").fileinput({
     maxFileCount: 10,
     validateInitialCount: true
 });
-
+console.log("In global scope title is:"+ noteTitle);
 $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, reader) {
     var url = noTrailingSlash(window.location.href) + '/user/notes';
-    var imgpgno = parseInt(getNotesLength(title, notesData));
+    console.log("Inside upload note image"+noteTitle);
+    var imgpgno = parseInt(getNotesLength(noteTitle, notesData));
     console.log("Number of images: "+ imgpgno);
     var data = {
-        "subject":title,
+        "subject":noteTitle,
         "pgno": imgpgno + 1,
         "note": reader.result
     };
@@ -918,10 +919,9 @@ $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, 
         success: function (data) {
             toastr.success('','Added!');
             console.log(data);
-            var order=getIndexToDelete(title,notesData);
+            var order=getIndexToDelete(noteTitle,notesData);
             var id = Math.floor(Math.random() * 1000);
             images=imgpgno+1;
-
             if(imgpgno == 0)
             {
                 console.log("No notes...Updating!");
@@ -929,10 +929,10 @@ $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, 
                 imgpgno++;
                 //console.log(imgpgno);
                 //notesData[order].data.pop();
-                console.log("Before Updated notes!: "+parseInt(getNotesLength(title, notesData)));
+                console.log("Before Updated notes!: "+parseInt(getNotesLength(noteTitle, notesData)));
                 notesData[order].data.push({"id":id,"pgno": imgpgno,
                     "note": reader.result});
-                console.log("Updates: "+parseInt(getNotesLength(title, notesData)));
+                console.log("Updates: "+parseInt(getNotesLength(noteTitle, notesData)));
                 images=imgpgno;
             }
             else {
@@ -1037,7 +1037,6 @@ $(document).keydown(function (e) {
     }
 }); //Configuring escape key for modals
 
-
 $(document).keydown(function (e) {
     if (e.keyCode == 13) {
 
@@ -1078,4 +1077,8 @@ function scrollToNote() {
             scrollTop: $("#myNavbar").offset().top
         }, 500);
     setTimeout(function () { $("#events").hide() },500);
+}
+
+function setTitleExternally(title){
+    noteTitle=title;
 }
