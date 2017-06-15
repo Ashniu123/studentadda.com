@@ -1,5 +1,5 @@
 /*General*/
-.centerFlex {
+.centerFlex{
     display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
@@ -9,14 +9,14 @@
 }
 
 /*Avatar*/
-.navbar-nav > li > a.avatar {
+.navbar-nav > li > a.avatar{
     padding-top: 10px;
     padding-bottom: 10px;
     width: 30px;
     height: 30px;
 }
 
-.avatar-preview {
+.avatar-preview{
     margin-right: 0;
     float: left;
     background: 50% 50% no-repeat; /* 50% 50% centers image in div */
@@ -26,7 +26,7 @@
     border-radius: 50%;
 }
 
-.profile-img {
+.profile-img{
     margin-right: 5px;
     float: left;
     background: 50% 50% no-repeat; /* 50% 50% centers image in div */
@@ -35,7 +35,7 @@
     height: 20px;
 }
 
-.kv-avatar .file-preview-frame, .kv-avatar .file-preview-frame:hover {
+.kv-avatar .file-preview-frame, .kv-avatar .file-preview-frame:hover{
     margin: 0;
     padding: 0;
     border: none;
@@ -43,58 +43,58 @@
     text-align: center;
 }
 
-.kv-avatar .file-input {
+.kv-avatar .file-input{
     display: table-cell;
     max-width: 220px;
 }
 
-.file-input > button {
+.file-input > button{
     margin-left: 35px;
 }
 
 /*Navbar*/
-.navbar-inverse .navbar-nav .open .dropdown-menu .fa {
+.navbar-inverse .navbar-nav .open .dropdown-menu .fa{
     margin-top: 5px;
 }
 
-.dropdown-menu {
+.dropdown-menu{
     min-width: 140px;
     width: inherit;
 }
 
 /*Calendar*/
-.row-calendar {
+.row-calendar{
     /*margin:2% 4% 5%;*/
     padding: 2% 4%;
     border-bottom: none;
 }
 
-#calendarHelp {
+#calendarHelp{
     border-radius: 50%;
     cursor: pointer;
     font-size: 2rem;
     /*So that the background color is visible and does not look like a box*/
 }
 
-#calendar {
+#calendar{
     font-size: 2rem;
     color: #000000;
 }
 
-.fc-center h2 {
+.fc-center h2{
     font-size: 150%;
 }
 
-.fc-unthemed td.fc-today {
+.fc-unthemed td.fc-today{
     background-color: #ffefc4;
 }
 
-.fc-head {
+.fc-head{
     background-color: #e4924b;
     color: #ffffff;
 }
 
-.fc-toolbar {
+.fc-toolbar{
     font-size: 15px;
 }
 
@@ -104,7 +104,7 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
 
 /*Notes*/
 
-.next {
+.next{
     position: absolute;
     right: 40%;
     color: #ff7f00;
@@ -113,11 +113,11 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     cursor: pointer;
 }
 
-#noteModalTitle {
+#noteModalTitle{
     font-size: 4rem;
 }
 
-.prev {
+.prev{
     position: absolute;
     right: 55%;
     color: #ff7f00;
@@ -126,7 +126,7 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     cursor: pointer;
 }
 
-.hides {
+.hides{
     position: absolute;
     top: 5%;
     margin-left: 75%;
@@ -135,13 +135,13 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     cursor: pointer;
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 700px){
     .modal-content {
         width: 100%;
     }
 }
 
-#note1, #note2, #note3, #note4 {
+#note1, #note2, #note3, #note4{
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
     border-left: 10px solid #000000;
@@ -150,14 +150,13 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     min-width: 230px;
     display: none;
     margin-top: 30px;
-
 }
 
-#note1:hover, #note2:hover, #note3:hover, #note4:hover {
+#note1:hover, #note2:hover, #note3:hover, #note4:hover{
     box-shadow: 0 0 20px #000000;
 }
 
-#s1, #s2, #s3, #s4, #s1rename {
+#s1, #s2, #s3, #s4, #s1rename{
     font-size: 20px;
     text-align: right;
     margin-top: 20px;
@@ -171,23 +170,23 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     width: 80%;
 }
 
-.bookmark {
+.bookmark{
     margin-top: -41px;
     width: 30px;
     height: 20px;
 }
 
-#addimg {
+#addimg{
     margin-right: 50%;
     width: 20%;
     cursor: pointer;
 }
 
-#imgno {
+#imgno{
     font-size: 2rem;
 }
 
-.modal2 {
+.modal2{
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     /* Sit on top */
@@ -201,12 +200,12 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     z-index: 5;
 }
 
-.close2 {
+.close2{
     box-shadow: 5px;
     margin-left: 10%;
 }
 
-.forms {
+.forms{
     border: 1px #808080 solid;
     border-radius: 10px;
     box-shadow: 0 0 10px #808080;
@@ -215,7 +214,7 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     margin-top: 10%;
 }
 
-.modal3 {
+.modal3{
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     /* Sit on top */
@@ -229,7 +228,7 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     z-index: 5;
 }
 
-.removen {
+.removen{
     margin-left: 32%;
     border-radius: 10px;
     background-color: rgba(255, 0, 0, .9);
@@ -238,7 +237,7 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     display: inline-block;
 }
 
-.addn {
+.addn{
     margin-left: 32%;
     border-radius: 10px;
     border-color: rgba(0, 255, 0, .5);
@@ -247,19 +246,19 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     display: inline-block;
 }
 
-.noteplus {
+.noteplus{
     margin-top: 1.5rem;
     font-size: 4rem;
     cursor: pointer;
 }
 
-.deletenote {
+.deletenote{
     margin-top: 1.5rem;
     font-size: 4rem;
     cursor: pointer;
 }
 
-#img01 {
+#img01{
     display: block;
     margin: auto;
     height: 300px;
@@ -268,7 +267,7 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     border-radius: 5px;
 }
 
-#books {
+#books{
     display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
     display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
     display: -ms-flexbox;      /* TWEENER - IE 10 */
@@ -282,24 +281,23 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     margin-right: auto;
 }
 
-#mynotes {
+#mynotes{
     background: no-repeat center center fixed;
-
     width: 100%;
-
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+
 }
 
-.noteslabel, .eventslabel {
+.noteslabel, .eventslabel{
     font-size: 4rem;
     text-align: center;
     text-decoration: underline;
 }
 
-#calbg {
+#calbg{
     background: url("../img/calendar5.jpg") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -401,7 +399,6 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     display: none;
     cursor: pointer;
     text-shadow: -1px 0 #FF0000, 0 1px #FF0000, 1px 0 #FF0000, 0 -1px #FF0000, 0 0 5px #FF0000;
-
 }
 
 #del1:hover, #del2:hover, #del3:hover, #del4:hover {
@@ -409,8 +406,7 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
 
 }
 
-.dots
-{
+.dots {
     font-size: 18px;
 }
 
@@ -527,7 +523,6 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     display: none;
 }
 
-
 .next,.previous,.dataTables_paginate ,.paging_simple_numbers{
     display: none;
 }
@@ -538,7 +533,6 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
 
 #miniTable table,#miniTable td,#miniTable tr, #miniTable th{
     border: 1px solid black;
-    background-color: rgba(244,164,96,.4);
     text-align:center;
     cursor: pointer;
     height: 30px;
@@ -547,10 +541,18 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
 #miniTable th {
     font-size: 20px;
     font-weight: bold;
+    background-color: darkgray;
 }
-#miniTable td{
+
+#miniTable tr:nth-child(2n){
     font-size: 15px;
+    background-color: whitesmoke;
 }
+#miniTable tr:nth-child(2n+1){
+    font-size: 15px;
+    background-color: gainsboro;
+}
+
 #miniTable{
     margin-top: 20px;
     position: absolute;
@@ -566,33 +568,44 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     display: none;
 }
 
-.dataTables_filter
-{
+.dataTables_filter {
     width: 30%;
 }
 
 #showFullCalendar{
     font-size: 25px;
-    color: whitesmoke;
     margin-top: 10px;
-
+    cursor: pointer;
 }
 
 #miniEvents{
-    margin-top: 40px;
+    margin-top: 20px;
+    margin-bottom: 80px;
+    height: 200px;
 }
 
 #eventsBanner{
     font-size: 30px;
-    color: whitesmoke;
+    color: black;
     text-decoration: underline;
 }
 
 #prevMiniEventPage, #nextMiniEventPage{
-    color: whitesmoke;
-    margin-top: 50px;
+    color: black;
+    margin-top: 90px;
     font-size: 20px;
     cursor: pointer;
     margin-left: auto;
     margin-right: auto;
+    padding: 10px;
+}
+
+#miniEventsContainer{
+
+    background: no-repeat center center fixed;
+    width: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }

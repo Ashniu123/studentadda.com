@@ -361,7 +361,7 @@
 
                 <div>
                     <i class="fa fa-times" id="del1"></i>
-                    <div style=" background-color:#7AD47A; margin-left:5%;" id="note1"
+                    <div style="margin-left:0%;" id="note1"
                          data-toggle="modal" data-target="#noteImage" ontouchstart="touchStart(event,&#39;books&#39;);" ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);">
                         <img src="img/bookmark.png" class="bookmark">
                         <p><h1 id="s1"></h1></p>
@@ -377,7 +377,7 @@
 
                 <div>
                     <i class="fa fa-times" id="del2"></i>
-                    <div style=" background-color:#3E5D76;  margin-left: 5%;" id="note2"
+                    <div style="margin-left:0%;" id="note2"
                          data-toggle="modal" data-target="#noteImage">
                         <img src="img/bookmark.png" class="bookmark">
                         <p><h1 id="s2"></h1></p>
@@ -393,7 +393,7 @@
 
                 <div>
                     <i class="fa fa-times" id="del3"></i>
-                    <div style=" background-color:#D3523E; margin-left:5%;" id="note3"
+                    <div style="margin-left:0%;" id="note3"
                          data-toggle="modal" data-target="#noteImage">
                         <img src="img/bookmark.png" class="bookmark">
                         <p><h1 id="s3"></h1></p>
@@ -410,7 +410,7 @@
 
                 <div>
                     <i class="fa fa-times" id="del4"></i>
-                    <div style=" background-color:#D3523E;  margin-left:5%;" id="note4"
+                    <div style="margin-left:0%;" id="note4"
                          data-toggle="modal" data-target="#noteImage">
                         <img src="img/bookmark.png" class="bookmark">
                         <p><h1 id="s4"></h1></p><br>
@@ -438,39 +438,7 @@
 
         </div>
     </div>
-
-    <div id="miniEvents" >
-        <div class="row no-gutters">
-            <div class="col-xs-2"></div>
-            <div class="col-xs-8 text-center" id="eventsBanner"> Upcoming Events</div>
-            <div class="col-xs-1">
-                <i class="fa fa-calendar-plus-o pull-right" aria-hidden="true" id="showFullCalendar"></i>
-            </div>
-        </div>
-        <div class="row no-gutters">
-            <div class="col-xs-1" id="prevMiniEventPage">
-                <span class="glyphicon glyphicon-chevron-left pull-right" aria-hidden="true"></span>
-            </div>
-            <div class="col-xs-10">
-                <table id="miniTable"  width="80%">
-                    <thead>
-                    <tr><th>Title</th><th>Start</th><th>End</th></tr>
-                    </thead>
-                    <tbody>
-                    <tr><td>11</td></tr>
-                    <tr><td>22</td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-xs-1" id="nextMiniEventPage">
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            </div>
-        </div>
-
-
-    </div>
 </div>
-
 
 <!-- Modal to view notes-->
 <div class="modal fade" id="noteImage" role="dialog" style="background-color:rgba(0,0,0,.9); width: 100%; height: 100%; ">
@@ -693,51 +661,7 @@
                                         <textarea id="eventClickInfo" class="form-control" rows="2"></textarea>
                                     </div>
                                 </div>
-                                <!--<div class="form-group">-->
-                                <!--<label class="control-label col-xs-3">Repeat:</label>-->
-                                <!--<div class="col-xs-9">-->
-                                <!--<label class="checkbox-inline">-->
-                                <!--<input type="checkbox" name="eventClickRecurring" value="1"> Monday-->
-                                <!--</label>-->
-                                <!--<label class="checkbox-inline">-->
-                                <!--<input type="checkbox" name="eventClickRecurring" value="2"> Tuesday-->
-                                <!--</label>-->
-                                <!--<label class="checkbox-inline">-->
-                                <!--<input type="checkbox" name="eventClickRecurring" value="3"> Wednesday-->
-                                <!--</label>-->
-                                <!--<label class="checkbox-inline">-->
-                                <!--<input type="checkbox" name="eventClickRecurring" value="4"> Thursday-->
-                                <!--</label>-->
-                                <!--</div>-->
-                                <!--<div class="col-xs-offset-3 col-xs-9">-->
-                                <!--<label class="checkbox-inline">-->
-                                <!--<input type="checkbox" name="eventClickRecurring" value="5"> Friday-->
-                                <!--</label>-->
-
-                                <!--<label class="checkbox-inline">-->
-                                <!--<input type="checkbox" name="eventClickRecurring" value="6"> Saturday-->
-                                <!--</label>-->
-                                <!--<label class="checkbox-inline">-->
-                                <!--<input type="checkbox" name="eventClickRecurring" value="0"> Sunday-->
-                                <!--</label>-->
-                                <!--</div>-->
-                                <!--</div>-->
-                                <div class="form-group">
-                                    <div class="col-xs-3 col-xs-offset-3">
-                                        <label>
-                                            Color:<input type="color" id="eventClickColor">
-                                        </label>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <div class="checkbox" style="padding:1px;">
-                                            <label>
-                                                <input type="checkbox" id="eventClickAllDay">All Day
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="text-danger col-xs-offset-3"><strong id="eventClickError"></strong></div>
-                                <!-- <div class="bfh-colorpicker col-xs-3 col-xs-offset-3" id="eventClickColorPicker" data-name="colorpicker" data-close="false">
                                 </div> -->
                             </div>
                         </div><!--./container-->
@@ -758,7 +682,7 @@
 
 <!--Modal to Create Event-->
 <!-- Modal -->
-<div class="modal fade" id="createEventModal" tabindex="-1" role="dialog" aria-labelledby="Creat Event Modal">
+<div class="modal fade" id="createEventModal" tabindex="-1" role="dialog" aria-labelledby="Create Event Modal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header event-header">
@@ -807,40 +731,14 @@
                                                   placeholder="Optional"></textarea>
                                     </div>
                                 </div>
-                                <!--<div class="form-group">-->
-                                <!--<label class="control-label col-xs-3">Repeat:</label>-->
-                                <!--<div class="col-xs-9">-->
-                                <!--<label class="checkbox-inline">-->
-                                <!--<input type="checkbox" name="createEventRecurring" value="1"> Monday-->
-                                <!--</label>-->
-                                <!--<label class="checkbox-inline">-->
-                                <!--<input type="checkbox" name="createEventRecurring" value="2"> Tuesday-->
-                                <!--</label>-->
-                                <!--<label class="checkbox-inline">-->
-                                <!--<input type="checkbox" name="createEventRecurring" value="3"> Wednesday-->
-                                <!--</label>-->
-                                <!--<label class="checkbox-inline">-->
-                                <!--<input type="checkbox" name="createEventRecurring" value="4"> Thursday-->
-                                <!--</label>-->
-                                <!--</div>-->
-                                <!--<div class="col-xs-offset-3 col-xs-9">-->
-                                <!--<label class="checkbox-inline">-->
-                                <!--<input type="checkbox" name="createEventRecurring" value="5"> Friday-->
-                                <!--</label>-->
-
-                                <!--<label class="checkbox-inline">-->
-                                <!--<input type="checkbox" name="createEventRecurring" value="6"> Saturday-->
-                                <!--</label>-->
-                                <!--<label class="checkbox-inline">-->
-                                <!--<input type="checkbox" name="createEventRecurring" value="0"> Sunday-->
-                                <!--</label>-->
-                                <!--</div>-->
-                                <!--</div>-->
                                 <div class="form-group">
-                                    <div class="col-xs-3 col-xs-offset-3">
-                                        <label>
-                                            Color:<input type="color" id="createEventColor">
-                                        </label>
+                                    <div class="col-xs-8 col-xs-offset-1">
+                                            Color:
+                                            <input type="radio" name="createEventColor" value="#FF0000" checked>Red
+                                            <input type="radio" name="createEventColor" value="#00FFFF" >Yellow
+                                            <input type="radio" name="createEventColor" value="#FFFF00" >Purple
+                                            <input type="radio" name="createEventColor" value="#0000FF" >Blue
+                                            <input type="radio" name="createEventColor" value="#00FF00" >Green
                                     </div>
                                     <div class="col-xs-3">
                                         <div class="checkbox" style="padding:1px;">
@@ -865,9 +763,32 @@
         </div><!--./modal-content-->
     </div><!--./modal-dialog-->
 </div><!--./createEventModal-->
+<div class="container-fluid" id="miniEventsContainer" style="background-image: url('img/miniTableBg.jpg')">
+    <div id="miniEvents">
+        <div class="row no-gutters">
+            <div class="col-xs-2"></div>
+            <div class="col-xs-8 text-center" id="eventsBanner"> Upcoming Events</div>
+            <div class="col-xs-1">
+                <i class="fa fa-calendar-plus-o pull-right" aria-hidden="true" id="showFullCalendar"></i>
+            </div>
+        </div>
+        <div class="row no-gutters">
+            <div class="col-xs-1" id="prevMiniEventPage">
+                <span class="glyphicon glyphicon-chevron-left pull-right" aria-hidden="true"></span>
+            </div>
+            <div class="col-xs-10">
+                <table id="miniTable"  width="80%">
+                </table>
+            </div>
+            <div class="col-xs-1" id="nextMiniEventPage">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            </div>
+        </div>
+    </div>
 
+</div>
 <div id="calbg">
-    <div class="container" id="events">
+    <div class="container" id="events" style="position: relative">
         <div class="row" style="margin-top: 20px;">
             <div class="col-xs-2" id="darkSwitchContainer">
                 <input type="checkbox" id="darkswitch" data-style="ios" data-toggle="toggle"
@@ -909,7 +830,7 @@
                     <br>
                     <i class="fa fa-phone"></i>: +852 1234 5678<br>
                     <i class="fa fa-fax"></i>: +852 8765 4321<br>
-                    <i class="fa fa-envelope"></i>: <a href="mailto:studentadda@staff.net">studentadda@staff.net</a>
+                    <i class="fa fa-envelope"></i>: <a href="mailto:studentadda@outlook.com">studentadda@outlook.com</a>
                 </address>
             </div>
             <div class="col-xs-12 col-sm-4">
@@ -922,7 +843,7 @@
                             class="fa fa-linkedin"></i></a>
                     <a class="btn btn-social-icon btn-twitter" href="http://twitter.com/"><i class="fa fa-twitter"></i></a>
                     <a class="btn btn-social-icon btn-youtube" href="http://youtube.com/"><i class="fa fa-youtube"></i></a>
-                    <a class="btn btn-social-icon" href="mailto:mailto:studentadda@staff.net"><i
+                    <a class="btn btn-social-icon" href="mailto:mailto:studentadda@outlook.com"><i
                             class="fa fa-envelope-o"></i></a>
                 </div>
             </div>

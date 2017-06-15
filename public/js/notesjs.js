@@ -1,7 +1,7 @@
 var notesData,pgno = 1, notesno = getNumberOfBooks(),images,
     delTrack="none", toggle=1, i,index,noteTitle,len,pages,bks=0,ind,
     modal = document.getElementById('myModal'),
-    modalImg = document.getElementById("img01");
+    modalImg = document.getElementById("img01"),colourIndex1=0,colourIndex2=1;
 
 $(document).ready(function(){
     var url=noTrailingSlash(window.location.href)+'/user/notes';
@@ -9,14 +9,13 @@ $(document).ready(function(){
         url: url,
         method: "GET"
     }).done(function (data) {
-        console.log(data);
+        //console.log(data);
         notesData=data;
         len = getNotesNumber(notesData);
-        console.log("Success in fetching previous data!");
+        //console.log("Success in fetching previous data!");
         init();
-        col();
     }).fail(function (err) {
-        console.log(err);
+        //console.log(err);
     })
 
 });
@@ -29,7 +28,7 @@ function jumpToPage(newPage) {
 }
 function toggleX() {
 
-    console.log("In / toggleX /");
+    //console.log("In / toggleX /");
 
     if(toggle==1)
     {
@@ -53,7 +52,7 @@ function toggleX() {
 }
 
 function getNumberOfBooks() {
-    console.log("In / getNumberOfBooks /");
+    //console.log("In / getNumberOfBooks /");
     var width = $("#centeralbook").width();
     if (width >= 1000) {
         return 4;
@@ -70,7 +69,7 @@ function getNumberOfBooks() {
 }
 
 function getSubjectName(ind, myArray) {
-    console.log("In / getSubjectName /");
+    //console.log("In / getSubjectName /");
 
     for (var i = 0; i < myArray.length; i++) {
         if (myArray[i].orderno === ind + 1) {
@@ -79,8 +78,16 @@ function getSubjectName(ind, myArray) {
     }
 }
 
+function getSubejectColor(ind,myArray) {
+    for (var colCtr = 0; colCtr < myArray.length; colCtr++) {
+        if (myArray[colCtr].orderno == ind + 1) {
+            return myArray[colCtr].color;
+        }
+    }
+}
+
 function getNotesNumber(myArray) {
-    console.log("In / getNotesNumber /");
+    //console.log("In / getNotesNumber /");
     if(myArray.length){
         if ("orderno" in myArray[0]) {
             var large = myArray[0].orderno;
@@ -97,7 +104,7 @@ function getNotesNumber(myArray) {
 }
 
 function getNoteAddress(subject, pg, myArray) {
-    console.log("In / getImageAddress /");
+    //console.log("In / getImageAddress /");
 
     for (var i = 0; i < myArray.length; i++) {
         if (myArray[i].subject === subject) {
@@ -117,7 +124,7 @@ function getNoteAddress(subject, pg, myArray) {
 }
 
 function getNotesLength(subject, myArray) {
-    console.log("In / getImagesNumber /");
+    //console.log("In / getImagesNumber /");
 
     for (var i = 0; i < myArray.length; i++) {
         var large=0;
@@ -126,7 +133,7 @@ function getNotesLength(subject, myArray) {
            // if (myArray[i].data[0].pgno != -1)
              if(myArray[i].data.length>0)
             {
-                console.log("Inside img no loop with length modification.");
+                //console.log("Inside img no loop with length modification.");
                 large = myArray[i].data[0].pgno;
                 for (var j = 0; j < myArray[i].data.length; j++) {
                     if (myArray[i].data[j].pgno > large) {
@@ -137,7 +144,7 @@ function getNotesLength(subject, myArray) {
             }
             else
             {
-                console.log("Outside img no loop with length modification.");
+                //console.log("Outside img no loop with length modification.");
                 return large;
             }
         }
@@ -145,7 +152,7 @@ function getNotesLength(subject, myArray) {
 }
 
 function getOrderNo(subject, myArray) {
-    console.log("In / getOrderNo /");
+    //console.log("In / getOrderNo /");
 
     for (var i = 0; i < myArray.length; i++) {
         if (myArray[i].subject === subject) {
@@ -156,7 +163,7 @@ function getOrderNo(subject, myArray) {
 }
 
 function getIndexToDelete(subject, myArray) {
-    console.log("In / getIndexToDelete /");
+    //console.log("In / getIndexToDelete /");
 
     for (var i = 0; i < myArray.length; i++) {
         if (myArray[i].subject === subject) {
@@ -167,7 +174,7 @@ function getIndexToDelete(subject, myArray) {
 }
 
 function decrementIndex(ind, myArray) {
-    console.log("In / decrementIndex /");
+    //console.log("In / decrementIndex /");
 
     for(var i=0; i<myArray.length; i++)
     {
@@ -179,7 +186,7 @@ function decrementIndex(ind, myArray) {
 }
 
 function getImageIndex(subject,pgno,myArray) {
-    console.log("In / getImageIndex /");
+    //console.log("In / getImageIndex /");
 
     var ind;
     for(ind=0;ind<myArray.length;ind++)
@@ -200,7 +207,7 @@ function getImageIndex(subject,pgno,myArray) {
 }
 
 function deleteNote() {
-    console.log("In / removeImage /");
+    //console.log("In / removeImage /");
 
     var delind = (getImageIndex(noteTitle, i, notesData)),ind, decInd;
     if(delind!= null)
@@ -218,11 +225,11 @@ function deleteNote() {
             method:"PUT",
             data:data,
             success:function(data){
-                console.log(data);
+                //console.log(data);
                 for (ind = 0; ind < notesData.length; ind++) {
                     if (notesData[ind].subject == noteTitle) {
                         if (getNotesLength(noteTitle, notesData) > 0) {
-                            console.log(images);
+                            //console.log(images);
                             notesData[ind].data.splice(delind, 1);
                             for (decInd = 0; decInd < notesData[ind].data.length; decInd++) {
                                 if (notesData[ind].data[decInd].pgno > i) {
@@ -230,7 +237,7 @@ function deleteNote() {
                                     //         }
                                     //     }
                                     //     displayNote();
-                                    //     console.log(images);
+                                    //     //console.log(images);
                                     // }
                                     // // else if(getNotesLength(noteTitle,notesData)==1){
                                     //     notesData[ind].data.splice(delind,1);
@@ -243,7 +250,7 @@ function deleteNote() {
                 toastr.warning("Note Deleted Successfully!");
             },
             error:function(err){
-                console.log(err);
+                //console.log(err);
                 toastr.error("Oops! Something went Wrong!","Please Try Again!");
             }
         });
@@ -257,7 +264,7 @@ $(window).resize(function () {
 
 //Performs validation and adds to subject name array
 function addSubject() {
-    console.log("In / adding /");
+    //console.log("In / adding /");
     var newsubject = document.getElementById("subject").value;
     newsubject = newsubject.toUpperCase();
 
@@ -270,11 +277,13 @@ function addSubject() {
         $("#err").html("<br><span style='color:red; font-size:15px; margin-left:40%;'>HTML Not Allowed... </span><br><br><br>");
     }
     else {
+        var subjectColor=col();////////PUT BGCOLOUR HERE
         var id = Math.floor(Math.random() * 1000);
         var url = noTrailingSlash(window.location.href) + '/user/notes';
         var data = {
             "orderno": getNotesNumber(notesData) + 1,
-            "subject": newsubject
+            "subject": newsubject,
+            "color":subjectColor
         };
         $.ajax({
             method:"POST",
@@ -287,6 +296,7 @@ function addSubject() {
                         "id": id,
                         "orderno": getNotesNumber(notesData) + 1,
                         "subject": newsubject,
+                        "color":subjectColor,
                         "data": [
                         //     {
                         //     "id":666,
@@ -305,7 +315,7 @@ function addSubject() {
             },
             error:function(err){
                 toastr.error('Try again!','Something went wrong in adding subject!');
-                console.log(err);
+                //console.log(err);
             }
         });
     }
@@ -322,7 +332,7 @@ document.getElementById("hides2").onclick = function () {
 
 //Performs validation and deletes string from array
 function deleteSubject() {
-    console.log("In / deleting /");
+    //console.log("In / deleting /");
     // var newsubject = document.getElementById("subject2").value;
     var newsubject=noteTitle;
     newsubject = newsubject.toUpperCase();
@@ -343,7 +353,7 @@ function deleteSubject() {
             data:data,
             success:function(data){
                 toastr.warning('Less cluttered bookshelf!','Removed successfully!');
-                console.log(data);
+                //console.log(data);
                 var i = getIndexToDelete(newsubject, notesData);
                 notesData.splice(i, 1);
                 decrementIndex(i,notesData);
@@ -355,7 +365,7 @@ function deleteSubject() {
             },
             error:function(err){
                 toastr.error('Try again!','Something went wrong in deleting subject!');
-                console.log(err);
+                //console.log(err);
             }
         });
     }
@@ -363,13 +373,13 @@ function deleteSubject() {
 
 //Functions to reset the text input field to blank in case of both modals to add and delete notes
 function reset1() {
-    console.log("In / reset1 /");
+    //console.log("In / reset1 /");
     document.getElementById("subject").value = '';
     document.getElementById("err").innerHTML = "<br>" + "<br>" + "<br>" + "<br>";
 }
 
 function reset2() {
-    console.log("In / reset2 /");
+    //console.log("In / reset2 /");
     document.getElementById("subject2").value = '';
     document.getElementById("err2").innerHTML = "<br>" + "<br>" + "<br>" + "<br>";
 }
@@ -378,48 +388,51 @@ function replaceAt(string, index, replace) {
     return string.substring(0, index) + replace + string.substring(index + 1);
 }
 
+function ColorLuminance(hex, lum) {
+
+    // validate hex string
+    hex = String(hex).replace(/[^0-9a-f]/gi, '');
+    if (hex.length < 6) {
+        hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+    }
+    lum = lum || 0;
+
+    // convert to decimal and change luminosity
+    var rgb = "#", c, i;
+    for (i = 0; i < 3; i++) {
+        c = parseInt(hex.substr(i*2,2), 16);
+        c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+        rgb += ("00"+c).substr(c.length);
+    }
+
+    return rgb;
+}
+
 function col() //Assignes random color
 {
-    console.log("In / col /");
+    //console.log("In / col /");
 
     var colors = ['#003300', '#006666', '#0099ff', '#00cc66', '#00cc99', '#00ccff', '#660033', '#660099',
         '#6633ff', '#666699', '#6699cc', '#990033', '#9900ff', '#cc0033', '#cc6666', '#cccc00', '#ff0099',
         '#ff3300', '#ff6600', '#ff6699', '#ff9966', '#ffff66', '#ffccff'];
-    var i, c, j, d;
+    var colourTop,colourBottom;
+    colourIndex1= Math.floor(Math.random() * 10000 % 23);
+    //console.log("Index 1 is: "+colourIndex1+" Index 2 is:"+colourIndex2);
+    if(colourIndex1 != colourIndex2){
+        //console.log("Not same index.");
+        colourTop = colors[colourIndex1];
+        //console.log("Colourtop : "+colourTop);
+        colourBottom=ColorLuminance(colourTop,-.30);
+        colourTop=ColorLuminance(colourTop,+.30);
+        colourIndex2=colourIndex1;
+        return  'linear-gradient(to bottom,' + colourTop + ',' + colourBottom + ')';
+    }
+    else {
+        //console.log("Got repeated index recalling.");
+        col();
+    }
 
-    // $("#note1").css('background-color', '#' + (Math.random() * 0xFFFFFF << 0).toString(16));
-    // $("#note2").css('background-color', '#' + (Math.random() * 0xFFFFFF << 0).toString(16));
-    // $("#note3").css('background-color', '#' + (Math.random() * 0xFFFFFF << 0).toString(16));
-    // $("#note4").css('background-color', '#' + (Math.random() * 0xFFFFFF << 0).toString(16));
-    c = Math.floor(Math.random() * 10000 % 23);
-    i = colors[c];
-    j = replaceAt(i, 1, 'c');
-    // j=replaceAt(j,3,'8');
-    // j=replaceAt(j,6,'2');
 
-    $("#note1").css('background', 'linear-gradient(to bottom,' + i + ',' + j + ')');
-
-    c = Math.floor(Math.random() * 10000 % 23);
-    i = colors[c];
-    j = replaceAt(i, 1, '8');
-    // j=replaceAt(j,3,'e');
-    // j=replaceAt(j,6,'a');
-
-    $("#note2").css('background', 'linear-gradient(to bottom,' + i + ',' + j + ')');
-
-    c = Math.floor(Math.random() * 10000 % 23);
-    i = colors[c];
-    j = replaceAt(i, 1, '6');
-    // j=replaceAt(j,3,'2');
-    // j=replaceAt(j,6,'1');
-    $("#note3").css('background', 'linear-gradient(to bottom,' + i + ',' + j + ')');
-
-    c = Math.floor(Math.random() * 10000 % 23);
-    i = colors[c];
-    j = replaceAt(i, 1, 'b');
-    // j=replaceAt(j,3,'9');
-    // j=replaceAt(j,6,'7');
-    $("#note4").css('background', 'linear-gradient(to bottom,' + i + ',' + j + ')');
 }
 
 function prevsub() {
@@ -566,16 +579,20 @@ function nextsub() {
 
 
 function init() {
-    console.log("In / init /");
+    //console.log("In / init /");
     var oldpgno = pgno;
     var oldnotesno = notesno;
     $("#books").css({"justify-content":"space-around"});
+    $('#miniTable td:nth-child(3),#miniTable th:nth-child(3)').show();
+    $('#miniTable td:nth-child(4),#miniTable th:nth-child(4)').show();
+
+    //console.log();
+    $("#miniEvents").css({"height":$("#miniTable").height()+20});
     bks = 0;
     {
 
         //alert('here');
         $('.changenotes').css('height', '380px');
-        $('#mynotes').css('height', '760px');
         $("#books").css('margin-top', 'auto');
 
         var width = $("#centeralbook").width();
@@ -589,21 +606,25 @@ function init() {
             ind = notesno * (pgno - 1);
             if (ind < len) {
                 document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
+                $("#note1").css({"background":getSubejectColor(ind,notesData)});
                 note1.style.display = "block";
                 del1.style.display=delTrack;
 
                 if (ind + 1 < len) {
                     document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
+                    $("#note2").css({"background":getSubejectColor(ind+1,notesData)});
                     note2.style.display = "block";
                     del2.style.display=delTrack;
 
                     if (ind + 2 < len) {
                         document.getElementById("s3").innerHTML = getSubjectName(ind + 2, notesData);
+                        $("#note3").css({"background":getSubejectColor(ind+2,notesData)});
                         note3.style.display = "block";
                         del3.style.display=delTrack;
 
                         if (ind + 3 < len) {
                             document.getElementById("s4").innerHTML = getSubjectName(ind + 3, notesData);
+                            $("#note4").css({"background":getSubejectColor(ind+3,notesData)});
                             note4.style.display = "block";
                             del4.style.display=delTrack;
                         }
@@ -655,16 +676,19 @@ function init() {
 
             if (ind < len) {
                 document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
+                $("#note1").css({"background":getSubejectColor(ind,notesData)});
                 note1.style.display = "block";
                 del1.style.display=delTrack;
 
                 if (ind + 1 < len) {
                     document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
+                    $("#note2").css({"background":getSubejectColor(ind+1,notesData)});
                     note2.style.display = "block";
                     del2.style.display=delTrack;
 
                     if (ind + 2 < len) {
                         document.getElementById("s3").innerHTML = getSubjectName(ind + 2, notesData);
+                        $("#note3").css({"background":getSubejectColor(ind+2,notesData)});
                         note3.style.display = "block";
                         del3.style.display=delTrack;
                         note4.style.display = "none";
@@ -711,11 +735,13 @@ function init() {
             ind = notesno * (pgno - 1);
             if (ind < len) {
                 document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
+                $("#note1").css({"background":getSubejectColor(ind,notesData)});
                 note1.style.display = "block";
                 del1.style.display=delTrack;
 
                 if (ind + 1 < len) {
                     document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
+                    $("#note2").css({"background":getSubejectColor(ind+1,notesData)});
                     note2.style.display = "block";
                     del2.style.display=delTrack;
                     note3.style.display = "none";
@@ -752,7 +778,9 @@ function init() {
         {
             $(".fc-toolbar").css({'font-size': '9px'});
             $("#books").css({"justify-content":"center"});
-
+            $('#miniTable td:nth-child(3),#miniTable th:nth-child(3)').hide();
+            $('#miniTable td:nth-child(4),#miniTable th:nth-child(4)').hide();
+            $("#miniEvents").css({"height":$("#miniTable").height()+20});
             var h2 = $(window).height();
             if (h2 < 600) {
 
@@ -772,6 +800,7 @@ function init() {
 
             if (ind < len) {
                 document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
+                $("#note1").css({"background":getSubejectColor(ind,notesData)});
                 note1.style.display = "block";
                 del1.style.display=delTrack;
                 note2.style.display = "none";
@@ -805,7 +834,7 @@ function init() {
     for(dotCounter=1;dotCounter<=pages; dotCounter++)
     {
         var dotsContaint=$("#pageDots").html();
-        console.log(dotsContaint);
+        //console.log(dotsContaint);
         if(pgno!=dotCounter){
             $("#pageDots").html(dotsContaint+"<i class='fa fa-dot-circle-o dots'  style='color: ghostwhite;' aria-hidden='true' onclick='jumpToPage("+dotCounter+")'></i> ");
         }
@@ -901,39 +930,39 @@ $("#uploadNoteImage").fileinput({
     maxFileCount: 10,
     validateInitialCount: true
 });
-console.log("In global scope title is:"+ noteTitle);
+//console.log("In global scope title is:"+ noteTitle);
 $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, reader) {
     var url = noTrailingSlash(window.location.href) + '/user/notes';
-    console.log("Inside upload note image"+noteTitle);
+    //console.log("Inside upload note image"+noteTitle);
     var imgpgno = parseInt(getNotesLength(noteTitle, notesData));
-    console.log("Number of images: "+ imgpgno);
+    //console.log("Number of images: "+ imgpgno);
     var data = {
         "subject":noteTitle,
         "pgno": imgpgno + 1,
         "note": reader.result
     };
-    //console.log("Sending data",data);
+    ////console.log("Sending data",data);
     $.ajax({
         url: url,
         method: "PUT",
         data: data,
         success: function (data) {
             toastr.success('','Added!');
-            console.log(data);
+            //console.log(data);
             var order=getIndexToDelete(noteTitle,notesData);
             var id = Math.floor(Math.random() * 1000);
             images=imgpgno+1;
             if(imgpgno == 0)
             {
-                console.log("No notes...Updating!");
+                //console.log("No notes...Updating!");
                 modalImg.src = reader.result;
                 imgpgno++;
-                //console.log(imgpgno);
+                ////console.log(imgpgno);
                 //notesData[order].data.pop();
-                console.log("Before Updated notes!: "+parseInt(getNotesLength(noteTitle, notesData)));
+                //console.log("Before Updated notes!: "+parseInt(getNotesLength(noteTitle, notesData)));
                 notesData[order].data.push({"id":id,"pgno": imgpgno,
                     "note": reader.result});
-                console.log("Updates: "+parseInt(getNotesLength(noteTitle, notesData)));
+                //console.log("Updates: "+parseInt(getNotesLength(noteTitle, notesData)));
                 images=imgpgno;
             }
             else {
@@ -943,7 +972,7 @@ $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, 
         },
         error: function (err) {
             toastr.error('Try again!','Something went wrong in uploading note!');
-            console.log(err);
+            //console.log(err);
         }
     });
 });

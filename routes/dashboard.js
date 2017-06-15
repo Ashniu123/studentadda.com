@@ -152,6 +152,7 @@ router.route('/user/notes')
         Image.create({
             username: req.session.username,
             subject: req.body.subject,
+            color:req.body.color,
             orderno: req.body.orderno
         }, function (err, response) {
             if (err) throw err;

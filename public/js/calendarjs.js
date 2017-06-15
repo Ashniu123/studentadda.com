@@ -26,19 +26,7 @@ $("#darkswitch").change(function () {
     }
 });
 
-//To invert Color
-function invertColor(hexTripletColor) {
-    var color = hexTripletColor;
-    color = color.substring(1); // remove #
-    color = parseInt(color, 16); // convert to integer
-    color = 0xFFFFFF ^ color; // invert three bytes
-    color = color.toString(16); // convert to hex
-    color = ("000000" + color).slice(-6); // pad with leading zeros
-    color = "#" + color; // prepend #
-    return color;
-}
-
-var eventsData;
+var eventsData,oldStartTime,table;
 $(document).ready(function () {
     /******Ajax Calls******/
     var url = noTrailingSlash(window.location.href) + '/user/events';
@@ -56,11 +44,12 @@ $(document).ready(function () {
         });
         eventsData = data;
     }).fail(function (err) {
-        console.log(err);
+        //console.log(err);
     });
 
     //when timer is up and data is parsed
     $.when(timer, ajaxEventsCall).done(function () {
+
         var calendar = $('#calendar').fullCalendar({
             buttonText: {
                 today: 'Today',
@@ -96,29 +85,33 @@ $(document).ready(function () {
                 });
                 $('#createEventModal').modal();
 
-                $('#createEventStartTime').val(moment(start).format('DD/MM/YYYY HH:mm', true));
-                $('#createEventEndTime').val(moment(end).format('DD/MM/YYYY HH:mm', true));
-
+                //console.log("Start value:"+start+1+" Start converted: "+moment(start+12600000).format('DD/MM/YYYY HH:mm', true));
+                $('#createEventStartTime').val(moment(start).add(9,'h').format('DD/MM/YYYY HH:mm', true));
+                oldStartTime=$("#createEventStartTime").val();
+                $('#createEventEndTime').val(moment(start).add(11,'h').format('DD/MM/YYYY HH:mm', true));
+                setInterval(checkStartEventTimeUpdate,1000);
                 $('#createEventStartTime').datetimepicker({
                     format: 'DD/MM/YYYY HH:mm',
                     useCurrent: false,
-                    sideBySide: true
+                    sideBySide: true,
                 });
 
                 $('#createEventEndTime').datetimepicker({
                     format: 'DD/MM/YYYY HH:mm',
                     useCurrent: false,
-                    sideBySide: true
+                    sideBySide: true,
                 });
 
+
+                /*
                 var color = '#3a87ad',
                     textColor = '#ffffff';
                 $('#createEventColor').val(color);
                 $('#createEventColor').change(function () { //Works Brilliantly!!
-                    console.log("Changed Color:", $('#createEventColor').val());
+                    //console.log("Changed Color:", $('#createEventColor').val());
                     color = $('#createEventColor').val();
                     textColor = invertColor($('#createEventColor').val());
-                });
+                });*/
 
                 var allDay = false;
                 if ($('#createEventAllDay').attr('checked'))
@@ -129,6 +122,7 @@ $(document).ready(function () {
                 });
 
                 $('#createEventButton').click(function (e) {
+                    e.stopPropagation();
                     var title = $('#createEventTitle').val();
                     var desc = '';
                     if ($('#createEventInfo').val()) {
@@ -139,6 +133,8 @@ $(document).ready(function () {
                     // $.each($("input[name='createEventRecurring']:checked"), function () {
                     //     dow.push(parseInt($(this).val()));
                     // });
+
+                    var color=$("input[name='createEventColor']:checked").val();
 
                     if ($('#createEventStartTime').val() == '' || $('#createEventEndTime').val() == '') {
                         $('#createEventError').html('Start and End is Required');
@@ -177,9 +173,11 @@ $(document).ready(function () {
                                 end: moment($('#createEventEndTime').val(), 'DD/MM/YYYY HH:mm', true).unix() * 1000,
                                 description: desc,
                                 color: color,
-                                textColor: textColor,
+                                textColor: '#FFFFFF',
                                 allDay: allDay
                             };
+
+                            //console.log("Event Color",event.color);
 
                             var url = noTrailingSlash(window.location.href) + '/user/events';
                             $.ajax({
@@ -187,22 +185,22 @@ $(document).ready(function () {
                                 method: "POST",
                                 data: event,
                                 success: function (data) {
-                                    console.log(data);
+                                    //console.log(data);
                                     eventsData = data;
                                     // location.reload();
                                     event.start = moment(parseInt(event.start)).local();
                                     event.end = moment(parseInt(event.end)).local();
-                                    console.log(event);
+                                    //console.log(event);
                                     calendar.fullCalendar('renderEvent',
                                         event,
                                         true // make the event "stick"
                                     );
                                     $('#createEventModal').modal('toggle');
                                     toastr.success("Event Created Successfully");
-
+                                    renderMiniTable();
                                 },
                                 error: function (err) {
-                                    console.log(err);
+                                    //console.log(err);
                                     toastr.error("Oops! Something Went Wrong", "Please Try Again");
                                 }
                             });
@@ -245,12 +243,12 @@ $(document).ready(function () {
 
                 $('#eventClickModal').on('show.bs.modal', function () {
                     $('#eventClickStartTime').val(moment(event.start).format('DD/MM/YYYY HH:mm', true));
-                    $('#eventClickEndTime').val(moment(event.end).format('DD/MM/YYYY HH:mm', true));
+                    $('#eventClickEndTime').val(moment(event.start).format('DD/MM/YYYY HH:mm', true));
                 });
 
                 $('#eventClickModal').modal('show');
 
-                // console.log("Event Id", event.id);
+                // //console.log("Event Id", event.id);
 
                 if (event.color) {
                     $('.event-header').css({
@@ -295,16 +293,15 @@ $(document).ready(function () {
                         event.allDay = false;
                 });
 
-                if (event.color)
-                    $('#eventClickColor').val(event.color);
-                else
-                    $('#eventClickColor').val('#ffffff');
+
+                $('input[name="eventClickColor"][value="'+ event.color + '"]').prop('checked', true);
+
 
                 /*if (event.dow) { //If repeated events exist then check checkbox with the corresponding day
                  $.each($("input[name='eventClickRecurring']"), function () {
                  if ($.inArray(parseInt($(this).val()), event.dow) + 1) {
-                 console.log(this);
-                 console.log($.inArray(parseInt($(this).val()), event.dow));
+                 //console.log(this);
+                 //console.log($.inArray(parseInt($(this).val()), event.dow));
                  $(this).prop('checked', true);
                  }
                  });
@@ -321,13 +318,6 @@ $(document).ready(function () {
                     //     dow.push(parseInt($(this).val()));
                     // });
 
-                    var invertedColor;
-                    if (event.color == $('#eventClickColor').val()) {
-                        invertedColor = event.textColor;
-                    } else {
-                        invertedColor = invertColor($('#eventClickColor').val());
-                    }
-
                     var data = {
                         //Compulsory Id
                         id: event.id,
@@ -335,20 +325,20 @@ $(document).ready(function () {
                         start: moment($('#eventClickStartTime').val(), 'DD/MM/YYYY HH:mm', true).unix() * 1000,
                         end: moment($('#eventClickEndTime').val(), 'DD/MM/YYYY HH:mm', true).unix() * 1000,
                         description: $('#eventClickInfo').val(),
-                        color: $('#eventClickColor').val(),
-                        textColor: invertedColor,
+                        color:$("input[name='eventClickColor']:checked").val(),
+                        textColor: '#FFFFFF',
                         allDay: event.allDay
                     };
 
                     if (data.end - data.start > 0) {
-                        console.log("Sending AJAX req for Put\n");
+                        //console.log("Sending AJAX req for Put\n");
                         var url = noTrailingSlash(window.location.href) + '/user/events';
                         $.ajax({
                             method: "PUT",
                             url: url,
                             data: data
                         }).done(function (response) {
-                            console.log(response);
+                            //console.log(response);
                             event.start = moment($('#eventClickStartTime').val(), 'DD/MM/YYYY HH:mm', true);
                             event.end = moment($('#eventClickEndTime').val(), 'DD/MM/YYYY HH:mm', true);
                             event.description = data.description;
@@ -359,7 +349,7 @@ $(document).ready(function () {
                             // location.reload();
                         }).fail(function (err) {
                             toastr.error("Oops! Something Went Wrong", "Please Try Again");
-                            console.log(err);
+                            //console.log(err);
                         });
                     } else {
                         $('#eventClickError').html('Invalid Dates');
@@ -381,13 +371,13 @@ $(document).ready(function () {
                         data: data,
                         url: url
                     }).done(function (data) {
-                        console.log(data);
+                        //console.log(data);
                         calendar.fullCalendar('removeEvents', event.id);
-                        toastr.success("Event Removed Successfully");
-                        // location.reload();//need a better workaround than this
+                        toastr.warning("Event Removed Successfully");
+                        renderMiniTable();
                     }).fail(function (err) {
                         toastr.error("Oops! Something Went Wrong", "Please Try Again");
-                        console.log(err);
+                        //console.log(err);
                     });
                     $(this).off('click');
                 });
@@ -436,54 +426,101 @@ $(document).ready(function () {
             eventLimit: true
         });
 
+        renderMiniTable();
 
-        $("#events").hide();
-        var miniTableEvents=new Array();
-        for(var miniCtr=0;miniCtr<eventsData.length;miniCtr++) {
-            var entry=new Date(eventsData[miniCtr].start);
-            var today= new Date().getTime();
-            entry=entry.getTime();
-            if(entry>=today) { //Show only future events
-                var title=eventsData[miniCtr].title;
-                var startEvent=moment(eventsData[miniCtr].start).format('DD/MM/YYYY', true);
-                var endEvent=moment(eventsData[miniCtr].end).format('DD/MM/YYYY', true);
-                var miniEvent={"title":title,"start":startEvent,"end":endEvent};
-                miniTableEvents.push(miniEvent);
+        function renderMiniTable() {
+
+            $("#events").hide();
+            var miniTableEvents=[];
+            for(var miniCtr=0;miniCtr<calendar.fullCalendar('clientEvents').length;miniCtr++) {
+                var entry=new Date(calendar.fullCalendar('clientEvents')[miniCtr].start);
+                var today= new Date().getTime();
+                entry=entry.getTime();
+
+                //console.log(calendar.fullCalendar('clientEvents'));
+
+                function pad(d) {
+                    return (d < 10) ? '0' + d.toString() : d.toString();
+                }
+
+                if(entry>=today) { //Show only future events
+                    var title=calendar.fullCalendar('clientEvents')[miniCtr].title;
+                    var duration=moment(calendar.fullCalendar('clientEvents')[miniCtr].end-calendar.fullCalendar('clientEvents')[miniCtr].start).valueOf();
+                    //console.log("Duration",duration);
+                    var durationHours=Math.floor(duration/3600000);
+                    var durationDays=Math.floor(durationHours/24);
+                    durationHours=durationHours-durationDays*24;
+                    var durationMinutes=pad((duration%3600000).toString().slice(0,2));
+                    if(durationDays!==0) {
+                        duration = (durationDays) + ' day(s) ' + pad(durationHours) + ' hour(s) ' + durationMinutes +" min(s)";
+                    }else{
+                        duration = durationHours + ' hour(s) ' + durationMinutes+" min(s)";
+                    }
+                    //console.log("Diff Duration",duration);
+                    var startEvent=moment(calendar.fullCalendar('clientEvents')[miniCtr].start).format('DD/MM/YYYY', true);
+                    var endEvent=moment(calendar.fullCalendar('clientEvents')[miniCtr].end).format('DD/MM/YYYY', true);
+                    var description=calendar.fullCalendar('clientEvents')[miniCtr].description;
+                    var hiddenStartEvent=moment(calendar.fullCalendar('clientEvents')[miniCtr].start).format('YYYYMMDD', true);
+                   // //console.log(startEvent+" "+hiddenStartEvent+" "+duration);
+                    var miniEvent={"title":title,"start":startEvent,"end":endEvent,"duration":duration,"description":description,"hiddenStartEvent":hiddenStartEvent};
+                    miniTableEvents.push(miniEvent);
+                }
             }
+
+            table= $('#miniTable').DataTable({
+                responsive: false,
+                "pageLength": 5,
+                "data": miniTableEvents,
+                "info":false,
+                "paging": true,
+                "searching": false,
+                "order": [[ 5, "asc" ]],
+                "columns":[
+                    {"data":"title","title":"Subject","width": "16%"},
+                    {"data":"start","title":"Start","width": "15%"},
+                    {"data":"end","title":"End","width": "15%"},
+                    {"data":"duration","title":"Duration","width": "25%"},
+                    {"data":"description","title":"Description","width": "39%"},
+                    {"data":"hiddenStartEvent", "visible": false}
+                ],
+                "columnDefs": [
+                    {
+                        "orderData": 5, "targets": [ 1 ,2]
+                    },
+                ],
+                "destroy": true
+            });
+            init();
         }
 
-        var table= $('#miniTable').DataTable({
-            responsive: false,
-            "pageLength": 3,
-            "data": miniTableEvents,
-            "info":false,
-            "paging": true,
-            "searching": false,
-            "order": [[ 1, "desc" ]],
-            "columns":[
-                {"data":"title"},
-                {"data":"start"},
-                {"data":"end"}
-            ]
-        });
+
+
         $('#miniTable tbody').on('click', 'tr', function () {
-            var data = table.row( this ).data();
-            console.log(data);
-            //alert( 'You clicked on "'+data.title+'" row.This will be replaced with relevant uploaded note modal opening event using regex matching. Maybe tomorrow.' );
+            var data = table.row( this ).data(),sim,titleToOpen;
+            //console.log(data);
+            if(notesData.length>0){
+                sim=similarity(data.title,notesData[0].subject);
+                titleToOpen=notesData[0].subject;
+            }
             for(var subjectsCtr=0;subjectsCtr<notesData.length;subjectsCtr++){
-                console.log("Current similarity is:"+similarity(data.title,notesData[subjectsCtr].subject)+" "+notesData[subjectsCtr].subject);
-                if(similarity(data.title,notesData[subjectsCtr].subject)>.6) {
-
-                    noteTitle=notesData[subjectsCtr].subject;
-                    index = getOrderNo(noteTitle, notesData);
-                    $("#noteModalTitle").html(noteTitle);
-                    i = 1;
-                    modalImg.src = getNoteAddress(noteTitle, i, notesData);
-                    images = getNotesLength(noteTitle, notesData);
-                    $("#imgno").html("Pg."+1);
-                    $("#noteImage").modal("show");
-
+                //console.log("Current similarity is:"+similarity(data.title,notesData[subjectsCtr].subject)+" "+notesData[subjectsCtr].subject);
+                if(similarity(data.title,notesData[subjectsCtr].subject)>sim){
+                    sim=similarity(data.title,notesData[subjectsCtr].subject);
+                    titleToOpen=notesData[subjectsCtr].subject;
                 }
+            }
+
+            if(sim>.6) {
+
+                noteTitle=titleToOpen;
+                index = getOrderNo(noteTitle, notesData);
+                $("#noteModalTitle").html(noteTitle);
+                i = 1;
+                modalImg.src = getNoteAddress(noteTitle, i, notesData);
+                images = getNotesLength(noteTitle, notesData);
+                $("#imgno").html("Pg."+1);
+                $("#noteImage").modal("show");
+
             }
         });
 
@@ -529,6 +566,18 @@ $(document).ready(function () {
             return costs[s2.length];
         }
 
+
+        function checkStartEventTimeUpdate() {
+            if(oldStartTime!= $("#createEventStartTime").val() ){
+                oldStartTime=$("#createEventStartTime").val();
+                var updatedEndTime=moment(oldStartTime,'DD/MM/YYYY HH:mm', true).add(2,'h').format('DD/MM/YYYY HH:mm', true);
+                $('#createEventEndTime').val(updatedEndTime);
+            }
+        }
+
+
+
+
         $("#showFullCalendar").click(function () {
             $("#events").show();
             scrollToEvent();
@@ -536,10 +585,12 @@ $(document).ready(function () {
 
         $("#prevMiniEventPage").click(function () {
             $(".previous").click();
+            init();
         });
 
         $("#nextMiniEventPage").click(function () {
             $(".next").click();
+            init();
         });
 
         $(document).keydown(function (e) {

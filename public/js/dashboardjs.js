@@ -256,7 +256,8 @@ function setUserData(data) {
     }
     if (data.hasOwnProperty('tutorial') && data.tutorial == true) {
         // Start the tour
-        tour.start();
+        tour.start(true);
+        tour.goTo(0);
     }
 }
 
