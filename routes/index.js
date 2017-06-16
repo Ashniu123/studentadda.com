@@ -20,8 +20,8 @@ var transporter = nodemailer.createTransport({
         ciphers:'SSLv3'
     },
     auth: {
-        user: process.env.OUTLOOK_UID||'studentadda@outlook.com',
-        pass: process.env.OUTLOOK_PWD||'QWERTY))&'//To be hidden later
+        user: process.env.OUTLOOK_UID,
+        pass: process.env.OUTLOOK_PWD
     }
 });
 
