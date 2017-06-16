@@ -433,6 +433,10 @@ $(document).ready(function () {
 
             $("#events").hide();
             var miniTableEvents=[],srno=1;
+            var miniEventHeader={"SrNo":"<i class='fa fa-expand' aria-hidden='true' id='swapTable'></i>","title":"Subject","start":"Start","end":"End","duration":"Duration","description":"Discription","hiddenStartEvent":0};
+
+            miniTableEvents.push(miniEventHeader);
+
             for(var miniCtr=0;miniCtr<calendar.fullCalendar('clientEvents').length;miniCtr++) {
                 var entry=new Date(calendar.fullCalendar('clientEvents')[miniCtr].start);
                 var today= new Date().getTime();
@@ -443,6 +447,8 @@ $(document).ready(function () {
                 function pad(d) {
                     return (d < 10) ? '0' + d.toString() : d.toString();
                 }
+
+
 
                 if(entry>=today) { //Show only future events
 
@@ -478,15 +484,16 @@ $(document).ready(function () {
                 "paging": true,
                 "searching": false,
                 "scrollX": false,
+                "bSort" : false,
                 "order": [[ 6, "asc" ]],
                 "columns":[
-                    {"data":"SrNo","title":"<i class='fa fa-expand' aria-hidden='true' id='swapTable'></i>","width": "3%","orderable":false},
-                    {"data":"title","title":"Subject","width": "16%","orderable":false},
-                    {"data":"start","title":"Start","width": "15%","orderable":false},
-                    {"data":"end","title":"End","width": "15%","orderable":false},
-                    {"data":"duration","title":"Duration","width": "25%","orderable":false},
-                    {"data":"description","title":"Description","width": "39%","orderable":false},
-                    {"data":"hiddenStartEvent", "visible": false}
+                    {"data":"SrNo"},//,"title":"<i class='fa fa-expand' aria-hidden='true' id='swapTable'></i>","width": "3%","orderable":false},
+                    {"data":"title"},//,"title":"Subject","width": "16%","orderable":false},
+                    {"data":"start"},//"title":"Start","width": "15%","orderable":false},
+                    {"data":"end"},//"title":"End","width": "15%","orderable":false},
+                    {"data":"duration"},//"title":"Duration","width": "25%","orderable":false},
+                    {"data":"description"},//"title":"Description","width": "39%","orderable":false},
+                    {"data":"hiddenStartEvent"}//, "visible": false}
                 ],
                 "columnDefs": [
                     {
@@ -510,7 +517,7 @@ $(document).ready(function () {
                     //alert(clickedSubject);
                 }
             }else if(swapped) {
-                if (row == 0) {
+                if (row == 1) {
                     clickedSubject = content;
                     //alert(clickedSubject);
                 }
@@ -595,11 +602,32 @@ $(document).ready(function () {
 
         $("#swapTable").click(function () {
             //alert("Clicked swap");
-           $('#miniTable td:nth-child(4),#miniTable th:nth-child(4)').show();
-           $('#miniTable td:nth-child(5),#miniTable th:nth-child(5)').show();
-            tableTransform($("#miniTable"));
-            swapped=!swapped;
-            init();
+            if(calendar.fullCalendar('clientEvents').length>0){
+                $('#miniTable td:nth-child(4),#miniTable th:nth-child(4)').show();
+                $('#miniTable td:nth-child(5),#miniTable th:nth-child(5)').show();
+               // tableTransform($("#miniTable"));
+                $("#miniTable").each(function() {
+                    var $this = $(this);
+                    var newrows = [];
+                    $this.find("tr").each(function(){
+                        var i = 0;
+                        $(this).find("td").each(function(){
+                            i++;
+                            if(newrows[i] === undefined) { newrows[i] = $("<tr></tr>"); }
+                            newrows[i].append($(this));
+                        });
+                    });
+                    $this.find("tr").remove();
+                    $.each(newrows, function(){
+                        $this.append(this);
+                    });
+                });
+                swapped=!swapped;
+                init();
+            }else{
+                alert("No events");
+            }
+
         });
 
         function tableTransform(objTable) {

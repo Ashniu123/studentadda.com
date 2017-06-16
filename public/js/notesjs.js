@@ -459,10 +459,12 @@ function nextsub() {
 
 function init() {
     //console.log("In / init /");
+    $("#miniTable.sorting").css({"display":"none","background-color":"blue"});
     var oldpgno = pgno;
     var oldnotesno = notesno;
     dataTablePages=7;
     $("#books").css({"justify-content":"space-around"});
+    $('#miniTable tr:nth-child(1)').addClass("customHeader");
     if(!swapped){
       //  alert("Swapping and updating 1-1");
         $('#miniTable td:nth-child(4),#miniTable th:nth-child(4)').show();

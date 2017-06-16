@@ -535,7 +535,7 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     display: block;
 }
 
-#miniTable table,#miniTable td,#miniTable tr, #miniTable th{
+#miniTable table,#miniTable td,#miniTable tr{
     border: 1px solid #000000;
     text-align:center;
     cursor: pointer;
@@ -545,10 +545,33 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
 #miniTable th {
     font-size: 20px;
     font-weight: bold;
-    background-color: #a9a9a9;
+    display: none;
+    background: rgba(0,0,0,0.0) none;
+    position: absolute;
+    left:200px;
+    margin-right: 100px;
 }
 
-#miniTable tr:nth-child(odd){
+#miniTable thead{
+    display: none;
+}
+
+#miniTable.sorting{
+    display: none;!important;
+}
+
+
+#miniTable.sorting_desc{
+    display: none;
+}
+
+.customHeader{
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #a9a9a9;!important;
+}
+
+#miniTable tr:nth-child(2n+3){
     font-size: 15px;
     background-color: #f5f5f5;
 }
@@ -565,6 +588,7 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     right: 0;
     bottom: 0;
     left: 0;
+    padding-right: 20px;
 }
 
 .dataTables_length{
