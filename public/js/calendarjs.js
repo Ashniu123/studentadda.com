@@ -374,6 +374,7 @@ $(document).ready(function () {
                         calendar.fullCalendar('removeEvents', event.id);
                         toastr.warning("Event Removed Successfully");
                         if(swapped){location.reload()};
+                        scrollToNote();
                         renderMiniTable();
                     }).fail(function (err) {
                         toastr.error("Oops! Something Went Wrong", "Please Try Again");
@@ -430,11 +431,11 @@ $(document).ready(function () {
 
         function renderMiniTable() {
 
-            //$("#events").hide();
+            $("#events").hide();
             var miniTableEvents = [], srno = 1;
             var miniEventHeader = {
                 "SrNo": "<i class='fa fa-expand' aria-hidden='true' id='swapTable'></i>",
-                "title": "Subject",
+                "title": "Event",
                 "start": "Start",
                 "end": "End",
                 "duration": "Duration",
@@ -572,42 +573,48 @@ $(document).ready(function () {
             var col = $(this).parent().children().index($(this));
             var row = $(this).parent().parent().children().index($(this).parent());
             var clickedSubject, titleToOpen, sim;
-            if (!swapped) {
-                if (col === 1) {
-                    clickedSubject = content;
-                    //alert(clickedSubject);
+            if(col==0 && row==0){
+                swapsTable();
+            }
+            else {
+                if (!swapped) {
+                    if (col === 1) {
+                        clickedSubject = content;
+                        //alert(clickedSubject);
+                    }
+                } else if (swapped) {
+                    if (row === 1) {
+                        clickedSubject = content;
+                        //alert(clickedSubject);
+                    }
                 }
-            } else if (swapped) {
-                if (row === 1) {
-                    clickedSubject = content;
-                    //alert(clickedSubject);
+
+                if (notesData.length > 0) {
+                    sim = similarity(clickedSubject, notesData[0].subject);
+                    titleToOpen = notesData[0].subject;
+                }
+                for (var subjectsCtr = 0; subjectsCtr < notesData.length; subjectsCtr++) {
+                    //console.log("Current similarity is:"+similarity(data.title,notesData[subjectsCtr].subject)+" "+notesData[subjectsCtr].subject);
+                    if (similarity(clickedSubject, notesData[subjectsCtr].subject) > sim) {
+                        sim = similarity(clickedSubject, notesData[subjectsCtr].subject);
+                        titleToOpen = notesData[subjectsCtr].subject;
+                    }
+                }
+
+                if (sim > .6) {
+
+                    noteTitle = titleToOpen;
+                    index = getOrderNo(noteTitle, notesData);
+                    $("#noteModalTitle").html(noteTitle);
+                    i = 1;
+                    modalImg.src = getNoteAddress(noteTitle, i, notesData);
+                    images = getNotesLength(noteTitle, notesData);
+                    $("#imgno").html("Pg." + 1);
+                    $("#noteImage").modal("show");
+
                 }
             }
 
-            if (notesData.length > 0) {
-                sim = similarity(clickedSubject, notesData[0].subject);
-                titleToOpen = notesData[0].subject;
-            }
-            for (var subjectsCtr = 0; subjectsCtr < notesData.length; subjectsCtr++) {
-                //console.log("Current similarity is:"+similarity(data.title,notesData[subjectsCtr].subject)+" "+notesData[subjectsCtr].subject);
-                if (similarity(clickedSubject, notesData[subjectsCtr].subject) > sim) {
-                    sim = similarity(clickedSubject, notesData[subjectsCtr].subject);
-                    titleToOpen = notesData[subjectsCtr].subject;
-                }
-            }
-
-            if (sim > .6) {
-
-                noteTitle = titleToOpen;
-                index = getOrderNo(noteTitle, notesData);
-                $("#noteModalTitle").html(noteTitle);
-                i = 1;
-                modalImg.src = getNoteAddress(noteTitle, i, notesData);
-                images = getNotesLength(noteTitle, notesData);
-                $("#imgno").html("Pg." + 1);
-                $("#noteImage").modal("show");
-
-            }
         });
 
         function similarity(s1, s2) {
@@ -661,8 +668,13 @@ $(document).ready(function () {
         }
 
 
-        $("#swapTable").click(function () {
-            //alert("Clicked swap");
+        // $("#swapTable").click(function () {
+        //     swapsTable();
+        // }
+        // );x
+        function swapsTable() {
+            {
+                //alert("Clicked swap");
                 $('#miniTable td:nth-child(4),#miniTable th:nth-child(4)').show();
                 $('#miniTable td:nth-child(5),#miniTable th:nth-child(5)').show();
                 $("#miniTable").each(function () {
@@ -685,8 +697,9 @@ $(document).ready(function () {
                 });
                 swapped = !swapped;
                 init();
-        });
 
+            }
+        }
 
 
         $("#showFullCalendar").click(function () {

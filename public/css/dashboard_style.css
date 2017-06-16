@@ -179,7 +179,7 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     margin-top: 20px;
     margin-right: 20px;
     color: #ffffff;
-    overflow: hidden;
+    overflow: scroll;
     text-shadow: -1px 0 #000000, 0 1px #000000, 1px 0 #000000, 0 -1px #000000, 0 0 5px #808080;
 }
 
