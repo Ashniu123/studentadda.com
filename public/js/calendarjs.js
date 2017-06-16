@@ -12,6 +12,7 @@ $("#darkswitch").change(function () {
         $('#calendar').css('color', '#ffffff');
         $('.eventslabel').css('color', '#ffffff');
         $('#calendarHelp').css({'color': '#ffffff', 'background-color': '#000000'});
+        $("#hideFullCalendar").css({'color':'#ffffff'});
     } else {
         $("#calbg").css({
             'background': 'url(img/calendar5.jpg) no-repeat center center fixed',
@@ -23,6 +24,7 @@ $("#darkswitch").change(function () {
         $('#calendar').css('color', '#000000');
         $('.eventslabel').css('color', '#000000');
         $('#calendarHelp').css({'color': '#000000', 'background-color': 'transparent'});
+        $("#hideFullCalendar").css({'color':'#000000'});
     }
 });
 
@@ -670,44 +672,52 @@ $(document).ready(function () {
         }
 
         $("#showFullCalendar").click(function () {
+            $("#showFullCalendar").hide();
+            $("#hideFullCalendar").show();
             $("#events").show();
             scrollToEvent();
         });
 
-       /* $("#prevMiniEventPage").click(function () {
-
-            if(swapped){
-                //alert("Swapped and going to previous page");
-                $("#swapTable").click();
-                $(".previous").click();
-               // $("#swapTable").click();
-              //  init();
-            }else if(!swapped){
-
-                $(".previous").click();
-                init();
-            }
-
+        $("#hideFullCalendar").click(function () {
+            $("#showFullCalendar").show();
+            $("#hideFullCalendar").hide();
+            scrollToNote();
         });
 
-        $("#nextMiniEventPage").click(function () {
-            ////alert("Clicked");
-            //
-            if(swapped){
-                //alert("Swapped and going to next page");
-                $("#swapTable").click();
-                //renderMiniTable();
-                $(".next").click();
-                //swapped=!swapped;
-                //$("#swapTable").click();
-                //$("#swapTable").click();
+        /* $("#prevMiniEventPage").click(function () {
 
-            }else if(!swapped){
+             if(swapped){
+                 //alert("Swapped and going to previous page");
+                 $("#swapTable").click();
+                 $(".previous").click();
+                // $("#swapTable").click();
+               //  init();
+             }else if(!swapped){
 
-                $(".next").click();
-                init();
-            }
-        });*/
+                 $(".previous").click();
+                 init();
+             }
+
+         });
+
+         $("#nextMiniEventPage").click(function () {
+             ////alert("Clicked");
+             //
+             if(swapped){
+                 //alert("Swapped and going to next page");
+                 $("#swapTable").click();
+                 //renderMiniTable();
+                 $(".next").click();
+                 //swapped=!swapped;
+                 //$("#swapTable").click();
+                 //$("#swapTable").click();
+
+             }else if(!swapped){
+
+                 $(".next").click();
+                 init();
+             }
+         });*/
 
 
         $(document).keydown(function (e) {

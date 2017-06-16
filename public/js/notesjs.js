@@ -988,12 +988,14 @@ function scrollToEvent() {
     $('html, body').animate({
         scrollTop: $("#events").offset().top
     }, 500);
+    $("#hideFullCalendar").show();
 }
 
 function scrollToNote() {
         $('html, body').animate({
             scrollTop: $("#myNavbar").offset().top
         }, 500);
+        $("#showFullCalendar").show();
     setTimeout(function () { $("#events").hide() },500);
 }
 

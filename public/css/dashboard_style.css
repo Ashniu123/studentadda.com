@@ -232,23 +232,23 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     z-index: 5;
 }
 
-.removen{
-    margin-left: 32%;
-    border-radius: 10px;
-    background-color: rgba(255, 0, 0, .9);
-    border-color: rgba(255, 0, 0, .5);
-    float: left;
-    display: inline-block;
-}
+/*.removen{*/
+    /*margin-left: 32%;*/
+    /*border-radius: 10px;*/
+    /*background-color: rgba(255, 0, 0, .9);*/
+    /*border-color: rgba(255, 0, 0, .5);*/
+    /*float: left;*/
+    /*display: inline-block;*/
+/*}*/
 
-.addn{
-    margin-left: 32%;
-    border-radius: 10px;
-    border-color: rgba(0, 255, 0, .5);
-    background-color: rgba(0, 255, 0, .9);
-    float: left;
-    display: inline-block;
-}
+/*.addn{*/
+    /*margin-left: 32%;*/
+    /*border-radius: 10px;*/
+    /*border-color: rgba(0, 255, 0, .5);*/
+    /*background-color: rgba(0, 255, 0, .9);*/
+    /*float: left;*/
+    /*display: inline-block;*/
+/*}*/
 
 .noteplus{
     margin-top: 1.5rem;
@@ -600,9 +600,18 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
 }
 
 #showFullCalendar{
-    font-size: 25px;
+    font-size: 35px;
     margin-top: 10px;
     cursor: pointer;
+}
+
+#hideFullCalendar{
+    font-size: 35px;
+    margin-top: 10px;
+    cursor: pointer;
+    cursor: pointer;
+    /*position: fixed;*/
+    display: block;
 }
 
 #miniEvents{
