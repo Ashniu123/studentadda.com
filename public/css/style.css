@@ -176,20 +176,20 @@ fieldset[disabled] .btn-pink.focus {
 /*****************UDC**************/
 
 .row-header {
-    margin: 0px auto;
-    padding: 0px 0px;
+    margin: 0 auto;
+    padding: 0 0;
 }
 
 .row-content {
-    margin: 0px auto;
-    padding: 10% 0px;
+    margin: 0 auto;
+    padding: 10% 0;
     border-bottom: 1px ridge;
     min-height: 500px;
 }
 
 .row-footer {
-    margin: 0px auto;
-    padding: 2% 0px;
+    margin: 0 auto;
+    padding: 2% 0;
     background-color: #F4D06F;
     /*background-color: #DAC9AF;#E9F1F7-white*/
 }

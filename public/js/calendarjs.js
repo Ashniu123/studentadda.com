@@ -1,7 +1,6 @@
 //Dark mode Toggle
 $("#darkswitch").change(function () {
-    var on = $('#darkswitch').prop('checked');
-    if (on) {
+    if ($('#darkswitch').is(':checked')) {
         $("#calbg").css({
             'background': 'url(img/calendar4.jpg) no-repeat center center fixed',
             '-webkit-background-size': 'cover',
@@ -12,7 +11,7 @@ $("#darkswitch").change(function () {
         $('#calendar').css('color', '#ffffff');
         $('.eventslabel').css('color', '#ffffff');
         $('#calendarHelp').css({'color': '#ffffff', 'background-color': '#000000'});
-        $("#hideFullCalendar").css({'color':'#ffffff'});
+        $("#hideFullCalendar").css({'color': '#ffffff'});
     } else {
         $("#calbg").css({
             'background': 'url(img/calendar5.jpg) no-repeat center center fixed',
@@ -24,12 +23,12 @@ $("#darkswitch").change(function () {
         $('#calendar').css('color', '#000000');
         $('.eventslabel').css('color', '#000000');
         $('#calendarHelp').css({'color': '#000000', 'background-color': 'transparent'});
-        $("#hideFullCalendar").css({'color':'#000000'});
+        $("#hideFullCalendar").css({'color': '#000000'});
     }
 });
 
-var eventsData,oldStartTime,table;
-dataTablePages=7;
+var eventsData, oldStartTime, table;
+dataTablePages = 7;
 $(document).ready(function () {
     /******Ajax Calls******/
     var url = noTrailingSlash(window.location.href) + '/user/events';
@@ -42,7 +41,7 @@ $(document).ready(function () {
         data.forEach(function (val) {
             val.start = moment(parseInt(val.start)).local();
             val.end = moment(parseInt(val.end)).local();
-            if (val.allDay === "false") val.allDay = false;
+            if(val.allDay === "false") val.allDay = false;
             else val.allDay = true;
         });
         eventsData = data;
@@ -89,10 +88,10 @@ $(document).ready(function () {
                 $('#createEventModal').modal();
 
                 //console.log("Start value:"+start+1+" Start converted: "+moment(start+12600000).format('DD/MM/YYYY HH:mm', true));
-                $('#createEventStartTime').val(moment(start).add(9,'h').format('DD/MM/YYYY HH:mm', true));
-                oldStartTime=$("#createEventStartTime").val();
-                $('#createEventEndTime').val(moment(start).add(11,'h').format('DD/MM/YYYY HH:mm', true));
-                setInterval(checkStartEventTimeUpdate,1000);
+                $('#createEventStartTime').val(moment(start).add(9, 'h').format('DD/MM/YYYY HH:mm', true));
+                oldStartTime = $("#createEventStartTime").val();
+                $('#createEventEndTime').val(moment(start).add(11, 'h').format('DD/MM/YYYY HH:mm', true));
+                setInterval(checkStartEventTimeUpdate, 1000);
                 $('#createEventStartTime').datetimepicker({
                     format: 'DD/MM/YYYY HH:mm',
                     useCurrent: false,
@@ -102,21 +101,20 @@ $(document).ready(function () {
                 $('#createEventEndTime').datetimepicker({
                     format: 'DD/MM/YYYY HH:mm',
                     useCurrent: false,
-                    sideBySide: true,
+                    sideBySide: true
                 });
 
 
                 /*
-                var color = '#3a87ad',
-                    textColor = '#ffffff';
-                $('#createEventColor').val(color);
-                $('#createEventColor').change(function () { //Works Brilliantly!!
-                    //console.log("Changed Color:", $('#createEventColor').val());
-                    color = $('#createEventColor').val();
-                    textColor = invertColor($('#createEventColor').val());
-                });*/
+                 var color = '#3a87ad',
+                 textColor = '#ffffff';
+                 $('#createEventColor').val(color);
+                 $('#createEventColor').change(function () { //Works Brilliantly!!
+                 //console.log("Changed Color:", $('#createEventColor').val());
+                 color = $('#createEventColor').val();
+                 textColor = invertColor($('#createEventColor').val());
+                 });*/
 
-                var allDay = false;
                 if ($('#createEventAllDay').attr('checked'))
                     allDay = true;
 
@@ -137,7 +135,7 @@ $(document).ready(function () {
                     //     dow.push(parseInt($(this).val()));
                     // });
 
-                    var color=$("input[name='createEventColor']:checked").val();
+                    var color = $("input[name='createEventColor']:checked").val();
 
                     if ($('#createEventStartTime').val() == '' || $('#createEventEndTime').val() == '') {
                         $('#createEventError').html('Start and End is Required');
@@ -297,7 +295,7 @@ $(document).ready(function () {
                 });
 
 
-                $('input[name="eventClickColor"][value="'+ event.color + '"]').prop('checked', true);
+                $('input[name="eventClickColor"][value="' + event.color + '"]').prop('checked', true);
 
 
                 /*if (event.dow) { //If repeated events exist then check checkbox with the corresponding day
@@ -328,7 +326,7 @@ $(document).ready(function () {
                         start: moment($('#eventClickStartTime').val(), 'DD/MM/YYYY HH:mm', true).unix() * 1000,
                         end: moment($('#eventClickEndTime').val(), 'DD/MM/YYYY HH:mm', true).unix() * 1000,
                         description: $('#eventClickInfo').val(),
-                        color:$("input[name='eventClickColor']:checked").val(),
+                        color: $("input[name='eventClickColor']:checked").val(),
                         textColor: '#FFFFFF',
                         allDay: event.allDay
                     };
@@ -434,15 +432,23 @@ $(document).ready(function () {
         function renderMiniTable() {
 
             $("#events").hide();
-            var miniTableEvents=[],srno=1;
-            var miniEventHeader={"SrNo":"<i class='fa fa-expand' aria-hidden='true' id='swapTable'></i>","title":"Subject","start":"Start","end":"End","duration":"Duration","description":"Discription","hiddenStartEvent":0};
+            var miniTableEvents = [], srno = 1;
+            var miniEventHeader = {
+                "SrNo": "<i class='fa fa-expand' aria-hidden='true' id='swapTable'></i>",
+                "title": "Subject",
+                "start": "Start",
+                "end": "End",
+                "duration": "Duration",
+                "description": "Description",
+                "hiddenStartEvent": 0
+            };
 
             miniTableEvents.push(miniEventHeader);
 
-            for(var miniCtr=0;miniCtr<calendar.fullCalendar('clientEvents').length;miniCtr++) {
-                var entry=new Date(calendar.fullCalendar('clientEvents')[miniCtr].start);
-                var today= new Date().getTime();
-                entry=entry.getTime();
+            for (var miniCtr = 0; miniCtr < calendar.fullCalendar('clientEvents').length; miniCtr++) {
+                var entry = new Date(calendar.fullCalendar('clientEvents')[miniCtr].start);
+                var today = new Date().getTime();
+                entry = entry.getTime();
 
                 //console.log(calendar.fullCalendar('clientEvents'));
 
@@ -451,101 +457,108 @@ $(document).ready(function () {
                 }
 
 
+                if (entry >= today) { //Show only future events
 
-                if(entry>=today) { //Show only future events
-
-                    var title=calendar.fullCalendar('clientEvents')[miniCtr].title;
-                    var duration=moment(calendar.fullCalendar('clientEvents')[miniCtr].end-calendar.fullCalendar('clientEvents')[miniCtr].start).valueOf();
+                    var title = calendar.fullCalendar('clientEvents')[miniCtr].title;
+                    var duration = moment(calendar.fullCalendar('clientEvents')[miniCtr].end - calendar.fullCalendar('clientEvents')[miniCtr].start).valueOf();
                     //console.log("Duration",duration);
-                    var durationHours=Math.floor(duration/3600000);
-                    var durationDays=Math.floor(durationHours/24);
-                    durationHours=durationHours-durationDays*24;
-                    var durationMinutes=pad((duration%3600000).toString().slice(0,2));
-                    if(durationDays!==0) {
-                        duration = (durationDays) + ' day(s) ' + pad(durationHours) + ' hr(s) ' + durationMinutes +" min(s)";
-                    }else{
-                        duration = durationHours + ' hr(s) ' + durationMinutes+" min(s)";
+                    var durationHours = Math.floor(duration / 3600000);
+                    var durationDays = Math.floor(durationHours / 24);
+                    durationHours = durationHours - durationDays * 24;
+                    var durationMinutes = pad((duration % 3600000).toString().slice(0, 2));
+                    if (durationDays !== 0) {
+                        duration = (durationDays) + ' day(s) ' + pad(durationHours) + ' hr(s) ' + durationMinutes + " min(s)";
+                    } else {
+                        duration = durationHours + ' hr(s) ' + durationMinutes + " min(s)";
                     }
                     //console.log("Diff Duration",duration);
-                    var startEvent=moment(calendar.fullCalendar('clientEvents')[miniCtr].start).format('DD/MM/YYYY', true);
-                    var endEvent=moment(calendar.fullCalendar('clientEvents')[miniCtr].end).format('DD/MM/YYYY', true);
-                    var description=calendar.fullCalendar('clientEvents')[miniCtr].description;
-                    var hiddenStartEvent=moment(calendar.fullCalendar('clientEvents')[miniCtr].start).format('YYYYMMDD', true);
-                   // //console.log(startEvent+" "+hiddenStartEvent+" "+duration);
-                    var miniEvent={"SrNo":srno,"title":title,"start":startEvent,"end":endEvent,"duration":duration,"description":description,"hiddenStartEvent":hiddenStartEvent};
+                    var startEvent = moment(calendar.fullCalendar('clientEvents')[miniCtr].start).format('DD/MM/YYYY', true);
+                    var endEvent = moment(calendar.fullCalendar('clientEvents')[miniCtr].end).format('DD/MM/YYYY', true);
+                    var description = calendar.fullCalendar('clientEvents')[miniCtr].description;
+                    var hiddenStartEvent = moment(calendar.fullCalendar('clientEvents')[miniCtr].start).format('YYYYMMDD', true);
+                    // //console.log(startEvent+" "+hiddenStartEvent+" "+duration);
+                    var miniEvent = {
+                        "SrNo": srno,
+                        "title": title,
+                        "start": startEvent,
+                        "end": endEvent,
+                        "duration": duration,
+                        "description": description,
+                        "hiddenStartEvent": hiddenStartEvent
+                    };
                     miniTableEvents.push(miniEvent);
                     srno++;
                 }
             }
 
-            table= $('#miniTable').DataTable({
+            table = $('#miniTable').DataTable({
                 responsive: false,
                 "pageLength": dataTablePages,
                 "data": miniTableEvents,
-                "info":false,
+                "info": false,
                 "paging": true,
                 "searching": false,
                 "scrollX": false,
-                "bSort" : false,
-                "order": [[ 6, "asc" ]],
-                "columns":[
-                    {"data":"SrNo"},//,"title":"<i class='fa fa-expand' aria-hidden='true' id='swapTable'></i>","width": "3%","orderable":false},
-                    {"data":"title"},//,"title":"Subject","width": "16%","orderable":false},
-                    {"data":"start"},//"title":"Start","width": "15%","orderable":false},
-                    {"data":"end"},//"title":"End","width": "15%","orderable":false},
-                    {"data":"duration"},//"title":"Duration","width": "25%","orderable":false},
-                    {"data":"description"},//"title":"Description","width": "39%","orderable":false},
-                    {"data":"hiddenStartEvent"}//, "visible": false}
+                "bSort": false,
+                "order": [[6, "asc"]],
+                "columns": [
+                    {"data": "SrNo"},//,"title":"<i class='fa fa-expand' aria-hidden='true' id='swapTable'></i>","width": "3%","orderable":false},
+                    {"data": "title"},//,"title":"Subject","width": "16%","orderable":false},
+                    {"data": "start"},//"title":"Start","width": "15%","orderable":false},
+                    {"data": "end"},//"title":"End","width": "15%","orderable":false},
+                    {"data": "duration"},//"title":"Duration","width": "25%","orderable":false},
+                    {"data": "description"},//"title":"Description","width": "39%","orderable":false},
+                    {"data": "hiddenStartEvent"}//, "visible": false}
                 ],
                 "columnDefs": [
                     {
-                        "orderData": 5, "targets": [ 1 ,2]
-                    },
+                        "orderData": 5, "targets": [1, 2]
+                    }
                 ],
                 "destroy": true
             });
             init();
         }
-        
 
-        $('#miniTable td').click(function(){
+
+        $('#miniTable td').click(function () {
             var content = $(this).html();
             var col = $(this).parent().children().index($(this));
             var row = $(this).parent().parent().children().index($(this).parent());
-            var clickedSubject,titleToOpen,sim;
-            if(!swapped){
-                if(col==1){
-                    clickedSubject=content;
+            var clickedSubject, titleToOpen, sim;
+            if (!swapped) {
+                if (col === 1) {
+                    clickedSubject = content;
                     //alert(clickedSubject);
                 }
-            }else if(swapped) {
-                if (row == 1) {
+            } else if (swapped) {
+                if (row === 1) {
                     clickedSubject = content;
                     //alert(clickedSubject);
                 }
             }
 
-            if(notesData.length>0){
-                sim=similarity(clickedSubject,notesData[0].subject);
-                titleToOpen=notesData[0].subject;
+            if (notesData.length > 0) {
+                sim = similarity(clickedSubject, notesData[0].subject);
+                titleToOpen = notesData[0].subject;
             }
-            for(var subjectsCtr=0;subjectsCtr<notesData.length;subjectsCtr++){
+            for (var subjectsCtr = 0; subjectsCtr < notesData.length; subjectsCtr++) {
                 //console.log("Current similarity is:"+similarity(data.title,notesData[subjectsCtr].subject)+" "+notesData[subjectsCtr].subject);
-                if(similarity(clickedSubject,notesData[subjectsCtr].subject)>sim){
-                    sim=similarity(clickedSubject,notesData[subjectsCtr].subject);
-                    titleToOpen=notesData[subjectsCtr].subject;
+                if (similarity(clickedSubject, notesData[subjectsCtr].subject) > sim) {
+                    sim = similarity(clickedSubject, notesData[subjectsCtr].subject);
+                    titleToOpen = notesData[subjectsCtr].subject;
                 }
             }
 
-            if(sim>.6) {
+            if (sim > .6) {
 
-                noteTitle=titleToOpen;
+                noteTitle = titleToOpen;
                 index = getOrderNo(noteTitle, notesData);
                 $("#noteModalTitle").html(noteTitle);
                 i = 1;
                 modalImg.src = getNoteAddress(noteTitle, i, notesData);
                 images = getNotesLength(noteTitle, notesData);
-                $("#imgno").html("Pg."+1);
+                $("#imgno").html("Pg." + 1);
                 $("#noteImage").modal("show");
 
             }
@@ -559,7 +572,7 @@ $(document).ready(function () {
                 shorter = s1;
             }
             var longerLength = longer.length;
-            if (longerLength == 0) {
+            if (longerLength === 0) {
                 return 1.0;
             }
             return (longerLength - editDistance(longer, shorter)) / parseFloat(longerLength);
@@ -569,16 +582,16 @@ $(document).ready(function () {
             s1 = s1.toLowerCase();
             s2 = s2.toLowerCase();
 
-            var costs = new Array();
+            var costs =[];
             for (var i = 0; i <= s1.length; i++) {
                 var lastValue = i;
                 for (var j = 0; j <= s2.length; j++) {
-                    if (i == 0)
+                    if (i === 0)
                         costs[j] = j;
                     else {
                         if (j > 0) {
                             var newValue = costs[j - 1];
-                            if (s1.charAt(i - 1) != s2.charAt(j - 1))
+                            if (s1.charAt(i - 1) !== s2.charAt(j - 1))
                                 newValue = Math.min(Math.min(newValue, lastValue),
                                         costs[j]) + 1;
                             costs[j - 1] = lastValue;
@@ -594,9 +607,9 @@ $(document).ready(function () {
 
 
         function checkStartEventTimeUpdate() {
-            if(oldStartTime!= $("#createEventStartTime").val() ){
-                oldStartTime=$("#createEventStartTime").val();
-                var updatedEndTime=moment(oldStartTime,'DD/MM/YYYY HH:mm', true).add(2,'h').format('DD/MM/YYYY HH:mm', true);
+            if (oldStartTime != $("#createEventStartTime").val()) {
+                oldStartTime = $("#createEventStartTime").val();
+                var updatedEndTime = moment(oldStartTime, 'DD/MM/YYYY HH:mm', true).add(2, 'h').format('DD/MM/YYYY HH:mm', true);
                 $('#createEventEndTime').val(updatedEndTime);
             }
         }
@@ -604,36 +617,37 @@ $(document).ready(function () {
 
         $("#swapTable").click(function () {
             //alert("Clicked swap");
-            if(calendar.fullCalendar('clientEvents').length>0){
+            if (calendar.fullCalendar('clientEvents').length > 0) {
                 $('#miniTable td:nth-child(4),#miniTable th:nth-child(4)').show();
                 $('#miniTable td:nth-child(5),#miniTable th:nth-child(5)').show();
-               // tableTransform($("#miniTable"));
-                $("#miniTable").each(function() {
+                // tableTransform($("#miniTable"));
+                $("#miniTable").each(function () {
                     var $this = $(this);
                     var newrows = [];
-                    $this.find("tr").each(function(){
+                    $this.find("tr").each(function () {
                         var i = 0;
-                        $(this).find("td").each(function(){
+                        $(this).find("td").each(function () {
                             i++;
-                            if(newrows[i] === undefined) { newrows[i] = $("<tr></tr>"); }
+                            if (newrows[i] === undefined) {
+                                newrows[i] = $("<tr></tr>");
+                            }
                             newrows[i].append($(this));
                         });
                     });
                     $this.find("tr").remove();
-                    $.each(newrows, function(){
+                    $.each(newrows, function () {
                         $this.append(this);
                     });
                 });
-                swapped=!swapped;
+                swapped = !swapped;
                 init();
-            }else{
-                alert("No events");
-            }
+            } else {
 
+            }
         });
 
         function tableTransform(objTable) {
-            if (typeof objTable != 'undefined') {
+            if (typeof objTable !== undefined) {
                 objTable.each(function () {
                     var $this = $(this);
                     var newrows = [];
@@ -686,44 +700,44 @@ $(document).ready(function () {
 
         /* $("#prevMiniEventPage").click(function () {
 
-             if(swapped){
-                 //alert("Swapped and going to previous page");
-                 $("#swapTable").click();
-                 $(".previous").click();
-                // $("#swapTable").click();
-               //  init();
-             }else if(!swapped){
+         if(swapped){
+         //alert("Swapped and going to previous page");
+         $("#swapTable").click();
+         $(".previous").click();
+         // $("#swapTable").click();
+         //  init();
+         }else if(!swapped){
 
-                 $(".previous").click();
-                 init();
-             }
+         $(".previous").click();
+         init();
+         }
 
          });
 
          $("#nextMiniEventPage").click(function () {
-             ////alert("Clicked");
-             //
-             if(swapped){
-                 //alert("Swapped and going to next page");
-                 $("#swapTable").click();
-                 //renderMiniTable();
-                 $(".next").click();
-                 //swapped=!swapped;
-                 //$("#swapTable").click();
-                 //$("#swapTable").click();
+         ////alert("Clicked");
+         //
+         if(swapped){
+         //alert("Swapped and going to next page");
+         $("#swapTable").click();
+         //renderMiniTable();
+         $(".next").click();
+         //swapped=!swapped;
+         //$("#swapTable").click();
+         //$("#swapTable").click();
 
-             }else if(!swapped){
+         }else if(!swapped){
 
-                 $(".next").click();
-                 init();
-             }
+         $(".next").click();
+         init();
+         }
          });*/
 
 
         $(document).keydown(function (e) {
-            if(e.keyCode==13){
+            if (e.keyCode === 13) {
                 var ch1 = $('#createEventModal').is(':visible');
-                if(ch1){
+                if (ch1) {
                     $("#createEventButton").click();
                 }
             }

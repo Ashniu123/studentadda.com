@@ -18,9 +18,9 @@
     <link rel="stylesheet" href="bower_components/toastr/toastr.min.css">
     <link rel="stylesheet" href="bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css">
     <link rel="stylesheet" href="bower_components/bootstrap-toggle/css/bootstrap-toggle.min.css">
-    <link rel="stylesheet" href="bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet"
+          href="bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="bower_components/datatables.net-responsive-dt/css/responsive.dataTables.min.css">
-    <!--<link rel="stylesheet" href="bower_components/datatables.net-dt/css/jquery.dataTables.min.css">-->
     <link rel="stylesheet" href="css/bootstrap-social-mod.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dashboard_style.css">
@@ -123,12 +123,10 @@
                                                         <input id="inputAvatar" name="inputAvatar" type="file"
                                                                class="file-loading">
                                                     </div>
-                                                    <p class="help-block text-center" style="margin-left:-15px;">File size should
+                                                    <p class="help-block text-center centerFlex"
+                                                       style="margin-left:-15px;">File size should
                                                         not exceed 1.0Mb.</p>
                                                 </div>
-                                                <!--<button type="button" class="btn btn-warning"-->
-                                                <!--id="buttonForAvatar">Upload-->
-                                                <!--</button>-->
                                             </div>
                                         </form>
                                         <form id="personalForm" class="form">
@@ -174,26 +172,6 @@
                                                                 class="fa fa-female" aria-hidden="true"></i>
                                                         </label>
                                                     </div>
-                                                </div>
-                                                <div class="form-group col-xs-10 col-sm-8">
-                                                    <!-- Add country option here  -->
-                                                    <!--<div class="bfh-selectbox bfh-countries" data-country="IN"-->
-                                                         <!--data-flags="true">-->
-                                                        <!--<input type="hidden" value="">-->
-                                                        <!--<a class="bfh-selectbox-toggle" role="button"-->
-                                                           <!--data-toggle="bfh-selectbox" href="">-->
-                                                            <!--<span class="bfh-selectbox-option input-medium"-->
-                                                                  <!--data-option=""></span>-->
-                                                            <!--<b class="caret"></b>-->
-                                                        <!--</a>-->
-                                                        <!--<div class="bfh-selectbox-options">-->
-                                                            <!--<input type="text" class="bfh-selectbox-filter">-->
-                                                            <!--<div role="listbox">-->
-                                                                <!--<ul role="option">-->
-                                                                <!--</ul>-->
-                                                            <!--</div>-->
-                                                        <!--</div>-->
-                                                    <!--</div>-->
                                                 </div>
                                                 <div class="col-xs-12">
                                                     <!--<p id="personal-help-block"></p>-->
@@ -320,50 +298,38 @@
 </div>
 <!-- ./Modal-->
 
-<div class="container" style="background-image: url('img/shelf.jpg');" id="mynotes">
-
-    <div class="row" id="notes" style="background-color: rgba(256,256,256,.6);">
-
+<div class="container" id="mynotes">
+    <div class="row" id="notes">
         <div class="col-xs-2">
             <i class="glyphicon glyphicon-open-file pull-right noteplus" data-toggle="modal" data-target="#newNoteName"
                id="addNoteButton"></i>
-            <!--<img src="img/add.png" class="noteplus" data-toggle="modal" data-target="#newNoteName" id="addNoteButton">-->
         </div>
         <div class="col-xs-8">
             <h2 class="noteslabel">NOTES</h2>
         </div>
         <div class="col-xs-2">
-            <!--<i class="glyphicon glyphicon-trash deletenote" data-toggle="modal" data-target="#deleteNoteName"-->
-               <!--id="deleteNoteButton"></i>-->
             <i class="glyphicon glyphicon-trash deletenote"
                id="deleteSubjectButton"></i>
-            <!--<img src="img/thrash.png" class="deletenote" data-toggle="modal" data-target="#deleteNoteName"-->
-            <!--id="deleteNoteButton"/>-->
         </div>
     </div>
 
 
-
-    <div class="row no-gutters" style="max-height:550px; margin-top: 40px; " id="notespage">
-
+    <div class="row no-gutters" id="notespage">
         <div class="col-xs-1" style="height: 100%;">
-
-
             <div class="changenotes" id="previousSubjectArrowDiv">
                 <span class="glyphicon glyphicon-chevron-left pull-right" aria-hidden="true" id="goleft"></span>
             </div>
         </div>
-
-
         <div id="centeralbook" class="col-xs-10">
             <div id="books">
-
                 <div>
                     <i class="fa fa-times" id="del1"></i>
-                    <div style="margin-left:0%;" id="note1"
-                         data-toggle="modal" data-target="#noteImage" ontouchstart="touchStart(event,&#39;books&#39;);" ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);">
+                    <div id="note1"
+                         data-toggle="modal" data-target="#noteImage" ontouchstart="touchStart(event,&#39;books&#39;);"
+                         ontouchend="touchEnd(event);" ontouchmove="touchMove(event);"
+                         ontouchcancel="touchCancel(event);">
                         <img src="img/bookmark.png" class="bookmark">
-                        <p><h1 id="s1"></h1></p>
+                        <h1 id="s1"></h1>
                         <br>
                         <hr class='l1'>
                         <hr class='l2'>
@@ -376,10 +342,10 @@
 
                 <div>
                     <i class="fa fa-times" id="del2"></i>
-                    <div style="margin-left:0%;" id="note2"
+                    <div id="note2"
                          data-toggle="modal" data-target="#noteImage">
                         <img src="img/bookmark.png" class="bookmark">
-                        <p><h1 id="s2"></h1></p>
+                        <h1 id="s2"></h1>
                         <br>
                         <hr class='l1'>
                         <hr class='l2'>
@@ -392,10 +358,10 @@
 
                 <div>
                     <i class="fa fa-times" id="del3"></i>
-                    <div style="margin-left:0%;" id="note3"
+                    <div id="note3"
                          data-toggle="modal" data-target="#noteImage">
                         <img src="img/bookmark.png" class="bookmark">
-                        <p><h1 id="s3"></h1></p>
+                        <h1 id="s3"></h1>
                         <br>
                         <hr class='l1'>
                         <hr class='l2'>
@@ -409,10 +375,11 @@
 
                 <div>
                     <i class="fa fa-times" id="del4"></i>
-                    <div style="margin-left:0%;" id="note4"
+                    <div id="note4"
                          data-toggle="modal" data-target="#noteImage">
                         <img src="img/bookmark.png" class="bookmark">
-                        <p><h1 id="s4"></h1></p><br>
+                        <h1 id="s4"></h1>
+                        <br>
                         <hr class='l1'>
                         <hr class='l2'>
                         <hr class='l3'>
@@ -421,10 +388,8 @@
                         <hr class='l6'>
                     </div>
                 </div>
-
             </div>
         </div>
-
         <div class="col-xs-1">
             <div class="changenotes" id="nextSubjectArrowDiv">
                 <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" id="goright"></span>
@@ -440,14 +405,15 @@
 </div>
 
 <!-- Modal to view notes-->
-<div class="modal fade" id="noteImage" role="dialog" style="background-color:rgba(0,0,0,.9); width: 100%; height: 100%; ">
+<div class="modal fade" id="noteImage" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content" style="background-color:rgba(0,0,0,.9)">
             <div class="modal-header" style="border:none; padding: 30px; background-color:rgba(0,0,0,.9);">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-xs-2">
-                            <i class="glyphicon glyphicon-trash deletenote" style="color:#ffffff " id="deleteNoteButton"></i>
+                            <i class="glyphicon glyphicon-trash deletenote" style="color:#ffffff "
+                               id="deleteNoteButton"></i>
                         </div>
                         <div class="col-xs-8 text-center"><span id="noteModalTitle" style="color: #ffffff"></span></div>
                         <div class="col-xs-2">
@@ -466,12 +432,14 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-xs-12">
-                            <img id="img01" ontouchstart="touchStart(event,&#39;img01&#39;);" ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);">
+                            <img id="img01" ontouchstart="touchStart(event,&#39;img01&#39;);"
+                                 ontouchend="touchEnd(event);" ontouchmove="touchMove(event);"
+                                 ontouchcancel="touchCancel(event);">
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer" style="padding: 0px; border: none;">
+            <div class="modal-footer" style="padding: 0; border: none;">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-xs-8 col-xs-offset-2 text-center" id="notesUploadError"></div>
@@ -479,34 +447,28 @@
                     <div class="row">
                         <div class="col-xs-2">
                             <i class="fa fa-arrow-left prev" id="prevNote" aria-hidden="true"></i>
-                            <!--<img src="img/orangearrow.png" class="prev rotate" id="previmg"-->
-                            <!--style="width:20%; margin-right:-10%;" onclick="previous()">-->
                         </div>
                         <div class="col-xs-8 addNotesKrejee">
                             <div class="kv-avatar centerFlex">
-                                <input id="uploadNoteImage" name="uploadNoteImage" multiple type="file" class="file-loading">
+                                <input id="uploadNoteImage" name="uploadNoteImage" multiple type="file"
+                                       class="file-loading">
                             </div>
                             <p class="help-block text-center">File size should
                                 not exceed 5.0Mb.</p>
                             <p id="note-info-block"></p>
                         </div>
                         <div class="col-xs-2 text-center">
-
                             <i class="fa fa-arrow-right next" id="nextNote" aria-hidden="true"></i>
-                            <!--<img src="img/orangearrow.png" class="next" id="nextimg" style="width:20%; margin-right: -7%;"-->
-                            <!--onclick="next()">-->
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
 </div>
 
 <!-- Modal to enter new subject-->
-<div class="modal fade" id="newNoteName" role="dialog" style="margin-top: 200px;">
+<div class="modal fade" id="newNoteName" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content" style="background-color:#ffffff ; border: 1px solid #808080; ">
             <div class="modal-header">
@@ -515,12 +477,10 @@
                         Add Subject
                     </div>
                     <div class="col-xs-1">
-                        <button type="button" class="close" id="hides1" data-dismiss="modal"
-                                style="color: #808080; height: 10%;">
+                        <button type="button" class="close" id="hides1" data-dismiss="modal">
                             &#x2716;
                         </button>
                     </div>
-
                 </div>
             </div>
             <div class="modal-body">
@@ -539,7 +499,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
-                            <div id="err"><br><br><br><br></div>
+                            <div id="err"><br><br><br></div>
                         </div>
                     </div>
                     <div class="row">
@@ -560,7 +520,7 @@
 </div>
 
 <!-- Modal to enter delete subject-->
-<div class="modal fade" id="deleteNoteName" role="dialog" style="margin-top: 200px;">
+<div class="modal fade" id="deleteNoteName" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content" style="background-color:#ffffff ; border: 1px solid #808080;">
             <div class="modal-header">
@@ -569,8 +529,7 @@
                         Delete Subject
                     </div>
                     <div class="col-xs-1">
-                        <button type="button" class="close" id="hides2" data-dismiss="modal"
-                                style="color: #808080; height: 10%;">
+                        <button type="button" class="close" id="hides2" data-dismiss="modal">
                             &#x2716;
                         </button>
                     </div>
@@ -592,7 +551,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
-                            <div id="err2"><br><br><br><br></div>
+                            <div id="err2"><br><br><br></div>
                         </div>
                     </div>
                     <div class="row">
@@ -609,15 +568,12 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 
 
 <!--Modal for Event Click-->
-<!--Modal -->
-
 <div class="modal fade" id="eventClickModal" tabindex="-1" role="dialog" aria-labelledby="Event Click Modal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -626,7 +582,7 @@
                 </button>
                 <h4 class="modal-title" id="eventClickLabel"></h4>
             </div>
-            <form id="editEventClickForm" class="form-horizontal"">
+            <form id="editEventClickForm" class="form-horizontal">
                 <div class="modal-body">
                     <div id="eventClickBody" title="Event Details">
                         <div class="container-fluid">
@@ -648,12 +604,11 @@
                                         <div class="input-group date">
                                             <input type='text' id="eventClickEndTime" class="form-control"/>
                                             <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                              </span>
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Add event url -->
                                 <div class="form-group">
                                     <label for="eventClickInfo" class="control-label col-xs-3">Description:</label>
                                     <div class="col-xs-9">
@@ -661,10 +616,9 @@
                                     </div>
                                 </div>
                                 <div class="text-danger col-xs-offset-3"><strong id="eventClickError"></strong></div>
-                                </div> -->
                             </div>
-                        </div><!--./container-->
-                    </div>
+                        </div>
+                    </div><!--./container-->
                 </div><!--./modal-body-->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" id="eventClickRemove" data-dismiss="modal">Remove
@@ -680,7 +634,6 @@
 </div><!--./EventClickModal-->
 
 <!--Modal to Create Event-->
-<!-- Modal -->
 <div class="modal fade" id="createEventModal" tabindex="-1" role="dialog" aria-labelledby="Create Event Modal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -689,7 +642,7 @@
                 </button>
                 <h4 class="modal-title" id="createEventLabel">Create Event</h4>
             </div>
-            <form id="createEventForm" class="form-horizontal" method="">
+            <form id="createEventForm" class="form-horizontal">
                 <div class="modal-body">
                     <div id="createEventBody" title="Event Details">
                         <div class="container-fluid">
@@ -732,29 +685,33 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-xs-8 col-xs-offset-1">
-                                            Color:
-                                            <input type="radio" name="createEventColor" value="#FF0000" checked>Red
-                                            <input type="radio" name="createEventColor" value="#00FFFF" >Yellow
-                                            <input type="radio" name="createEventColor" value="#800080" >Purple
-                                            <input type="radio" name="createEventColor" value="#0000FF" >Blue
-                                            <input type="radio" name="createEventColor" value="#00FF00" >Green
+                                        Color:
+                                        <input type="radio" id="createEventColorRed" name="createEventColor"
+                                               value="#FF0000" checked><label for="createEventColorRed">Red</label>
+                                        <input type="radio" id="createEventColorYellow" name="createEventColor"
+                                               value="#00FFFF"><label for="createEventColorYellow">Yellow</label>
+                                        <input type="radio" id="createEventColorPurple" name="createEventColor"
+                                               value="#800080"><label for="createEventColorPurple">Purple</label>
+                                        <input type="radio" id="createEventColorBlue" name="createEventColor"
+                                               value="#0000FF"><label for="createEventColorBlue">Blue</label>
+                                        <input type="radio" id="createEventColorGreen" name="createEventColor"
+                                               value="#00FF00"><label for="createEventColorGreen">Green</label>
                                     </div>
                                     <div class="col-xs-3">
-                                        <div class="checkbox" style="padding:1px;">
+                                        <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" id="createEventAllDay">All Day
                                             </label>
                                         </div>
                                     </div>
                                 </div>
-                                <strong>
-                                    <div id="createEventError" class="text-danger col-xs-offset-3"></div>
-                                </strong>
+                                <div id="createEventError" class="text-danger col-xs-offset-3"
+                                     style="font-weight: bolder"></div>
                             </div>
                         </div><!--./container-->
                     </div>
                 </div><!--./modal-body-->
-                <div class="modal-footer"><!--type is submit for final project-->
+                <div class="modal-footer">
                     <button type="button" class="btn btn-warning" id="createEventButton">Create</button>
                     <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
                 </div>
@@ -772,16 +729,10 @@
             </div>
         </div>
         <div class="row no-gutters">
-            <!--<div class="col-xs-1" id="prevMiniEventPage">-->
-                <!--<span class="glyphicon glyphicon-chevron-left pull-right" aria-hidden="true"></span>-->
-            <!--</div>-->
             <div class="col-xs-12">
                 <table id="miniTable" class="miniTableClass">
                 </table>
             </div>
-            <!--<div class="col-xs-1" id="nextMiniEventPage">-->
-                <!--<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>-->
-            <!--</div>-->
         </div>
     </div>
 
@@ -790,21 +741,18 @@
     <div class="container" id="events">
         <div class="row" style="margin-top: 20px;">
             <div class="col-xs-2" id="darkSwitchContainer">
+                <label for="darkswitch" class="sr-only"></label>
                 <input type="checkbox" id="darkswitch" data-style="ios" data-toggle="toggle"
-                       data-off="<img src='img/bulboff.png' width='20px'>"
-                       data-on="<img src='img/bulbon.png' width='20px'>" data-offstyle="warning" data-onstyle="primary">
-
+                       data-off="<img src='img/bulboff.png' width='50%'>"
+                       data-on="<img src='img/bulbon.png' width='50%'>" data-offstyle="warning" data-onstyle="primary">
             </div>
-
             <div class="col-xs-8">
                 <h1 class="eventslabel" id="tour_event">Events</h1>
             </div>
-
             <div class="col-xs-2">
-                    <i class="fa fa-minus-square" aria-hidden="true" id="hideFullCalendar"></i>
+                <i class="fa fa-minus-square" aria-hidden="true" id="hideFullCalendar"></i>
             </div>
         </div>
-
         <div class="row row-content row-calendar">
             <div class="col-xs-12">
                 <div id="calendar"></div>
@@ -856,6 +804,7 @@
         </div>
     </div>
 </footer>
+
 <script src="js/touchSupport.js"></script>
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

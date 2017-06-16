@@ -1,6 +1,5 @@
 body {
-  align: center;
-  padding: 50px 0px 0px 0px;
+  padding: 50px 0 0 0;
   z-index: 0;
 }
 
@@ -9,12 +8,15 @@ body {
 }
 .modal-body{
   padding:5px 5px 20px 5px;
+}
 
+#validityError{
+  padding-left: 15px;
 }
 
 .jumbotron{
   padding: 0;
-  margin: 0px auto;
+  margin: 0 auto;
   background: #FFFDFC;
   color: #fff9f6;
 }

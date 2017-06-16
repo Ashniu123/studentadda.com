@@ -12,7 +12,7 @@ $('#copyrightYear').html(new Date().getFullYear());
 //disabled button for signup
 $("#signupLoginModal").on('shown.bs.modal', function () {
     function checkButton() {
-        if ($('#inputPasswordForSignup').val() == $('#inputConfirmPasswordForSignup').val() &&
+        if ($('#inputPasswordForSignup').val() === $('#inputConfirmPasswordForSignup').val() &&
             /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/gi.test($('#inputEmailForSignup').val()) &&
             $('#inputFirstName').val().length > 2 && $('#inputLastName').val().length > 2 &&
             $('#terms_conditions').is(':checked')) {
@@ -95,7 +95,7 @@ $('#buttonForSignup').click(function(){
            success:function(data){
                console.log("Success");
                console.log(JSON.stringify(data));
-               if(data.status==true){
+               if(data.status===true){
                     $('#validityError').html('Registration Successful!<br>Link for Verification has been sent to your Email Id');
                }else{
                    $('#validityError').html('Registration Unsuccessful! User Already Exists!');
