@@ -82,12 +82,12 @@ router.post('/user/avatar', function (req, res) {
 router.route('/user/events')
     .get(function (req, res) {
         var username = req.session.username;
-        Event.findOne({username: username}, {events: 1, _id: 0}, function (err, event) {
+        Event.findOne({username: username}, {events: 1, _id: 0}, function (err, events) {
             if (err) {
                 throw err;
             } else {
-                console.log("GET events:",event.events);
-                res.status(200).send(event.events);
+                console.log("GET events:",events);
+                res.status(200).send(events.events);
             }
         });
     })

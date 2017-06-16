@@ -20,11 +20,10 @@ var transporter = nodemailer.createTransport({
         ciphers:'SSLv3'
     },
     auth: {
-        user: 'studentadda@outlook.com',
-        pass: 'QWERTY))&'//To be hidden later
+        user: process.env.OUTLOOK_UID||'studentadda@outlook.com',
+        pass: process.env.OUTLOOK_PWD||'QWERTY))&'//To be hidden later
     }
 });
-
 
 
 /* GET home page. */
@@ -37,7 +36,6 @@ router.get('/', function (req, res) {
 });
 
 router.post('/signup', function (req, res) {
-    console.log(req.body);
     User.register(new User({username: req.body.email}), req.body.password, function (err, user) {
         if (err) {
             console.log(err);
@@ -101,22 +99,31 @@ router.post('/login', function(req, res, next) {
                 err: info
             });
         }
-        req.logIn(user, function(err) {
-            if (err) {
-                return res.status(500).json({
-                    success:false
-                });
-            }else{
-                req.session.username=req.body.username;
-                if(req.body.rememberme){
-                    req.session.cookie.maxAge=null;
+        if(!user.verified){
+            return res.status(200).json({
+                verified:false,
+                success:true
+            });
+        }else {
+            req.logIn(user, function (err) {
+                if (err) {
+                    return res.status(500).json({
+                        success: false,
+                        verified:true
+                    });
+                } else {
+                    req.session.username = req.body.username;
+                    if (req.body.rememberme) {
+                        req.session.cookie.maxAge = null;
+                    }
+                    res.status(200).json({
+                        status: 'Login successful!',
+                        success: true,
+                        verified:true
+                    });
                 }
-                res.status(200).json({
-                    status: 'Login successful!',
-                    success: true
-                });
-            }
-        });
+            });
+        }
     })(req,res,next);
 });
 
