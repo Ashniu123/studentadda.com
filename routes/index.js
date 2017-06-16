@@ -28,7 +28,6 @@ var transporter = nodemailer.createTransport({
 
 /* GET home page. */
 router.get('/', function (req, res) {
-    /*Not working*/
     if (req.session.username)
         res.redirect('/dashboard');
     else
@@ -36,6 +35,11 @@ router.get('/', function (req, res) {
 });
 
 router.post('/signup', function (req, res) {
+    /**
+     * Register User
+     * Send a email to verify the user
+     * Add an empty event [] his event's table
+     */
     User.register(new User({username: req.body.email}), req.body.password, function (err, user) {
         if (err) {
             console.log(err);
@@ -53,20 +57,18 @@ router.post('/signup', function (req, res) {
             if(err) throw err;
             else {
                 /*Sending Mail*/
-                //Not Secure Yet
                 var cipher=crypto.createCipher(cryptoAlgo,cryptoKey);
                 var cipherId=cipher.update(user._id.toString(),'utf8','hex');
                 cipherId+=cipher.final('hex');
                 console.log("CipherId",cipherId);
                 var urlToSendTo=req.protocol + '://' + req.get('host') + '/verify?q='+cipherId;
-                // var urlToSendTo2=req.protocol + '://' + req.hostname + '/verify/'+cipherId;
 
                 // setup e-mail data, even with unicode symbols
                 var mailOptions = {
                     from: '"Studentadda" <studentadda@outlook.com>', // sender address (who sends)
                     to: req.body.email, // list of receivers (who receives)
                     subject: 'Welcome to Studentadda', // Subject line
-                    html: 'To <strong>Verify</strong> your email address, Please goto <a href="'+urlToSendTo+'">' + urlToSendTo + '</a>' // html body
+                    html: 'Hi'+user.firstName+',<br>To <strong>Verify</strong> your email address, Please goto <a href="'+urlToSendTo+'">' + urlToSendTo + '</a>' // html body
                 };
 
                 // send mail with defined transport object
@@ -90,6 +92,9 @@ router.post('/signup', function (req, res) {
 });
 
 router.post('/login', function(req, res, next) {
+    /**
+     * Authenticate User Credentials and if valid then redirect to dashboard page(done on client side)
+     */
     passport.authenticate('local', function(err, user, info) {
         if (err) {
             return next(err);

@@ -7,7 +7,10 @@ var cryptoKey="ABCDE-ZYXWV-ZYXWV-ABCDE",cryptoAlgo='aes-256-ctr';
 var router = express.Router();
 
 router.get('/', function (req, res) {
-    console.log("Query URL", req.query);
+    /**
+     * Get Query URL and decode it then verify user if not already verified
+     */
+    // console.log("Query URL", req.query);
     var queryId=req.query.q;
     var decipher=crypto.createDecipher(cryptoAlgo,cryptoKey);
     var plainId=decipher.update(queryId,'hex','utf8');
@@ -15,7 +18,10 @@ router.get('/', function (req, res) {
     console.log("PlainID", plainId);
     if (plainId) {
         User.findOne({_id: plainId}, function (err, user) {
-            if (err) throw err;
+            if (err){
+                console.log("Invalid URL");
+                res.sendFile(path.join(__dirname, '../public', 'verify.html'));
+            }
             else {
                 console.log("User Verified");
                 user.verified = true;

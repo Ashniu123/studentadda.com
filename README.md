@@ -6,4 +6,4 @@ Sem4 Engg Mini-Project
 
 To be published soon...
 
-##### Don't forget `bower install` in /public folder!
+##### Don't forget `bower install`!

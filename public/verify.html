@@ -8,17 +8,25 @@
 
     <title>Studentadda Verification</title>
 
-    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/bootstrap-social-mod.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="./bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/bootstrap-social-mod.css">
+    <link rel="stylesheet" href="./css/style.css">
 
-    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <style>
-
+        #verify{
+            background-color: #fff7a2;
+        }
+        #verify_notif{
+            font-size: 5rem;
+        }
+        #login_notif{
+            font-size: 3rem;
+        }
     </style>
 
 </head>
@@ -26,20 +34,17 @@
 <body>
 
 <!-- Content -->
-<div class="container">
-    <div class="row row-content">
-        <script>
-            var req = new XMLHttpRequest();
-            req.open('GET', document.location, false);
-            req.send(null);
-            var verified = req.getResponseHeader('verified');
-            console.log(verified);
-            if(verified==='true'){
-                document.write('Verification Successful!');
-            }else{
-                document.write('Invalid URL!');
-            }
-        </script>
+<div class="container-fluid" id="verify">
+    <div class="row row-content text-center">
+        <div class="col-xs-12">
+            <div id="verify_notif">
+            </div>
+        </div>
+        <div class="col-xs-12" id="login_notif">
+            <script>
+                document.write('To Login, Please click <a href="'+window.location.origin+'/">here </a>')
+            </script>
+        </div>
     </div>
 </div>
 <!--./container-->
@@ -84,5 +89,16 @@
 </footer>
 
 </body>
-
+<script>
+    var req = new XMLHttpRequest();
+    req.open('GET', document.location, false);
+    req.send(null);
+    var verified = req.getResponseHeader('verified');
+    console.log(verified);
+    if(verified==='true'){
+        document.getElementById('verify_notif').innerText='Verification Successful!';
+    }else{
+        document.getElementById('verify_notif').innerText='Invalid URL';
+    }
+</script>
 </html>

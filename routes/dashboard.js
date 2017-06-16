@@ -20,8 +20,10 @@ router.get('/', function (req, res) {
 /*For User Details*/
 router.route('/user')
     .get(function (req, res) {
-        var username = req.session.username;
-        User.findOne({username: username}, function (err, user) {
+        /**
+         * Send user's details stored in DB to client
+         */
+        User.findOne({username: req.session.username}, function (err, user) {
             if (err) throw err;
             else {
                 res.status(200).json(user);
@@ -38,8 +40,10 @@ router.route('/user')
         });
     })
     .post(function (req, res) {
-        var username = req.session.username;
-        User.findOneAndUpdate({username: username}, {
+        /**
+         * Update user Details as per credentials served
+         */
+        User.findOneAndUpdate({username: req.session.username}, {
             $set: {
                 gender: req.body.gender,
                 dob: new Date(req.body.dob),
@@ -54,22 +58,12 @@ router.route('/user')
                 res.status(200).json(user);
             }
         });
-    })
-    .put(function (req,res) {
-        if(req.body.tutorial) {
-            User.update({username: req.session.username}, {$set: {tutorial: false}}, function (err, response) {
-                if(err) throw err;
-                console.log("Tutorial Response", response);
-                res.status(200).send(response);
-            });
-        }
     });
 
 /*To Update the Avatar of User*/
 router.post('/user/avatar', function (req, res) {
     console.log("Avatar Body:", req.body);
-    var username = req.session.username;
-    User.update({username: username}, {$set: {avatar: req.body.avatar}}, function (err, response) {
+    User.update({username: req.session.username}, {$set: {avatar: req.body.avatar}}, function (err, response) {
         if (err) throw err;
         else {
             console.log(response);
@@ -81,8 +75,10 @@ router.post('/user/avatar', function (req, res) {
 /*For User Events*/
 router.route('/user/events')
     .get(function (req, res) {
-        var username = req.session.username;
-        Event.findOne({username: username}, {events: 1, _id: 0}, function (err, events) {
+        /**
+         * Send Events of User stored in DB to client
+         */
+        Event.findOne({username: req.session.username}, {events: 1, _id: 0}, function (err, events) {
             if (err) {
                 throw err;
             } else {
@@ -92,9 +88,10 @@ router.route('/user/events')
         });
     })
     .post(function (req, res) {
-        var username = req.session.username;
-        // console.log("Body:",req.body);
-        Event.findOneAndUpdate({username: username}, {
+        /**
+         * Update Events sent by client
+         */
+        Event.findOneAndUpdate({username: req.session.username}, {
             $push: {
                 events: req.body
             }
@@ -108,12 +105,14 @@ router.route('/user/events')
         });
     })
     .put(function (req, res) {
-        var username = req.session.username;
-        Event.update({username: username, 'events.id': req.body.id.toString()}, {
+        /**
+         * Update Event
+         */
+        Event.update({username: req.session.username, 'events.id': req.body.id.toString()}, {
             $set: {
-                'events.$.allDay': req.body.allDay,
-                'events.$.textColor': req.body.textColor,
-                'events.$.color': req.body.color,
+                // 'events.$.allDay': req.body.allDay,
+                // 'events.$.textColor': req.body.textColor,//Maybe added later
+                // 'events.$.color': req.body.color,
                 'events.$.description': req.body.description,
                 'events.$.start': req.body.start,
                 'events.$.end': req.body.end
@@ -127,6 +126,9 @@ router.route('/user/events')
         });
     })
     .delete(function (req, res) {
+        /**
+         * Delete an event as per id sent by user
+         */
         var username = req.session.username;
         Event.update({username: username}, {$pull: {events: {id: req.body.id}}}, function (err, response) {
             if (err) throw err;
@@ -139,7 +141,10 @@ router.route('/user/events')
 
 /*For User Notes*/
 router.route('/user/notes')
-    .get(function (req, res) { //get subject data
+    .get(function (req, res) {
+        /**
+         * Send User's Subject&Notes data stored in DB to client
+         */
         Image.find({username: req.session.username}, function (err, notes) {
             if (err) throw err;
             else {
@@ -148,7 +153,10 @@ router.route('/user/notes')
             }
         });
     })
-    .post(function (req, res) {//add a subject
+    .post(function (req, res) {
+        /**
+         * Add Subject as per request by server
+         */
         Image.create({
             username: req.session.username,
             subject: req.body.subject,
@@ -163,8 +171,12 @@ router.route('/user/notes')
             }
         });
     })
-    .put(function (req, res) {//add&delete a note
+    .put(function (req, res) {
+        /**
+         * Add or delete Note as per requirement
+         */
         if(req.body.remove){
+            //Remove Note
             Image.findOne({
                 username: req.session.username, subject: req.body.subject
             }, function (err, notes) {
@@ -186,6 +198,7 @@ router.route('/user/notes')
                 });
             });
         }else{
+            //Add Note
             Image.findOne({
                 username: req.session.username,
                 subject: req.body.subject
@@ -207,7 +220,10 @@ router.route('/user/notes')
             });
         }
     })
-    .delete(function (req, res) {//delete a subject
+    .delete(function (req, res) {
+        /**
+         * Delete Subject as per request from client
+         */
         Image.findOneAndRemove({
             username: req.session.username, subject: req.body.subject
         }, function (err, result) {

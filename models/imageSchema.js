@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-
+/**
+ *Model for Notes
+ */
 var image = new Schema(
     {
         username: String,//EmailId

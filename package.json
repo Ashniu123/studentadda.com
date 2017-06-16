@@ -4,10 +4,12 @@
   "description": "Student Notes and Events Organizer",
   "scripts": {
     "start": "node ./bin/www",
+    "postinstall": "bower cache clean && bower install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
+    "bower": "^1.8.0",
     "cookie-parser": "~1.4.3",
     "crypto": "0.0.3",
     "debug": "~2.6.3",
@@ -31,7 +33,7 @@
   },
   "homepage": "https://github.com/Ashniu123/studentadda.com",
   "author": "ashniu123",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Ashniu123/studentadda.com/issues"
   },
