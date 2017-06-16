@@ -452,9 +452,9 @@ $(document).ready(function () {
                     durationHours=durationHours-durationDays*24;
                     var durationMinutes=pad((duration%3600000).toString().slice(0,2));
                     if(durationDays!==0) {
-                        duration = (durationDays) + ' day(s) ' + pad(durationHours) + ' hour(s) ' + durationMinutes +" min(s)";
+                        duration = (durationDays) + ' day(s) ' + pad(durationHours) + ' hr(s) ' + durationMinutes +" min(s)";
                     }else{
-                        duration = durationHours + ' hour(s) ' + durationMinutes+" min(s)";
+                        duration = durationHours + ' hr(s) ' + durationMinutes+" min(s)";
                     }
                     //console.log("Diff Duration",duration);
                     var startEvent=moment(calendar.fullCalendar('clientEvents')[miniCtr].start).format('DD/MM/YYYY', true);
@@ -602,6 +602,4 @@ $(document).ready(function () {
             }
         });
     });
-
-
 });

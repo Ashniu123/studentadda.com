@@ -62,6 +62,10 @@
     width: inherit;
 }
 
+#tour_help_button{
+    margin-left: 15px;
+}
+
 /*Calendar*/
 .row-calendar{
     /*margin:2% 4% 5%;*/

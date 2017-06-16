@@ -96,7 +96,7 @@ $('#buttonForSignup').click(function(){
                console.log("Success");
                console.log(JSON.stringify(data));
                if(data.status==true){
-                    $('#validityError').html('Registration Successful!');
+                    $('#validityError').html('Registration Successful!<br>Link for Verification has been sent to your Email Id');
                }else{
                    $('#validityError').html('Registration Unsuccessful! User Already Exists!');
                }
@@ -122,18 +122,20 @@ $('#buttonForLogin').click(function(){
         $.ajax({
             url:url,
             method:"POST",
-            contentType:'application/json',
-            data:JSON.stringify(loginData),
+            data:loginData,
             success:function(data){
                 console.log(data);
-                if(data.success===true){
+                if(data.success && data.verified){
                     window.location.href=window.location.href+'dashboard';
+                }else if(data.success && !data.verified){
+                    $('#LoginError').html('Please Verify your Email Id and Try Again!');
                 }else{
                     $('#LoginError').html('Invalid Login Credentials!');
                 }
             },
             error:function(err){
-                console.log('error');
+                $('#LoginError').html('Invalid Login Credentials!');
+                console.log(err);
             }
         });
     }else{
