@@ -27,7 +27,6 @@ function jumpToPage(newPage) {
 
 }
 function toggleX() {
-
     //console.log("In / toggleX /");
 
     if(toggle==1)
@@ -326,49 +325,35 @@ document.getElementById("hides1").onclick = function () {
 };
 
 
-document.getElementById("hides2").onclick = function () {
-    reset2();
-};
-
 //Performs validation and deletes string from array
 function deleteSubject() {
     //console.log("In / deleting /");
     // var newsubject = document.getElementById("subject2").value;
     var newsubject=noteTitle;
     newsubject = newsubject.toUpperCase();
-
-    if (newsubject == '') {
-        $("#err2").html("<br><span style='color:red; font-size:15px; margin-left:40%;'>Invalid entry... </span><br><br><br>");
-    }
-    else if (getOrderNo(newsubject, notesData) < 0) {
-        $("#err2").html("<br><span style='color:red; font-size:15px; margin-left:40%;'>Subject not added... </span><br><br><br>");    }
-    else {
-        var url=noTrailingSlash(window.location.href)+'/user/notes';
-        var data={
-          "subject":newsubject
-        };
-        $.ajax({
-            method:"DELETE",
-            url:url,
-            data:data,
-            success:function(data){
-                toastr.warning('Less cluttered bookshelf!','Removed successfully!');
-                //console.log(data);
-                var i = getIndexToDelete(newsubject, notesData);
-                notesData.splice(i, 1);
-                decrementIndex(i,notesData);
-                len = getNotesNumber(notesData);
-                pages = Math.ceil((len / notesno));
-                document.getElementById("subject2").value = "";
-                document.getElementById("hides2").click();
-                init();
-            },
-            error:function(err){
-                toastr.error('Try again!','Something went wrong in deleting subject!');
-                //console.log(err);
-            }
-        });
-    }
+    var url=noTrailingSlash(window.location.href)+'/user/notes';
+    var data={
+      "subject":newsubject
+    };
+    $.ajax({
+        method:"DELETE",
+        url:url,
+        data:data,
+        success:function(data){
+            toastr.warning('Less cluttered bookshelf!','Removed successfully!');
+            //console.log(data);
+            var i = getIndexToDelete(newsubject, notesData);
+            notesData.splice(i, 1);
+            decrementIndex(i,notesData);
+            len = getNotesNumber(notesData);
+            pages = Math.ceil((len / notesno));
+            init();
+        },
+        error:function(err){
+            toastr.error('Try again!','Something went wrong in deleting subject!');
+            //console.log(err);
+        }
+    });
 }
 
 //Functions to reset the text input field to blank in case of both modals to add and delete notes
@@ -995,6 +980,7 @@ function scrollToNote() {
         $('html, body').animate({
             scrollTop: $("#myNavbar").offset().top
         }, 500);
+        $("#showFullCalendar").show();
         $("#showFullCalendar").show();
     setTimeout(function () { $("#events").hide() },500);
 }

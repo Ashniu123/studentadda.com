@@ -519,59 +519,6 @@
     </div>
 </div>
 
-<!-- Modal to enter delete subject-->
-<div class="modal fade" id="deleteNoteName" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content" style="background-color:#ffffff ; border: 1px solid #808080;">
-            <div class="modal-header">
-                <div class="row">
-                    <div class="col-xs-11">
-                        Delete Subject
-                    </div>
-                    <div class="col-xs-1">
-                        <button type="button" class="close" id="hides2" data-dismiss="modal">
-                            &#x2716;
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <br><br>
-                            <div class="form-group">
-                                <label for="subject2" class="col-xs-3 control-label">Subject Name</label>
-                                <div class="col-xs-9">
-                                    <input type="text" class="form-control" id="subject2" name="subject2"
-                                           placeholder="Subject">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div id="err2"><br><br><br></div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <button type="button" class="btn btn-danger btn-block" id="deleteSubject">
-                                Delete
-                            </button>
-                        </div>
-                        <div class="col-xs-6">
-                            <button type="button" class="btn btn-warning btn-block" id="clearDeleteSubjectEntered">
-                                Reset
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <!--Modal for Event Click-->
 <div class="modal fade" id="eventClickModal" tabindex="-1" role="dialog" aria-labelledby="Event Click Modal">
@@ -686,16 +633,19 @@
                                 <div class="form-group">
                                     <div class="col-xs-8 col-xs-offset-1">
                                         Color:
-                                        <input type="radio" id="createEventColorRed" name="createEventColor"
-                                               value="#FF0000" checked><label for="createEventColorRed">Red</label>
-                                        <input type="radio" id="createEventColorYellow" name="createEventColor"
-                                               value="#00FFFF"><label for="createEventColorYellow">Yellow</label>
-                                        <input type="radio" id="createEventColorPurple" name="createEventColor"
-                                               value="#800080"><label for="createEventColorPurple">Purple</label>
-                                        <input type="radio" id="createEventColorBlue" name="createEventColor"
-                                               value="#0000FF"><label for="createEventColorBlue">Blue</label>
-                                        <input type="radio" id="createEventColorGreen" name="createEventColor"
-                                               value="#00FF00"><label for="createEventColorGreen">Green</label>
+                                        <i class="fa fa-square" aria-hidden="true" id="createEventColorRedBox"> <input type="radio" id="createEventColorRed" name="createEventColor"
+                                                                                           value="#FF0000" checked></i>
+
+                                        <i class="fa fa-square" aria-hidden="true" id="createEventColorYellowBox"><input type="radio" id="createEventColorYellow" name="createEventColor"
+                                                                                                                         value="#FFDC2E"></i>
+
+
+                                    <i class="fa fa-square" aria-hidden="true" id="createEventColorPurpleBox"><input type="radio" id="createEventColorPurple" name="createEventColor"
+                                                                                                                     value="#800080"></i>
+                                    <i class="fa fa-square" aria-hidden="true" id="createEventColorBlueBox"><input type="radio" id="createEventColorBlue" name="createEventColor"
+                                                                                                                     value="#0000FF"></i>
+                                    <i class="fa fa-square" aria-hidden="true" id="createEventColorGreenBox"><input type="radio" id="createEventColorGreen" name="createEventColor"
+                                                                                                                     value="#ADFF2F"></i>
                                     </div>
                                     <div class="col-xs-3">
                                         <div class="checkbox">

@@ -195,6 +195,8 @@ $(document).ready(function () {
                                     );
                                     $('#createEventModal').modal('toggle');
                                     toastr.success("Event Created Successfully");
+                                    if(swapped){location.reload();}
+                                    scrollToNote();
                                     renderMiniTable();
                                 },
                                 error: function (err) {
@@ -371,6 +373,7 @@ $(document).ready(function () {
                         //console.log(data);
                         calendar.fullCalendar('removeEvents', event.id);
                         toastr.warning("Event Removed Successfully");
+                        if(swapped){location.reload()};
                         renderMiniTable();
                     }).fail(function (err) {
                         toastr.error("Oops! Something Went Wrong", "Please Try Again");
@@ -427,7 +430,7 @@ $(document).ready(function () {
 
         function renderMiniTable() {
 
-            $("#events").hide();
+            //$("#events").hide();
             var miniTableEvents = [], srno = 1;
             var miniEventHeader = {
                 "SrNo": "<i class='fa fa-expand' aria-hidden='true' id='swapTable'></i>",
@@ -504,7 +507,7 @@ $(document).ready(function () {
                     {"data": "end"},//"title":"End","width": "15%","orderable":false},
                     {"data": "duration"},//"title":"Duration","width": "25%","orderable":false},
                     {"data": "description"},//"title":"Description","width": "39%","orderable":false},
-                    {"data": "hiddenStartEvent"}//, "visible": false}
+                    {"data": "hiddenStartEvent", "visible": false}
                 ],
                 "columnDefs": [
                     {
@@ -515,6 +518,53 @@ $(document).ready(function () {
             });
             init();
         }
+
+        $("#createEventColorRedBox").click(function () {
+            $("#createEventColorRed").prop("checked", true);
+            $(this).addClass("borderColourPick");
+            $("#createEventColorBlueBox").removeClass("borderColourPick");
+            $("#createEventColorYellowBox").removeClass("borderColourPick");
+            $("#createEventColorPurpleBox").removeClass("borderColourPick");
+            $("#createEventColorGreenBox").removeClass("borderColourPick");
+
+        });
+
+        $("#createEventColorGreenBox").click(function () {
+            $("#createEventColorGreen").prop("checked", true);
+            $(this).addClass("borderColourPick");
+            $("#createEventColorBlueBox").removeClass("borderColourPick");
+            $("#createEventColorYellowBox").removeClass("borderColourPick");
+            $("#createEventColorPurpleBox").removeClass("borderColourPick");
+            $("#createEventColorRedBox").removeClass("borderColourPick");
+        });
+
+        $("#createEventColorPurpleBox").click(function () {
+            $("#createEventColorPurple").prop("checked", true);
+            $(this).addClass("borderColourPick");
+            $("#createEventColorBlueBox").removeClass("borderColourPick");
+            $("#createEventColorYellowBox").removeClass("borderColourPick");
+            $("#createEventColorRedBox").removeClass("borderColourPick");
+            $("#createEventColorGreenBox").removeClass("borderColourPick");
+        });
+
+        $("#createEventColorBlueBox").click(function () {
+            $("#createEventColorBlue").prop("checked", true);
+            $(this).addClass("borderColourPick");
+            $("#createEventColorRedBox").removeClass("borderColourPick");
+            $("#createEventColorYellowBox").removeClass("borderColourPick");
+            $("#createEventColorPurpleBox").removeClass("borderColourPick");
+            $("#createEventColorGreenBox").removeClass("borderColourPick");
+        });
+
+        $("#createEventColorYellowBox").click(function () {
+            $("#createEventColorYellow").prop("checked", true);
+            $(this).addClass("borderColourPick");
+            $("#createEventColorBlueBox").removeClass("borderColourPick");
+            $("#createEventColorRedBox").removeClass("borderColourPick");
+            $("#createEventColorPurpleBox").removeClass("borderColourPick");
+            $("#createEventColorGreenBox").removeClass("borderColourPick");
+        });
+
 
 
         $('#miniTable td').click(function () {
@@ -613,10 +663,8 @@ $(document).ready(function () {
 
         $("#swapTable").click(function () {
             //alert("Clicked swap");
-            if (calendar.fullCalendar('clientEvents').length > 0) {
                 $('#miniTable td:nth-child(4),#miniTable th:nth-child(4)').show();
                 $('#miniTable td:nth-child(5),#miniTable th:nth-child(5)').show();
-                // tableTransform($("#miniTable"));
                 $("#miniTable").each(function () {
                     var $this = $(this);
                     var newrows = [];
@@ -637,49 +685,9 @@ $(document).ready(function () {
                 });
                 swapped = !swapped;
                 init();
-            } else {
-
-            }
         });
 
-        function tableTransform(objTable) {
-            if (typeof objTable !== undefined) {
-                objTable.each(function () {
-                    var $this = $(this);
-                    var newrows = [];
-                    $this.find("tbody tr, thead tr").each(function () {
-                        var i = 0;
-                        $(this).find("td, th").each(function () {
-                            i++;
-                            if (newrows[i] === undefined) {
-                                newrows[i] = $("<tr></tr>");
-                            }
-                            newrows[i].append($(this));
-                        });
-                    });
-                    $this.find("tr").remove();
-                    $.each(newrows, function () {
-                        $this.append(this);
-                    });
-                });
-                //switch old th to td
-                objTable.find('th').wrapInner('<td />').contents().unwrap();
-                //move first tr into thead
-                var thead = objTable.find("thead");
-                var thRows = objTable.find("tr:first");
-                var copy = thRows.clone(true).appendTo("thead");
-                thRows.remove();
-                //switch td in thead into th
-                objTable.find('thead tr td').wrapInner('<th />').contents().unwrap();
-                //add tr back into tfoot
-                objTable.find('tfoot').append("<tr></tr>");
-                //add tds into tfoot
-                objTable.find('tbody tr:first td').each(function () {
-                    objTable.find('tfoot tr').append("<td>&nbsp;</td>");
-                });
-                return false;
-            }
-        }
+
 
         $("#showFullCalendar").click(function () {
             $("#showFullCalendar").hide();

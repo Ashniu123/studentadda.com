@@ -658,3 +658,46 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     }
 }
 
+#createEventColorRedBox{
+    color:#FF0000 ;
+    font-size: 25px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+#createEventColorYellowBox{
+    color:#FFDC2E ;
+    font-size: 25px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+#createEventColorPurpleBox{
+    color: #800080;
+    font-size: 25px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+#createEventColorBlueBox{
+    color: #0000FF;
+    font-size: 25px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+#createEventColorGreenBox{
+    color: #ADFF2F;
+    font-size: 25px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+#createEventColorGreen,#createEventColorBlue,#createEventColorPurple,#createEventColorRed,#createEventColorYellow{
+    display: none;
+}
+
+.borderColourPick{
+    /*border: 2px solid red;*/
+    box-shadow: -3px 0 aqua, 0 3px aqua, 3px 0 aqua, 0 -3px aqua, 0 0 10px aqua;
+}
