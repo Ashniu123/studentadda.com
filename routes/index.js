@@ -68,7 +68,7 @@ router.post('/signup', function (req, res) {
                     from: '"Studentadda" <studentadda@outlook.com>', // sender address (who sends)
                     to: req.body.email, // list of receivers (who receives)
                     subject: 'Welcome to Studentadda', // Subject line
-                    html: 'Hi'+user.firstName+',<br>To <strong>Verify</strong> your email address, Please goto <a href="'+urlToSendTo+'">' + urlToSendTo + '</a>' // html body
+                    html: 'Hi '+user.firstName+',<br>To <strong>Verify</strong> your email address, Please goto <a href="'+urlToSendTo+'">' + urlToSendTo + '</a>' // html body
                 };
 
                 // send mail with defined transport object
