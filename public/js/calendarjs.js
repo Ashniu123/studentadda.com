@@ -87,7 +87,6 @@ $(document).ready(function () {
                 });
                 $('#createEventModal').modal();
 
-                //console.log("Start value:"+start+1+" Start converted: "+moment(start+12600000).format('DD/MM/YYYY HH:mm', true));
                 $('#createEventStartTime').val(moment(start).add(9, 'h').format('DD/MM/YYYY HH:mm', true));
                 oldStartTime = $("#createEventStartTime").val();
                 $('#createEventEndTime').val(moment(start).add(11, 'h').format('DD/MM/YYYY HH:mm', true));
@@ -95,7 +94,7 @@ $(document).ready(function () {
                 $('#createEventStartTime').datetimepicker({
                     format: 'DD/MM/YYYY HH:mm',
                     useCurrent: false,
-                    sideBySide: true,
+                    sideBySide: true
                 });
 
                 $('#createEventEndTime').datetimepicker({
@@ -114,8 +113,8 @@ $(document).ready(function () {
                  color = $('#createEventColor').val();
                  textColor = invertColor($('#createEventColor').val());
                  });*/
-
-                if ($('#createEventAllDay').attr('checked'))
+                allDay=false;
+                if($('#createEventAllDay').is(':checked'))
                     allDay = true;
 
                 $('#createEventModal').on('shown.bs.modal', function () {
@@ -167,7 +166,6 @@ $(document).ready(function () {
 
                         if (!flag) {//if id is unique only then
                             var event = {
-                                //Compulsory Id
                                 id: id,
                                 title: title,
                                 start: moment($('#createEventStartTime').val(), 'DD/MM/YYYY HH:mm', true).unix() * 1000,
@@ -178,7 +176,7 @@ $(document).ready(function () {
                                 allDay: allDay
                             };
 
-                            //console.log("Event Color",event.color);
+                            console.log(event);
 
                             var url = noTrailingSlash(window.location.href) + '/user/events';
                             $.ajax({
@@ -186,9 +184,8 @@ $(document).ready(function () {
                                 method: "POST",
                                 data: event,
                                 success: function (data) {
-                                    //console.log(data);
+                                    console.log(data);
                                     eventsData = data;
-                                    // location.reload();
                                     event.start = moment(parseInt(event.start)).local();
                                     event.end = moment(parseInt(event.end)).local();
                                     //console.log(event);
@@ -201,15 +198,14 @@ $(document).ready(function () {
                                     renderMiniTable();
                                 },
                                 error: function (err) {
-                                    //console.log(err);
+                                    // console.log(err);
                                     toastr.error("Oops! Something Went Wrong", "Please Try Again");
                                 }
                             });
 
                         }
-                        // location.reload();
                     }
-                    $(this).off('click');//This is what stops multiple events to stick
+                    $('#createEventButton').off('click');//This is what stops multiple events to stick
                 });
 
                 $('#createEventModal').on('hide.bs.modal', function () {
@@ -356,7 +352,7 @@ $(document).ready(function () {
                         $('#eventClickError').html('Invalid Dates');
                     }
 
-                    $(this).off('click');
+                    $('#eventClickUpdate').off('click');
 
                 }); //end of button function
 
@@ -380,7 +376,7 @@ $(document).ready(function () {
                         toastr.error("Oops! Something Went Wrong", "Please Try Again");
                         //console.log(err);
                     });
-                    $(this).off('click');
+                    $('#eventClickRemove').off('click');
                 });
             }, //eventClick ends
             eventRender: function (event, element) {
