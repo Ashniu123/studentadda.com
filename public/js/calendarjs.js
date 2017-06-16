@@ -27,6 +27,7 @@ $("#darkswitch").change(function () {
 });
 
 var eventsData,oldStartTime,table;
+dataTablePages=7;
 $(document).ready(function () {
     /******Ajax Calls******/
     var url = noTrailingSlash(window.location.href) + '/user/events';
@@ -431,7 +432,7 @@ $(document).ready(function () {
         function renderMiniTable() {
 
             $("#events").hide();
-            var miniTableEvents=[];
+            var miniTableEvents=[],srno=1;
             for(var miniCtr=0;miniCtr<calendar.fullCalendar('clientEvents').length;miniCtr++) {
                 var entry=new Date(calendar.fullCalendar('clientEvents')[miniCtr].start);
                 var today= new Date().getTime();
@@ -444,6 +445,7 @@ $(document).ready(function () {
                 }
 
                 if(entry>=today) { //Show only future events
+
                     var title=calendar.fullCalendar('clientEvents')[miniCtr].title;
                     var duration=moment(calendar.fullCalendar('clientEvents')[miniCtr].end-calendar.fullCalendar('clientEvents')[miniCtr].start).valueOf();
                     //console.log("Duration",duration);
@@ -462,25 +464,28 @@ $(document).ready(function () {
                     var description=calendar.fullCalendar('clientEvents')[miniCtr].description;
                     var hiddenStartEvent=moment(calendar.fullCalendar('clientEvents')[miniCtr].start).format('YYYYMMDD', true);
                    // //console.log(startEvent+" "+hiddenStartEvent+" "+duration);
-                    var miniEvent={"title":title,"start":startEvent,"end":endEvent,"duration":duration,"description":description,"hiddenStartEvent":hiddenStartEvent};
+                    var miniEvent={"SrNo":srno,"title":title,"start":startEvent,"end":endEvent,"duration":duration,"description":description,"hiddenStartEvent":hiddenStartEvent};
                     miniTableEvents.push(miniEvent);
+                    srno++;
                 }
             }
 
             table= $('#miniTable').DataTable({
                 responsive: false,
-                "pageLength": 5,
+                "pageLength": dataTablePages,
                 "data": miniTableEvents,
                 "info":false,
                 "paging": true,
                 "searching": false,
-                "order": [[ 5, "asc" ]],
+                "scrollX": false,
+                "order": [[ 6, "asc" ]],
                 "columns":[
-                    {"data":"title","title":"Subject","width": "16%"},
-                    {"data":"start","title":"Start","width": "15%"},
-                    {"data":"end","title":"End","width": "15%"},
-                    {"data":"duration","title":"Duration","width": "25%"},
-                    {"data":"description","title":"Description","width": "39%"},
+                    {"data":"SrNo","title":"<i class='fa fa-expand' aria-hidden='true' id='swapTable'></i>","width": "3%","orderable":false},
+                    {"data":"title","title":"Subject","width": "16%","orderable":false},
+                    {"data":"start","title":"Start","width": "15%","orderable":false},
+                    {"data":"end","title":"End","width": "15%","orderable":false},
+                    {"data":"duration","title":"Duration","width": "25%","orderable":false},
+                    {"data":"description","title":"Description","width": "39%","orderable":false},
                     {"data":"hiddenStartEvent", "visible": false}
                 ],
                 "columnDefs": [
@@ -492,20 +497,33 @@ $(document).ready(function () {
             });
             init();
         }
+        
 
+        $('#miniTable td').click(function(){
+            var content = $(this).html();
+            var col = $(this).parent().children().index($(this));
+            var row = $(this).parent().parent().children().index($(this).parent());
+            var clickedSubject,titleToOpen,sim;
+            if(!swapped){
+                if(col==1){
+                    clickedSubject=content;
+                    //alert(clickedSubject);
+                }
+            }else if(swapped) {
+                if (row == 0) {
+                    clickedSubject = content;
+                    //alert(clickedSubject);
+                }
+            }
 
-
-        $('#miniTable tbody').on('click', 'tr', function () {
-            var data = table.row( this ).data(),sim,titleToOpen;
-            //console.log(data);
             if(notesData.length>0){
-                sim=similarity(data.title,notesData[0].subject);
+                sim=similarity(clickedSubject,notesData[0].subject);
                 titleToOpen=notesData[0].subject;
             }
             for(var subjectsCtr=0;subjectsCtr<notesData.length;subjectsCtr++){
                 //console.log("Current similarity is:"+similarity(data.title,notesData[subjectsCtr].subject)+" "+notesData[subjectsCtr].subject);
-                if(similarity(data.title,notesData[subjectsCtr].subject)>sim){
-                    sim=similarity(data.title,notesData[subjectsCtr].subject);
+                if(similarity(clickedSubject,notesData[subjectsCtr].subject)>sim){
+                    sim=similarity(clickedSubject,notesData[subjectsCtr].subject);
                     titleToOpen=notesData[subjectsCtr].subject;
                 }
             }
@@ -523,7 +541,6 @@ $(document).ready(function () {
 
             }
         });
-
 
         function similarity(s1, s2) {
             var longer = s1;
@@ -576,22 +593,94 @@ $(document).ready(function () {
         }
 
 
+        $("#swapTable").click(function () {
+            //alert("Clicked swap");
+           $('#miniTable td:nth-child(4),#miniTable th:nth-child(4)').show();
+           $('#miniTable td:nth-child(5),#miniTable th:nth-child(5)').show();
+            tableTransform($("#miniTable"));
+            swapped=!swapped;
+            init();
+        });
 
+        function tableTransform(objTable) {
+            if (typeof objTable != 'undefined') {
+                objTable.each(function () {
+                    var $this = $(this);
+                    var newrows = [];
+                    $this.find("tbody tr, thead tr").each(function () {
+                        var i = 0;
+                        $(this).find("td, th").each(function () {
+                            i++;
+                            if (newrows[i] === undefined) {
+                                newrows[i] = $("<tr></tr>");
+                            }
+                            newrows[i].append($(this));
+                        });
+                    });
+                    $this.find("tr").remove();
+                    $.each(newrows, function () {
+                        $this.append(this);
+                    });
+                });
+                //switch old th to td
+                objTable.find('th').wrapInner('<td />').contents().unwrap();
+                //move first tr into thead
+                var thead = objTable.find("thead");
+                var thRows = objTable.find("tr:first");
+                var copy = thRows.clone(true).appendTo("thead");
+                thRows.remove();
+                //switch td in thead into th
+                objTable.find('thead tr td').wrapInner('<th />').contents().unwrap();
+                //add tr back into tfoot
+                objTable.find('tfoot').append("<tr></tr>");
+                //add tds into tfoot
+                objTable.find('tbody tr:first td').each(function () {
+                    objTable.find('tfoot tr').append("<td>&nbsp;</td>");
+                });
+                return false;
+            }
+        }
 
         $("#showFullCalendar").click(function () {
             $("#events").show();
             scrollToEvent();
         });
 
-        $("#prevMiniEventPage").click(function () {
-            $(".previous").click();
-            init();
+       /* $("#prevMiniEventPage").click(function () {
+
+            if(swapped){
+                //alert("Swapped and going to previous page");
+                $("#swapTable").click();
+                $(".previous").click();
+               // $("#swapTable").click();
+              //  init();
+            }else if(!swapped){
+
+                $(".previous").click();
+                init();
+            }
+
         });
 
         $("#nextMiniEventPage").click(function () {
-            $(".next").click();
-            init();
-        });
+            ////alert("Clicked");
+            //
+            if(swapped){
+                //alert("Swapped and going to next page");
+                $("#swapTable").click();
+                //renderMiniTable();
+                $(".next").click();
+                //swapped=!swapped;
+                //$("#swapTable").click();
+                //$("#swapTable").click();
+
+            }else if(!swapped){
+
+                $(".next").click();
+                init();
+            }
+        });*/
+
 
         $(document).keydown(function (e) {
             if(e.keyCode==13){

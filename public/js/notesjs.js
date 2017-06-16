@@ -1,7 +1,7 @@
 var notesData,pgno = 1, notesno = getNumberOfBooks(),images,
     delTrack="none", toggle=1, i,index,noteTitle,len,pages,bks=0,ind,
     modal = document.getElementById('myModal'),
-    modalImg = document.getElementById("img01"),colourIndex1=0,colourIndex2=1;
+    modalImg = document.getElementById("img01"),colourIndex1=0,colourIndex2=1,swapped=0,dataTablePages;
 
 $(document).ready(function(){
     var url=noTrailingSlash(window.location.href)+'/user/notes';
@@ -441,67 +441,7 @@ function prevsub() {
         //No changes if user on first page
         pgno--;
         init();
-        // {
-        //     ind = notesno * (pgno - 1);
-        //     if (notesno == 4) {
-        //         document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
-        //         note1.style.display = "block";
-        //         del1.style.display=delTrack;
-        //         document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
-        //         note2.style.display = "block";
-        //         del2.style.display=delTrack;
-        //         document.getElementById("s3").innerHTML = getSubjectName(ind + 2, notesData);
-        //         note3.style.display = "block";
-        //         del3.style.display=delTrack;
-        //         document.getElementById("s4").innerHTML = getSubjectName(ind + 3, notesData);
-        //         note4.style.display = "block";
-        //         del4.style.display=delTrack;
-        //     }
-        //     else if (notesno == 3) {
-        //         document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
-        //         note1.style.display = "block";
-        //         del1.style.display=delTrack;
-        //         document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
-        //         note2.style.display = "block";
-        //         del2.style.display=delTrack;
-        //         document.getElementById("s3").innerHTML = getSubjectName(ind + 2, notesData);
-        //         note3.style.display = "block";
-        //         del3.style.display=delTrack;
-        //     }
-        //     else if (notesno == 2) {
-        //         document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
-        //         note1.style.display = "block";
-        //         del1.style.display=delTrack;
-        //         document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
-        //         note2.style.display = "block";
-        //         del2.style.display=delTrack;
-        //     }
-        //     else if (notesno == 1) {
-        //         document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
-        //         note1.style.display = "block";
-        //         del1.style.display=delTrack;
-        //     }
-        //     if (ind > len - 1) {
-        //         note1.style.display = "none";
-        //         del1.style.display="none";
-        //         bks++;
-        //     }
-        //     if (ind + 1 > len - 1) {
-        //         note2.style.display = "none";
-        //         del2.style.display="none";
-        //         bks++;
-        //     }
-        //     if (ind + 2 > len - 1) {
-        //         note3.style.display = "none";
-        //         del3.style.display="none";
-        //         bks++;
-        //     }
-        //     if (ind + 3 > len - 1) {
-        //         note4.style.display = "none";
-        //         del4.style.display="none";
-        //         bks++;
-        //     }
-        // }
+
 
     }
 }
@@ -512,67 +452,6 @@ function nextsub() {
         //No changes if user on last page
         pgno++;
         init();
-        // {
-        //     ind = notesno * (pgno - 1);
-        //     if (notesno == 4) {
-        //         document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
-        //         note1.style.display = "block";
-        //         del1.style.display=delTrack;
-        //         document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
-        //         note2.style.display = "block";
-        //         del2.style.display=delTrack;
-        //         document.getElementById("s3").innerHTML = getSubjectName(ind + 2, notesData);
-        //         note3.style.display = "block";
-        //         del3.style.display=delTrack;
-        //         document.getElementById("s4").innerHTML = getSubjectName(ind + 3, notesData);
-        //         note4.style.display = "block";
-        //         del3.style.display=delTrack;
-        //     }
-        //     else if (notesno == 3) {
-        //         document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
-        //         note1.style.display = "block";
-        //         del1.style.display=delTrack;
-        //         document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
-        //         note2.style.display = "block";
-        //         del2.style.display=delTrack;
-        //         document.getElementById("s3").innerHTML = getSubjectName(ind + 2, notesData);
-        //         note3.style.display = "block";
-        //         del3.style.display=delTrack;
-        //     }
-        //     else if (notesno == 2) {
-        //         document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
-        //         note1.style.display = "block";
-        //         del1.style.display=delTrack;
-        //         document.getElementById("s2").innerHTML = getSubjectName(ind + 1, notesData);
-        //         note2.style.display = "block";
-        //         del2.style.display=delTrack;
-        //     }
-        //     else if (notesno == 1) {
-        //         document.getElementById("s1").innerHTML = getSubjectName(ind, notesData);
-        //         note1.style.display = "block";
-        //         del1.style.display=delTrack;
-        //     }
-        //     if (ind > len - 1) {
-        //         note1.style.display = "none";
-        //         del1.style.display="none";
-        //         bks++;
-        //     }
-        //     if (ind + 1 > len - 1) {
-        //         note2.style.display = "none";
-        //         del2.style.display="none";
-        //         bks++;
-        //     }
-        //     if (ind + 2 > len - 1) {
-        //         note3.style.display = "none";
-        //         del3.style.display="none";
-        //         bks++;
-        //     }
-        //     if (ind + 3 > len - 1) {
-        //         note4.style.display = "none";
-        //         del4.style.display="none";
-        //         bks++;
-        //     }
-        // }
 
     }
 }
@@ -582,16 +461,22 @@ function init() {
     //console.log("In / init /");
     var oldpgno = pgno;
     var oldnotesno = notesno;
+    dataTablePages=7;
     $("#books").css({"justify-content":"space-around"});
-    $('#miniTable td:nth-child(3),#miniTable th:nth-child(3)').show();
-    $('#miniTable td:nth-child(4),#miniTable th:nth-child(4)').show();
+    if(!swapped){
+      //  alert("Swapping and updating 1-1");
+        $('#miniTable td:nth-child(4),#miniTable th:nth-child(4)').show();
+        $('#miniTable td:nth-child(5),#miniTable th:nth-child(5)').show();
+    }else if(swapped){
+     //   alert("Swapping and updating 1-2");
+        $('#miniTable td:nth-child(4),#miniTable th:nth-child(4)').show();
+        $('#miniTable td:nth-child(5),#miniTable th:nth-child(5)').show();
+    }
 
-    //console.log();
+    $('#miniTable td:nth-child(1),#miniTable th:nth-child(1)').css({"font-weight":"bold"});
     $("#miniEvents").css({"height":$("#miniTable").height()+20});
     bks = 0;
     {
-
-        //alert('here');
         $('.changenotes').css('height', '380px');
         $("#books").css('margin-top', 'auto');
 
@@ -778,20 +663,21 @@ function init() {
         {
             $(".fc-toolbar").css({'font-size': '9px'});
             $("#books").css({"justify-content":"center"});
-            $('#miniTable td:nth-child(3),#miniTable th:nth-child(3)').hide();
-            $('#miniTable td:nth-child(4),#miniTable th:nth-child(4)').hide();
-            $("#miniEvents").css({"height":$("#miniTable").height()+20});
-            var h2 = $(window).height();
-            if (h2 < 600) {
+            if(!swapped){
+                //alert("Swapping and updating 2 "+ swapped);
+                $('#miniTable td:nth-child(4),#miniTable th:nth-child(4)').hide();
+                $('#miniTable td:nth-child(5),#miniTable th:nth-child(5)').hide();
+            }else if(swapped){
+                dataTablePages=3;
+               // alert("Swapping and updating 3 "+swapped);
+                $('#miniTable td:nth-child(4),#miniTable th:nth-child(4)').show();
+                $('#miniTable td:nth-child(5),#miniTable th:nth-child(5)').show();
 
-                //  $('#note1').css({'height':'305px','width':'192px','margin-top':'-5px'});
-                //  $('.changenotes').css('height','250px');
-                //  $('#gotoevent').css('margin-top','20px');
-                //  $('#goleft').css('top','150px');
-                //  $('#goright').css('top','150px');
-                //  $('#mynotes').css('height','529px');
-                //$('#foot').css('margin-top', '-150px');
+               //$('#miniTable tr:nth-child(4)').hide();
+               //$('#miniTable tr:nth-child(5)').hide();
             }
+            $("#miniEvents").css({"height":$("#miniTable").height()+20});
+
 
             pages = Math.ceil((len / 1));
             notesno = 1;

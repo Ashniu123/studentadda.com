@@ -590,15 +590,16 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     text-decoration: underline;
 }
 
-#prevMiniEventPage, #nextMiniEventPage{
-    color: black;
-    margin-top: 90px;
-    font-size: 20px;
-    cursor: pointer;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 10px;
-}
+/*#prevMiniEventPage, #nextMiniEventPage{*/
+    /*color: black;*/
+    /*margin-top: 90px;*/
+    /*font-size: 20px;*/
+    /*cursor: pointer;*/
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+    /*padding: 10px;*/
+    /*display: none;*/
+/*}*/
 
 #miniEventsContainer{
 
@@ -608,4 +609,5 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    overflow-x: scroll;
 }
