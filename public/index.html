@@ -14,19 +14,12 @@
     <link rel="stylesheet" href="css/bootstrap-social-mod.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/index_style.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
 
-<style>
-  .carousel-inner > .item > img,
-  .carousel-inner > .item > a > img {
-      width: 40%;
-      height: auto;
-      margin-left: 30%;
-  }
-  </style>
 
 </head>
 
-<body>
+<body style="background:linear-gradient(to bottom,	#cc9900,#cc9966 )">
 
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
@@ -154,18 +147,10 @@
     </div>
     <!-- ./Modal-->
 
-    <div class="jumbotron">
+    <div class="jumbotron" style="background:linear-gradient(to bottom,	#cc9900,#cc9966 )">
         <div class="container-fluid">
             <div id="feature-carousel" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <li data-target="#feature-carousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#feature-carousel" data-slide-to="1"></li>
-                    <li data-target="#feature-carousel" data-slide-to="2"></li>
-                    <li data-target="#feature-carousel" data-slide-to="3"></li>
-                    <li data-target="#feature-carousel" data-slide-to="4"></li>
-                    <li data-target="#feature-carousel" data-slide-to="5"></li>
-                </ol>
 
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner active" role="listbox">
@@ -186,7 +171,7 @@
                     </div>
 
                     <div class="item">
-                        <img src="img/responsive.png" alt="Welcome4" style="width: 20%; margin-left:45%;">
+                        <img src="img/responsiveCalendar.png" alt="Welcome4">
                         
                     </div>
 
@@ -200,9 +185,25 @@
 
                     </div>
 
+                    <div class="item">
+                        <img src="img/responsiveBook.png" alt="Welcome4">
+
+                    </div>
+
 
 
                 </div>
+
+                <ol class="carousel-indicators">
+                    <li data-target="#feature-carousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#feature-carousel" data-slide-to="1"></li>
+                    <li data-target="#feature-carousel" data-slide-to="2"></li>
+                    <li data-target="#feature-carousel" data-slide-to="3"></li>
+                    <li data-target="#feature-carousel" data-slide-to="4"></li>
+                    <li data-target="#feature-carousel" data-slide-to="5"></li>
+                    <li data-target="#feature-carousel" data-slide-to="6"></li>
+                </ol>
+
 
                 <!-- Controls -->
                 <a class="left carousel-control" href="#feature-carousel" role="button" data-slide="prev">
@@ -220,73 +221,64 @@
     </div>
     <!-- ./jumbotron-->
 
+
+    <div id="myModal" class="modal">
+        <div class="modal-header"><span class="close">&times;</span></div>
+        <div class="modal-body"><img class="modal-content" id="img01"> <div id="caption"></div> </div>
+
+
+    </div>
+
+
     <!-- Content -->
-    <div class="container">
-        <div class="row row-content">
-            <div class="col-xs-12 col-sm-3 col-sm-push-9">
-                <h3 align=center>Notes Organizer</h3>
-            </div>
-            <div class="col-xs-12 col-sm-9 col-sm-pull-3">
-                <div class="media">
-                    <div class="media-left media-middle">
-                        <a href="">
-                            <img class="media-object img-thumbnail" src="img/physics.png" alt="Notes Organizer" style="width:350px;height:auto;">
-                        </a>
-                    </div>
-                    <div class="media-body">
-                        <p>
-                            Have you ever scanned lots of images from different textbooks for reference and then lost them?<br> Have you ever backed up your written notes in from of images and then lost them in your gallery?<br> Then Studentadda is the
-                            perfect place for you!<br> With our <b>Notes Organizer</b> you can easily convert your note's pictures into a pdf file or any other preferred file format for easy cross platform access.<br> You can organize these notes according
-                            to their subjects.<br>
-                        </p>
-                    </div>
-                </div>
+    <div style="margin-bottom: 40px;">
+        <span class="text-center" style="text-decoration: underline;"><h2>Notes Organiser</h2></span>
+
+        <div style="display: flex;flex-wrap: wrap; justify-content: space-around;" >
+            <div> <img src="img/physics.png" alt="Notes Organizer" class="descriptionImage"> </div>
+            <div class="descriptionContainer" style="">
+                    <p style="" class="descriptionPara">Studentadda is the perfect place for you! With our<b> Notes Organizer </b>you can easily convert your note's pictures into a digital photo <i>Subject Album </i>for easy cross platform access. Study from your phone, laptop, tablet with our highly responsive webpage!!</p>
+                    </p>
+                    <ul style="" class="descriptionList">
+                        <li>Have you ever scanned lots of images from different textbooks for reference and never to refer them again?</li>
+                        <li>Have you ever backed up your written notes in from of images and then lost them in your gallery!?</li>
+                    </ul>
             </div>
         </div>
 
-        <div class="row row-content">
-            <div class="col-xs-12 col-sm-3">
-                <h3 align=center>Events Planner<br> and<br> Organizer</h3>
+        <hr>
+
+        <span class="text-center" style="text-decoration: underline;"><h2>Events Planner and Organiser</h2></span>
+
+        <div style="display: flex;flex-wrap: wrap; justify-content: space-around;" id="reverseFlex">
+            <div> <img src="img/eventsDarkMode.png" alt="Planner" class="descriptionImage" id="topDarkCalendar"> </div>
+            <div class="descriptionContainer" style="">
+                <p style="" class="descriptionPara"> Another student friendly feature provided by Studentadda is the <b>Events Organizer</b>.Also you will be able to color code different appointments so it will be easy
+                    to view and distinguish between them.For upcoming exams you will automatically be alerted about days left on the dashboard!<br></p>
+                <ul style="" class="descriptionList">
+                    <li> This will take care of all your college events, keep track of your submission deadlines and display them on the dashboard.</li>
+                    <li>You can easily store new calendar entries with features like setting default event durations depending on type of event.</li>
+            </ul>
             </div>
-            <div class="col-xs-12 col-sm-9">
-                <div class="media">
-                    <div class="media-body">
-                        <p>
-                            Another student friendly feature provided by Studentadda is the <b>Events Organizer</b>.<br> This will take care of all your college events, keep track of your submission deadlines and display them on the dashboard.<br> With
-                            this you can easily store new calendar entries with features like setting default event durations depending on type of event. (Eg. If the type of event is practical then you can select this event type when creating an entry
-                            and then automatically 2hrs will be allotted from event start time… or if the type of event is lecture then default time allotted will be 1hr.)<br> Also you will be able to color code different appointments so it will be easy
-                            to view and distinguish between them.<br> For upcoming exams you will automatically be alerted about days left on the dashboard!<br>
-                        </p>
-                    </div>
-                    <div class="media-right media-middle">
-                        <a href="">
-                            <img class="media-object img-thumbnail" src="img/eventsDarkMode.png" alt="Calendar" style="width:350px;height:auto;">
-                        </a>
-                    </div>
-                </div>
-            </div>
+            <div> <img src="img/eventsDarkMode.png" alt="Planner" class="descriptionImage" id="bottomDarkCalendar"> </div>
         </div>
 
-        <div class="row row-content">
-            <div class="col-xs-12 col-sm-3 col-sm-push-9">
-                <h3 align=center>Dashboard</h3>
+        <hr>
+
+        <span class="text-center" style="text-decoration: underline;"><h2>Dashboard</h2></span>
+
+        <div style="display: flex;flex-wrap: wrap; justify-content: space-around; ">
+            <div> <img src="img/fullView.png" alt="Dashboard" class="descriptionImage"> </div>
+
+            <div class="descriptionContainer">
+                <p class="descriptionPara"> The <b>Studentadda Dashboard</b> will display both the <i>Notes Organizer</i> and <i>Events Planner</i> on a single interactive webpage.The Dashboard will display all your uploaded notes in order you want or priority.This priority
+                will be based on your Events and Notes related to upcoming classes and exams will be shown first on the dashboard. </p>
+                <ul class="descriptionList">
+                    <li>The Dashboard will also give you quick overview of all the upcoming events in a tabular form.</li>
+                    <li>The entire month with important dates will be highlighted for easy reminders.If a test is close then a reminder will be appear on the dashboard.</li>
+                </ul>
             </div>
-            <div class="col-xs-12 col-sm-9 col-sm-pull-3">
-                <div class="media">
-                    <div class="media-left media-middle">
-                        <a href="">
-                            <img class="media-object img-thumbnail" src="img/fullView.png" alt="Dashboard" style="width:350px;height:auto;">
-                        </a>
-                    </div>
-                    <div class="media-body">
-                        <p>
-                            The <b>Studentadda Dashboard</b> will display both the Notes Organizer and Events Planner on a single interactive webpage. <br> The Dashboard will display all your uploaded notes in order you want or priority.<br> This priority
-                            will be based on your Events and Notes related to upcoming classes and exams will be shown first on the dashboard.<br> The Dashboard will also give you quick overview of all the upcoming events in a tabular form.<br> The entire
-                            month with important dates will be highlighted for easy reminders.<br> If a test is close then a reminder will be appear on the dashboard.<br>
-                        </p>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
     <!--./container-->
@@ -337,6 +329,56 @@
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="js/indexjs.js"></script>
+    <script>
+        $(document).ready(function () {
+            swapImage();
+        });
+        $(window).resize(function () {
+            swapImage();
+
+        });
+        function swapImage() {
+            var Width=$("#reverseFlex").width();
+            if(Width<1050){
+                // alert("Assinging reverse");
+                $(".jumbotron img").css("width","90%");
+                $("#topDarkCalendar").show();
+                $("#bottomDarkCalendar").hide();
+
+            }else{
+                $(".jumbotron img").css("width","50%");
+                $("#topDarkCalendar").hide();
+                $("#bottomDarkCalendar").show();
+            }
+        }
+
+        var img;
+        var modal = document.getElementById('myModal');
+        var modalImg = document.getElementById("img01");
+        $(".descriptionImage").click(function () {
+            modal.style.display = "block";
+            modalImg.src = $(this).attr("src");
+            $("#caption").html($(this).attr('alt'));
+            //alert(captionText);
+        });
+
+        $(".close").click( function() {
+            //alert("Clicked");
+            modal.style.display = "none";
+        });
+
+        $(document).keydown(function (e) {
+            if (e.keyCode == 27) {
+
+                var visibleDescriptionModal = $('#myModal').is(':visible');
+
+                if (visibleDescriptionModal == true) {
+                    $(".close").click();
+                }
+
+            }
+        });
+    </script>
 
 </body>
 
