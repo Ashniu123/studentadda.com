@@ -804,16 +804,19 @@ $("#uploadNoteImage").fileinput({
     validateInitialCount: true
 });
 //console.log("In global scope title is:"+ noteTitle);
+var tosterCtr=0;var imgpgno;
+
 $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, reader) {
     var url = noTrailingSlash(window.location.href) + '/user/notes';
     //console.log("Inside upload note image"+noteTitle);
-    var imgpgno = parseInt(getNotesLength(noteTitle, notesData));
+        imgpgno = parseInt(getNotesLength(noteTitle, notesData));
     //console.log("Number of images: "+ imgpgno);
     var data = {
         "subject":noteTitle,
         "pgno": imgpgno + 1,
         "note": reader.result
     };
+    console.log(reader.result);
     ////console.log("Sending data",data);
     $.ajax({
         url: url,
@@ -821,27 +824,32 @@ $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, 
         data: data,
         success: function (data) {
             toastr.success('','Added!');
+
+           //alert(tosterCtr);
             //console.log(data);
             var order=getIndexToDelete(noteTitle,notesData);
             var id = Math.floor(Math.random() * 1000);
             images=imgpgno+1;
             if(imgpgno == 0)
             {
-                //console.log("No notes...Updating!");
                 modalImg.src = reader.result;
-                imgpgno++;
                 ////console.log(imgpgno);
                 //notesData[order].data.pop();
                 //console.log("Before Updated notes!: "+parseInt(getNotesLength(noteTitle, notesData)));
-                notesData[order].data.push({"id":id,"pgno": imgpgno,
+                notesData[order].data.push({"id":id,"pgno": imgpgno+1,
                     "note": reader.result});
                 //console.log("Updates: "+parseInt(getNotesLength(noteTitle, notesData)));
-                images=imgpgno;
+                images=imgpgno+1;
+                imgpgno++;
             }
             else {
                 notesData[order].data.push({"id":id,"pgno": imgpgno + 1,
                     "note": reader.result});
+                images=imgpgno+1;
+                imgpgno++;
+
             }
+            console.log( notesData[order].data);
         },
         error: function (err) {
             toastr.error('Try again!','Something went wrong in uploading note!');
