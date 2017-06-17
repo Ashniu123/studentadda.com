@@ -19,7 +19,7 @@
 
 </head>
 
-<body style="background:linear-gradient(to bottom,	#cc9900,#cc9966 )">
+<body style="background:linear-gradient(to bottom,	#ff9900,#ff9933,#ff9966,#ffcc66)">
 
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
@@ -147,7 +147,7 @@
     </div>
     <!-- ./Modal-->
 
-    <div class="jumbotron" style="background:linear-gradient(to bottom,	#cc9900,#cc9966 )">
+    <div class="jumbotron" style="background:linear-gradient(to bottom,	#ff9900,#ff9933,#ff9966,#ffcc66)">
         <div class="container-fluid">
             <div id="feature-carousel" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
@@ -231,7 +231,7 @@
 
 
     <!-- Content -->
-    <div style="margin-bottom: 40px;">
+    <div  id="top">
         <span class="text-center" style="text-decoration: underline;"><h2>Notes Organiser</h2></span>
 
         <div style="display: flex;flex-wrap: wrap; justify-content: space-around;" >
@@ -280,8 +280,19 @@
             </div>
 
         </div>
+
+
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <i class="fa fa-arrow-circle-o-up " aria-hidden="true" style="font-size: 80px; cursor: pointer" id="goToTop"></i>
+
+            </div>
+        </div>
     </div>
     <!--./container-->
+
 
     <footer class="row-footer" id="foot">
         <div class="container">
@@ -378,6 +389,17 @@
 
             }
         });
+
+        $("#goToTop").click(function () {
+            scrollToTop();
+        });
+
+        function scrollToTop() {
+            $('html, body').animate({
+                scrollTop: $("#top").offset().top
+            }, 500);
+        }
+
     </script>
 
 </body>

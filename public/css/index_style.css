@@ -107,11 +107,17 @@ body {
 }
 
 /* Add Animation */
-#img01, #caption {
+#img01{
   -webkit-animation-name: zoom;
   -webkit-animation-duration: 0.6s;
   animation-name: zoom;
   animation-duration: 0.6s;
+}
+#caption{
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.8s;
+    animation-name: zoom;
+    animation-duration: 0.8s;
 }
 
 @-webkit-keyframes zoom {
