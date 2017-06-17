@@ -165,8 +165,10 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     cursor: pointer;
     height: 300px;
     min-width: 230px;
+    max-width: 230px;
     display: none;
     margin: 30px auto auto 0;
+    overflow: hidden;
 }
 
 #note1:hover, #note2:hover, #note3:hover, #note4:hover {
@@ -179,7 +181,7 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     margin-top: 20px;
     margin-right: 20px;
     color: #ffffff;
-    overflow: scroll;
+    /*overflow: scroll;*/
     text-shadow: -1px 0 #000000, 0 1px #000000, 1px 0 #000000, 0 -1px #000000, 0 0 5px #808080;
 }
 

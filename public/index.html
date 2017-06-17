@@ -14,13 +14,9 @@
     <link rel="stylesheet" href="css/bootstrap-social-mod.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/index_style.css">
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
-
 
 </head>
-
-<body style="background:linear-gradient(to bottom,	#ff9900,#ff9933,#ff9966,#ffcc66)">
-
+<body>
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
@@ -79,7 +75,7 @@
                                     <div class="checkbox">
                                         <label><input type="checkbox" id="remember_me"> Remember me</label>
                                     </div>
-                                    <div id="LoginError" style="padding-left:15px"><strong></strong></div>
+                                    <div id="LoginError"></div>
                                     <button type="button" class="btn btn-warning" id="buttonForLogin">Sign in</button>
                                     <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
                                 </form>
@@ -114,7 +110,7 @@
                                             <label class="sr-only" for="inputConfirmPasswordForSignup">Confirm Password</label>
                                             <input type="password" class="form-control" placeholder="Confirm Password" id="inputConfirmPasswordForSignup" name="inputConfirmPasswordForSignup" required>
                                         </div>
-                                        <div id="validityError"><strong></strong></div>
+                                        <div id="validityError" class="text-danger"></div>
                                         <div class="checkbox col-xs-12">
                                             <label><input type="checkbox" id="terms_conditions" required> Agree to <a href="">Terms and Conditions</a></label>
                                         </div>
@@ -147,51 +143,33 @@
     </div>
     <!-- ./Modal-->
 
-    <div class="jumbotron" style="background:linear-gradient(to bottom,	#ff9900,#ff9933,#ff9966,#ffcc66)">
+    <div class="jumbotron">
         <div class="container-fluid">
             <div id="feature-carousel" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
-
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner active" role="listbox">
-
                  	<div class="item active">
                         <img src="img/fullView.png" alt="Welcome5">
-                        
                     </div>
-
                		<div class="item">
                         <img src="img/eventsDarkMode.png" alt="Welcome3">
-                        
                     </div>
-
                     <div class="item">
                         <img src="img/login2.png" alt="Welcome1" >
-                        
                     </div>
-
                     <div class="item">
                         <img src="img/responsiveCalendar.png" alt="Welcome4">
-                        
                     </div>
-
                      <div class="item">
                         <img src="img/deleteSubject.png" alt="Welcome4">
-                        
                     </div>
-
                     <div class="item">
                         <img src="img/tour.png" alt="Welcome4">
-
                     </div>
-
                     <div class="item">
                         <img src="img/responsiveBook.png" alt="Welcome4">
-
                     </div>
-
-
-
                 </div>
 
                 <ol class="carousel-indicators">
@@ -203,8 +181,6 @@
                     <li data-target="#feature-carousel" data-slide-to="5"></li>
                     <li data-target="#feature-carousel" data-slide-to="6"></li>
                 </ol>
-
-
                 <!-- Controls -->
                 <a class="left carousel-control" href="#feature-carousel" role="button" data-slide="prev">
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -220,23 +196,16 @@
         </div>
     </div>
     <!-- ./jumbotron-->
-
-
     <div id="myModal" class="modal">
         <div class="modal-header"><span class="close">&times;</span></div>
         <div class="modal-body"><img class="modal-content" id="img01"> <div id="caption"></div> </div>
-
-
     </div>
-
-
     <!-- Content -->
-    <div  id="top">
-        <span class="text-center" style="text-decoration: underline;"><h2>Notes Organiser</h2></span>
-
-        <div style="display: flex;flex-wrap: wrap; justify-content: space-around;" >
+    <div>
+        <h2 class="text-center">Notes Organiser</h2>
+        <div class="descriptionFlex">
             <div> <img src="img/physics.png" alt="Notes Organizer" class="descriptionImage"> </div>
-            <div class="descriptionContainer" style="">
+            <div class="descriptionContainer">
                     <p style="" class="descriptionPara">Studentadda is the perfect place for you! With our<b> Notes Organizer </b>you can easily convert your note's pictures into a digital photo <i>Subject Album </i>for easy cross platform access. Study from your phone, laptop, tablet with our highly responsive webpage!!</p>
                     </p>
                     <ul style="" class="descriptionList">
@@ -245,14 +214,11 @@
                     </ul>
             </div>
         </div>
-
         <hr>
-
-        <span class="text-center" style="text-decoration: underline;"><h2>Events Planner and Organiser</h2></span>
-
-        <div style="display: flex;flex-wrap: wrap; justify-content: space-around;" id="reverseFlex">
+        <h2 class="text-center">Events Planner and Organiser</h2>
+        <div class="descriptionFlex" id="reverseFlex">
             <div> <img src="img/eventsDarkMode.png" alt="Planner" class="descriptionImage" id="topDarkCalendar"> </div>
-            <div class="descriptionContainer" style="">
+            <div class="descriptionContainer">
                 <p style="" class="descriptionPara"> Another student friendly feature provided by Studentadda is the <b>Events Organizer</b>.Also you will be able to color code different appointments so it will be easy
                     to view and distinguish between them.For upcoming exams you will automatically be alerted about days left on the dashboard!<br></p>
                 <ul style="" class="descriptionList">
@@ -262,14 +228,10 @@
             </div>
             <div> <img src="img/eventsDarkMode.png" alt="Planner" class="descriptionImage" id="bottomDarkCalendar"> </div>
         </div>
-
         <hr>
-
-        <span class="text-center" style="text-decoration: underline;"><h2>Dashboard</h2></span>
-
-        <div style="display: flex;flex-wrap: wrap; justify-content: space-around; ">
+        <h2 class="text-center">Dashboard</h2>
+        <div class="descriptionFlex">
             <div> <img src="img/fullView.png" alt="Dashboard" class="descriptionImage"> </div>
-
             <div class="descriptionContainer">
                 <p class="descriptionPara"> The <b>Studentadda Dashboard</b> will display both the <i>Notes Organizer</i> and <i>Events Planner</i> on a single interactive webpage.The Dashboard will display all your uploaded notes in order you want or priority.This priority
                 will be based on your Events and Notes related to upcoming classes and exams will be shown first on the dashboard. </p>
@@ -278,21 +240,16 @@
                     <li>The entire month with important dates will be highlighted for easy reminders.If a test is close then a reminder will be appear on the dashboard.</li>
                 </ul>
             </div>
-
         </div>
-
-
     </div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12 text-center">
-                <i class="fa fa-arrow-circle-o-up " aria-hidden="true" style="font-size: 80px; cursor: pointer" id="goToTop"></i>
-
+                <i class="fa fa-arrow-circle-o-up " aria-hidden="true" id="goToTop"></i>
             </div>
         </div>
     </div>
     <!--./container-->
-
 
     <footer class="row-footer" id="foot">
         <div class="container">
@@ -341,17 +298,10 @@
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="js/indexjs.js"></script>
     <script>
-        $(document).ready(function () {
-            swapImage();
-        });
-        $(window).resize(function () {
-            swapImage();
-
-        });
+        $(document).ready(swapImage);
+        $(window).resize(swapImage);
         function swapImage() {
-            var Width=$("#reverseFlex").width();
-            if(Width<1050){
-                // alert("Assinging reverse");
+            if($("#reverseFlex").width()<1050){
                 $(".jumbotron img").css("width","90%");
                 $("#topDarkCalendar").show();
                 $("#bottomDarkCalendar").hide();
@@ -363,9 +313,7 @@
             }
         }
 
-        var img;
-        var modal = document.getElementById('myModal');
-        var modalImg = document.getElementById("img01");
+        var img, modal = document.getElementById('myModal'),modalImg = document.getElementById("img01");
         $(".descriptionImage").click(function () {
             modal.style.display = "block";
             modalImg.src = $(this).attr("src");
@@ -379,29 +327,21 @@
         });
 
         $(document).keydown(function (e) {
-            if (e.keyCode == 27) {
-
-                var visibleDescriptionModal = $('#myModal').is(':visible');
-
-                if (visibleDescriptionModal == true) {
+            if (e.keyCode === 27) {
+                if ($('#myModal').is(':visible')) {
                     $(".close").click();
                 }
-
             }
         });
 
-        $("#goToTop").click(function () {
-            scrollToTop();
-        });
+        $("#goToTop").click(scrollToTop);
 
         function scrollToTop() {
             $('html, body').animate({
-                scrollTop: $("#top").offset().top
-            }, 500);
+                scrollTop: 0
+            }, 800);
         }
 
     </script>
-
 </body>
-
 </html>

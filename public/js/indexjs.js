@@ -21,6 +21,7 @@ $("#signupLoginModal").on('shown.bs.modal', function () {
             $('#buttonForSignup').prop('disabled', true);
         }
     }
+
     checkButton();
     $('#inputConfirmPasswordForSignup').change(function () {
         var pwd = $('#inputPasswordForSignup').val();
@@ -64,7 +65,7 @@ $("#signupLoginModal").on('shown.bs.modal', function () {
         checkButton();
     });
     $('#inputPasswordForSignup').change(function () {
-        if (/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}/ig.test($(this).val())) {
+        if (/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}/.test($(this).val())) {
             $('#validityError').html('');
         } else {
             $('#validityError').html('Must contain at least one number and one uppercase and lowercase letter, and at least 5 or more characters');
@@ -74,71 +75,71 @@ $("#signupLoginModal").on('shown.bs.modal', function () {
 });
 
 /*Ajax Calls here*/
-$('#buttonForSignup').click(function(){
-   if($(this).is(':disabled')){
-       console.log('Should not work');
-   }else{
-       var signupData={
-           "firstName":$('#inputFirstName').val(),
-           "lastName":$('#inputLastName').val(),
-           "email":$('#inputEmailForSignup').val(),
-           "password":$('#inputPasswordForSignup').val()
-       };
-       console.log(signupData);
-       var url=window.location.href+'signup';
-       console.log(url);
-       $.ajax({
-           url:url,
-           method:"POST",
-           contentType:"application/json",
-           data:JSON.stringify(signupData),
-           success:function(data){
-               console.log("Success");
-               console.log(JSON.stringify(data));
-               if(data.status===true){
+$('#buttonForSignup').click(function () {
+    if ($(this).is(':disabled')) {
+        console.log('Should not work');
+    } else {
+        var signupData = {
+            "firstName": $('#inputFirstName').val(),
+            "lastName": $('#inputLastName').val(),
+            "email": $('#inputEmailForSignup').val(),
+            "password": $('#inputPasswordForSignup').val()
+        };
+        console.log(signupData);
+        var url = window.location.href + 'signup';
+        console.log(url);
+        $.ajax({
+            url: url,
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(signupData),
+            success: function (data) {
+                console.log("Success");
+                console.log(JSON.stringify(data));
+                if (data.status === true) {
                     $('#validityError').html('Registration Successful!<br>Link for Verification has been sent to your Email Id');
-               }else{
-                   $('#validityError').html('Registration Unsuccessful! User Already Exists!');
-               }
-           },
-           error:function(err){
-               console.log(err);
-               $('#validityError').html('Registration Unsuccessful! User Already Exists!');
-           }
-       });
-   }
+                } else {
+                    $('#validityError').html('Registration Unsuccessful! User Already Exists!');
+                }
+            },
+            error: function (err) {
+                console.log(err);
+                $('#validityError').html('Registration Unsuccessful! User Already Exists!');
+            }
+        });
+    }
 });
 
-$('#buttonForLogin').click(function(){
-    var loginData={};
-    loginData.username=$('#inputEmailForLogin').val();//It is the Email!
-    loginData.password=$('#inputPasswordForLogin').val();
-    loginData.rememberme=0;
-    if($('#remember_me').is(':checked')){
-        loginData.rememberme=1;
+$('#buttonForLogin').click(function () {
+    var loginData = {};
+    loginData.username = $('#inputEmailForLogin').val();//It is the Email!
+    loginData.password = $('#inputPasswordForLogin').val();
+    loginData.rememberme = 0;
+    if ($('#remember_me').is(':checked')) {
+        loginData.rememberme = 1;
     }
-    var url=window.location.href+'login';
-    if(loginData.username.length>5 && loginData.password.length>3){
+    var url = window.location.href + 'login';
+    if (loginData.username.length > 5 && loginData.password.length > 3) {
         $.ajax({
-            url:url,
-            method:"POST",
-            data:loginData,
-            success:function(data){
+            url: url,
+            method: "POST",
+            data: loginData,
+            success: function (data) {
                 console.log(data);
-                if(data.success && data.verified){
-                    window.location.href=window.location.href+'dashboard';
-                }else if(data.success && !data.verified){
+                if (data.success && data.verified) {
+                    window.location.href = window.location.href + 'dashboard';
+                } else if (data.success && !data.verified) {
                     $('#LoginError').html('Please Verify your Email Id and Try Again!');
-                }else{
+                } else {
                     $('#LoginError').html('Invalid Login Credentials!');
                 }
             },
-            error:function(err){
+            error: function (err) {
                 $('#LoginError').html('Invalid Login Credentials!');
                 console.log(err);
             }
         });
-    }else{
+    } else {
         $('#LoginError').html('Invalid Login Credentials!');
     }
 });
