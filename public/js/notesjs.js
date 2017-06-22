@@ -1,7 +1,7 @@
 var notesData, pgno = 1, notesno = getNumberOfBooks(), images,
     delTrack = "none", toggle = 1, i, index, noteTitle, len, pages, bks = 0, ind,
     modal = document.getElementById('myModal'),
-    modalImg = document.getElementById("img01"), colourIndex1 = 0, colourIndex2 = 1, swapped = 0, dataTablePages;
+    modalImg = document.getElementById("img01"), colourIndex1 = 0, colourIndex2 = 1, swapped = 0, dataTablePages,showFullCal=false,toggleSlider="false";
 
 $(document).ready(function () {
     var url = noTrailingSlash(window.location.href) + '/user/notes';
@@ -13,12 +13,23 @@ $(document).ready(function () {
         notesData = data;
         len = getNotesNumber(notesData);
         //console.log("Success in fetching previous data!");
+        $(function () {
+            $('#darkswitch').bootstrapToggle({
+                size:'mini',
+                on:"<img src='img/bulbon.png' width='50%'>",
+                off:"<img src='img/bulboff.png' width='50%'>",
+                onstyle:"primary",
+                offstyle:"warning",
+                style:"ios"
+            });
+        });
         init();
     }).fail(function (err) {
         //console.log(err);
     })
 
 });
+
 
 function jumpToPage(newPage) {
 
@@ -433,6 +444,7 @@ function nextsub() {
 
 
 function init() {
+
     //console.log("In / init /");
     $("#miniTable.sorting").css({"display": "none", "background-color": "blue"});
     var oldpgno = pgno;
@@ -461,6 +473,24 @@ function init() {
 
         if (width >= 1000) //Full screen
         {
+            //$('#darkswitch').bootstrapToggle('destroy');
+            $(function () {
+                $('#darkswitch').bootstrapToggle({
+                    size:'normal',
+                    on:"<img src='img/bulbon.png' width='50%'>",
+                    off:"<img src='img/bulboff.png' width='50%'>",
+                    onstyle:"primary",
+                    offstyle:"warning",
+                    style:"ios"
+                });
+            });
+
+            $("#events").show();
+            $('#calendar').fullCalendar('option', 'height', 800);
+           // alert(showFullCal);
+            if(!showFullCal){
+                $("#events").hide();
+            }
             $(".fc-toolbar").css({'font-size': '15px'});
             pages = Math.ceil((len / 4));
             notesno = 4;
@@ -529,6 +559,23 @@ function init() {
         }
         else if (width >= 820) // 3/4rth width
         {
+            //$('#darkswitch').bootstrapToggle('destroy');
+            $(function () {
+                $('#darkswitch').bootstrapToggle({
+                    size:'small',
+                    on:"<img src='img/bulbon.png' width='50%'>",
+                    off:"<img src='img/bulboff.png' width='50%'>",
+                    onstyle:"primary",
+                    offstyle:"warning",
+                    style:"ios"
+                });
+            });
+
+            $("#events").show();
+            $('#calendar').fullCalendar('option', 'height', 600);
+            if(!showFullCal){
+                $("#events").hide();
+            }
 
             $(".fc-toolbar").css({'font-size': '15px'});
             pages = Math.ceil((len / 3));
@@ -589,8 +636,25 @@ function init() {
         }
         else if (width >= 470) //1/2 width
         {
-            $(".fc-toolbar").css({'font-size': '12px'});
+           //$('#darkswitch').bootstrapToggle('destroy');
+            $(function () {
+                $('#darkswitch').bootstrapToggle({
+                    size:'small',
+                    on:"<img src='img/bulbon.png' width='50%'>",
+                    off:"<img src='img/bulboff.png' width='50%'>",
+                    onstyle:"primary",
+                    offstyle:"warning",
+                    style:"ios"
+                });
+            });
 
+            $(".fc-toolbar").css({'font-size': '12px'});
+            $("#events").show();
+            $('#calendar').fullCalendar('option', 'height', 600);
+            // alert(showFullCal);
+            if(!showFullCal){
+                $("#events").hide();
+            }
             pages = Math.ceil((len / 2));
             notesno = 2;
             pgno = Math.ceil((oldnotesno * (oldpgno - 1) + 1) / notesno);
@@ -638,6 +702,22 @@ function init() {
         }
         else if (width < 470)  // Phablet width
         {
+           // $('#darkswitch').bootstrapToggle('destroy');
+            $(function () {
+                $('#darkswitch').bootstrapToggle({
+                    size:'mini',
+                    on:"<img src='img/bulbon.png' width='50%'>",
+                    off:"<img src='img/bulboff.png' width='50%'>",
+                    onstyle:"primary",
+                    offstyle:"warning",
+                    style:"ios"
+                });
+            });
+            $('#calendar').fullCalendar('option', 'height', 500);
+            // alert(showFullCal);
+            if(!showFullCal){
+                $("#events").hide();
+            }
             $(".fc-toolbar").css({'font-size': '9px'});
             $("#books").css({"justify-content": "center"});
             if (!swapped) {
@@ -796,54 +876,61 @@ $("#uploadNoteImage").fileinput({
 
 $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, reader) {
     var url = noTrailingSlash(window.location.href) + '/user/notes';
-    //console.log("Inside upload note image"+noteTitle);
+    console.log("1) Notes upload number: "+index);
+
     var imgpgno = parseInt(getNotesLength(noteTitle, notesData));
-    //console.log("Number of images: "+ imgpgno);
+    console.log("2) Got page number of image "+imgpgno);
+
     var data = {
         "subject": noteTitle,
         "pgno": imgpgno + 1,
         "note": reader.result
     };
-    ////console.log("Sending data",data);
+
+    console.log("3) Formed data object:");
+    console.log(data);
     $.ajax({
         url: url,
         method: "PUT",
         data: data,
         success: function (data) {
+            console.log("4) Successfully uploaded data");
+            console.log(data);
             toastr.success('', 'Added!');
-
-            //alert(tosterCtr);
-            //console.log(data);
             var order = getIndexToDelete(noteTitle, notesData);
+            console.log("5) Fetched order number: "+order);
             var id = Math.floor(Math.random() * 1000);
-            images = imgpgno + 1;
-            if (imgpgno === 0) {
+            // console.log("6) Images before uploading: "+images);
+            // images = imgpgno + 1;
+            // console.log("7) Images after uploading: "+images);
+            if (imgpgno == 0) {
+                console.log("6)(No notes uploaded yet state) Images before uploading"+images);
                 modalImg.src = reader.result;
-                ////console.log(imgpgno);
-                //notesData[order].data.pop();
-                //console.log("Before Updated notes!: "+parseInt(getNotesLength(noteTitle, notesData)));
-                notesData[order].data.push({
-                    "id": id, "pgno": imgpgno + 1,
-                    "note": reader.result
-                });
-                //console.log("Updates: "+parseInt(getNotesLength(noteTitle, notesData)));
-                images = imgpgno + 1;
-                imgpgno++;
-            }
-            else {
                 notesData[order].data.push({
                     "id": id, "pgno": imgpgno + 1,
                     "note": reader.result
                 });
                 images = imgpgno + 1;
-                imgpgno++;
+                console.log("7)(No notes uploaded yet state) Images after uploading: "+images);
+                // imgpgno++;
+                // console.log("8)(No notes uploaded yet state) Updated page number of image "+imgpgno);
 
             }
-            console.log(notesData[order].data);
+            else if(imgpgno!=0) {
+                var newPageNo=imgpgno + 1;
+                console.log("6)(1 note uploaded state) Pushing data with pgno: "+newPageNo);
+                notesData[order].data.push({
+                    "id": id, "pgno": newPageNo,
+                    "note": reader.result
+                });
+                images = imgpgno + 1;
+                console.log("7)(1 note uploaded state) Images after uploading: "+images);
+            }
+            //console.log(notesData[order].data);
         },
         error: function (err) {
             toastr.error('Try again!', 'Something went wrong in uploading note!');
-            //console.log(err);
+            console.log(err);
         }
     });
 });
@@ -1023,7 +1110,6 @@ function scrollToNote() {
         scrollTop: $("#myNavbar").offset().top
     }, 500);
     $("#showFullCalendar").show();
-    $("#showFullCalendar").show();
     setTimeout(function () {
         $("#events").hide()
     }, 500);
@@ -1054,3 +1140,23 @@ function touchHandle(touchedElement) {
         }
     }
 }
+
+
+$("#setPageSlider").bootstrapSlider({
+    min:1,
+    max:30,
+    orientation:'vertical',
+    ticks:[5,10,15,20,25,30],
+    step:5,
+});
+
+$("#showPageSizeSlider").click(function () {
+    if(!toggleSlider){
+        $("#sliderContainer").hide();
+
+    }else{
+        $("#sliderContainer").show();
+
+    }
+    toggleSlider=!toggleSlider;
+});

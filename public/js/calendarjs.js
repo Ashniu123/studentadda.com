@@ -27,8 +27,8 @@ $("#darkswitch").change(function () {
     }
 });
 
-var eventsData, oldStartTime, table;
-dataTablePages = 7;
+var eventsData, oldStartTime, table,
+dataTablePages = 8;
 $(document).ready(function () {
     /******Ajax Calls******/
     var url = noTrailingSlash(window.location.href) + '/user/events';
@@ -195,8 +195,10 @@ $(document).ready(function () {
                                     );
                                     $('#createEventModal').modal('toggle');
                                     toastr.success("Event Created Successfully");
-                                    if(swapped){location.reload();}
-                                    scrollToNote();
+                                    //if(swapped){location.reload();}
+                                    //scrollToNote();
+                                    $("#miniTableContainer").html("<table id='miniTable' class='miniTableClass'> </table>");
+                                    console.log("Number of pages:"+dataTablePages);
                                     renderMiniTable();
                                 },
                                 error: function (err) {
@@ -430,8 +432,7 @@ $(document).ready(function () {
         renderMiniTable();
 
         function renderMiniTable() {
-
-            $("#events").hide();
+            //$("#events").hide();
             var miniTableEvents = [], srno = 1;
             var miniEventHeader = {
                 "SrNo": "<i class='fa fa-expand' aria-hidden='true' id='swapTable'></i>",
@@ -568,54 +569,7 @@ $(document).ready(function () {
 
 
 
-        $('#miniTable td').click(function () {
-            var content = $(this).html();
-            var col = $(this).parent().children().index($(this));
-            var row = $(this).parent().parent().children().index($(this).parent());
-            var clickedSubject, titleToOpen, sim;
-            if(col==0 && row==0){
-                swapsTable();
-            }
-            else {
-                if (!swapped) {
-                    if (col === 1) {
-                        clickedSubject = content;
-                        //alert(clickedSubject);
-                    }
-                } else if (swapped) {
-                    if (row === 1) {
-                        clickedSubject = content;
-                        //alert(clickedSubject);
-                    }
-                }
 
-                if (notesData.length > 0) {
-                    sim = similarity(clickedSubject, notesData[0].subject);
-                    titleToOpen = notesData[0].subject;
-                }
-                for (var subjectsCtr = 0; subjectsCtr < notesData.length; subjectsCtr++) {
-                    //console.log("Current similarity is:"+similarity(data.title,notesData[subjectsCtr].subject)+" "+notesData[subjectsCtr].subject);
-                    if (similarity(clickedSubject, notesData[subjectsCtr].subject) > sim) {
-                        sim = similarity(clickedSubject, notesData[subjectsCtr].subject);
-                        titleToOpen = notesData[subjectsCtr].subject;
-                    }
-                }
-
-                if (sim > .6) {
-
-                    noteTitle = titleToOpen;
-                    index = getOrderNo(noteTitle, notesData);
-                    $("#noteModalTitle").html(noteTitle);
-                    i = 1;
-                    modalImg.src = getNoteAddress(noteTitle, i, notesData);
-                    images = getNotesLength(noteTitle, notesData);
-                    $("#imgno").html("Pg." + 1);
-                    $("#noteImage").modal("show");
-
-                }
-            }
-
-        });
 
         function similarity(s1, s2) {
             var longer = s1;
@@ -703,6 +657,7 @@ $(document).ready(function () {
 
 
         $("#showFullCalendar").click(function () {
+            showFullCal=true;
             $("#showFullCalendar").hide();
             $("#hideFullCalendar").show();
             $("#events").show();
@@ -710,6 +665,7 @@ $(document).ready(function () {
         });
 
         $("#hideFullCalendar").click(function () {
+            showFullCal=false;
             $("#showFullCalendar").show();
             $("#hideFullCalendar").hide();
             scrollToNote();
@@ -759,5 +715,72 @@ $(document).ready(function () {
                 }
             }
         });
+
+        $('#setPageSlider').slider().on('slideStop', function(ev){
+            $("#showPageSizeSlider").click();
+            dataTablePages =$('#setPageSlider').bootstrapSlider('getValue')+1;
+
+               $("#miniTableContainer").html("<table id='miniTable' class='miniTableClass'> </table>");
+               renderMiniTable();
+               if(swapped){
+                   swapped=!swapped;
+                   swapsTable();
+               }
+               // $("#miniTableContainer").html("<table id='miniTable' class='miniTableClass'>"+$("#miniTable").html()+" </table>");
+        });
+
+
+        $('#miniTable td').click(function () {
+            alert("inside")
+            var content = $(this).html();
+            var col = $(this).parent().children().index($(this));
+            var row = $(this).parent().parent().children().index($(this).parent());
+            var clickedSubject, titleToOpen, sim;
+            alert("Clicked: "+row+" "+col+" "+content);
+            if(col==0 && row==0){
+                swapsTable();
+            }
+            else {
+                if (!swapped) {
+                    if (col === 1) {
+                        clickedSubject = content;
+                        //alert(clickedSubject);
+                    }
+                } else if (swapped) {
+                    if (row === 1) {
+                        clickedSubject = content;
+                        //alert(clickedSubject);
+                    }
+                }
+
+                if (notesData.length > 0) {
+                    sim = similarity(clickedSubject, notesData[0].subject);
+                    titleToOpen = notesData[0].subject;
+                }
+                for (var subjectsCtr = 0; subjectsCtr < notesData.length; subjectsCtr++) {
+                    //console.log("Current similarity is:"+similarity(data.title,notesData[subjectsCtr].subject)+" "+notesData[subjectsCtr].subject);
+                    if (similarity(clickedSubject, notesData[subjectsCtr].subject) > sim) {
+                        sim = similarity(clickedSubject, notesData[subjectsCtr].subject);
+                        titleToOpen = notesData[subjectsCtr].subject;
+                    }
+                }
+
+                if (sim > .6) {
+
+                    noteTitle = titleToOpen;
+                    index = getOrderNo(noteTitle, notesData);
+                    $("#noteModalTitle").html(noteTitle);
+                    i = 1;
+                    modalImg.src = getNoteAddress(noteTitle, i, notesData);
+                    images = getNotesLength(noteTitle, notesData);
+                    $("#imgno").html("Pg." + 1);
+                    $("#noteImage").modal("show");
+
+                }
+            }
+
+        });
+
+
     });
 });

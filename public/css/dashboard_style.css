@@ -112,6 +112,7 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    width: 100%;
 }
 
 /*Notes*/
@@ -383,11 +384,11 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
 /*Bootstrap switch*/
 
 .toggle.ios, .toggle-on.ios, .toggle-off.ios {
-    border-radius: 20px;
+    border-radius: 40px;
 }
 
 .toggle.ios .toggle-handle {
-    border-radius: 20px;
+    border-radius: 40px;
 }
 
 #tour_help {
@@ -630,7 +631,6 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     color: #000000;
     text-decoration: underline;
 }
-
 /*#prevMiniEventPage, #nextMiniEventPage{*/
 /*color: black;*/
 /*margin-top: 90px;*/
@@ -703,3 +703,18 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     /*border: 2px solid red;*/
     box-shadow: -3px 0 aqua, 0 3px aqua, 3px 0 aqua, 0 -3px aqua, 0 0 10px aqua;
 }
+
+#showPageSizeSlider {
+    font-size: 35px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#sliderContainer{
+    display: none;
+    margin-top: 30px;
+    margin-left: 0px;
+    width: auto;
+    margin-left: 30px;
+}
+

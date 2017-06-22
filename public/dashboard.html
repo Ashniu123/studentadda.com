@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="css/bootstrap-social-mod.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dashboard_style.css">
+   <link rel="stylesheet" href="bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css">
 
 </head>
 
@@ -672,14 +673,20 @@
 <div class="container-fluid" id="miniEventsContainer">
     <div id="miniEvents">
         <div class="row no-gutters">
-            <div class="col-xs-2"></div>
+            <div class="col-xs-1">
+                <i class="fa fa-pencil-square-o" aria-hidden="true" id="showPageSizeSlider"></i>
+
+            </div>
             <div class="col-xs-8 text-center" id="eventsBanner"> Upcoming Events</div>
             <div class="col-xs-1">
                 <i class="fa fa-calendar-plus-o pull-right" aria-hidden="true" id="showFullCalendar"></i>
             </div>
         </div>
         <div class="row no-gutters">
-            <div class="col-xs-12">
+            <div class="col-xs-1" id="sliderContainer">
+                <input type="text" id="setPageSlider">
+            </div>
+            <div class="col-xs-11" id="miniTableContainer">
                 <table id="miniTable" class="miniTableClass">
                 </table>
             </div>
@@ -692,9 +699,10 @@
         <div class="row" style="margin-top: 20px;">
             <div class="col-xs-2" id="darkSwitchContainer">
                 <label for="darkswitch" class="sr-only"></label>
-                <input type="checkbox" id="darkswitch" data-style="ios" data-toggle="toggle"
-                       data-off="<img src='img/bulboff.png' width='50%'>"
-                       data-on="<img src='img/bulbon.png' width='50%'>" data-offstyle="warning" data-onstyle="primary">
+                <!--<input type="checkbox" id="darkswitch" data-style="ios" data-toggle="toggle"-->
+                       <!--data-off="<img src='img/bulboff.png' width='50%'>"-->
+                       <!--data-on="<img src='img/bulbon.png' width='50%'>" data-offstyle="warning" data-onstyle="primary" >-->
+                <input type="checkbox" id="darkswitch">
             </div>
             <div class="col-xs-8">
                 <h1 class="eventslabel" id="tour_event">Events</h1>
@@ -758,6 +766,7 @@
 <script src="js/touchSupport.js"></script>
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js"></script>
 <script src="bower_components/moment/moment.js"></script>
 <script src="bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 <script src="bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
@@ -771,5 +780,7 @@
 <script src="bower_components/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
 <script src="js/notesjs.js"></script>
 <script src="js/calendarjs.js"></script>
+
+
 </body>
 </html>
