@@ -463,10 +463,7 @@ $(document).ready(function () {
                     return (d < 10) ? '0' + d.toString() : d.toString();
                 }
 
-
-
                 if (entry >= today) { //Show only future events
-                    console.log("Called");
                     var title = calendar.fullCalendar('clientEvents')[miniCtr].title;
                     var duration = moment(calendar.fullCalendar('clientEvents')[miniCtr].end - calendar.fullCalendar('clientEvents')[miniCtr].start).valueOf();
                     //console.log("Duration",duration);
@@ -507,7 +504,6 @@ $(document).ready(function () {
             for(miniCtr=1;miniCtr<miniTableEvents.length;miniCtr++){
                 miniTableEvents[miniCtr].SrNo=miniCtr;
             }
-            console.log("Called");
             table = $('#miniTable').DataTable( {
                 responsive: false,
                 "pageLength": dataTablePages,
@@ -534,7 +530,7 @@ $(document).ready(function () {
                 // ],
                 "destroy": true
             });
-            console.log("Called");
+
             init();
         }
 
@@ -739,7 +735,6 @@ $(document).ready(function () {
             dataTablePages =$('#setPageSlider').bootstrapSlider('getValue')+1;
             updateMiniTable();
               //$("#miniTableContainer").html("<table id='miniTable' class='miniTableClass'> </table>");
-
             // if(!swapped){
             //     $("#miniTable").DataTable().destroy();
             //    // $("#miniTable").empty();
@@ -772,6 +767,15 @@ $(document).ready(function () {
             }
         }
 
+            $("#showPageSizeSlider").hover(function () {
+                $(this).click();
+            },function () {
+            });
+
+        $(".sliderContainer").hover(function () {
+        },function () {
+            $("#showPageSizeSlider").click();
+        });
 
         $('#miniTableContainer').on('click','td',function () {
             //alert("inside");

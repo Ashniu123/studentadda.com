@@ -1145,10 +1145,13 @@ function touchHandle(touchedElement) {
 
 $("#setPageSlider").bootstrapSlider({
     min:1,
-    max:30,
+    max:35,
     orientation:'horizontal',
-    ticks:[5,10,15,20,25,30],
-    step:5,
+    ticks:[7,14,21,28,35],
+    formatter: function(value) {
+        return 'View ' + value +' upcoming events.';
+    },
+    step:7,
 });
 
 
