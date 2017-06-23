@@ -1,7 +1,7 @@
 var notesData, pgno = 1, notesno = getNumberOfBooks(), images,
     delTrack = "none", toggle = 1, i, index, noteTitle, len, pages, bks = 0, ind,
     modal = document.getElementById('myModal'),
-    modalImg = document.getElementById("img01"), colourIndex1 = 0, colourIndex2 = 1, swapped = 0, dataTablePages,showFullCal=false,toggleSlider="false";
+    modalImg = document.getElementById("img01"), colourIndex1 = 0, colourIndex2 = 1, swapped = 0 ,showFullCal=false,toggleSlider="false",sliderOrientation='vertical';
 
 $(document).ready(function () {
     var url = noTrailingSlash(window.location.href) + '/user/notes';
@@ -30,7 +30,8 @@ $(document).ready(function () {
 
 });
 
-
+$(".slider-selection").css({'background-image': 'linear-gradient(to bottom,#ff6633 ,#ff6600 100%)'});
+$(".tick-slider-selection").css({'background-image': 'linear-gradient(to bottom,#ff6633 ,#ff6600 100%)'});
 function jumpToPage(newPage) {
 
     pgno = newPage;
@@ -449,7 +450,7 @@ function init() {
     $("#miniTable.sorting").css({"display": "none", "background-color": "blue"});
     var oldpgno = pgno;
     var oldnotesno = notesno;
-    dataTablePages = 7;
+
     $("#books").css({"justify-content": "space-around"});
     $('#miniTable tr:nth-child(1)').addClass("customHeader");
     if (!swapped) {
@@ -463,7 +464,7 @@ function init() {
     }
 
     $('#miniTable td:nth-child(1),#miniTable th:nth-child(1)').css({"font-weight": "bold"});
-    $("#miniEvents").css({"height": $("#miniTable").height() + 20});
+    $("#miniEvents").css({"height": $("#miniTable").height() + 50});
     bks = 0;
     {
         $('.changenotes').css('height', '380px');
@@ -702,7 +703,8 @@ function init() {
         }
         else if (width < 470)  // Phablet width
         {
-           // $('#darkswitch').bootstrapToggle('destroy');
+
+            // $('#darkswitch').bootstrapToggle('destroy');
             $(function () {
                 $('#darkswitch').bootstrapToggle({
                     size:'mini',
@@ -713,7 +715,7 @@ function init() {
                     style:"ios"
                 });
             });
-            $('#calendar').fullCalendar('option', 'height', 500);
+            $('#calendar').fullCalendar('option', 'height', 600);
             // alert(showFullCal);
             if(!showFullCal){
                 $("#events").hide();
@@ -725,7 +727,7 @@ function init() {
                 $('#miniTable td:nth-child(4),#miniTable th:nth-child(4)').hide();
                 $('#miniTable td:nth-child(5),#miniTable th:nth-child(5)').hide();
             } else if (swapped) {
-                dataTablePages = 3;
+
                 // alert("Swapping and updating 3 "+swapped);
                 $('#miniTable td:nth-child(4),#miniTable th:nth-child(4)').show();
                 $('#miniTable td:nth-child(5),#miniTable th:nth-child(5)').show();
@@ -1141,22 +1143,22 @@ function touchHandle(touchedElement) {
     }
 }
 
-
 $("#setPageSlider").bootstrapSlider({
     min:1,
     max:30,
-    orientation:'vertical',
+    orientation:'horizontal',
     ticks:[5,10,15,20,25,30],
     step:5,
 });
 
-$("#showPageSizeSlider").click(function () {
-    if(!toggleSlider){
-        $("#sliderContainer").hide();
 
-    }else{
-        $("#sliderContainer").show();
-
-    }
-    toggleSlider=!toggleSlider;
-});
+// $("#showPageSizeSlider").click(function () {
+//     if(!toggleSlider){
+//         $("#sliderContainer").hide();
+//
+//     }else{
+//         $("#sliderContainer").show();
+//
+//     }
+//     toggleSlider=!toggleSlider;
+// });

@@ -539,6 +539,7 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     display: block;
 }
 
+
 #miniTable table, #miniTable td, #miniTable tr {
     border: 1px solid #000000;
     text-align: center;
@@ -623,7 +624,6 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
 #miniEvents {
     margin-top: 20px;
     margin-bottom: 80px;
-    height: 200px;
 }
 
 #eventsBanner {
@@ -649,16 +649,17 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    overflow-x: auto;
+    overflow-x: scroll;
     overflow-y: auto;
 }
 
-@media screen and (min-width: 991px) {
-    #miniEventsContainer {
-        overflow-x: hidden;
-        overflow-y: hidden;
-    }
-}
+
+/*@media screen and (min-width: 991px) {*/
+    /*#miniEventsContainer {*/
+        /*overflow-x: hidden;*/
+        /*overflow-y: hidden;*/
+    /*}*/
+/*}*/
 
 #createEventColorRedBox{
     color:#FF0000 ;
@@ -710,11 +711,16 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     cursor: pointer;
 }
 
-#sliderContainer{
-    display: none;
-    margin-top: 30px;
-    margin-left: 0px;
-    width: auto;
-    margin-left: 30px;
+
+.slider-selection.tick-slider-selection{
+    background-image: linear-gradient(to bottom,#ff6633 ,#ff6600 100%);
 }
 
+.dropdown.open{
+    height: 5px;
+}
+
+.sliderDropDown{
+    float: right; position: relative; right: -250px;top:-45px; background: rgba(70,130,180,.6); width: auto; height:auto; padding: 15px;
+}
+/*Inline CSS is the only way to display the slider dropdown properly please don't try to add it here ^this doesn't work at all*/

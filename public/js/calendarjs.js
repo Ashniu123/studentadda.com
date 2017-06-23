@@ -28,7 +28,7 @@ $("#darkswitch").change(function () {
 });
 
 var eventsData, oldStartTime, table,
-dataTablePages = 8;
+dataTablePages = 8,innitialRender=0;
 $(document).ready(function () {
     /******Ajax Calls******/
     var url = noTrailingSlash(window.location.href) + '/user/events';
@@ -195,11 +195,7 @@ $(document).ready(function () {
                                     );
                                     $('#createEventModal').modal('toggle');
                                     toastr.success("Event Created Successfully");
-                                    //if(swapped){location.reload();}
-                                    //scrollToNote();
-                                    $("#miniTableContainer").html("<table id='miniTable' class='miniTableClass'> </table>");
-                                    console.log("Number of pages:"+dataTablePages);
-                                    renderMiniTable();
+                                    updateMiniTable();
                                 },
                                 error: function (err) {
                                     // console.log(err);
@@ -347,7 +343,8 @@ $(document).ready(function () {
                             event.textColor = data.textColor;
                             calendar.fullCalendar('updateEvent', event);
                             toastr.success("Event Updated Successfully");
-                            // location.reload();
+                            updateMiniTable();
+
                         }).fail(function (err) {
                             toastr.error("Oops! Something Went Wrong", "Please Try Again");
                             //console.log(err);
@@ -375,9 +372,10 @@ $(document).ready(function () {
                         //console.log(data);
                         calendar.fullCalendar('removeEvents', event.id);
                         toastr.warning("Event Removed Successfully");
-                        if(swapped){location.reload()};
+
                         scrollToNote();
-                        renderMiniTable();
+                        updateMiniTable();
+
                     }).fail(function (err) {
                         toastr.error("Oops! Something Went Wrong", "Please Try Again");
                         //console.log(err);
@@ -429,11 +427,18 @@ $(document).ready(function () {
             eventLimit: true
         });
 
-        renderMiniTable();
+        if(!innitialRender){
+            renderMiniTable();
+            console.log("Called here");
+            innitialRender=!innitialRender;
+        }
+
 
         function renderMiniTable() {
+
             //$("#events").hide();
             var miniTableEvents = [], srno = 1;
+
             var miniEventHeader = {
                 "SrNo": "<i class='fa fa-expand' aria-hidden='true' id='swapTable'></i>",
                 "title": "Event",
@@ -443,6 +448,7 @@ $(document).ready(function () {
                 "description": "Description",
                 "hiddenStartEvent": 0
             };
+
 
             miniTableEvents.push(miniEventHeader);
 
@@ -458,8 +464,9 @@ $(document).ready(function () {
                 }
 
 
-                if (entry >= today) { //Show only future events
 
+                if (entry >= today) { //Show only future events
+                    console.log("Called");
                     var title = calendar.fullCalendar('clientEvents')[miniCtr].title;
                     var duration = moment(calendar.fullCalendar('clientEvents')[miniCtr].end - calendar.fullCalendar('clientEvents')[miniCtr].start).valueOf();
                     //console.log("Duration",duration);
@@ -478,6 +485,7 @@ $(document).ready(function () {
                     var description = calendar.fullCalendar('clientEvents')[miniCtr].description;
                     var hiddenStartEvent = moment(calendar.fullCalendar('clientEvents')[miniCtr].start).format('YYYYMMDD', true);
                     // //console.log(startEvent+" "+hiddenStartEvent+" "+duration);
+
                     var miniEvent = {
                         "SrNo": srno,
                         "title": title,
@@ -489,10 +497,18 @@ $(document).ready(function () {
                     };
                     miniTableEvents.push(miniEvent);
                     srno++;
+
                 }
             }
-
-            table = $('#miniTable').DataTable({
+            
+            miniTableEvents.sort(function (a,b) {
+                return (a.hiddenStartEvent-b.hiddenStartEvent);
+            });
+            for(miniCtr=1;miniCtr<miniTableEvents.length;miniCtr++){
+                miniTableEvents[miniCtr].SrNo=miniCtr;
+            }
+            console.log("Called");
+            table = $('#miniTable').DataTable( {
                 responsive: false,
                 "pageLength": dataTablePages,
                 "data": miniTableEvents,
@@ -501,7 +517,7 @@ $(document).ready(function () {
                 "searching": false,
                 "scrollX": false,
                 "bSort": false,
-                "order": [[6, "asc"]],
+               // "order": [[6, "asc"]],
                 "columns": [
                     {"data": "SrNo"},//,"title":"<i class='fa fa-expand' aria-hidden='true' id='swapTable'></i>","width": "3%","orderable":false},
                     {"data": "title"},//,"title":"Subject","width": "16%","orderable":false},
@@ -511,13 +527,14 @@ $(document).ready(function () {
                     {"data": "description"},//"title":"Description","width": "39%","orderable":false},
                     {"data": "hiddenStartEvent", "visible": false}
                 ],
-                "columnDefs": [
-                    {
-                        "orderData": 5, "targets": [1, 2]
-                    }
-                ],
+                // "columnDefs": [
+                //     {
+                //         "orderData": 6, "targets": [2, 3]
+                //     }
+                // ],
                 "destroy": true
             });
+            console.log("Called");
             init();
         }
 
@@ -628,6 +645,7 @@ $(document).ready(function () {
         // );x
         function swapsTable() {
             {
+                //console.log(table);
                 //alert("Clicked swap");
                 $('#miniTable td:nth-child(4),#miniTable th:nth-child(4)').show();
                 $('#miniTable td:nth-child(5),#miniTable th:nth-child(5)').show();
@@ -719,24 +737,50 @@ $(document).ready(function () {
         $('#setPageSlider').slider().on('slideStop', function(ev){
             $("#showPageSizeSlider").click();
             dataTablePages =$('#setPageSlider').bootstrapSlider('getValue')+1;
+            updateMiniTable();
+              //$("#miniTableContainer").html("<table id='miniTable' class='miniTableClass'> </table>");
 
-               $("#miniTableContainer").html("<table id='miniTable' class='miniTableClass'> </table>");
-               renderMiniTable();
-               if(swapped){
-                   swapped=!swapped;
-                   swapsTable();
-               }
-               // $("#miniTableContainer").html("<table id='miniTable' class='miniTableClass'>"+$("#miniTable").html()+" </table>");
+            // if(!swapped){
+            //     $("#miniTable").DataTable().destroy();
+            //    // $("#miniTable").empty();
+            //     //console.log("Called here!");
+            //     renderMiniTable();
+            // }else{
+            //     console.log("Here in second half of slider");
+            //     //$("#swapTable").click();
+            //     //$("#miniTable").dataTable().destroy();
+            //
+            //     // $("#miniTable").DataTable().destroy();
+            //     // $("#miniTable").empty();
+            //     // renderMiniTable();
+            // }
+            //
+            //    // if(swapped){
+            //    //     swapped=!swapped;
+            //    //     swapsTable();
+            //    // }
+            //    // $("#miniTableContainer").html("<table id='miniTable' class='miniTableClass'>"+$("#miniTable").html()+" </table>");
         });
 
+        function updateMiniTable() {
+            $("#miniTableContainer").empty();
+            $("#miniTableContainer").html("<table id='miniTable' class='miniTableClass'></table>");
+            renderMiniTable();
+            if(swapped){
+                swapped=!swapped;
+                swapsTable();
+            }
+        }
 
-        $('#miniTable td').click(function () {
-            alert("inside")
+
+        $('#miniTableContainer').on('click','td',function () {
+            //alert("inside");
+           // $("#miniTable").dataTable().destroy();
             var content = $(this).html();
             var col = $(this).parent().children().index($(this));
             var row = $(this).parent().parent().children().index($(this).parent());
             var clickedSubject, titleToOpen, sim;
-            alert("Clicked: "+row+" "+col+" "+content);
+           // alert("Clicked: "+row+" "+col+" "+content);
             if(col==0 && row==0){
                 swapsTable();
             }
