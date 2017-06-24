@@ -667,6 +667,9 @@ $(document).ready(function () {
                 init();
 
             }
+            if(swapped){
+                $("#miniTable").addClass("centerContent");
+            }
         }
 
 

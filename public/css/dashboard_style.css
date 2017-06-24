@@ -108,10 +108,10 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
 
 #calbg {
     background: url("../img/calendar5.jpg") no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    background-size: contain;
     width: 100%;
 }
 
@@ -290,13 +290,14 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
 }
 
 #mynotes {
-    background: url("../img/shelf.jpg") no-repeat center center fixed;
+    background: url("../img/shelf.jpg") no-repeat center center scroll;
     width: 100%;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
 }
+
 
 #notes {
     background-color: rgba(256, 256, 256, .6);
@@ -416,6 +417,7 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
 
 .dots {
     font-size: 18px;
+    margin-bottom: 20px;
 }
 
 .wiggles {
@@ -589,13 +591,17 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
 
 #miniTable {
     min-width: 90%;
-    position: absolute;
-    margin: 20px auto;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    padding-right: 20px;
+    /*position: absolute;*/
+    /*margin: 20px auto;*/
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    /*margin-bottom: 20px;*/
+    /*top: 0;*/
+    /*right: 0;*/
+    /*bottom: 0;*/
+    /*left: 0;*/
+    /*padding-right: 20px;*/
 }
 
 .dataTables_length {
@@ -610,6 +616,8 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     font-size: 35px;
     margin-top: 10px;
     cursor: pointer;
+    position: relative;
+    top:10px;
 }
 
 #hideFullCalendar {
@@ -621,46 +629,54 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     display: block;
 }
 
-#miniEvents {
-    margin-top: 20px;
-    margin-bottom: 80px;
-}
+/*#miniEvents {*/
+    /*margin-top: 20px;*/
+    /*margin-bottom: 80px;*/
+/*}*/
 
 #eventsBanner {
     font-size: 30px;
     color: #000000;
     text-decoration: underline;
+    position: relative;
+    top:10px;
 }
-/*#prevMiniEventPage, #nextMiniEventPage{*/
-/*color: black;*/
-/*margin-top: 90px;*/
-/*font-size: 20px;*/
-/*cursor: pointer;*/
-/*margin-left: auto;*/
-/*margin-right: auto;*/
-/*padding: 10px;*/
-/*display: none;*/
-/*}*/
 
 #miniEventsContainer {
-    background: url("../img/miniTableBG.jpg") no-repeat center center fixed;
-    width: 100%;
+    /*background: url("../img/miniTableBG.jpg") no-repeat center center scroll;*/
+    margin-top: 20px;
+    /*-webkit-background-size: contain;*/
+    /*-moz-background-size: contain;*/
+    /*-o-background-size: contain;*/
+    /*background-size: 100% 100%;*/
+    /*background: linear-gradient(to bottom ,white, whitesmoke);*/
+    background-color: 	#FFF5EE;
+    border: 10px solid black;
+    border-radius: 30px;
+    overflow-x: scroll;
+    overflow-y: auto;
+    padding: 0px;
+    width: 95%;
+}
+
+#miniEventsHeader{
+    background-color: rgba(256, 256, 256, .4);
+    height: 73.33px;
+}
+
+#fullMiniTableContainer{
+    background: url("../img/miniEventBg.jpg") no-repeat center center scroll;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    overflow-x: scroll;
-    overflow-y: auto;
+    padding-bottom: 20px;
 }
 
-
-/*@media screen and (min-width: 991px) {*/
-    /*#miniEventsContainer {*/
-        /*overflow-x: hidden;*/
-        /*overflow-y: hidden;*/
-    /*}*/
-/*}*/
-
+.centerContent{
+    /*margin: auto;*/
+    padding-right: 200px;
+}
 #createEventColorRedBox{
     color:#FF0000 ;
     font-size: 25px;
@@ -709,6 +725,8 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
     font-size: 35px;
     margin-top: 10px;
     cursor: pointer;
+    position: relative;
+    top: 10px;
 }
 
 

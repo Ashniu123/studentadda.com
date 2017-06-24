@@ -447,7 +447,7 @@ function nextsub() {
 function init() {
 
     //console.log("In / init /");
-    $("#miniTable.sorting").css({"display": "none", "background-color": "blue"});
+    // $("#miniTable.sorting").css({"display": "none", "background-color": "blue"});
     var oldpgno = pgno;
     var oldnotesno = notesno;
 
@@ -464,7 +464,8 @@ function init() {
     }
 
     $('#miniTable td:nth-child(1),#miniTable th:nth-child(1)').css({"font-weight": "bold"});
-    $("#miniEvents").css({"height": $("#miniTable").height() + 50});
+    $("#miniEventsContainer").css({"height": $("#miniTable").height()+60});
+    console.log( $("#miniTable").height()+" "+$("#miniEventsContainer").height());
     bks = 0;
     {
         $('.changenotes').css('height', '380px');
@@ -704,6 +705,7 @@ function init() {
         else if (width < 470)  // Phablet width
         {
 
+
             // $('#darkswitch').bootstrapToggle('destroy');
             $(function () {
                 $('#darkswitch').bootstrapToggle({
@@ -726,6 +728,8 @@ function init() {
                 //alert("Swapping and updating 2 "+ swapped);
                 $('#miniTable td:nth-child(4),#miniTable th:nth-child(4)').hide();
                 $('#miniTable td:nth-child(5),#miniTable th:nth-child(5)').hide();
+                $("#miniEventsContainer").css({"height": $("#miniTable").height()+50});
+                console.log( $("#miniTable").height());
             } else if (swapped) {
 
                 // alert("Swapping and updating 3 "+swapped);
@@ -1165,3 +1169,7 @@ $("#setPageSlider").bootstrapSlider({
 //     }
 //     toggleSlider=!toggleSlider;
 // });
+
+$("#miniTable").on('swiperight',function () {
+$(this).hide();
+});

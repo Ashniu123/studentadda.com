@@ -24,8 +24,7 @@
     <link rel="stylesheet" href="css/bootstrap-social-mod.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dashboard_style.css">
-   <link rel="stylesheet" href="bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css">
-
+    <link rel="stylesheet" href="bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css">
 </head>
 
 <body>
@@ -670,32 +669,36 @@
         </div><!--./modal-content-->
     </div><!--./modal-dialog-->
 </div><!--./createEventModal-->
-<div class="container-fluid" id="miniEventsContainer">
-    <div id="miniEvents">
+
+<div id="fullMiniTableContainer">
+    <div class="container-fluid" id="miniEventsHeader">
         <div class="row no-gutters">
             <div class="col-xs-2 dropdown">
                 <i class="fa fa-pencil-square-o pull-right dropdown-toggle" data-toggle="dropdown" aria-hidden="true" id="showPageSizeSlider"> <i class="fa fa-caret-right" aria-hidden="true"></i></i>
-                <ul class="dropdown-menu pull-right sliderContainer" style="float: right; position: relative; right: -250px;top:-45px; background: rgba(70,130,180,.6); width: auto; height:auto; padding: 15px;" aria-labelledby="dropdownMenu1">
-                <!--Inline CSS is the only way to display the slider dropdown properly please don't try to add it in dashboard_style.css-->
-                        <input type="text" id="setPageSlider">
+                <ul class="dropdown-menu pull-right sliderContainer" style="float: right; position: relative; right: -250px;top:-35px; background: rgba(70,130,180,.6); width: auto; height:auto; padding: 15px;" aria-labelledby="dropdownMenu1">
+                    <!--Inline CSS is the only way to display the slider dropdown properly please don't try to add it in dashboard_style.css-->
+                    <input type="text" id="setPageSlider">
                 </ul>
             </div>
-            <div class="col-xs-8 text-center" id="eventsBanner"> Upcoming Events</div>
+            <div class="col-xs-8 text-center" id="eventsBanner">Upcoming Events</div>
             <div class="col-xs-2">
                 <i class="fa fa-calendar-plus-o pull-left" aria-hidden="true" id="showFullCalendar"></i>
             </div>
         </div>
-        <div class="row no-gutters">
-            <!--<div class="col-xs-1" id="sliderContainer">-->
-                <!--<input type="text" id="setPageSlider">-->
-            <!--</div>-->
-            <div class="col-xs-12" id="miniTableContainer">
-                <table id="miniTable" class="miniTableClass">
-                </table>
+    </div>
+
+    <div class="container-fluid" id="miniEventsContainer">
+        <div id="miniEvents">
+            <div class="row no-gutters">
+                <div class="col-xs-12" id="miniTableContainer">
+                    <table id="miniTable" class="miniTableClass">
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 
 <div id="calbg">
     <div class="container" id="events">
@@ -766,8 +769,9 @@
     </div>
 </footer>
 
-<script src="js/touchSupport.js"></script>
+
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="js/touchSupport.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js"></script>
 <script src="bower_components/moment/moment.js"></script>
