@@ -454,18 +454,16 @@ function init() {
     $("#books").css({"justify-content": "space-around"});
     $('#miniTable tr:nth-child(1)').addClass("customHeader");
     if (!swapped) {
-        //  alert("Swapping and updating 1-1");
         $('#miniTable td:nth-child(4),#miniTable th:nth-child(4)').show();
         $('#miniTable td:nth-child(5),#miniTable th:nth-child(5)').show();
     } else if (swapped) {
-        //   alert("Swapping and updating 1-2");
         $('#miniTable td:nth-child(4),#miniTable th:nth-child(4)').show();
         $('#miniTable td:nth-child(5),#miniTable th:nth-child(5)').show();
     }
 
     $('#miniTable td:nth-child(1),#miniTable th:nth-child(1)').css({"font-weight": "bold"});
     $("#miniEventsContainer").css({"height": $("#miniTable").height()+60});
-    console.log( $("#miniTable").height()+" "+$("#miniEventsContainer").height());
+    $("#eventsBanner").css({'font-size':'30px'});
     bks = 0;
     {
         $('.changenotes').css('height', '380px');
@@ -717,12 +715,14 @@ function init() {
                     style:"ios"
                 });
             });
-            $('#calendar').fullCalendar('option', 'height', 600);
+           $('#calendar').fullCalendar('option', 'height', 500);
+           //  $('#calendar').fullCalendar('option', 'aspectRatio', .8);
             // alert(showFullCal);
             if(!showFullCal){
                 $("#events").hide();
             }
             $(".fc-toolbar").css({'font-size': '9px'});
+            // $("#eventsBanner").css({'font-size':'20px'});
             $("#books").css({"justify-content": "center"});
             if (!swapped) {
                 //alert("Swapping and updating 2 "+ swapped);
@@ -1158,7 +1158,6 @@ $("#setPageSlider").bootstrapSlider({
     step:7,
 });
 
-
 // $("#showPageSizeSlider").click(function () {
 //     if(!toggleSlider){
 //         $("#sliderContainer").hide();
@@ -1169,7 +1168,3 @@ $("#setPageSlider").bootstrapSlider({
 //     }
 //     toggleSlider=!toggleSlider;
 // });
-
-$("#miniTable").on('swiperight',function () {
-$(this).hide();
-});

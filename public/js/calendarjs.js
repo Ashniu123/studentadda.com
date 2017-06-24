@@ -2,11 +2,12 @@
 $("#darkswitch").change(function () {
     if ($('#darkswitch').is(':checked')) {
         $("#calbg").css({
-            'background': 'url(img/calendar4.jpg) no-repeat center center fixed',
-            '-webkit-background-size': 'cover',
-            '-moz-background-size': 'cover',
-            '-o-background-size': 'cover',
-            'background-size': 'cover'
+            'background': 'url(img/calendar4.jpg) no-repeat center center scroll',
+            '-webkit-background-size': 'contain',
+            '-moz-background-size': 'contain',
+            '-o-background-size': 'contain',
+            'background-size': 'contain',
+            'background-color': 'rgb(54,52,66)'
         });
         $('#calendar').css('color', '#ffffff');
         $('.eventslabel').css('color', '#ffffff');
@@ -14,7 +15,7 @@ $("#darkswitch").change(function () {
         $("#hideFullCalendar").css({'color': '#ffffff'});
     } else {
         $("#calbg").css({
-            'background': 'url(img/calendar5.jpg) no-repeat center center fixed',
+            'background': 'url(img/calendar5.jpg) no-repeat center center scroll',
             '-webkit-background-size': 'cover',
             '-moz-background-size': 'cover',
             '-o-background-size': 'cover',
