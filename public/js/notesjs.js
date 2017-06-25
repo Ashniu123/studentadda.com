@@ -1303,11 +1303,12 @@ $("#img01").hammer().on('swipeup',function (ev) {
     var velocityY = Math.abs(ev.gesture.velocityY);
     var verticalSwipeDistance=ev.gesture.deltaY;
     console.log('Velocity Y: '+velocityY);
-    if(velocityY> 2){
+    velocityY=parseInt(velocityY);
+    if(velocityY > 2){
         console.log("Inside uploadNotesPopup Trigger");
       $("#uploadNoteImage").click();
     }else{
-        console.log("Velocity less than .08");
+        console.log("Velocity less than 2");
         var currentPosition = $("#noteImage").scrollTop();  //your current y position on the page
         $('#noteImage').animate({
             scrollTop: currentPosition-verticalSwipeDistance
