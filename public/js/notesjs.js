@@ -1302,8 +1302,11 @@ $("#img01").hammer().on('swipeup',function (ev) {
     var velocityX = ev.gesture.velocityX;
     var velocityY = Math.abs(ev.gesture.velocityY);
     var verticalSwipeDistance=ev.gesture.deltaY;
+    velocityY=parseFloat(velocityY);
     console.log('Velocity Y: '+velocityY);
-    velocityY=parseInt(velocityY);
+
+
+
     if(velocityY > 2){
         console.log("Inside uploadNotesPopup Trigger");
       $("#uploadNoteImage").click();
