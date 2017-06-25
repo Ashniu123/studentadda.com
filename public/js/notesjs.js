@@ -715,7 +715,7 @@ function init() {
             // $('#darkswitch').bootstrapToggle('destroy');
             $(function () {
                 $('#darkswitch').bootstrapToggle({
-                    size:'mini',
+                    size:'small',
                     on:"<img src='img/bulbon.png' width='50%'>",
                     off:"<img src='img/bulboff.png' width='50%'>",
                     onstyle:"primary",
@@ -723,7 +723,7 @@ function init() {
                     style:"ios"
                 });
             });
-           $('#calendar').fullCalendar('option', 'height', 500);
+           $('#calendar').fullCalendar('option', 'height', 550);
            //  $('#calendar').fullCalendar('option', 'aspectRatio', .8);
             // alert(showFullCal);
             if(!showFullCal){
@@ -800,6 +800,7 @@ function init() {
         }
 
     }
+
 }
 
 //Functions to identify the note number pressed ie. first note from left,second from left et...

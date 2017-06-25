@@ -695,32 +695,34 @@
 </div>
 
 <!--style="background-colour: linear-gradient(to bottom,rgb(54,52,66),rgb(255,255,255))"-->
-
-<div id="calbg">
-    <div class="container" id="events"  style="width: 100%">
-        <div class="row" style="margin-top: 20px;">
-            <div class="col-xs-2" id="darkSwitchContainer">
-                <label for="darkswitch" class="sr-only"></label>
-                <!--<input type="checkbox" id="darkswitch" data-style="ios" data-toggle="toggle"-->
-                       <!--data-off="<img src='img/bulboff.png' width='50%'>"-->
-                       <!--data-on="<img src='img/bulbon.png' width='50%'>" data-offstyle="warning" data-onstyle="primary" >-->
-                <input type="checkbox" id="darkswitch">
+<div id="calendarContainer">
+    <div id="calbg">
+        <div class="container" id="events"  style="width: 100%">
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-xs-2" id="darkSwitchContainer">
+                    <label for="darkswitch" class="sr-only"></label>
+                    <!--<input type="checkbox" id="darkswitch" data-style="ios" data-toggle="toggle"-->
+                    <!--data-off="<img src='img/bulboff.png' width='50%'>"-->
+                    <!--data-on="<img src='img/bulbon.png' width='50%'>" data-offstyle="warning" data-onstyle="primary" >-->
+                    <input type="checkbox" id="darkswitch">
+                </div>
+                <div class="col-xs-8">
+                    <h1 class="eventslabel" id="tour_event">Events</h1>
+                </div>
+                <div class="col-xs-2">
+                    <i class="fa fa-minus-square" aria-hidden="true" id="hideFullCalendar"></i>
+                </div>
             </div>
-            <div class="col-xs-8">
-                <h1 class="eventslabel" id="tour_event">Events</h1>
-            </div>
-            <div class="col-xs-2">
-                <i class="fa fa-minus-square" aria-hidden="true" id="hideFullCalendar"></i>
-            </div>
-        </div>
-        <div class="row row-content row-calendar">
-            <div class="col-xs-12">
-                <div id="calendar"></div>
-                <!--calendar-->
+            <div class="row row-content row-calendar">
+                <div class="col-xs-12">
+                    <div id="calendar"></div>
+                    <!--calendar-->
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 
 <footer class="row-footer" id="foot">
     <div class="container">

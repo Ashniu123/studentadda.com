@@ -743,3 +743,7 @@ td.fc-day-top.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today.
 }
 /*Inline CSS is the only way to display the slider dropdown properly please don't try to add it here ^this doesn't work at all*/
 
+#calendarContainer{
+background: linear-gradient(to bottom, rgb(54,52,66) 50%, rgb(255,255,255) 50%);
+    /*background-color: black;*/
+}

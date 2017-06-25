@@ -2,18 +2,20 @@
 $("#darkswitch").change(function () {
     if ($('#darkswitch').is(':checked')) {
         $("#calbg").css({
-            'background': 'url(img/calendar4.png) no-repeat center center scroll',
+           'background': 'url(img/calendar4.png) no-repeat center center scroll',
             '-webkit-background-size': 'contain',
             '-moz-background-size': 'contain',
             '-o-background-size': 'contain',
             'background-size': 'contain',
-            'background-color':  'linear-gradient( bottom, rgb(54,52,66) 50%, rgb(255,255,255) 50%)'
-
+            // // 'background-color':  'linear-gradient( bottom, rgb(54,52,66) 50%, rgb(255,255,255) 50%)'
+            // 'background-color':  'linear-gradient( to bottom, rgb(54,52,66) , rgb(255,255,255))'
+            // // 'background-color':'red'
         });
-        $('#calendar').css('color', '#ffffff');
-        $('.eventslabel').css('color', '#ffffff');
+
+        $('#calendar').css('color', '#ffa700');
+        $('.eventslabel').css('color', '#ffa700');
         $('#calendarHelp').css({'color': '#ffffff', 'background-color': '#000000'});
-        $("#hideFullCalendar").css({'color': '#ffffff'});
+        $("#hideFullCalendar").css({'color': '#ffa700'});
     } else {
         $("#calbg").css({
             'background': 'url(img/calendar5.jpg) no-repeat center center scroll',
