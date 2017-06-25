@@ -143,8 +143,10 @@ function getNotesLength(subject, myArray) {
             if (myArray[i].data.length > 0) {
                 //console.log("Inside img no loop with length modification.");
                 large = myArray[i].data[0].pgno;
+               // alert(myArray[i].data.length);
                 for (var j = 0; j < myArray[i].data.length; j++) {
                     if (myArray[i].data[j].pgno > large) {
+                        alert(j+" "+myArray[i].data[j].pgno);
                         large = myArray[i].data[j].pgno
                     }
                 }
@@ -839,6 +841,7 @@ function displayNote() //function to make the popup images visible
     i = 1;
     modalImg.src = getNoteAddress(noteTitle, i, notesData);
     images = getNotesLength(noteTitle, notesData);
+    alert("Images in display note: "+images);
     $("#imgno").html("Pg." + 1);
 }
 
@@ -880,26 +883,30 @@ $("#uploadNoteImage").fileinput({
 });
 //console.log("In global scope title is:"+ noteTitle);
 
+var uploadInProgress = $.when();
 $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, reader) {
-    var url = noTrailingSlash(window.location.href) + '/user/notes';
-    console.log("1) Notes upload number: "+index);
+    // here, we chain the "pending" upload to this one
+    uploadInProgress = uploadInProgress.then(function() {
+        var url = noTrailingSlash(window.location.href) + '/user/notes';
+        console.log("1) Notes upload number: "+index);
 
-    var imgpgno = parseInt(getNotesLength(noteTitle, notesData));
-    console.log("2) Got page number of image "+imgpgno);
+        var imgpgno = parseInt(getNotesLength(noteTitle, notesData));
+        console.log("2) Got page number of image "+imgpgno);
 
-    var data = {
-        "subject": noteTitle,
-        "pgno": imgpgno + 1,
-        "note": reader.result
-    };
+        var data = {
+            "subject": noteTitle,
+            "pgno": imgpgno + 1,
+            "note": reader.result
+        };
 
-    console.log("3) Formed data object:");
-    console.log(data);
-    $.ajax({
-        url: url,
-        method: "PUT",
-        data: data,
-        success: function (data) {
+        console.log("3) Formed data object:");
+        console.log(data);
+        return $.ajax({
+            url: url,
+            method: "PUT",
+            data: data
+            // since we are using Promise pattern, use .then for success, and .catch for error conditions
+        }).then(function (data) {
             console.log("4) Successfully uploaded data");
             console.log(data);
             toastr.success('', 'Added!');
@@ -918,7 +925,7 @@ $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, 
                 // imgpgno++;
 
             }
-            else if(imgpgno!=0) {
+            else { // if(imgpgno!=0) { // the check is redundant since when the above if condition is false, this has to be true
                 var newPageNo=imgpgno + 1;
                 console.log("6)(1 note uploaded state) Pushing data with pgno: "+newPageNo);
                 notesData[order].data.push({
@@ -928,13 +935,69 @@ $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, 
                 images = imgpgno + 1;
                 console.log("7)(1 note uploaded state) Images after uploading: "+images);
             }
-        },
-        error: function (err) {
+        }).catch(function (err) {
+            // this catch ensures that the next upload will be able to run regardless of this upload's failure
             toastr.error('Try again!', 'Something went wrong in uploading note!');
             console.log(err);
-        }
+        });
     });
 });
+
+// $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, reader) {
+//     var url = noTrailingSlash(window.location.href) + '/user/notes';
+//     console.log("1) Notes upload number: "+index);
+//
+//     var imgpgno = parseInt(getNotesLength(noteTitle, notesData));
+//     console.log("2) Got page number of image "+imgpgno);
+//
+//     var data = {
+//         "subject": noteTitle,
+//         "pgno": imgpgno + 1,
+//         "note": reader.result
+//     };
+//
+//     console.log("3) Formed data object:");
+//     console.log(data);
+//     $.ajax({
+//         url: url,
+//         method: "PUT",
+//         data: data,
+//         success: function (data) {
+//             console.log("4) Successfully uploaded data");
+//             console.log(data);
+//             toastr.success('', 'Added!');
+//             var order = getIndexToDelete(noteTitle, notesData);
+//             console.log("5) Fetched order number: "+order);
+//             var id = Math.floor(Math.random() * 1000);
+//             if (imgpgno == 0) {
+//                 console.log("6)(No notes uploaded yet state) Images before uploading"+images);
+//                 modalImg.src = reader.result;
+//                 notesData[order].data.push({
+//                     "id": id, "pgno": imgpgno + 1,
+//                     "note": reader.result
+//                 });
+//                 images = imgpgno + 1;
+//                 console.log("7)(No notes uploaded yet state) Images after uploading: "+images);
+//                 // imgpgno++;
+//
+//             }
+//             else if(imgpgno!=0) {
+//                 var newPageNo=imgpgno + 1;
+//                 console.log("6)(1 note uploaded state) Pushing data with pgno: "+newPageNo);
+//                 notesData[order].data.push({
+//                     "id": id, "pgno": newPageNo,
+//                     "note": reader.result
+//                 });
+//                 images = imgpgno + 1;
+//                 console.log("7)(1 note uploaded state) Images after uploading: "+images);
+//             }
+//         },
+//         error: function (err) {
+//             toastr.error('Try again!', 'Something went wrong in uploading note!');
+//             console.log(err);
+//         }
+//     });
+// });
 
 //Click events
 
@@ -1148,5 +1211,12 @@ $("#setPageSlider").bootstrapSlider({
 $("#centeralbook").hammer().on("swipeleft", function() { nextsub();});
 $("#centeralbook").hammer().on("swiperight", function() { prevsub();});
 
+$("#img01").hammer().on("swipedown",function () { alert("Swiped");  });
+$("#img01").hammer()
+    .data('hammer')
+    .get('swipe')
+    .set({ direction: Hammer.DIRECTION_ALL });
+$("#img01").hammer().on("swipeup",function () { $("#close1").click(); });
 $("#img01").hammer().on("swipeleft", function() { next();});
 $("#img01").hammer().on("swiperight", function() { previous();});
+
