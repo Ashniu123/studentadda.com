@@ -71,9 +71,9 @@ $(document).ready(function () {
             fixedWeekCount: false,
             allDayDefault: false,
             /* Click delays */
-            longPressDelay:100,
-            eventLongPressDelay:100,
-            selectLongPressDelay:100,
+            longPressDelay:300,
+            eventLongPressDelay:300,
+            selectLongPressDelay:300,
             /*
              selectable:true will enable user to select datetime slot
              selectHelper will add helpers for selectable.

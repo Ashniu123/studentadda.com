@@ -119,7 +119,7 @@ function getNoteAddress(subject, pg, myArray) {
         if (myArray[i].subject === subject) {
             if ("data" in myArray[i]) {
                 for (var j = 0; j < myArray[i].data.length; j++) {
-                    if (myArray[i].data[j].pgno == pg) {
+                    if (parseInt(myArray[i].data[j].pgno) == pg) {
                         return myArray[i].data[j].note;
                     }
                 }
@@ -142,14 +142,21 @@ function getNotesLength(subject, myArray) {
             // if (myArray[i].data[0].pgno != -1)
             if (myArray[i].data.length > 0) {
                 //console.log("Inside img no loop with length modification.");
-                large = myArray[i].data[0].pgno;
-               // alert(myArray[i].data.length);
+                large = parseInt(myArray[i].data[0].pgno);
+               // alert("Start of getNotesLength "+large+" "+myArray[i].data.length);
                 for (var j = 0; j < myArray[i].data.length; j++) {
-                    if (myArray[i].data[j].pgno > large) {
-                        alert(j+" "+myArray[i].data[j].pgno);
-                        large = myArray[i].data[j].pgno
+                   // alert("Compared pg no: "+myArray[i].data[j].pgno+" Value of large: "+ large );
+
+                    if ( parseInt(myArray[i].data[j].pgno) > large) {
+                       // alert(j+" "+myArray[i].data[j].pgno);
+                        large = parseInt(myArray[i].data[j].pgno);
+                    }else {
+                      //  alert("Skipped "+j);
+
                     }
+
                 }
+              //  alert("here after "+j+"iterations.");
                 return large;
             }
             else {
@@ -200,13 +207,12 @@ function getImageIndex(subject, pgno, myArray) {
         if (subject == myArray[ind].subject) {
             var ind2;
             for (ind2 = 0; ind2 < getNotesLength(subject, notesData); ind2++) {
-                if (myArray[ind].data[ind2].pgno == pgno) {
+                if (parseInt(myArray[ind].data[ind2].pgno) == pgno) {
                     return ind2;
                 }
             }
         }
     }
-
 }
 
 function deleteNote() {
@@ -234,7 +240,7 @@ function deleteNote() {
                             //console.log(images);
                             notesData[ind].data.splice(delind, 1);
                             for (decInd = 0; decInd < notesData[ind].data.length; decInd++) {
-                                if (notesData[ind].data[decInd].pgno > i) {
+                                if (parseInt(notesData[ind].data[decInd].pgno)> i) {
                                     notesData[ind].data[decInd].pgno--;
                                     //         }
                                     //     }
@@ -841,7 +847,6 @@ function displayNote() //function to make the popup images visible
     i = 1;
     modalImg.src = getNoteAddress(noteTitle, i, notesData);
     images = getNotesLength(noteTitle, notesData);
-    alert("Images in display note: "+images);
     $("#imgno").html("Pg." + 1);
 }
 
@@ -1207,16 +1212,67 @@ $("#setPageSlider").bootstrapSlider({
 // });
 
 
-
 $("#centeralbook").hammer().on("swipeleft", function() { nextsub();});
 $("#centeralbook").hammer().on("swiperight", function() { prevsub();});
 
-$("#img01").hammer().on("swipedown",function () { alert("Swiped");  });
+
+
+
+$("#img01").hammer()
+    .data('hammer')
+    .get('press')
+    .set({ time: 251 });
+// $("#img01").hammer().on("press",function () { $("#close1").click(); });
+$("#img01").hammer().on("swipeleft", function(ev) {
+    var velocity = ev.gesture.velocity;
+    var velocityX = ev.gesture.velocityX;
+    var velocityY = ev.gesture.velocityY;
+
+    next();});
+$("#img01").hammer().on("swiperight", function() { previous();});
+
+$("#img01").hammer().on("doubletap",function () {$("#deleteNoteButton").click();});
+
+
+
 $("#img01").hammer()
     .data('hammer')
     .get('swipe')
-    .set({ direction: Hammer.DIRECTION_ALL });
-$("#img01").hammer().on("swipeup",function () { $("#close1").click(); });
-$("#img01").hammer().on("swipeleft", function() { next();});
-$("#img01").hammer().on("swiperight", function() { previous();});
+    .set({ direction: Hammer.DIRECTION_ALL, velocity:.1});
 
+//Swipe down gesture to close modal or scroll up
+$("#img01").hammer().on('swipedown',function (ev) {
+    var velocity = ev.gesture.velocity;
+    var velocityX = ev.gesture.velocityX;
+    var velocityY = ev.gesture.velocityY;
+    var verticalSwipeDistance=ev.gesture.deltaY;
+    console.log('Velocity Y: '+velocityY);
+    if(velocityY> 1.2){
+        $("#close1").click();
+    }else{
+        var currentPosition = $("#noteImage").scrollTop();  //your current y position on the page
+        $('#noteImage').animate({
+            scrollTop: currentPosition-verticalSwipeDistance
+        }, 700);
+        console.log("Current position of scroll bar: "+ currentPosition+"      Swipe distance: "+verticalSwipeDistance);
+    }
+});
+
+
+//Swipe up gesture to open file upload or scroll down
+$("#img01").hammer().on('swipeup',function (ev) {
+    var velocity = ev.gesture.velocity;
+    var velocityX = ev.gesture.velocityX;
+    var velocityY = Math.abs(ev.gesture.velocityY);
+    var verticalSwipeDistance=ev.gesture.deltaY;
+    console.log('Velocity Y: '+velocityY);
+    if(velocityY> .8){
+       $("#uploadNoteImage").click();
+    }else{
+        var currentPosition = $("#noteImage").scrollTop();  //your current y position on the page
+        $('#noteImage').animate({
+            scrollTop: currentPosition-verticalSwipeDistance
+        }, 700);
+        console.log("Current position of scroll bar: "+ currentPosition+"      Swipe distance: "+verticalSwipeDistance);
+    }
+});
