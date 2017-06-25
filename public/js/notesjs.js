@@ -1295,14 +1295,20 @@ $("#img01").hammer().on('swipedown',function (ev) {
 });
 
 
+
+
 //Swipe up gesture to open file upload or scroll down
+$("#img01").hammer()
+    .data('hammer')
+    .get('swipeup')
+    .set({ velocity: 0 });
 $("#img01").hammer().on('swipeup',function (ev) {
     var velocity = ev.gesture.velocity;
     var velocityX = ev.gesture.velocityX;
     var velocityY = Math.abs(ev.gesture.velocityY);
     var verticalSwipeDistance=ev.gesture.deltaY;
     console.log('Velocity Y: '+velocityY);
-    if(velocityY> .45){
+    if(velocityY> .3){
        $("#uploadNoteImage").click();
     }else{
         var currentPosition = $("#noteImage").scrollTop();  //your current y position on the page
