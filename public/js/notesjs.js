@@ -1226,7 +1226,7 @@ $("#img01").hammer().on("swipeleft", function(ev) {
     var horizontalSwipeDistance=ev.gesture.deltaX;
     var currentPosition=$("#noteImageContainer").scrollLeft();
     console.log("Swipe left x-velocity: "+velocityX+" Swipe distance: "+horizontalSwipeDistance+" Scroll position:"+currentPosition);
-    if(velocityX> .7){
+    if(velocityX> .5){
         next();
     }else{
         $('#noteImageContainer').animate({
@@ -1243,8 +1243,8 @@ $("#img01").hammer().on("swiperight", function(ev) {
     var horizontalSwipeDistance=ev.gesture.deltaX;
     var currentPosition=$("#noteImageContainer").scrollLeft();
     console.log("Swipe right x-velocity: "+velocityX+" Swipe distance: "+horizontalSwipeDistance+" Scroll position:"+currentPosition);
-    if(velocityX> .7){
-        next();
+    if(velocityX> .5){
+        previous();
     }else{
         $('#noteImageContainer').animate({
             scrollLeft: currentPosition-horizontalSwipeDistance
@@ -1271,10 +1271,7 @@ $("#img01").hammer().on("press",function () {$("#deleteNoteButton").click();});
 
 
 
-$("#img01").hammer()
-    .data('hammer')
-    .get('swipe')
-    .set({ direction: Hammer.DIRECTION_ALL, velocity:.1});
+$("#img01").hammer().data('hammer').get('swipe').set({ direction: Hammer.DIRECTION_ALL, velocity:.1});
 
 //Swipe down gesture to close modal or scroll up
 $("#img01").hammer().on('swipedown',function (ev) {
@@ -1283,7 +1280,7 @@ $("#img01").hammer().on('swipedown',function (ev) {
     var velocityY = ev.gesture.velocityY;
     var verticalSwipeDistance=ev.gesture.deltaY;
     console.log('Velocity Y: '+velocityY);
-    if(velocityY> 0.6){
+    if(velocityY> 0.4){
         $("#close1").click();
     }else{
         var currentPosition = $("#noteImage").scrollTop();  //your current y position on the page
@@ -1298,23 +1295,21 @@ $("#img01").hammer().on('swipedown',function (ev) {
 
 
 //Swipe up gesture to open file upload or scroll down
-$("#img01").hammer()
-    .data('hammer')
-    .get('swipeup')
-    .set({ velocity: 0 });
+
 $("#img01").hammer().on('swipeup',function (ev) {
     var velocity = ev.gesture.velocity;
     var velocityX = ev.gesture.velocityX;
     var velocityY = Math.abs(ev.gesture.velocityY);
     var verticalSwipeDistance=ev.gesture.deltaY;
     console.log('Velocity Y: '+velocityY);
-    if(velocityY> .3){
+    if(velocityY> .2){
        $("#uploadNoteImage").click();
     }else{
+        console.log("Velocity less than .2");
         var currentPosition = $("#noteImage").scrollTop();  //your current y position on the page
         $('#noteImage').animate({
             scrollTop: currentPosition-verticalSwipeDistance
         }, 700);
-        console.log("Current position of scroll bar: "+ currentPosition+"      Swipe distance: "+verticalSwipeDistance);
+        //console.log("Current position of scroll bar: "+ currentPosition+"      Swipe distance: "+verticalSwipeDistance);
     }
 });
