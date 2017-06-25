@@ -2,12 +2,13 @@
 $("#darkswitch").change(function () {
     if ($('#darkswitch').is(':checked')) {
         $("#calbg").css({
-            'background': 'url(img/calendar4.jpg) no-repeat center center scroll',
+            'background': 'url(img/calendar4.png) no-repeat center center scroll',
             '-webkit-background-size': 'contain',
             '-moz-background-size': 'contain',
             '-o-background-size': 'contain',
             'background-size': 'contain',
-            'background-color': 'rgb(54,52,66)'
+            'background-color':  'linear-gradient( bottom, rgb(54,52,66) 50%, rgb(255,255,255) 50%)'
+
         });
         $('#calendar').css('color', '#ffffff');
         $('.eventslabel').css('color', '#ffffff');

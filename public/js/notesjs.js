@@ -458,7 +458,7 @@ function init() {
     // $("#miniTable.sorting").css({"display": "none", "background-color": "blue"});
     var oldpgno = pgno;
     var oldnotesno = notesno;
-
+    $("#img01").css({'width':'100%'});
     $("#books").css({"justify-content": "space-around"});
     $('#miniTable tr:nth-child(1)').addClass("customHeader");
     if (!swapped) {
@@ -1217,21 +1217,57 @@ $("#centeralbook").hammer().on("swiperight", function() { prevsub();});
 
 
 
+var zoomed=false;
 
+$("#img01").hammer().on("swipeleft", function(ev) {
+    var velocity = ev.gesture.velocity;
+    var velocityX =Math.abs(ev.gesture.velocityX);
+    var velocityY = ev.gesture.velocityY;
+    var horizontalSwipeDistance=ev.gesture.deltaX;
+    var currentPosition=$("#noteImageContainer").scrollLeft();
+    console.log("Swipe left x-velocity: "+velocityX+" Swipe distance: "+horizontalSwipeDistance+" Scroll position:"+currentPosition);
+    if(velocityX> .7){
+        next();
+    }else{
+        $('#noteImageContainer').animate({
+            scrollLeft: currentPosition-horizontalSwipeDistance
+        }, 700);
+
+}
+});
+
+$("#img01").hammer().on("swiperight", function(ev) {
+    var velocity = ev.gesture.velocity;
+    var velocityX =Math.abs(ev.gesture.velocityX);
+    var velocityY = ev.gesture.velocityY;
+    var horizontalSwipeDistance=ev.gesture.deltaX;
+    var currentPosition=$("#noteImageContainer").scrollLeft();
+    console.log("Swipe right x-velocity: "+velocityX+" Swipe distance: "+horizontalSwipeDistance+" Scroll position:"+currentPosition);
+    if(velocityX> .7){
+        next();
+    }else{
+        $('#noteImageContainer').animate({
+            scrollLeft: currentPosition-horizontalSwipeDistance
+        }, 700);
+
+    }});
+
+
+$("#img01").hammer().on('doubletap',function(){
+    if(zoomed){
+        $("#img01").css({'width':'100%'});
+    }else{
+        $("#img01").css({'width':'150%'});
+    }
+    zoomed=!zoomed;
+});
+
+//Delete note gesture setting
 $("#img01").hammer()
     .data('hammer')
     .get('press')
-    .set({ time: 251 });
-// $("#img01").hammer().on("press",function () { $("#close1").click(); });
-$("#img01").hammer().on("swipeleft", function(ev) {
-    var velocity = ev.gesture.velocity;
-    var velocityX = ev.gesture.velocityX;
-    var velocityY = ev.gesture.velocityY;
-
-    next();});
-$("#img01").hammer().on("swiperight", function() { previous();});
-
-$("#img01").hammer().on("doubletap",function () {$("#deleteNoteButton").click();});
+    .set({ time: 500 });
+$("#img01").hammer().on("press",function () {$("#deleteNoteButton").click();});
 
 
 
@@ -1247,7 +1283,7 @@ $("#img01").hammer().on('swipedown',function (ev) {
     var velocityY = ev.gesture.velocityY;
     var verticalSwipeDistance=ev.gesture.deltaY;
     console.log('Velocity Y: '+velocityY);
-    if(velocityY> 1.2){
+    if(velocityY> 0.6){
         $("#close1").click();
     }else{
         var currentPosition = $("#noteImage").scrollTop();  //your current y position on the page
@@ -1266,7 +1302,7 @@ $("#img01").hammer().on('swipeup',function (ev) {
     var velocityY = Math.abs(ev.gesture.velocityY);
     var verticalSwipeDistance=ev.gesture.deltaY;
     console.log('Velocity Y: '+velocityY);
-    if(velocityY> .8){
+    if(velocityY> .45){
        $("#uploadNoteImage").click();
     }else{
         var currentPosition = $("#noteImage").scrollTop();  //your current y position on the page
