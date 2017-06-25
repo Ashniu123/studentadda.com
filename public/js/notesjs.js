@@ -906,9 +906,6 @@ $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, 
             var order = getIndexToDelete(noteTitle, notesData);
             console.log("5) Fetched order number: "+order);
             var id = Math.floor(Math.random() * 1000);
-            // console.log("6) Images before uploading: "+images);
-            // images = imgpgno + 1;
-            // console.log("7) Images after uploading: "+images);
             if (imgpgno == 0) {
                 console.log("6)(No notes uploaded yet state) Images before uploading"+images);
                 modalImg.src = reader.result;
@@ -919,7 +916,6 @@ $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, 
                 images = imgpgno + 1;
                 console.log("7)(No notes uploaded yet state) Images after uploading: "+images);
                 // imgpgno++;
-                // console.log("8)(No notes uploaded yet state) Updated page number of image "+imgpgno);
 
             }
             else if(imgpgno!=0) {
@@ -932,7 +928,6 @@ $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, 
                 images = imgpgno + 1;
                 console.log("7)(1 note uploaded state) Images after uploading: "+images);
             }
-            //console.log(notesData[order].data);
         },
         error: function (err) {
             toastr.error('Try again!', 'Something went wrong in uploading note!');
@@ -1125,27 +1120,6 @@ function setTitleExternally(title) {
     noteTitle = title;
 }
 
-function touchHandle(touchedElement) {
-    //alert(touchedElement);
-
-    if (touchedElement == "books") {
-        if (swipeDirection == "left") {
-            $("#nextSubjectArrowDiv").click();
-        } else if (swipeDirection == "right") {
-            $("#previousSubjectArrowDiv").click();
-        } else if (swipeDirection == "click") {
-            one();
-            displayNote();
-            $("#noteImage").modal("show");
-        }
-    } else if (touchedElement == "img01") {
-        if (swipeDirection == "left") {
-            next();
-        } else if (swipeDirection == "right") {
-            previous();
-        }
-    }
-}
 
 $("#setPageSlider").bootstrapSlider({
     min:1,
@@ -1168,3 +1142,11 @@ $("#setPageSlider").bootstrapSlider({
 //     }
 //     toggleSlider=!toggleSlider;
 // });
+
+
+
+$("#centeralbook").hammer().on("swipeleft", function() { nextsub();});
+$("#centeralbook").hammer().on("swiperight", function() { prevsub();});
+
+$("#img01").hammer().on("swipeleft", function() { next();});
+$("#img01").hammer().on("swiperight", function() { previous();});

@@ -324,10 +324,7 @@
             <div id="books">
                 <div>
                     <i class="fa fa-times" id="del1"></i>
-                    <div id="note1"
-                         data-toggle="modal" data-target="#noteImage" ontouchstart="touchStart(event,&#39;books&#39;);"
-                         ontouchend="touchEnd(event);" ontouchmove="touchMove(event);"
-                         ontouchcancel="touchCancel(event);">
+                    <div id="note1" data-toggle="modal" data-target="#noteImage">
                         <img src="img/bookmark.png" class="bookmark">
                         <h1 id="s1"></h1>
                         <br>
@@ -432,9 +429,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-xs-12">
-                            <img id="img01" ontouchstart="touchStart(event,&#39;img01&#39;);"
-                                 ontouchend="touchEnd(event);" ontouchmove="touchMove(event);"
-                                 ontouchcancel="touchCancel(event);">
+                            <img id="img01" >
                         </div>
                     </div>
                 </div>
@@ -771,7 +766,8 @@
 
 
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
-<script src="js/touchSupport.js"></script>
+<script src="bower_components/hammerjs/hammer.min.js"></script>
+<script src="bower_components/jquery-hammerjs/jquery.hammer.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js"></script>
 <script src="bower_components/moment/moment.js"></script>
@@ -787,7 +783,6 @@
 <script src="bower_components/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
 <script src="js/notesjs.js"></script>
 <script src="js/calendarjs.js"></script>
-
 
 </body>
 </html>

@@ -70,6 +70,10 @@ $(document).ready(function () {
             defaultView: 'month',
             fixedWeekCount: false,
             allDayDefault: false,
+            /* Click delays */
+            longPressDelay:1,
+            eventLongPressDelay:1,
+            selectLongPressDelay:1,
             /*
              selectable:true will enable user to select datetime slot
              selectHelper will add helpers for selectable.

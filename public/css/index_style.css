@@ -183,6 +183,6 @@ h2.text-center{
 
 @media screen and (max-width: 761px) {
     #reverseFlex div.descriptionContainer{
-        margin-left: 70px;
+        margin-left: 12px;
     }
 }
