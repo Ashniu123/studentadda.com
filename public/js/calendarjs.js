@@ -437,7 +437,7 @@ $(document).ready(function () {
 
         if(!innitialRender){
             renderMiniTable();
-            console.log("Called here");
+           // console.log("Called here");
             innitialRender=!innitialRender;
         }
 

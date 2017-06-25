@@ -737,7 +737,7 @@ function init() {
                 $('#miniTable td:nth-child(4),#miniTable th:nth-child(4)').hide();
                 $('#miniTable td:nth-child(5),#miniTable th:nth-child(5)').hide();
                 $("#miniEventsContainer").css({"height": $("#miniTable").height()+50});
-                console.log( $("#miniTable").height());
+                //console.log( $("#miniTable").height());
             } else if (swapped) {
 
                 // alert("Swapping and updating 3 "+swapped);
@@ -1281,7 +1281,7 @@ $("#img01").hammer().on('swipedown',function (ev) {
     var velocityY = ev.gesture.velocityY;
     var verticalSwipeDistance=ev.gesture.deltaY;
     console.log('Velocity Y: '+velocityY);
-    if(velocityY> 0.4){
+    if(velocityY> 0.6){
         $("#close1").click();
     }else{
         var currentPosition = $("#noteImage").scrollTop();  //your current y position on the page
@@ -1303,10 +1303,10 @@ $("#img01").hammer().on('swipeup',function (ev) {
     var velocityY = Math.abs(ev.gesture.velocityY);
     var verticalSwipeDistance=ev.gesture.deltaY;
     console.log('Velocity Y: '+velocityY);
-    if(velocityY> .2){
-       $("#uploadNoteImage").click();
+    if(velocityY> .08){
+      // $("#uploadNoteImage").click();
     }else{
-        console.log("Velocity less than .2");
+        console.log("Velocity less than .08");
         var currentPosition = $("#noteImage").scrollTop();  //your current y position on the page
         $('#noteImage').animate({
             scrollTop: currentPosition-verticalSwipeDistance
