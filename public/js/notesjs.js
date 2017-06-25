@@ -1227,7 +1227,7 @@ $("#img01").hammer().on("swipeleft", function(ev) {
     var horizontalSwipeDistance=ev.gesture.deltaX;
     var currentPosition=$("#noteImageContainer").scrollLeft();
     console.log("Swipe left x-velocity: "+velocityX+" Swipe distance: "+horizontalSwipeDistance+" Scroll position:"+currentPosition);
-    if(velocityX> .5){
+    if(velocityX> 1.3){
         next();
     }else{
         $('#noteImageContainer').animate({
@@ -1244,7 +1244,7 @@ $("#img01").hammer().on("swiperight", function(ev) {
     var horizontalSwipeDistance=ev.gesture.deltaX;
     var currentPosition=$("#noteImageContainer").scrollLeft();
     console.log("Swipe right x-velocity: "+velocityX+" Swipe distance: "+horizontalSwipeDistance+" Scroll position:"+currentPosition);
-    if(velocityX> .5){
+    if(velocityX> 1.3){
         previous();
     }else{
         $('#noteImageContainer').animate({
@@ -1281,7 +1281,7 @@ $("#img01").hammer().on('swipedown',function (ev) {
     var velocityY = ev.gesture.velocityY;
     var verticalSwipeDistance=ev.gesture.deltaY;
     console.log('Velocity Y: '+velocityY);
-    if(velocityY> 0.6){
+    if(velocityY> 2){
         $("#close1").click();
     }else{
         var currentPosition = $("#noteImage").scrollTop();  //your current y position on the page
@@ -1303,8 +1303,9 @@ $("#img01").hammer().on('swipeup',function (ev) {
     var velocityY = Math.abs(ev.gesture.velocityY);
     var verticalSwipeDistance=ev.gesture.deltaY;
     console.log('Velocity Y: '+velocityY);
-    if(velocityY> .08){
-      // $("#uploadNoteImage").click();
+    if(velocityY> 2){
+        console.log("Inside uploadNotesPopup Trigger");
+      $("#uploadNoteImage").click();
     }else{
         console.log("Velocity less than .08");
         var currentPosition = $("#noteImage").scrollTop();  //your current y position on the page
