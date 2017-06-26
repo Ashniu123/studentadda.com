@@ -111,6 +111,7 @@ $(document).ready(function () {
                     sideBySide: true
                 });
 
+                $('#createEventInfo').val('');//To empty the textarea
 
                 /*
                  var color = '#3a87ad',
@@ -271,6 +272,8 @@ $(document).ready(function () {
 
                 if (event.description) {
                     $('#eventClickInfo').val(event.description);
+                }else{
+                    $('#eventClickInfo').val('');
                 }
 
                 $('#eventClickStartTime').datetimepicker({

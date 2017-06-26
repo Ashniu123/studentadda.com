@@ -847,6 +847,7 @@ function displayNote() //function to make the popup images visible
 {
     i = 1;
     modalImg.src = getNoteAddress(noteTitle, i, notesData);
+    imgpgno = parseInt(getNotesLength(noteTitle, notesData));
     images = getNotesLength(noteTitle, notesData);
     $("#imgno").html("Pg." + 1);
 }
@@ -889,6 +890,7 @@ $("#uploadNoteImage").fileinput({
 });
 //console.log("In global scope title is:"+ noteTitle);
 
+/*
 var uploadInProgress = $.when();
 $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, reader) {
     // here, we chain the "pending" upload to this one
@@ -948,62 +950,90 @@ $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, 
         });
     });
 });
+*/
+var imgpgno;
+$('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, reader) {
+    var url = noTrailingSlash(window.location.href) + '/user/notes';
+    console.log("1) Notes upload number: "+index);
 
-// $('#uploadNoteImage').on('fileloaded', function (event, file, previewId, index, reader) {
-//     var url = noTrailingSlash(window.location.href) + '/user/notes';
-//     console.log("1) Notes upload number: "+index);
-//
-//     var imgpgno = parseInt(getNotesLength(noteTitle, notesData));
-//     console.log("2) Got page number of image "+imgpgno);
-//
-//     var data = {
-//         "subject": noteTitle,
-//         "pgno": imgpgno + 1,
-//         "note": reader.result
-//     };
-//
-//     console.log("3) Formed data object:");
-//     console.log(data);
-//     $.ajax({
-//         url: url,
-//         method: "PUT",
-//         data: data,
-//         success: function (data) {
-//             console.log("4) Successfully uploaded data");
-//             console.log(data);
-//             toastr.success('', 'Added!');
-//             var order = getIndexToDelete(noteTitle, notesData);
-//             console.log("5) Fetched order number: "+order);
-//             var id = Math.floor(Math.random() * 1000);
-//             if (imgpgno == 0) {
-//                 console.log("6)(No notes uploaded yet state) Images before uploading"+images);
-//                 modalImg.src = reader.result;
-//                 notesData[order].data.push({
-//                     "id": id, "pgno": imgpgno + 1,
-//                     "note": reader.result
-//                 });
-//                 images = imgpgno + 1;
-//                 console.log("7)(No notes uploaded yet state) Images after uploading: "+images);
-//                 // imgpgno++;
-//
-//             }
-//             else if(imgpgno!=0) {
-//                 var newPageNo=imgpgno + 1;
-//                 console.log("6)(1 note uploaded state) Pushing data with pgno: "+newPageNo);
-//                 notesData[order].data.push({
-//                     "id": id, "pgno": newPageNo,
-//                     "note": reader.result
-//                 });
-//                 images = imgpgno + 1;
-//                 console.log("7)(1 note uploaded state) Images after uploading: "+images);
-//             }
-//         },
-//         error: function (err) {
-//             toastr.error('Try again!', 'Something went wrong in uploading note!');
-//             console.log(err);
-//         }
-//     });
-// });
+    console.log("2) Got page number of image "+imgpgno);
+
+    var data = {
+        "subject": noteTitle,
+        "pgno": imgpgno + index +1,
+        "note": reader.result
+    };
+
+    var order = getIndexToDelete(noteTitle, notesData);
+    console.log("5) Fetched order number: "+order);
+    var id = Math.floor(Math.random() * 1000);
+    if (imgpgno === 0) {
+        console.log("6)(No notes uploaded yet state) Images before uploading"+images);
+        modalImg.src = reader.result;
+        notesData[order].data.push({
+            "id": id,
+            "pgno": imgpgno + index+ 1,
+            "note": reader.result
+        });
+        images = imgpgno + index+1;
+        console.log("7)(No notes uploaded yet state) Images after uploading: "+images);
+        // imgpgno++;
+
+    }
+    else if(imgpgno!==0) {
+        var newPageNo=imgpgno + index+1;
+        console.log("6)(1 note uploaded state) Pushing data with pgno: "+newPageNo);
+        notesData[order].data.push({
+            "id": id, "pgno": newPageNo,
+            "note": reader.result
+        });
+        images = imgpgno + index+1;
+        console.log("7)(1 note uploaded state) Images after uploading: "+images);
+    }
+
+    console.log("3) Formed data object:");
+    console.log(data);
+    $.ajax({
+        url: url,
+        method: "PUT",
+        data: data,
+        success: function (data) {
+            console.log("4) Successfully uploaded data");
+            console.log(data);
+            toastr.success('', 'Added!');
+            /*var order = getIndexToDelete(noteTitle, notesData);
+            console.log("5) Fetched order number: "+order);
+            var id = Math.floor(Math.random() * 1000);
+            if (imgpgno === 0) {
+                console.log("6)(No notes uploaded yet state) Images before uploading"+images);
+                modalImg.src = reader.result;
+                notesData[order].data.push({
+                    "id": id,
+                    "pgno": imgpgno + index+ 1,
+                    "note": reader.result
+                });
+                images = imgpgno + index+1;
+                console.log("7)(No notes uploaded yet state) Images after uploading: "+images);
+                // imgpgno++;
+
+            }
+            else if(imgpgno!==0) {
+                var newPageNo=imgpgno + index+1;
+                console.log("6)(1 note uploaded state) Pushing data with pgno: "+newPageNo);
+                notesData[order].data.push({
+                    "id": id, "pgno": newPageNo,
+                    "note": reader.result
+                });
+                images = imgpgno + index+1;
+                console.log("7)(1 note uploaded state) Images after uploading: "+images);
+            }*/
+        },
+        error: function (err) {
+            toastr.error('Try again!', 'Something went wrong in uploading image number'+(index+1)+'!');
+            console.log(err);
+        }
+    });
+});
 
 //Click events
 
@@ -1309,7 +1339,7 @@ $("#img01").hammer().on('swipeup',function (ev) {
 
     if(velocityY > 2){
         console.log("Inside uploadNotesPopup Trigger");
-      $("#uploadNoteImage").click();
+         $("#uploadNoteImage").click();
     }else{
         console.log("Velocity less than 2");
         var currentPosition = $("#noteImage").scrollTop();  //your current y position on the page
