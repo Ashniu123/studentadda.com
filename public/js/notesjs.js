@@ -459,7 +459,13 @@ function init() {
     var oldpgno = pgno;
     var oldnotesno = notesno;
     $("#img01").css({'width':'100%'});
+    // $("#noteImage .modal-lg").css({'margin':'15px'});
+    $("#prevNote,#nextNote").show();
+    $("#noteImage .modal-body").css({'padding':'15px'});
+    $("#noteImage .container-fluid").css({"padding":"0"});
     $("#books").css({"justify-content": "space-around"});
+    $("#noteImage .modal-header").show();
+    $(".OnNoteUi").hide();
     $('#miniTable tr:nth-child(1)').addClass("customHeader");
     if (!swapped) {
         $('#miniTable td:nth-child(4),#miniTable th:nth-child(4)').show();
@@ -711,8 +717,13 @@ function init() {
         else if (width < 470)  // Phablet width
         {
 
+            $("#prevNote,#nextNote").hide();
+            $("#noteImage .modal-header").hide();
+            $(".OnNoteUi").show();
+            $("#noteImage .modal-body").css({'padding':'0'});
+            // $("#noteImage .modal-lg").css({'margin':'0px'});
+            $("#close1OnNote").css({'margin-left':$(window).width()*.8});
 
-            // $('#darkswitch').bootstrapToggle('destroy');
             $(function () {
                 $('#darkswitch').bootstrapToggle({
                     size:'small',
@@ -850,6 +861,7 @@ function displayNote() //function to make the popup images visible
     imgpgno = parseInt(getNotesLength(noteTitle, notesData));
     images = getNotesLength(noteTitle, notesData);
     $("#imgno").html("Pg." + 1);
+    $("#imgnoOnNote").html("Pg." + 1);
 }
 
 function next() //Change image to next page
@@ -879,7 +891,7 @@ $("#uploadNoteImage").fileinput({
     browseLabel: '',
     removeLabel: '',
     uploadLabel: '',
-    browseIcon: '<i class="glyphicon glyphicon-folder-open"></i> ',
+    browseIcon: '<i class="glyphicon glyphicon-folder-open" id="uploadNoteIcon"></i> ',
     browseTitle: 'Choose Notes',
     elErrorContainer: '#notesUploadError',
     msgErrorClass: 'alert alert-block alert-danger',
@@ -1085,6 +1097,9 @@ $("#del4").click(function () {
 
 $("#deleteNoteButton").click(function () {
     deleteNote();
+
+});$("#deleteNoteButtonOnNote").click(function () {
+    deleteNote();
 });
 
 $("#prevNote").click(function () {
@@ -1248,104 +1263,108 @@ $("#centeralbook").hammer().on("swiperight", function() { prevsub();});
 
 
 
-var zoomed=false;
+// var zoomed=false;
 
 $("#img01").hammer().on("swipeleft", function(ev) {
-    var velocity = ev.gesture.velocity;
-    var velocityX =Math.abs(ev.gesture.velocityX);
-    var velocityY = ev.gesture.velocityY;
-    var horizontalSwipeDistance=ev.gesture.deltaX;
-    var currentPosition=$("#noteImageContainer").scrollLeft();
-    console.log("Swipe left x-velocity: "+velocityX+" Swipe distance: "+horizontalSwipeDistance+" Scroll position:"+currentPosition);
-    if(velocityX> 1.3){
-        next();
-    }else{
-        $('#noteImageContainer').animate({
-            scrollLeft: currentPosition-horizontalSwipeDistance
-        }, 700);
-
-}
+//     var velocity = ev.gesture.velocity;
+//     var velocityX =Math.abs(ev.gesture.velocityX);
+//     var velocityY = ev.gesture.velocityY;
+//     var horizontalSwipeDistance=ev.gesture.deltaX;
+//     var currentPosition=$("#noteImageContainer").scrollLeft();
+//     console.log("Swipe left x-velocity: "+velocityX+" Swipe distance: "+horizontalSwipeDistance+" Scroll position:"+currentPosition);
+//     if(velocityX> 1.3){
+//         next();
+//     }else{
+//         $('#noteImageContainer').animate({
+//             scrollLeft: currentPosition-horizontalSwipeDistance
+//         }, 700);
+//
+// }
+    next();
 });
 
 $("#img01").hammer().on("swiperight", function(ev) {
-    var velocity = ev.gesture.velocity;
-    var velocityX =Math.abs(ev.gesture.velocityX);
-    var velocityY = ev.gesture.velocityY;
-    var horizontalSwipeDistance=ev.gesture.deltaX;
-    var currentPosition=$("#noteImageContainer").scrollLeft();
-    console.log("Swipe right x-velocity: "+velocityX+" Swipe distance: "+horizontalSwipeDistance+" Scroll position:"+currentPosition);
-    if(velocityX> 1.3){
-        previous();
-    }else{
-        $('#noteImageContainer').animate({
-            scrollLeft: currentPosition-horizontalSwipeDistance
-        }, 700);
-
-    }});
-
-
-$("#img01").hammer().on('doubletap',function(){
-    if(zoomed){
-        $("#img01").css({'width':'100%'});
-    }else{
-        $("#img01").css({'width':'150%'});
-    }
-    zoomed=!zoomed;
+    // var velocity = ev.gesture.velocity;
+    // var velocityX =Math.abs(ev.gesture.velocityX);
+    // var velocityY = ev.gesture.velocityY;
+    // var horizontalSwipeDistance=ev.gesture.deltaX;
+    // var currentPosition=$("#noteImageContainer").scrollLeft();
+    // console.log("Swipe right x-velocity: "+velocityX+" Swipe distance: "+horizontalSwipeDistance+" Scroll position:"+currentPosition);
+    // if(velocityX> 1.3){
+    //     previous();
+    // }else{
+    //     $('#noteImageContainer').animate({
+    //         scrollLeft: currentPosition-horizontalSwipeDistance
+    //     }, 700);
+    //
+    // }
+    previous();
 });
+
+//
+// $("#img01").hammer().on('doubletap',function(){
+//     if(zoomed){
+//         $("#img01").css({'width':'100%'});
+//     }else{
+//         $("#img01").css({'width':'150%'});
+//     }
+//     zoomed=!zoomed;
+// });
 
 //Delete note gesture setting
-$("#img01").hammer()
-    .data('hammer')
-    .get('press')
-    .set({ time: 500 });
-$("#img01").hammer().on("press",function () {$("#deleteNoteButton").click();});
+// $("#img01").hammer()
+//     .data('hammer')
+//     .get('press')
+//     .set({ time: 500 });
+// $("#img01").hammer().on("press",function () {$("#deleteNoteButton").click();});
 
+$("#img01").hammer().data('hammer').get('press').set({ time: 100 });
+$("#img01").hammer().on("press",function () { console.log("here");$("#uploadNotIcon").click();});
 
-
-$("#img01").hammer().data('hammer').get('swipe').set({ direction: Hammer.DIRECTION_ALL, velocity:.1});
+// $("#img01").hammer().data('hammer').get('swipe').set({ direction: Hammer.DIRECTION_ALL, velocity:.1});
 
 //Swipe down gesture to close modal or scroll up
-$("#img01").hammer().on('swipedown',function (ev) {
-    var velocity = ev.gesture.velocity;
-    var velocityX = ev.gesture.velocityX;
-    var velocityY = ev.gesture.velocityY;
-    var verticalSwipeDistance=ev.gesture.deltaY;
-    console.log('Velocity Y: '+velocityY);
-    if(velocityY> 2){
-        $("#close1").click();
-    }else{
-        var currentPosition = $("#noteImage").scrollTop();  //your current y position on the page
-        $('#noteImage').animate({
-            scrollTop: currentPosition-verticalSwipeDistance
-        }, 700);
-        console.log("Current position of scroll bar: "+ currentPosition+"      Swipe distance: "+verticalSwipeDistance);
-    }
-});
+// $("#img01").hammer().on('swipedown',function (ev) {
+//     var velocity = ev.gesture.velocity;
+//     var velocityX = ev.gesture.velocityX;
+//     var velocityY = ev.gesture.velocityY;
+//     var verticalSwipeDistance=ev.gesture.deltaY;
+//     console.log('Velocity Y: '+velocityY);
+//     if(velocityY> 2){
+//         $("#close1").click();
+//     }else{
+//         var currentPosition = $("#noteImage").scrollTop();  //your current y position on the page
+//         $('#noteImage').animate({
+//             scrollTop: currentPosition-verticalSwipeDistance
+//         }, 700);
+//         console.log("Current position of scroll bar: "+ currentPosition+"      Swipe distance: "+verticalSwipeDistance);
+//     }
+// });
 
 
 
 
 //Swipe up gesture to open file upload or scroll down
-
-$("#img01").hammer().on('swipeup',function (ev) {
-    var velocity = ev.gesture.velocity;
-    var velocityX = ev.gesture.velocityX;
-    var velocityY = Math.abs(ev.gesture.velocityY);
-    var verticalSwipeDistance=ev.gesture.deltaY;
-    velocityY=parseFloat(velocityY);
-    console.log('Velocity Y: '+velocityY);
-
-
-
-    if(velocityY > 2){
-        console.log("Inside uploadNotesPopup Trigger");
-         $("#uploadNoteImage").click();
-    }else{
-        console.log("Velocity less than 2");
-        var currentPosition = $("#noteImage").scrollTop();  //your current y position on the page
-        $('#noteImage').animate({
-            scrollTop: currentPosition-verticalSwipeDistance
-        }, 700);
-        //console.log("Current position of scroll bar: "+ currentPosition+"      Swipe distance: "+verticalSwipeDistance);
-    }
-});
+//
+// $("#img01").hammer().on('swipeup',function (ev) {
+//     var velocity = ev.gesture.velocity;
+//     var velocityX = ev.gesture.velocityX;
+//     var velocityY = Math.abs(ev.gesture.velocityY);
+//     var verticalSwipeDistance=ev.gesture.deltaY;
+//     velocityY=parseFloat(velocityY);
+//     console.log('Velocity Y: '+velocityY);
+//
+//
+//
+//     if(velocityY > 2){
+//         console.log("Inside uploadNotesPopup Trigger");
+//          $("#uploadNoteImage").click();
+//     }else{
+//         console.log("Velocity less than 2");
+//         var currentPosition = $("#noteImage").scrollTop();  //your current y position on the page
+//         $('#noteImage').animate({
+//             scrollTop: currentPosition-verticalSwipeDistance
+//         }, 700);
+//         //console.log("Current position of scroll bar: "+ currentPosition+"      Swipe distance: "+verticalSwipeDistance);
+//     }
+// });
