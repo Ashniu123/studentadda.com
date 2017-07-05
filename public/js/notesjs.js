@@ -461,10 +461,10 @@ function init() {
     $("#img01").css({'width':'100%'});
     // $("#noteImage .modal-lg").css({'margin':'15px'});
     $("#prevNote,#nextNote").show();
-    $("#noteImage .modal-body").css({'padding':'15px'});
-    $("#noteImage .container-fluid").css({"padding":"0"});
+    $("#noteImage.modal-body").css({'padding':'15px'});
+    $("#noteImage.container-fluid").css({"padding":"0"});
     $("#books").css({"justify-content": "space-around"});
-    $("#noteImage .modal-header").show();
+    $("#noteImage.modal-header").show();
     $(".OnNoteUi").hide();
     $('#miniTable tr:nth-child(1)').addClass("customHeader");
     if (!swapped) {
@@ -501,11 +501,12 @@ function init() {
 
             $("#events").show();
             $('#calendar').fullCalendar('option', 'height', 800);
-           // alert(showFullCal);
+
             if(!showFullCal){
                 $("#events").hide();
             }
             $(".fc-toolbar").css({'font-size': '15px'});
+
             pages = Math.ceil((len / 4));
             notesno = 4;
             pgno = Math.ceil((oldnotesno * (oldpgno - 1) + 1) / notesno);
@@ -569,6 +570,7 @@ function init() {
                     pgno--;
                     init();
                 }
+
             }
         }
         else if (width >= 820) // 3/4rth width
