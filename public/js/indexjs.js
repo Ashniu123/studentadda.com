@@ -1,7 +1,7 @@
 //For modal-tabs
 $("#signupLoginModal").on('show.bs.modal', function (e) {
     var tab = e.relatedTarget.hash;
-    console.log(tab);
+    // console.log(tab);
     $('.nav-tabs a[href="' + tab + '"]').tab('show');
     $(tab).addClass('active');
 });
@@ -85,16 +85,16 @@ $('#buttonForSignup').click(function () {
             "email": $('#inputEmailForSignup').val(),
             "password": $('#inputPasswordForSignup').val()
         };
-        console.log(signupData);
+        // console.log(signupData);
         var url = window.location.href + 'signup';
-        console.log(url);
+        // console.log(url);
         $.ajax({
             url: url,
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify(signupData),
             success: function (data) {
-                console.log("Success");
+                // console.log("Success");
                 console.log(JSON.stringify(data));
                 if (data.status === true) {
                     $('#validityError').html('Registration Successful!<br>Link for Verification has been sent to your Email Id');
@@ -103,7 +103,7 @@ $('#buttonForSignup').click(function () {
                 }
             },
             error: function (err) {
-                console.log(err);
+                // console.log(err);
                 $('#validityError').html('Registration Unsuccessful! User Already Exists!');
             }
         });
@@ -125,7 +125,7 @@ $('#buttonForLogin').click(function () {
             method: "POST",
             data: loginData,
             success: function (data) {
-                console.log(data);
+                // console.log(data);
                 if (data.success && data.verified) {
                     window.location.href = window.location.href + 'dashboard';
                 } else if (data.success && !data.verified) {
@@ -136,7 +136,7 @@ $('#buttonForLogin').click(function () {
             },
             error: function (err) {
                 $('#LoginError').html('Invalid Login Credentials!');
-                console.log(err);
+                // console.log(err);
             }
         });
     } else {

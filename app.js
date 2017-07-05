@@ -7,7 +7,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var session = require('express-session');
-
+var MongoStore=require('connect-mongo')(session);
 var index = require('./routes/index');
 var dashboard = require('./routes/dashboard');
 var verifyUser = require('./routes/verifyUser');
@@ -33,7 +33,7 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(bodyParser.json({limit: '5mb'}));
 app.use(bodyParser.urlencoded({limit: '5mb', extended: false}));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'),{index:false}));
 
 //passport config
 var User = require('./models/userSchema');
@@ -43,15 +43,21 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 //Session Config
-app.use(session({
+var sess={
     secret: sessionKey,
     saveUninitialized: true,
     resave: false,
     rolling: true,
     cookie: {
         maxAge: 8640000
-    }
-}));
+    },
+    store:new MongoStore({mongooseConnection:mongoose.connection})
+};
+if (app.get('env') === 'production') {
+    // app.set('trust proxy', 1) // trust first proxy
+    sess.cookie.secure = true; // serve secure cookies
+}
+app.use(session(sess));
 
 app.use('/', index);
 app.use('/dashboard', dashboard);

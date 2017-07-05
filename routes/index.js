@@ -119,7 +119,7 @@ router.post('/login', function(req, res, next) {
                 } else {
                     req.session.username = req.body.username;
                     if (req.body.rememberme) {
-                        req.session.cookie.maxAge = null;
+                        req.session.cookie.maxAge = req.session.cookie.maxAge*10;//10 Days
                     }
                     res.status(200).json({
                         status: 'Login successful!',
