@@ -515,6 +515,20 @@ $(document).ready(function () {
             for(miniCtr=1;miniCtr<miniTableEvents.length;miniCtr++){
                 miniTableEvents[miniCtr].SrNo=miniCtr;
             }
+            if(miniTableEvents.length==1){
+                var noEventsMessage={
+                    "SrNo": "<i class='fa fa-warning' aria-hidden='true' style='color: red'></i>",
+                    "title": "<b style='color: red'>YOU</b>",
+                    "start": "<b style='color: red'>HAVE</b>",
+                    "end": "<b style='color: red'>NO</b>",
+                    "duration": "<b style='color: red'>UPCOMING</b>",
+                    "description": "<b style='color: red'>EVENTS</b>",
+                    "hiddenStartEvent": 0.1
+                }
+                miniTableEvents.push(noEventsMessage);
+            }
+
+
             table = $('#miniTable').DataTable( {
                 responsive: false,
                 "pageLength": dataTablePages,
