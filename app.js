@@ -45,9 +45,9 @@ passport.deserializeUser(User.deserializeUser());
 //Session Config
 var sess={
     secret: sessionKey,
-    saveUninitialized: true,
+    saveUninitialized: false,
     resave: false,
-    rolling: true,
+    rolling:true,
     cookie: {
         maxAge: 8640000
     },

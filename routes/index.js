@@ -96,6 +96,9 @@ router.post('/login', function(req, res, next) {
      * Authenticate User Credentials and if valid then redirect to dashboard page(done on client side)
      */
     passport.authenticate('local', function(err, user, info) {
+        console.log("Login err:",err);
+        console.log("Login user:",user);
+        console.log("Login info:",info);
         if (err) {
             return next(err);
         }
@@ -117,7 +120,6 @@ router.post('/login', function(req, res, next) {
                         verified:true
                     });
                 } else {
-                    req.session.username = req.body.username;
                     if (req.body.rememberme) {
                         req.session.cookie.maxAge = req.session.cookie.maxAge*10;//10 Days
                     }
