@@ -1,13 +1,12 @@
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
-var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var session = require('express-session');
-var MongoStore=require('connect-mongo')(session);
+var session = require('cookie-session');
+var cookieParser = require('cookie-parser');
 var index = require('./routes/index');
 var dashboard = require('./routes/dashboard');
 var verifyUser = require('./routes/verifyUser');
@@ -45,18 +44,8 @@ passport.deserializeUser(User.deserializeUser());
 //Session Config
 var sess={
     secret: sessionKey,
-    saveUninitialized: false,
-    resave: false,
-    rolling:true,
-    cookie: {
-        maxAge: 8640000
-    },
-    store:new MongoStore({mongooseConnection:mongoose.connection})
+    maxAge: 8640000
 };
-if (app.get('env') === 'production') {
-    // app.set('trust proxy', 1) // trust first proxy
-    sess.cookie.secure = true; // serve secure cookies
-}
 app.use(session(sess));
 
 app.use('/', index);

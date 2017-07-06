@@ -120,8 +120,10 @@ router.post('/login', function(req, res, next) {
                         verified:true
                     });
                 } else {
+                    console.log("Logged in Successfully");
+                    req.session.username=req.body.username;
                     if (req.body.rememberme) {
-                        req.session.cookie.maxAge = req.session.cookie.maxAge*10;//10 Days
+                        req.sessionOptions.maxAge = req.sessionOptions.maxAge*10;//10 Days
                     }
                     res.status(200).json({
                         status: 'Login successful!',
