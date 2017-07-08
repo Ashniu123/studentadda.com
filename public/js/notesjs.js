@@ -500,8 +500,9 @@ function init() {
             });
 
             $("#events").show();
+            setTimeout('',400);
+            $("#calendar").fullCalendar();
             $('#calendar').fullCalendar('option', 'height', 800);
-
             if(!showFullCal){
                 $("#events").hide();
             }
@@ -587,11 +588,10 @@ function init() {
                 });
             });
 
-            $("#events").show();
+
+            $("#calendar").fullCalendar();
             $('#calendar').fullCalendar('option', 'height', 600);
-            if(!showFullCal){
-                $("#events").hide();
-            }
+
 
             $(".fc-toolbar").css({'font-size': '15px'});
             pages = Math.ceil((len / 3));
@@ -665,12 +665,13 @@ function init() {
             });
 
             $(".fc-toolbar").css({'font-size': '12px'});
-            $("#events").show();
+            // $("#events").show();
+            $("#calendar").fullCalendar();
             $('#calendar').fullCalendar('option', 'height', 600);
             // alert(showFullCal);
-            if(!showFullCal){
-                $("#events").hide();
-            }
+            // if(!showFullCal){
+            //     $("#events").hide();
+            // }
             pages = Math.ceil((len / 2));
             notesno = 2;
             pgno = Math.ceil((oldnotesno * (oldpgno - 1) + 1) / notesno);
@@ -736,12 +737,14 @@ function init() {
                     style:"ios"
                 });
             });
+            
+            $("#calendar").fullCalendar();
            $('#calendar').fullCalendar('option', 'height', 550);
-           //  $('#calendar').fullCalendar('option', 'aspectRatio', .8);
+           // $('#calendar').fullCalendar('option', 'aspectRatio', .8);
             // alert(showFullCal);
-            if(!showFullCal){
-                $("#events").hide();
-            }
+            // if(!showFullCal){
+            //     $("#events").hide();
+            // }
             $(".fc-toolbar").css({'font-size': '9px'});
             // $("#eventsBanner").css({'font-size':'20px'});
             $("#books").css({"justify-content": "center"});
@@ -1369,4 +1372,14 @@ $("#img01").hammer().on("press",function () { console.log("here");$("#uploadNotI
 //         }, 700);
 //         //console.log("Current position of scroll bar: "+ currentPosition+"      Swipe distance: "+verticalSwipeDistance);
 //     }
-// });
+//});
+
+$("#deleteAccount").on('click',function(){
+    var deletes=confirm("Are you sure you want to delete?");
+    console.log(deletes);
+    if(deletes){
+        window.location="index.html";
+    }else{
+
+    }
+});
