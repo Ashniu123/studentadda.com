@@ -96,9 +96,6 @@ router.post('/login', function(req, res, next) {
      * Authenticate User Credentials and if valid then redirect to dashboard page(done on client side)
      */
     passport.authenticate('local', function(err, user, info) {
-        console.log("Login err:",err);
-        console.log("Login user:",user);
-        console.log("Login info:",info);
         if (err) {
             return next(err);
         }

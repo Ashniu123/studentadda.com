@@ -10,13 +10,14 @@ var moment = require('moment');
 var router = express.Router();
 
 /* GET dashboard page. */
-router.get('/', function (req, res) {
-    console.log("Req Session",req.session);
-    if (req.session.username)
-        res.sendFile(path.join(__dirname, '../public', 'dashboard.html'));
-    else
-        res.redirect('/');
-});
+router.route('/')
+    .get(function (req, res) {
+        console.log("Req Session", req.session);
+        if (req.session.username)
+            res.sendFile(path.join(__dirname, '../public', 'dashboard.html'));
+        else
+            res.redirect('/');
+    });
 
 /*For User Details*/
 router.route('/user')
@@ -28,11 +29,11 @@ router.route('/user')
             if (err) throw err;
             else {
                 res.status(200).json(user);
-                if(user.tutorial===true) {
+                if (user.tutorial === true) {
                     user.tutorial = false;
                     user.save(function (err, response) {
-                        if(err) throw err;
-                        else{
+                        if (err) throw err;
+                        else {
                             console.log("Changed Tutorial!");
                         }
                     });
@@ -59,6 +60,30 @@ router.route('/user')
                 res.status(200).json(user);
             }
         });
+    })
+    .delete(function (req, res) {//Delete Account
+        //Callback Hell
+        User.remove({username: req.session.username}, function (err, response) {
+            if (err) throw err;
+            else {
+                Image.remove({username: req.session.username}, function (err, response) {
+                    if (err) throw err;
+                    else {
+                        Event.remove({username: req.session.username}, function (err, response) {
+                            if (err) {
+                                res.status(200).json({success: false});
+                                throw err;
+                            }
+                            else {
+                                req.logout();
+                                req.session = null;
+                                res.status(200).json({success: true});
+                            }
+                        });
+                    }
+                });
+            }
+        });
     });
 
 /*To Update the Avatar of User*/
@@ -67,7 +92,7 @@ router.post('/user/avatar', function (req, res) {
     User.update({username: req.session.username}, {$set: {avatar: req.body.avatar}}, function (err, response) {
         if (err) throw err;
         else {
-            console.log("Avatar Body",response);
+            console.log("Avatar Body", response);
             res.status(200).send(response);
         }
     });
@@ -83,7 +108,7 @@ router.route('/user/events')
             if (err) {
                 throw err;
             } else {
-                console.log("GET events:",events);
+                console.log("GET events:", events);
                 res.status(200).send(events.events);
             }
         });
@@ -100,7 +125,7 @@ router.route('/user/events')
             if (err) {
                 throw err;
             } else {
-                console.log("POST event",event);
+                console.log("POST event", event);
                 res.status(200).send(event);
             }
         });
@@ -121,7 +146,7 @@ router.route('/user/events')
         }, function (err, response) {
             if (err) throw err;
             else {
-                console.log("PUT events",response);
+                console.log("PUT events", response);
                 res.status(200).send(response);
             }
         });
@@ -134,7 +159,7 @@ router.route('/user/events')
         Event.update({username: username}, {$pull: {events: {id: req.body.id}}}, function (err, response) {
             if (err) throw err;
             else {
-                console.log("Delete Resp ",response);
+                console.log("Delete Resp ", response);
                 res.status(200).send(response)
             }
         });
@@ -161,13 +186,13 @@ router.route('/user/notes')
         Image.create({
             username: req.session.username,
             subject: req.body.subject,
-            color:req.body.color,
+            color: req.body.color,
             orderno: req.body.orderno
         }, function (err, response) {
             if (err) throw err;
             else {
                 console.log("Post Notes", req.body);
-                console.log("Post Note Resp",response);
+                console.log("Post Note Resp", response);
                 res.status(200).send(response);
             }
         });
@@ -176,29 +201,29 @@ router.route('/user/notes')
         /**
          * Add or delete Note as per requirement
          */
-        if(req.body.remove){
+        if (req.body.remove) {
             //Remove Note
             Image.findOne({
                 username: req.session.username, subject: req.body.subject
             }, function (err, notes) {
                 console.log("Query Notes", notes);
-                console.log("Delete Notes Body",req.body);
-                notes.data.splice(req.body.index,1);
-                var pgno=req.body.pgno;
-                for(var i=req.body.index;i<notes.data.length;i++){
-                    var obj=notes.data[i];
-                    obj.pgno=pgno++;
-                    console.log(pgno+" Object:\n"+obj.pgno);
+                console.log("Delete Notes Body", req.body);
+                notes.data.splice(req.body.index, 1);
+                var pgno = req.body.pgno;
+                for (var i = req.body.index; i < notes.data.length; i++) {
+                    var obj = notes.data[i];
+                    obj.pgno = pgno++;
+                    console.log(pgno + " Object:\n" + obj.pgno);
                 }
-                notes.save(function(err,response){
-                   if(err) throw err;
-                   else{
-                       console.log("Note Delete Save:",response);
-                       res.status(200).send(response);
-                   }
+                notes.save(function (err, response) {
+                    if (err) throw err;
+                    else {
+                        console.log("Note Delete Save:", response);
+                        res.status(200).send(response);
+                    }
                 });
             });
-        }else{
+        } else {
             //Add Note
             Image.findOne({
                 username: req.session.username,
@@ -231,16 +256,19 @@ router.route('/user/notes')
             if (err) throw err;
             else {
                 console.log("Delete Notes", req.body);
-                console.log("Delete Note Result",result);
-                var order=result.orderno,sendResponse={ok:1};
+                console.log("Delete Note Result", result);
+                var order = result.orderno, sendResponse = {ok: 1};
                 /*To update Orderno*/
-                Image.find({username: req.session.username, orderno: {$gt: order}}).sort({orderno:1}).exec(function (err, notes) {
-                    if(err) throw err;
+                Image.find({
+                    username: req.session.username,
+                    orderno: {$gt: order}
+                }).sort({orderno: 1}).exec(function (err, notes) {
+                    if (err) throw err;
                     else {
-                        console.log("UPDATE DELETE:",notes);
-                        console.log("Order Start:",order);
-                        if(notes.length>0) {
-                            for (var i = 0; i < notes.length;i++) {
+                        console.log("UPDATE DELETE:", notes);
+                        console.log("Order Start:", order);
+                        if (notes.length > 0) {
+                            for (var i = 0; i < notes.length; i++) {
                                 var obj = notes[i];
                                 obj.orderno = order++;
                                 obj.save(function (err, response) {
@@ -262,7 +290,7 @@ router.route('/user/notes')
 router.get('/logout', function (req, res) {
     console.log("Session Destroyed and Logged Out");
     req.logout();
-    req.session=null;
+    req.session = null;
     res.status(200).json({
         status: true
     });

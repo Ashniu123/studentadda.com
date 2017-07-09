@@ -1373,13 +1373,3 @@ $("#img01").hammer().on("press",function () { console.log("here");$("#uploadNotI
 //         //console.log("Current position of scroll bar: "+ currentPosition+"      Swipe distance: "+verticalSwipeDistance);
 //     }
 //});
-
-$("#deleteAccount").on('click',function(){
-    var deletes=confirm("Are you sure you want to delete?");
-    console.log(deletes);
-    if(deletes){
-        window.location="index.html";
-    }else{
-
-    }
-});

@@ -104,12 +104,10 @@
                                                                aria-controls="password" role="tab">Change Password</a>
                                     </li>
 
-                                    <li role="presentation" style="color:red"  >
-                                        <a id="deleteAccount">
+                                    <li role="presentation">
+                                        <a data-toggle="tab" href="#tab-deleteForm" aria-controls="deleteAccount" role="tab">
                                             Delete Account
                                         </a>
-
-
                                     </li>
                                 </ul>
                             </div>
@@ -291,6 +289,20 @@
                                                 </div>
                                             </div>
                                         </form>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="tab-deleteForm">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-xs-12 text-center">
+                                                <p class="text-danger text-center">Warning! All your Data will be Lost!</p>
+                                                <p class="text-danger text-center">This Step is Irreversible!</p>
+                                                <button id="deleteAccount" class="btn btn-danger">Delete Account</button>
+                                                <button type="button" class="btn btn-default btn-sm"
+                                                        data-dismiss="modal">Cancel
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
