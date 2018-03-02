@@ -1,0 +1,37 @@
+.navbar-animate a{
+
+	position: relative;
+	z-index: 1;
+
+	&, &::before, &::after {
+		transition: all 0.5s;
+	}
+	
+	&:hover {
+		color: #ff7600 !important;
+	}
+
+	&::after {
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		margin: auto;
+		width: 100%;
+		height: 1px;
+		content: '.';
+		color: transparent;
+		background: #ffffff;
+		visibility: none;
+		opacity: 0;
+		z-index: -1;
+	}
+
+	&:hover::after {
+		opacity: 1;
+		visibility: visible;
+		height: 100%;
+	}
+}

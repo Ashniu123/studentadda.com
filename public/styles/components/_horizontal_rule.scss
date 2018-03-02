@@ -1,0 +1,54 @@
+$hr-rules: 25 50 75 100;
+
+hr {
+	@each $rule in $hr-rules {
+		&[class*="hr-#{$rule}"] {
+			width: percentage($rule/100);
+			border: none;
+			height: 10px;
+		}
+	}
+
+	@each $name, $color in $colors {
+		&[class*="hr-spiky-#{$name}"] {
+			background: linear-gradient(-135deg, #fff 5px, transparent 0) 0 5px, linear-gradient(135deg, #fff 5px, $color 0) 0 5px;
+			background: {
+				color: #fff;
+				position: left bottom;
+				repeat: repeat-x;
+				size: 10px 10px;
+			}
+		}
+
+		&[class*="hr-shadow-#{$name}"] {
+			height: 10px;
+			border: 0;
+			box-shadow: 0 10px 10px -10px $color inset;
+		}
+
+		&[class*="hr-rounded-#{$name}"] {
+			border: 0; 
+			height: 30px; 
+			border: {
+				style: solid; 
+				color: $color; 
+				width: 1px 0 0 0; 
+				radius: 20px; 
+			}
+			margin-bottom: -15px;
+
+			&:before {
+				display: block; 
+				content: ""; 
+				height: 30px; 
+				margin-top: -31px; 
+				border: {
+					style: solid; 
+					color: $color; 
+					width: 0 0 1px 0; 
+					radius: 20px; 
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,10 @@
+.footer {
+	// margin: 0 auto;
+	padding-top: 2rem;
+	margin-top: -6rem;
+	background-color: #F4D06F;
+	& .row:last-child {
+		padding: 1rem;
+		background-color: rgb(253, 223, 141);
+	}
+}
