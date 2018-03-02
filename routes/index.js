@@ -12,26 +12,27 @@ var cryptoKey="ABCDE-ZYXWV-ZYXWV-ABCDE",cryptoAlgo='aes-256-ctr';
 var router = express.Router();
 
 /*Initialize NodeMailer*/
-var transporter = nodemailer.createTransport({
-    host: "smtp-mail.outlook.com", // hostname
-    secureConnection: false, // TLS requires secureConnection to be false
-    port: 587, // port for secure SMTP
-    tls: {
-        ciphers:'SSLv3'
-    },
-    auth: {
-        user: process.env.OUTLOOK_UID,
-        pass: process.env.OUTLOOK_PWD
-    }
-});
+// var transporter = nodemailer.createTransport({
+//     host: "smtp-mail.outlook.com", // hostname
+//     secureConnection: false, // TLS requires secureConnection to be false
+//     port: 587, // port for secure SMTP
+//     tls: {
+//         ciphers:'SSLv3'
+//     },
+//     auth: {
+//         user: process.env.OUTLOOK_UID,
+//         pass: process.env.OUTLOOK_PWD
+//     }
+// });
 
 
 /* GET home page. */
 router.get('/', function (req, res) {
-    if (req.session.username)
-        res.redirect('/dashboard');
-    else
-        res.sendFile(path.join(__dirname, '../public', 'index.html'));
+    // if (req.session.username)
+    //     res.redirect('/dashboard');
+    // else
+    //     res.sendFile(path.join(__dirname, '../public', 'index.html'));
+    res.sendFile(path.join(__dirname, '../public', 'base', 'index.html'))
 });
 
 router.post('/signup', function (req, res) {
@@ -72,10 +73,10 @@ router.post('/signup', function (req, res) {
                 };
 
                 // send mail with defined transport object
-                transporter.sendMail(mailOptions, function(err, info){
-                    if(err) throw err;
-                    console.log('Message sent: ' + info.response);
-                });
+                // transporter.sendMail(mailOptions, function(err, info){
+                //     if(err) throw err;
+                //     console.log('Message sent: ' + info.response);
+                // });
 
                 /*Creating Empty Event object*/
                 Event.create({username:req.body.email,events:[]},function(err,event){

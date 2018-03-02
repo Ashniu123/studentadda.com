@@ -12,11 +12,11 @@ var router = express.Router();
 /* GET dashboard page. */
 router.route('/')
     .get(function (req, res) {
-        console.log("Req Session", req.session);
-        if (req.session.username)
-            res.sendFile(path.join(__dirname, '../public', 'dashboard.html'));
-        else
-            res.redirect('/');
+        // console.log("Req Session", req.session);
+        // if (req.session.username)
+        //     res.sendFile(path.join(__dirname, '../public', 'dashboard.html'));
+        // else
+        //     res.redirect('/');
     });
 
 /*For User Details*/

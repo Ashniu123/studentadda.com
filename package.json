@@ -4,7 +4,7 @@
   "description": "Student Notes and Events Organizer",
   "scripts": {
     "start": "node ./bin/www",
-    "postinstall": "bower cache clean && bower install",
+    "build": "cd public && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -27,7 +27,7 @@
     "serve-favicon": "~2.4.2"
   },
   "engines": {
-    "node": "6.10.2"
+    "node": "8.9.4"
   },
   "homepage": "https://github.com/Ashniu123/studentadda.com",
   "author": "ashniu123",

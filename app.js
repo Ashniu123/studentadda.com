@@ -1,6 +1,6 @@
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
+// var favicon = require('serve-favicon');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
@@ -28,11 +28,11 @@ db.once('open', function () {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(bodyParser.json({limit: '5mb'}));
 app.use(bodyParser.urlencoded({limit: '5mb', extended: false}));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public'),{index:false}));
+app.use(express.static(path.join(__dirname, 'public', 'base'), {index:false}));
 
 //passport config
 var User = require('./models/userSchema');
